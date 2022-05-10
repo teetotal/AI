@@ -3,42 +3,29 @@
 Dictionary<int, SatisfactionValue> fnTable = new Dictionary<int, SatisfactionValue>();
 fnTable.Add(100, new SV1());
 fnTable.Add(101, new SV1());
-fnTable.Add(102, new SV1());
-fnTable.Add(103, new SV1());
+fnTable.Add(110, new SV1());
+fnTable.Add(120, new SV1());
+fnTable.Add(130, new SV1());
+
+//task
+TaskHandler.Instance.Add(new Task1());
 
 var pLoader = new Loader();
-pLoader.Load("config/satisfactions.json", fnTable);
+pLoader.Load("config/satisfactions.json", "config/actors.json", fnTable);
 
-//satisfaction table
-var sv1 = new SV1();
-sv1.SatisfactionId = 100;
-SatisfactionTable.Instance.SetSatisfactionTable(1, sv1);
 
-//discharge
-DischargeHandler.Instance.SetScenario(0, 100, 1, 1);
-
-string uniqueId = "test1";
+string uniqueId = "애정이";
 string uniqueId2 = "test2";
 
 int type = 1;
 int type2 = 0;
 
-Actor a = ActorHandler.Instance.AddActor(type, uniqueId);
-for(int i = 0; i < 5; i++) {
-    var rand = new Random();            
-    int max = rand.Next(90, 150);
-    int min = rand.Next(1, max);
-    int val = rand.Next(max);
-    a.SetSatisfaction(i + 100, min, max, val);
-}
-
-a.Print();
-
 var actor = ActorHandler.Instance.GetActor(uniqueId);
 if(actor == null) {
     Console.WriteLine("Invalid Actor unique id");
 } else {    
-    var s = a.GetSatisfaction(actor.GetMotivation());
+    actor.Print();
+    var s = actor.GetSatisfaction(actor.GetMotivation());
     if(s == null) {
         Console.WriteLine("Invalid motivationId");
     }else {
@@ -54,12 +41,18 @@ while(true) {
         Console.WriteLine("Invalid Actor type");
     } else {
         foreach(var p in actors) {
+            int taskId = p.Value.GetTaskId();
             SatisfactionTable.Instance.ApplySatisfaction(1, p.Value.mUniqueId);
             p.Value.Print();
-
         }
     }
 
     Int64 counter = DischargeHandler.Instance.Discharge(type);
     Console.WriteLine("Discharged {0}", counter);
+    Thread.Sleep(1000 * 3);
+    /*
+    Console.WriteLine("Input:");
+    string input = Console.ReadLine();
+    Console.WriteLine(input);
+    */
 }

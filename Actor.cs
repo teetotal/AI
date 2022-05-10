@@ -45,6 +45,19 @@ namespace ENGINE {
                     return null;        
                 }
                 /*
+                return task id
+                */
+                public int GetTaskId() {
+                    int taskId = 0;
+                    foreach(var p in TaskHandler.Instance.GetTasks()) {
+                        //
+                        var r = p.GetValues();
+                        // 계산
+                        Console.WriteLine(p.ToString());
+                    }
+                    return taskId;
+                }
+                /*
                 return satisfaction id
                 */
                 public int GetMotivation()

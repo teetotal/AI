@@ -6,7 +6,7 @@ namespace ENGINE {
             public class ConfigSatisfaction_Define {
                 public string? title { get; set; }
                 public float discharge { get; set; }
-                public float period { get; set; }
+                public int period { get; set; }
             }
             public class ConfigSatisfaction_Obtains_Defaults {
                 public int id { get; set; }
@@ -20,9 +20,23 @@ namespace ENGINE {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
                 public Dictionary<string, ConfigSatisfaction_Obtains>? obtains { get; set; }                
             }
+            //Actors
+            public class ConfigActors_Satisfaction {
+                public int satisfactionId { get; set; }
+                public float min { get; set; }
+                public float max { get; set; }
+                public float value { get; set; }
+            }
+            public class ConfigActors_Detail {
+                public int type { get; set; }
+                public List<ConfigActors_Satisfaction>? satisfactions { get; set; }
+            }
+            public class ConfigActors {
+                
+            }
             public class Loader {
-                public bool Load(string jsonPath, Dictionary<int, SatisfactionValue> fnTable) {
-                    string jsonString = File.ReadAllText(jsonPath);
+                public bool Load(string pathSatisfactions, string pathActors, Dictionary<int, SatisfactionValue> fnTable) {
+                    string jsonString = File.ReadAllText(pathSatisfactions);
                     var sf = JsonSerializer.Deserialize<ConfigSatisfaction>(jsonString);
 
                     if(sf == null || sf.define == null || sf.obtains == null) {
@@ -30,11 +44,9 @@ namespace ENGINE {
                     }
 
                     //discharge
-                    /*
-                    discharge를 한번에 같이 해야하는 경우가 있는가?
-                    */
-                    foreach(var p in sf.define) {                        
-                        DischargeHandler.Instance.SetScenario(0, 100, 1, 1);
+                    foreach(var p in sf.define) {          
+                        int satisfactionId = int.Parse(p.Key);              
+                        DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                     }
                     
                     //satisfaction table
@@ -48,7 +60,22 @@ namespace ENGINE {
                         }                        
                     }          
 
-                    //Actor         
+                    //Actor     
+                    jsonString = File.ReadAllText(pathActors);
+                    var actors = JsonSerializer.Deserialize< Dictionary<string, ConfigActors_Detail> >(jsonString);  
+                    if(actors == null) {
+                        return false;
+                    }
+
+                    foreach(var p in actors) {
+                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key);
+                        if(p.Value.satisfactions == null) {
+                            return false;
+                        }
+                        foreach(var s in p.Value.satisfactions) {
+                            a.SetSatisfaction(s.satisfactionId, s.min, s.max, s.value);
+                        }
+                    }
 
                     return true;
                 }

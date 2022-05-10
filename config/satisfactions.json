@@ -1,21 +1,26 @@
 {
     "define": {
         "100": {
-            "title": "생리적욕구-식욕",
+            "title": "식욕",
             "discharge": 0.1,
             "period": 1
         },
         "101": {
+            "title": "Gold",
+            "discharge": 0,
+            "period": 0
+        },
+        "110": {
             "title": "안전욕구",
             "discharge": 0,
             "period": 0
         },
-        "102": {
+        "120": {
             "title": " 소속감 욕구",
             "discharge": 0,
             "period": 0
         },
-        "103": {
+        "130": {
             "title": " 애정 욕구",
             "discharge": 0.1,
             "period": 4
@@ -39,7 +44,7 @@
             "title": "소속감 욕구1",
             "defaults": [
                 {
-                    "id": 102,
+                    "id": 120,
                     "amount": 3.0
                 }
             ]
@@ -48,7 +53,7 @@
             "title": "애정 욕구1",
             "defaults": [
                 {
-                    "id": 103,
+                    "id": 130,
                     "amount": 3.0
                 }
             ]
