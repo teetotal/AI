@@ -1,0 +1,57 @@
+{
+    "define": {
+        "100": {
+            "title": "생리적욕구-식욕",
+            "discharge": 0.1,
+            "period": 1
+        },
+        "101": {
+            "title": "안전욕구",
+            "discharge": 0,
+            "period": 0
+        },
+        "102": {
+            "title": " 소속감 욕구",
+            "discharge": 0,
+            "period": 0
+        },
+        "103": {
+            "title": " 애정 욕구",
+            "discharge": 0.1,
+            "period": 4
+        }
+    },
+    "obtains": {
+        "1000": {
+            "title": "생리적 & 안전 욕구1",
+            "defaults": [
+                {
+                    "id": 100,
+                    "amount": 5.0
+                },
+                {
+                    "id": 101,
+                    "amount": 3.0
+                }
+            ]
+        },
+        "1001": {
+            "title": "소속감 욕구1",
+            "defaults": [
+                {
+                    "id": 102,
+                    "amount": 3.0
+                }
+            ]
+        },
+        "1002": {
+            "title": "애정 욕구1",
+            "defaults": [
+                {
+                    "id": 103,
+                    "amount": 3.0
+                }
+            ]
+        }
+    }    
+}

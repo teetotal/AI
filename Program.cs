@@ -1,5 +1,14 @@
 ﻿using ENGINE.GAMEPLAY.MOTIVATION;
 
+Dictionary<int, SatisfactionValue> fnTable = new Dictionary<int, SatisfactionValue>();
+fnTable.Add(100, new SV1());
+fnTable.Add(101, new SV1());
+fnTable.Add(102, new SV1());
+fnTable.Add(103, new SV1());
+
+var pLoader = new Loader();
+pLoader.Load("config/satisfactions.json", fnTable);
+
 //satisfaction table
 var sv1 = new SV1();
 sv1.SatisfactionId = 100;

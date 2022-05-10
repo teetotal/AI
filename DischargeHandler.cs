@@ -23,8 +23,7 @@ namespace ENGINE {
                 private static readonly Lazy<DischargeHandler> instance =
                     new Lazy<DischargeHandler>(() => new DischargeHandler());
                 public static DischargeHandler Instance {
-                    get
-                    {
+                    get {
                         return instance.Value;
                     }
                 }
