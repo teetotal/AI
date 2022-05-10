@@ -1,5 +1,9 @@
 ﻿using ENGINE.GAMEPLAY.MOTIVATION;
 
+//satisfaction table
+var sv1 = new SV1();
+sv1.SatisfactionId = 100;
+SatisfactionTable.Instance.SetSatisfactionTable(1, sv1);
 
 //discharge
 DischargeHandler.Instance.SetScenario(0, 100, 1, 1);
@@ -29,18 +33,21 @@ if(actor == null) {
     if(s == null) {
         Console.WriteLine("Invalid motivationId");
     }else {
-        Console.WriteLine("Value = {0}, Id = {1}", s.Value, s.Id);
+        Console.WriteLine("Value = {0}, SatisfactionId = {1}", s.Value, s.SatisfactionId);
     }
     
 }
 
-while(true) {
+while(true) {    
+
     var actors = ActorHandler.Instance.GetActors(type);
     if(actors == null) {
         Console.WriteLine("Invalid Actor type");
     } else {
         foreach(var p in actors) {
+            SatisfactionTable.Instance.ApplySatisfaction(1, p.Value.mUniqueId);
             p.Value.Print();
+
         }
     }
 

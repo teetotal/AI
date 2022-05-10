@@ -9,8 +9,7 @@ namespace ENGINE {
                 private Dictionary<int, Dictionary<string, Actor>> mDictType = new Dictionary<int, Dictionary<string, Actor>>();
             
                 public static ActorHandler Instance {
-                    get
-                    {
+                    get {
                         return instance.Value;
                     }
                 }

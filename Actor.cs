@@ -2,23 +2,23 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class Actor {
-                protected int mType;
-                protected string? mUniqueId;
+                public int mType;
+                public string mUniqueId;
                 protected Dictionary<int, Satisfaction> mSatisfaction = new Dictionary<int, Satisfaction>();
-                public Actor(int type, string? uniqueId) {
+                public Actor(int type, string uniqueId) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
                 }
-                public bool SetSatisfaction(int id, float min, float max, float value)
+                public bool SetSatisfaction(int satisfactionId, float min, float max, float value)
                 {
-                    mSatisfaction.Add(id, new Satisfaction(id, min, max, value));
+                    mSatisfaction.Add(satisfactionId, new Satisfaction(satisfactionId, min, max, value));
                     return true;
                 }
                 public void Print() {
                     foreach(var p in mSatisfaction) {    
                         Satisfaction s = p.Value;
-                        System.Console.WriteLine("{7} - Seq = {0}\t Id = {1}\t Min = {2}\t Max = {3}\t Value = {4}\t V/Max = {5}\t V/Min = {6}", 
-                        p.Key, s.Id, s.Min, s.Max, s.Value, s.Value / s.Max, s.Value / s.Min, this.mUniqueId);
+                        System.Console.WriteLine("{0} - SatisfactionId = {1}\t Min = {2}\t Max = {3}\t Value = {4}\t V/Max = {5}\t V/Min = {6}", 
+                        this.mUniqueId, s.SatisfactionId, s.Min, s.Max, s.Value, s.Value / s.Max, s.Value / s.Min);
                     }
                 }
                 public bool Discharge(int id, float amount) {
@@ -27,6 +27,15 @@ namespace ENGINE {
                     }
 
                     mSatisfaction[id].Value = Math.Max(0.0f, mSatisfaction[id].Value - amount);
+                    return true;
+                }
+
+                public bool Obtain(int id, float amout) {
+                    if(mSatisfaction.ContainsKey(id) == false) {
+                        return false;
+                    }
+
+                    mSatisfaction[id].Value += amout;
                     return true;
                 }
                 public Satisfaction? GetSatisfaction(int id) {
