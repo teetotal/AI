@@ -1,71 +1,92 @@
-public class Actor {
-    protected int mType;
-    protected string? mUniqueId;
-    protected List<Satisfaction> mSatisfaction = new List<Satisfaction>();    
-    public Actor(int type, string? uniqueId) {
-        this.mType = type;
-        this.mUniqueId = uniqueId;
-    }
-    public bool SetSatisfaction(int id, float min, float max, float value)
-    {
-        mSatisfaction.Add(new Satisfaction(id, min, max, value));
-        return true;
-    }
-    public void Print() {
-        for(int i=0; i < mSatisfaction.Count(); i++) {    
-            Satisfaction s = mSatisfaction[i];
-            System.Console.WriteLine("{7} - Seq = {0}\t Id = {1}\t Min = {2}\t Max = {3}\t Value = {4}\t V/Max = {5}\t V/Min = {6}", 
-            i, s.Id, s.Min, s.Max, s.value, s.value / s.Max, s.value / s.Min, this.mUniqueId);
-        }
-    }
-    public Satisfaction GetSatisfaction(int idx) {
-        return mSatisfaction[idx];
-    }
-    public int GetMotivation()
-    {
-        /*
-        0. min check
-        1. norm
-        2. get mean
-        3. finding max(value - avg)
-        */        
-        bool isMinList = true;
-        List<int> list = CheckMinVal();
-        if(list.Count() == 0) {
-            for(int i =0; i < mSatisfaction.Count(); i++) {
-                list.Add(i);
-            }
-            isMinList = false;
-        }
-        float mean = GetMean(list, isMinList);
-        int idx = list[0];
-        float minVal = mSatisfaction[list[0]].value;
-        foreach(int i in list) {
-            float v = (mSatisfaction[i].value / (isMinList ? mSatisfaction[i].Min : mSatisfaction[i].Max) ) - mean;            
-            if(v < minVal) {
-                minVal = v;
-                idx = i;
-            }
-        }
-        
-        return idx;
-    }
-    private List<int> CheckMinVal() {
-        List<int> ret = new List<int>();
-        for(int i=0; i < mSatisfaction.Count(); i++) {
-            if(mSatisfaction[i].value <= mSatisfaction[i].Min ) {
-                ret.Add(i);
-            }
-        }
-        return ret;
-    }
+namespace ENGINE {
+    namespace GAMEPLAY {
+        namespace MOTIVATION {
+            public class Actor {
+                protected int mType;
+                protected string? mUniqueId;
+                protected Dictionary<int, Satisfaction> mSatisfaction = new Dictionary<int, Satisfaction>();
+                public Actor(int type, string? uniqueId) {
+                    this.mType = type;
+                    this.mUniqueId = uniqueId;
+                }
+                public bool SetSatisfaction(int id, float min, float max, float value)
+                {
+                    mSatisfaction.Add(id, new Satisfaction(id, min, max, value));
+                    return true;
+                }
+                public void Print() {
+                    foreach(var p in mSatisfaction) {    
+                        Satisfaction s = p.Value;
+                        System.Console.WriteLine("{7} - Seq = {0}\t Id = {1}\t Min = {2}\t Max = {3}\t Value = {4}\t V/Max = {5}\t V/Min = {6}", 
+                        p.Key, s.Id, s.Min, s.Max, s.Value, s.Value / s.Max, s.Value / s.Min, this.mUniqueId);
+                    }
+                }
+                public bool Discharge(int id, float amount) {
+                    if(mSatisfaction.ContainsKey(id) == false) {
+                        return false;
+                    }
 
-    private float GetMean(List<int> list, bool isMinList) {
-        float sum = 0.0f;
-        foreach(int i in list) {
-            sum += (mSatisfaction[i].value / (isMinList ? mSatisfaction[i].Min : mSatisfaction[i].Max));
-        }
+                    mSatisfaction[id].Value = Math.Max(0.0f, mSatisfaction[id].Value - amount);
+                    return true;
+                }
+                public Satisfaction? GetSatisfaction(int id) {
+                    if(mSatisfaction.ContainsKey(id)) {
+                        return mSatisfaction[id];
+                    }
+                    return null;        
+                }
+                /*
+                return satisfaction id
+                */
+                public int GetMotivation()
+                {
+                    /*
+                    0. min check
+                    1. norm
+                    2. get mean
+                    3. finding max(value - avg)
+                    */        
+                    bool isMinList = true;
+                    List<int> list = CheckMinVal();
+                    if(list.Count() == 0) {
+                        foreach(var p in mSatisfaction) {
+                            list.Add(p.Key);
+                        }
+                        isMinList = false;
+                    }
+                    float mean = GetMean(list, isMinList);
+                    int idx = list[0];
+                    float minVal = mSatisfaction[list[0]].Value;
+                    foreach(int id in list) {
+                        float v = (mSatisfaction[id].Value / (isMinList ? mSatisfaction[id].Min : mSatisfaction[id].Max) ) - mean;            
+                        if(v < minVal) {
+                            minVal = v;
+                            idx = id;
+                        }
+                    }
+                    
+                    return idx;
+                }
+                private List<int> CheckMinVal() {
+                    List<int> ret = new List<int>();
+                    foreach(var p in mSatisfaction) {
+                        if(p.Value.Value <= p.Value.Min ) {
+                            ret.Add(p.Key);
+                        }
+                    }
+                    
+                    return ret;
+                }
 
-        return sum / mSatisfaction.Count();
+                private float GetMean(List<int> list, bool isMinList) {
+                    float sum = 0.0f;
+                    foreach(int id in list) {
+                        sum += (mSatisfaction[id].Value / (isMinList ? mSatisfaction[id].Min : mSatisfaction[id].Max));
+                    }
+
+                    return sum / mSatisfaction.Count();
+                }
+            }
+        }
     }
 }
