@@ -3,15 +3,29 @@ namespace ENGINE {
         namespace MOTIVATION {
             public abstract class FnTask {
                 //public int mTaskId { get; set; }
-                //public string? mTaskTitle { get; set; }
+                public string? mTaskTitle { get; set; }
+                public string? mTaskDesc { get; set; }
                 public abstract Dictionary<int, float> GetValues();
                 public abstract bool DoTask(Actor actor);
+                public void Print() {
+                    var values = GetValues();
+                    string sz = "";
+                    foreach(var p in values) {
+                        var s = SatisfactionDefine.Instance.Get(p.Key);
+                        if(s == null) {
+                            Console.WriteLine("Invalid SatisfactionDefine id");
+                        } else {
+                            sz += String.Format("{0}({1}) ", s.title, p.Value );                            
+                        }                        
+                    }
+                    Console.WriteLine(sz);
+                }
                 protected virtual void ApplyValue(Actor actor) {
                     Dictionary<int, float> values = GetValues();
                     foreach(var p in values) {
                         actor.Obtain(p.Key, p.Value);
                     }
-                }
+                }                
             }
             public class TaskHandler {
                 private List<FnTask> mList = new List<FnTask>();

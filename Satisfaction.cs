@@ -12,51 +12,28 @@ namespace ENGINE {
                 public float Min { get; set; }
                 public float Max { get; set; }
                 public float Value { get; set; }
-            }            
-            public abstract class SatisfactionValue {
-                public int SatisfactionId{ get; set; } //satisfaction id
-                public abstract float GetValue();
-            }
-            public class SatisfactionTable {
-                /* 
-                SatisfactionTable id, list
-                SatisfactionTable id를 행위에 연결 시켜서 사용하면 됨
-                */
-                private Dictionary<int, List<SatisfactionValue>> mTable = new Dictionary<int, List<SatisfactionValue>>();
-                private static readonly Lazy<SatisfactionTable> instance =
-                        new Lazy<SatisfactionTable>(() => new SatisfactionTable());
-                public static SatisfactionTable Instance {
+            }       
+            public class SatisfactionDefine {
+                private Dictionary<int, ConfigSatisfaction_Define> mDefines = new Dictionary<int, ConfigSatisfaction_Define>();
+                private static readonly Lazy<SatisfactionDefine> instance =
+                        new Lazy<SatisfactionDefine>(() => new SatisfactionDefine());
+                public static SatisfactionDefine Instance {
                     get {
                         return instance.Value;
                     }
                 }
 
-                private SatisfactionTable() {
+                private SatisfactionDefine() { }
+                public void Add(int satisfactionId, ConfigSatisfaction_Define p) {
+                    mDefines.Add(satisfactionId, p);
                 }
-
-                public void SetSatisfactionTable(int satisfactionTableId, SatisfactionValue p) {
-                    if(mTable.ContainsKey(satisfactionTableId) == false) {
-                        mTable[satisfactionTableId] = new List<SatisfactionValue>();
+                public ConfigSatisfaction_Define? Get(int satisfactionId) {
+                    if(mDefines.ContainsKey(satisfactionId) == false) {
+                        return null;
                     }
-                    mTable[satisfactionTableId].Add(p);
+                    return mDefines[satisfactionId];
                 }
-
-                public bool ApplySatisfaction(int satisfactionTableId, string actorId) {
-                    if(mTable.ContainsKey(satisfactionTableId) == false) {
-                        return false;
-                    }
-
-                    var actor = ActorHandler.Instance.GetActor(actorId);
-                    if(actor == null) {
-                        return false;
-                    }
-
-                    foreach(var p in mTable[satisfactionTableId]) {
-                        actor.Obtain(p.SatisfactionId, p.GetValue());
-                    }
-                    return true;
-                }
-            }
+            }     
         }        
     }
 }

@@ -1,18 +1,13 @@
 ﻿using ENGINE.GAMEPLAY.MOTIVATION;
 
-Dictionary<int, SatisfactionValue> fnTable = new Dictionary<int, SatisfactionValue>();
-fnTable.Add(100, new SV1());
-fnTable.Add(101, new SV1());
-fnTable.Add(110, new SV1());
-fnTable.Add(120, new SV1());
-fnTable.Add(130, new SV1());
-
 //task
-TaskHandler.Instance.Add(new Task_Steal());
-TaskHandler.Instance.Add(new Task_Hello());
+//TaskHandler.Instance.Add(new Task_Steal());
+//TaskHandler.Instance.Add(new Task_Hello());
 
 var pLoader = new Loader();
-pLoader.Load("config/satisfactions.json", "config/actors.json", fnTable);
+if(!pLoader.Load("config/satisfactions.json", "config/actors.json")) {
+    Console.WriteLine("Failure Loading config");
+}
 
 
 string uniqueId = "애정이";
@@ -21,42 +16,42 @@ string uniqueId2 = "test2";
 int type = 1;
 int type2 = 0;
 
-var actor = ActorHandler.Instance.GetActor(uniqueId);
-if(actor == null) {
-    Console.WriteLine("Invalid Actor unique id");
-} else {    
-    actor.Print();
-    int taskid = actor.GetTaskId();
-    TaskHandler.Instance.GetTask(taskid).DoTask(actor);
-    Console.WriteLine("Do Task {0}", taskid);
-    actor.Print();
+  
+bool run = true;
+var actors = ActorHandler.Instance.GetActors(type);
+if(actors == null) {
+    Console.WriteLine("Invalid Actor type");
+    run = false;
+} 
 
+while(run) {      
+    Console.WriteLine("---------------------------------------------------------");
+    foreach(var p in actors) {            
+        var actor = p.Value;        
+        //Check Motivation
+        var motivation = actor.GetMotivation();
+        var s = actor.GetSatisfaction(motivation.Item1);
+        if(s == null) {
+            Console.WriteLine("Invalid motivationId");
+        }else {
+            Console.WriteLine("> {0} 만족도 ({1}) Motivation {2}({3})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value );
+        }
 
-    var s = actor.GetSatisfaction(actor.GetMotivation());
-    if(s == null) {
-        Console.WriteLine("Invalid motivationId");
-    }else {
-        Console.WriteLine("Value = {0}, SatisfactionId = {1}", s.Value, s.SatisfactionId);
+        //Task 
+        int taskid = actor.GetTaskId();
+        var task = TaskHandler.Instance.GetTask(taskid);                 
+        task.DoTask(actor);
+        Console.WriteLine("! {0} ({1})", task.mTaskTitle, task.mTaskDesc);
+        task.Print();       
+        actor.Print();
+
+        Console.WriteLine("====");
     }
     
-}
-
-while(true) {    
-
-    var actors = ActorHandler.Instance.GetActors(type);
-    if(actors == null) {
-        Console.WriteLine("Invalid Actor type");
-    } else {
-        foreach(var p in actors) {
-            int taskId = p.Value.GetTaskId();
-            SatisfactionTable.Instance.ApplySatisfaction(1, p.Value.mUniqueId);
-            p.Value.Print();
-        }
-    }
-
+    //Discharge
     Int64 counter = DischargeHandler.Instance.Discharge(type);
     Console.WriteLine("Discharged {0}", counter);
-    Thread.Sleep(1000 * 3);
+    //Thread.Sleep(1000 * 3);
     /*
     Console.WriteLine("Input:");
     string input = Console.ReadLine();

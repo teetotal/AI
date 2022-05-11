@@ -17,8 +17,8 @@ namespace ENGINE {
                 public void Print() {
                     foreach(var p in mSatisfaction) {    
                         Satisfaction s = p.Value;
-                        System.Console.WriteLine("{0} - SatisfactionId = {1}\t Min = {2}\t Max = {3}\t Value = {4}\t V/Max = {5}\t V/Min = {6}", 
-                        this.mUniqueId, s.SatisfactionId, s.Min, s.Max, s.Value, s.Value / s.Max, s.Value / s.Min);
+                        System.Console.WriteLine("{0} {1} ({2}) {3}/{4}, {5}", 
+                        this.mUniqueId, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
                 public bool Discharge(int id, float amount) {
@@ -80,6 +80,9 @@ namespace ENGINE {
                     }
                     return sum / mSatisfaction.Count();
                 }
+                private float GetNormValue(Satisfaction p) {
+                    return GetNormValue(p.Value, p.Min, p.Max);
+                }
 
                 private float GetNormValue(float value, float min, float max) {
                     float v = value;
@@ -95,52 +98,35 @@ namespace ENGINE {
                 /*
                 return satisfaction id
                 */
-                public int GetMotivation()
+                public Tuple<int, float> GetMotivation()
                 {
-                    /*
-                    0. min check
-                    1. norm
-                    2. get mean
-                    3. finding max(value - avg)
-                    */        
-                    bool isMinList = true;
-                    List<int> list = CheckMinVal();
-                    if(list.Count() == 0) {
-                        foreach(var p in mSatisfaction) {
-                            list.Add(p.Key);
-                        }
-                        isMinList = false;
-                    }
-                    float mean = GetMean(list, isMinList);
-                    int idx = list[0];
-                    float minVal = mSatisfaction[list[0]].Value;
-                    foreach(int id in list) {
-                        float v = (mSatisfaction[id].Value / (isMinList ? mSatisfaction[id].Min : mSatisfaction[id].Max) ) - mean;            
-                        if(v < minVal) {
-                            minVal = v;
-                            idx = id;
-                        }
-                    }
-                    
-                    return idx;
-                }
-                private List<int> CheckMinVal() {
-                    List<int> ret = new List<int>();
+                    /*                                        
+                    1. get mean
+                    2. finding max(norm(value) - avg)
+                    */ 
+                    int idx = 0;  
+                    float minVal = 0;
+                    float mean = GetMean();
                     foreach(var p in mSatisfaction) {
-                        if(p.Value.Value <= p.Value.Min ) {
-                            ret.Add(p.Key);
+                        Satisfaction v = p.Value;
+                        float norm = GetNormValue(v.Value, v.Min, v.Max);
+                        float diff = norm - mean;
+                        if(diff < minVal) {
+                            minVal = diff;
+                            idx = p.Key;
                         }
-                    }
+
+                    }                    
                     
-                    return ret;
-                }
+                    return new Tuple<int, float>(idx, mean);
+                }                
 
-                private float GetMean(List<int> list, bool isMinList) {
+                private float GetMean() {
                     float sum = 0.0f;
-                    foreach(int id in list) {
-                        sum += (mSatisfaction[id].Value / (isMinList ? mSatisfaction[id].Min : mSatisfaction[id].Max));
+                    foreach(var p in mSatisfaction) {
+                        Satisfaction v = p.Value;
+                        sum += GetNormValue(v.Value, v.Min, v.Max);
                     }
-
                     return sum / mSatisfaction.Count();
                 }
             }
