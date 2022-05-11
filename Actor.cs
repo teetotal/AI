@@ -49,14 +49,49 @@ namespace ENGINE {
                 */
                 public int GetTaskId() {
                     int taskId = 0;
-                    foreach(var p in TaskHandler.Instance.GetTasks()) {
-                        //
-                        var r = p.GetValues();
-                        // 계산
-                        Console.WriteLine(p.ToString());
+                    float maxValue = 0.0f;                    
+                    var tasks = TaskHandler.Instance.GetTasks();
+                    for(int i = 0; i < tasks.Count(); i++) {
+                        float expecedValue = GetExpectedValue(tasks[i]);
+                        if(expecedValue > maxValue) {
+                            maxValue = expecedValue;
+                            taskId = i;
+                        }
                     }
                     return taskId;
                 }
+
+                private float GetExpectedValue(FnTask fn) {
+                    /*
+                    1. satisfaction loop
+                    2. if check in fn then sum
+                    3. cal normalization
+                    4. get mean
+                    */  
+                    float sum = 0;
+                    var taskSatisfaction = fn.GetValues();                  
+                    foreach(var p in mSatisfaction) {
+                        float val = p.Value.Value;
+                        if(taskSatisfaction.ContainsKey(p.Key)) {
+                            val += taskSatisfaction[p.Key];
+                        }
+                        var normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        sum += normVal;
+                    }
+                    return sum / mSatisfaction.Count();
+                }
+
+                private float GetNormValue(float value, float min, float max) {
+                    float v = value;
+                    if(value > max) {
+                        v = max * (float)Math.Log(value, max);
+                    } else if(value <= min) {
+                        v = value * (float)Math.Log(value, max);
+                    }
+
+                    return v / max;
+                }
+
                 /*
                 return satisfaction id
                 */

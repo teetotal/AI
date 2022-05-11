@@ -8,7 +8,8 @@ fnTable.Add(120, new SV1());
 fnTable.Add(130, new SV1());
 
 //task
-TaskHandler.Instance.Add(new Task1());
+TaskHandler.Instance.Add(new Task_Steal());
+TaskHandler.Instance.Add(new Task_Hello());
 
 var pLoader = new Loader();
 pLoader.Load("config/satisfactions.json", "config/actors.json", fnTable);
@@ -25,6 +26,12 @@ if(actor == null) {
     Console.WriteLine("Invalid Actor unique id");
 } else {    
     actor.Print();
+    int taskid = actor.GetTaskId();
+    TaskHandler.Instance.GetTask(taskid).DoTask(actor);
+    Console.WriteLine("Do Task {0}", taskid);
+    actor.Print();
+
+
     var s = actor.GetSatisfaction(actor.GetMotivation());
     if(s == null) {
         Console.WriteLine("Invalid motivationId");
