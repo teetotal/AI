@@ -3,14 +3,28 @@ using System.Text.Json;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
+            //공통
             public class Config_Id_Amount {
                 public int id { get; set; }
                 public float amount { get; set; }
             }
+            //happening
+            public class ConfigSatisfaction_Happening {
+                public List<int>? types { get; set; } //대상 actor type
+                public int id { get; set; } //happening id
+                public string? title { get; set; }
+                public string? desc { get; set; }
+                public float range1 { get; set; }
+                public float range2 { get; set; }
+                public float amount { get; set; }
+                public int measure { get; set; } //단위 0: 절대값, 1: percent
+            }
+            //Define
             public class ConfigSatisfaction_Define {
                 public string? title { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
+                public List<ConfigSatisfaction_Happening>? happening { get; set; }
             }                       
             public class ConfigSatisfaction {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
@@ -42,11 +56,24 @@ namespace ENGINE {
                         return false;
                     }                    
 
-                    // define & discharge
+                    // define & discharge & happening
                     foreach(var p in sf.define) {          
                         int satisfactionId = int.Parse(p.Key);              
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);
+                        //happening
+                        if(p.Value.happening != null) {
+                            foreach(var happening in p.Value.happening) {
+                                if(happening.types == null) {
+                                    return false;
+                                }
+                                foreach(var type in happening.types) {
+                                    HappeningHandler.Instance.Add(type, satisfactionId, happening);
+                                }                                
+                            }
+                        }
+                        
+                        
                     }
 
                     //default task

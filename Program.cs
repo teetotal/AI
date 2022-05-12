@@ -1,4 +1,5 @@
-﻿using ENGINE.GAMEPLAY.MOTIVATION;
+﻿using ENGINE.GAMEPLAY;
+using ENGINE.GAMEPLAY.MOTIVATION;
 
 //task
 //TaskHandler.Instance.Add(new Task_Steal());
@@ -17,14 +18,25 @@ int type = 1;
 int type2 = 0;
 
   
-bool run = true;
-var actors = ActorHandler.Instance.GetActors(type);
-if(actors == null) {
-    Console.WriteLine("Invalid Actor type");
-    run = false;
-} 
 
-while(run) {      
+var actors = ActorHandler.Instance.GetActors(type);
+while(actors != null) {      
+    Int64 counter = Counter.Instance.Next();
+    Console.WriteLine("Counter {0}", counter);
+
+    ActorHandler.Instance.UpdateSatisfactionSum();
+    ActorHandler.Instance.PrintSatisfactionSum(type);
+    //happening
+    var happeningList = HappeningHandler.Instance.GetHappeningCandidates(type);
+    HappeningHandler.Instance.PrintCandidates(happeningList);
+    foreach(var happening in happeningList) {
+        if(HappeningHandler.Instance.Do(type, happening.Info.id) == true) {
+            Console.WriteLine("{0} 발생", happening.Info.title);
+        } else {
+            Console.WriteLine("Failure Happening");
+        }
+    }
+
     Console.WriteLine("---------------------------------------------------------");
     foreach(var p in actors) {            
         var actor = p.Value;        
@@ -49,8 +61,8 @@ while(run) {
     }
     
     //Discharge
-    Int64 counter = DischargeHandler.Instance.Discharge(type);
-    Console.WriteLine("Discharged {0}", counter);
+    DischargeHandler.Instance.Discharge(type);
+
     //Thread.Sleep(1000 * 3);
     /*
     Console.WriteLine("Input:");

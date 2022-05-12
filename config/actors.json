@@ -4,33 +4,33 @@
         "satisfactions": [
             {
                 "satisfactionId": 100,
-                "min": 20,
-                "max": 60,
-                "value": 30
+                "min": 50,
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 101,
-                "min": 20,
-                "max": 100,
-                "value": 50
+                "min": 50,
+                "max": 80,
+                "value": 20
             },
             {
                 "satisfactionId": 110,
                 "min": 50,
-                "max": 100,
-                "value": 45
+                "max": 80,
+                "value": 80
             },
             {
                 "satisfactionId": 120,
-                "min": 10,
-                "max": 30,
-                "value": 30
+                "min": 50,
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 130,
-                "min": 10,
-                "max": 30,
-                "value": 30
+                "min": 50,
+                "max": 80,
+                "value": 60
             }
         ]
     },
@@ -39,32 +39,32 @@
         "satisfactions": [
             {
                 "satisfactionId": 100,
-                "min": 20,
-                "max": 60,
-                "value": 30
+                "min": 50,
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 101,
-                "min": 20,
-                "max": 100,
-                "value": 25
+                "min": 50,
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 110,
                 "min": 50,
-                "max": 100,
-                "value": 45
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 120,
                 "min": 50,
-                "max": 100,
-                "value": 45
+                "max": 80,
+                "value": 60
             },
             {
                 "satisfactionId": 130,
                 "min": 50,
-                "max": 100,
+                "max": 80,
                 "value": 40
             }
         ]

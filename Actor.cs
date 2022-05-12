@@ -21,28 +21,39 @@ namespace ENGINE {
                         this.mUniqueId, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
-                public bool Discharge(int id, float amount) {
-                    if(mSatisfaction.ContainsKey(id) == false) {
+                public bool Discharge(int satisfactionId, float amount) {
+                    return ApplySatisfaction(satisfactionId, -amount, 0);
+                }
+
+                public bool Obtain(int satisfactionId, float amount) {
+                    return ApplySatisfaction(satisfactionId, amount, 0);
+                }
+
+                public bool ApplySatisfaction(int satisfactionId, float amount, int measure) {
+                    if(mSatisfaction.ContainsKey(satisfactionId) == false) {
                         return false;
                     }
 
-                    mSatisfaction[id].Value = Math.Max(0.0f, mSatisfaction[id].Value - amount);
-                    return true;
-                }
-
-                public bool Obtain(int id, float amout) {
-                    if(mSatisfaction.ContainsKey(id) == false) {
-                        return false;
+                    switch(measure) {
+                        case 0: mSatisfaction[satisfactionId].Value += amount;
+                        break;
+                        case 1: mSatisfaction[satisfactionId].Value += mSatisfaction[satisfactionId].Value * (amount / 100);
+                        break;
                     }
 
-                    mSatisfaction[id].Value += amout;
                     return true;
+
                 }
+
+
                 public Satisfaction? GetSatisfaction(int id) {
                     if(mSatisfaction.ContainsKey(id)) {
                         return mSatisfaction[id];
                     }
                     return null;        
+                }
+                public Dictionary<int, Satisfaction> GetSatisfactions() {
+                    return mSatisfaction;
                 }
                 /*
                 return task id
@@ -84,12 +95,19 @@ namespace ENGINE {
                     return GetNormValue(p.Value, p.Min, p.Max);
                 }
 
-                private float GetNormValue(float value, float min, float max) {
+                private float GetNormValue(float value, float min, float max) {                    
                     float v = value;
                     if(value > max) {
                         v = max * (float)Math.Log(value, max);
                     } else if(value <= min) {
-                        v = value * (float)Math.Log(value, max);
+                        //v = value * (float)Math.Log(value, max);
+
+                        //급격하게 떨어지고 급격하게 올라가야 한다.
+                        //음수로 처리
+                        const float weight = 2.0f;
+                        v = (value - min) * weight;
+                        //Console.WriteLine("Min origin = {0}, diff={1}, nom={2}", value, v, v/min);
+                        return v / min;
                     }
 
                     return v / max;
@@ -104,7 +122,7 @@ namespace ENGINE {
                     1. get mean
                     2. finding max(norm(value) - avg)
                     */ 
-                    int idx = 0;  
+                    int idx = mSatisfaction.First().Key;  
                     float minVal = 0;
                     float mean = GetMean();
                     foreach(var p in mSatisfaction) {

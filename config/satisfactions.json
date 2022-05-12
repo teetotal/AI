@@ -1,29 +1,56 @@
 {
     "define": {
         "100": {
-            "title": "포만감",
-            "discharge": 0.8,
-            "period": 1
+            "title": "HP",
+            "discharge": 1,
+            "period": 1, 
+            "happening": [
+                {
+                    "types": [1],
+                    "id": 1001,
+                    "title": "식량난",
+                    "desc": "전세계 식량난으로 인해 충분한 영양을 섭취하지 못함",
+                    "range1": 100,
+                    "range2": 150,
+                    "amount": -20,
+                    "measure": 0
+                }
+            ]
         },
         "101": {
             "title": "Gold",
             "discharge": 0,
-            "period": 0
+            "period": 0,
+            "happening": []
         },
         "110": {
             "title": "안전욕구",
             "discharge": 0,
-            "period": 0
+            "period": 0,
+            "happening": [
+                {
+                    "types": [1],
+                    "id": 1101,
+                    "title": "폭동",
+                    "desc": "폭동이 발생하여 불안해 합니다.",
+                    "range1": 100,
+                    "range2": 150,
+                    "amount": -20,
+                    "measure": 1
+                }
+            ]
         },
         "120": {
             "title": "소속감",
-            "discharge": 0.5,
-            "period": 2
+            "discharge": 1,
+            "period": 2,
+            "happening": []
         },
         "130": {
             "title": "애정",
-            "discharge": 0.5,
-            "period": 1
+            "discharge": 1,
+            "period": 1,
+            "happening": []
         }
     },
     "tasks": [
@@ -33,15 +60,15 @@
             "satisfactions": [
                 {
                     "id": 100,
-                    "amount": 20
+                    "amount": 6
                 },
                 {
                     "id": 110,
-                    "amount": -20
+                    "amount": -2
                 },
                 {
                     "id": 120,
-                    "amount": -20
+                    "amount": -2
                 }
             ]
         },
@@ -51,11 +78,11 @@
             "satisfactions": [
                 {
                     "id": 100,
-                    "amount": 15
+                    "amount": 6
                 },
                 {
                     "id": 101,
-                    "amount": -8
+                    "amount": -4
                 }
             ]
         },
@@ -65,11 +92,11 @@
             "satisfactions": [      
                 {
                     "id": 100,
-                    "amount": -0.1
+                    "amount": -4
                 },         
                 {
                     "id": 120,
-                    "amount": 3
+                    "amount": 6
                 }
             ]
         },
@@ -79,11 +106,11 @@
             "satisfactions": [               
                 {
                     "id": 100,
-                    "amount": -5
+                    "amount": -4
                 },
                 {
                     "id": 130,
-                    "amount": 5
+                    "amount": 6
                 }
             ]
         },
@@ -93,15 +120,29 @@
             "satisfactions": [               
                 {
                     "id": 100,
-                    "amount": -8
+                    "amount": -2
                 },
                 {
                     "id": 101,
-                    "amount": 10
+                    "amount": 6
                 },
                 {
                     "id": 120,
-                    "amount": 3
+                    "amount": -2
+                }
+            ]
+        },
+        {
+            "title": "보안업체 고용",
+            "desc": "보안을 위해 보안업체 사용비 지출",
+            "satisfactions": [               
+                {
+                    "id": 100,
+                    "amount": -4
+                },
+                {
+                    "id": 110,
+                    "amount": 6
                 }
             ]
         }
