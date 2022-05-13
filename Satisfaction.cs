@@ -33,6 +33,14 @@ namespace ENGINE {
                     }
                     return mDefines[satisfactionId];
                 }
+                public string GetTitle(string satisfactionId) {
+                    var p = Get(satisfactionId);
+                    if(p is null || p.title is null) {
+                        return "";
+                    }
+                    return p.title;
+                
+                }
             }     
         }        
     }

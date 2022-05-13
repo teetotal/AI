@@ -43,7 +43,7 @@ while(actors != null) {
         if(s == null) {
             Console.WriteLine("Invalid motivationId");
         }else {
-            Console.WriteLine("> {0} 만족도 ({1}) Motivation {2}({3})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value );
+            Console.WriteLine("> {0} 만족도 ({1}) Motivation {2}({3})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId), s.Value );
         }
 
         //Task 

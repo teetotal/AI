@@ -84,7 +84,7 @@ namespace ENGINE {
                     }
                     Console.WriteLine("Sum Type: {0}", type);
                     foreach(var s in p) {
-                        Console.WriteLine(" > {0}: {1}", SatisfactionDefine.Instance.Get(s.Key).title, s.Value);
+                        Console.WriteLine(" > {0}: {1}", SatisfactionDefine.Instance.GetTitle(s.Key), s.Value);
                     }
                 }
             }

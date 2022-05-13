@@ -26,7 +26,7 @@ namespace ENGINE {
                     foreach(var p in mSatisfaction) {    
                         Satisfaction s = p.Value;
                         System.Console.WriteLine("{0} {1} ({2}) {3}/{4}, {5}", 
-                        this.mUniqueId, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value, s.Min, s.Max, GetNormValue(s));
+                        this.mUniqueId, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId), s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
                 public bool Discharge(string satisfactionId, float amount) {

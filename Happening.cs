@@ -46,7 +46,7 @@ namespace ENGINE {
 
                     HappeningInfo info = mHappeningTable[happeningId];
                     var actors = ActorHandler.Instance.GetActors(type);
-                    if(actors == null || info.Info == null) {
+                    if(actors is null || info.Info is null || info.SatisfactionId is null) {
                         return false;
                     }
 
@@ -97,12 +97,10 @@ namespace ENGINE {
                 public void PrintCandidates(List<HappeningInfo> list) {                    
                     Console.WriteLine("Happening Candidates");
                     foreach(var p in list) {
-                        if(p.Info == null || SatisfactionDefine.Instance.Get(p.SatisfactionId) == null) {
+                        if(p.Info is null || p.SatisfactionId is null) {
                             continue;
                         }
-
-                        ConfigSatisfaction_Define define = SatisfactionDefine.Instance.Get(p.SatisfactionId);
-                        string satisfactionName = define.title;
+                        string satisfactionName = SatisfactionDefine.Instance.GetTitle(p.SatisfactionId);
                         string measure = "";
                         if(p.Info.measure == 1) {
                             measure = "%";
