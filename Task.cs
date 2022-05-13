@@ -5,10 +5,10 @@ namespace ENGINE {
                 //public int mTaskId { get; set; }
                 public string? mTaskTitle { get; set; }
                 public string? mTaskDesc { get; set; }
-                public abstract Dictionary<int, float> GetValues();
+                public abstract Dictionary<string, float> GetValues(string fromActorId);
                 public abstract bool DoTask(Actor actor);
-                public void Print() {
-                    var values = GetValues();
+                public void Print(string fromActorId) {
+                    var values = GetValues(fromActorId);
                     string sz = "";
                     foreach(var p in values) {
                         var s = SatisfactionDefine.Instance.Get(p.Key);
@@ -21,10 +21,12 @@ namespace ENGINE {
                     Console.WriteLine(sz);
                 }
                 protected virtual void ApplyValue(Actor actor) {
-                    Dictionary<int, float> values = GetValues();
+                    Dictionary<string, float> values = GetValues(actor.mUniqueId);
+                    //apply to self
                     foreach(var p in values) {
-                        actor.Obtain(p.Key, p.Value);
+                        actor.Obtain(p.Key, p.Value);                        
                     }
+                    actor.mTaskCounter++;
                 }                
             }
             public class TaskHandler {

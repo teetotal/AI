@@ -10,28 +10,11 @@ public enum SATISFACTION_CODE : int {
 도둑질
 */
 public class Task_Steal: FnTask {
-    public override Dictionary<int, float> GetValues() {
-        var d = new Dictionary<int, float>();
-        d.Add( (int)SATISFACTION_CODE.HUNGRY, 20 );
-        d.Add( (int)SATISFACTION_CODE.SECURITY, -20 );
-        d.Add( (int)SATISFACTION_CODE.FELLOWSHIP, -20 );
-
-        return d;
-    }
-    public override bool DoTask(Actor actor)
-    {
-        this.ApplyValue(actor);
-        return true;
-    }
-}
-
-/*
-인사
-*/
-public class Task_Hello: FnTask {
-    public override Dictionary<int, float> GetValues() {
-        var d = new Dictionary<int, float>();        
-        d.Add( (int)SATISFACTION_CODE.FELLOWSHIP, 3 );
+    public override Dictionary<string, float> GetValues(string fromActorId) {
+        var d = new Dictionary<string, float>();
+        d.Add( SATISFACTION_CODE.HUNGRY.ToString(), 20 );
+        d.Add( SATISFACTION_CODE.SECURITY.ToString(), -20 );
+        d.Add( SATISFACTION_CODE.FELLOWSHIP.ToString(), -20 );
 
         return d;
     }

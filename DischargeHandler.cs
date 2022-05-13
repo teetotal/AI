@@ -5,12 +5,12 @@ namespace ENGINE {
             Discharge가 호출되면 Counter값을 읽어와 시나리오별로 Period와 LastDischargeTime을 계산해서 실행한다.
             */
             class DischargeScenario {
-                public DischargeScenario(int satisfactionId, float amout, Int64 period) {
+                public DischargeScenario(string satisfactionId, float amout, Int64 period) {
                     this.SatisfactionId = satisfactionId;
                     this.Amount = amout;
                     this.Period = period;
                 }
-                public int SatisfactionId { get; set; }
+                public string SatisfactionId { get; set; }
                 public float Amount { get; set; }
                 public Int64 LastDischargeTime { get; set; }
                 public Int64 Period { get; set; }
@@ -28,9 +28,9 @@ namespace ENGINE {
                 private DischargeHandler() {
                 }
 
-                public void Add(int motivationId, float amout, Int64 period)
+                public void Add(string satisfactionId, float amout, Int64 period)
                 {
-                    mList.Add(new DischargeScenario(motivationId, amout, period));
+                    mList.Add(new DischargeScenario(satisfactionId, amout, period));
                 }
                 public void Discharge(int actorType) {
                     Int64 count = Counter.Instance.GetCount();

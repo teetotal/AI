@@ -1,15 +1,23 @@
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            public class Actor {
+            public class Actor {                
                 public int mType;
                 public string mUniqueId;
-                protected Dictionary<int, Satisfaction> mSatisfaction = new Dictionary<int, Satisfaction>();
-                public Actor(int type, string uniqueId) {
+                public int mLevel;
+                private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
+                // Relation
+                // Actor id, Satisfaction id, amount
+                private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();
+                // Task 수행 횟수 저장.
+                // level up을 위해서
+                public Int64 mTaskCounter { get; set; }
+                public Actor(int type, string uniqueId, int level) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
+                    this.mLevel = level;
                 }
-                public bool SetSatisfaction(int satisfactionId, float min, float max, float value)
+                public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
                 {
                     mSatisfaction.Add(satisfactionId, new Satisfaction(satisfactionId, min, max, value));
                     return true;
@@ -21,38 +29,78 @@ namespace ENGINE {
                         this.mUniqueId, SatisfactionDefine.Instance.Get(s.SatisfactionId).title, s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
-                public bool Discharge(int satisfactionId, float amount) {
-                    return ApplySatisfaction(satisfactionId, -amount, 0);
+                public bool Discharge(string satisfactionId, float amount) {
+                    return ApplySatisfaction(satisfactionId, -amount, 0, null);
                 }
 
-                public bool Obtain(int satisfactionId, float amount) {
-                    return ApplySatisfaction(satisfactionId, amount, 0);
+                public bool Obtain(string satisfactionId, float amount) {
+                    return ApplySatisfaction(satisfactionId, amount, 0, null);
                 }
 
-                public bool ApplySatisfaction(int satisfactionId, float amount, int measure) {
+                public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
                         return false;
                     }
 
-                    switch(measure) {
-                        case 0: mSatisfaction[satisfactionId].Value += amount;
+                    float value;
+                    switch(measure) {                        
+                        case 1: //percent
+                        value = mSatisfaction[satisfactionId].Value * (amount / 100);
                         break;
-                        case 1: mSatisfaction[satisfactionId].Value += mSatisfaction[satisfactionId].Value * (amount / 100);
+                        default:
+                        value = amount;
                         break;
                     }
 
+                    mSatisfaction[satisfactionId].Value += value;
+                    
+                    // update Relation 
+                    if(from is not null) {
+                        if(mRelation.ContainsKey(from) == false) {
+                            mRelation[from] = new Dictionary<string, float>();
+                        }
+                        if(mRelation[from].ContainsKey(satisfactionId) == false) {
+                            mRelation[from][satisfactionId] = value;
+                        } else {
+                            mRelation[from][satisfactionId] += value;
+                        }
+                    }
                     return true;
-
                 }
 
+                public bool checkLevelUp() {
+                    //check level up                   
+                    var info = LevelHandler.Instance.Get(mType, mLevel);
+                    if(info is not null && info.next is not null && info.next.threshold is not null) {                        
+                        foreach(ConfigLevel_Threshold t in info.next.threshold) {
+                            if(t.key is null) {
+                                return false;
+                            }
+                            //나중에 필요하면 추가. 지금은 task수행 횟수만 구현
+                            switch(t.key.ToUpper()) {
+                                case "TASKCOUNTER":
+                                if(mTaskCounter < t.value) {
+                                    return false;
+                                }
+                                break;                                
+                            }
+                        }
+                        return true;
+                    }
+                    return false;
+                }
 
-                public Satisfaction? GetSatisfaction(int id) {
+                public void LevelUp() {
+                    mLevel++;
+                }
+
+                public Satisfaction? GetSatisfaction(string id) {
                     if(mSatisfaction.ContainsKey(id)) {
                         return mSatisfaction[id];
                     }
                     return null;        
                 }
-                public Dictionary<int, Satisfaction> GetSatisfactions() {
+                public Dictionary<string, Satisfaction> GetSatisfactions() {
                     return mSatisfaction;
                 }
                 /*
@@ -80,7 +128,7 @@ namespace ENGINE {
                     4. get mean
                     */  
                     float sum = 0;
-                    var taskSatisfaction = fn.GetValues();                  
+                    var taskSatisfaction = fn.GetValues(mUniqueId);                  
                     foreach(var p in mSatisfaction) {
                         float val = p.Value.Value;
                         if(taskSatisfaction.ContainsKey(p.Key)) {
@@ -116,13 +164,13 @@ namespace ENGINE {
                 /*
                 return satisfaction id
                 */
-                public Tuple<int, float> GetMotivation()
+                public Tuple<string, float> GetMotivation()
                 {
                     /*                                        
                     1. get mean
                     2. finding max(norm(value) - avg)
                     */ 
-                    int idx = mSatisfaction.First().Key;  
+                    string satisfactionId = mSatisfaction.First().Key;  
                     float minVal = 0;
                     float mean = GetMean();
                     foreach(var p in mSatisfaction) {
@@ -131,12 +179,11 @@ namespace ENGINE {
                         float diff = norm - mean;
                         if(diff < minVal) {
                             minVal = diff;
-                            idx = p.Key;
+                            satisfactionId = p.Key;
                         }
-
                     }                    
                     
-                    return new Tuple<int, float>(idx, mean);
+                    return new Tuple<string, float>(satisfactionId, mean);
                 }                
 
                 private float GetMean() {

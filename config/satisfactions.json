@@ -55,96 +55,74 @@
     },
     "tasks": [
         {
+            "level1": 1,
+            "level2": 3,
             "title": "도둑질",
             "desc": "배고픔을 참지 못하고 도둑질을 한다",
-            "satisfactions": [
-                {
-                    "id": 100,
-                    "amount": 6
-                },
-                {
-                    "id": 110,
-                    "amount": -2
-                },
-                {
-                    "id": 120,
-                    "amount": -2
-                }
-            ]
+            "satisfactions": {
+                "101": 6,
+                "110": -2,
+                "120": -2
+            },
+            "relation": {
+                "target": [
+                    "1.Satisfaction.100:max",
+                    "1.Satisfaction.101:max"
+                ],
+                "satisfactions": {
+                        "101": -6,
+                        "110": -2,
+                        "120": -2
+                }                
+            }
         },
         {
             "title": "밥먹기",
             "desc": "돈 내고 밥을 사먹는다",
-            "satisfactions": [
-                {
-                    "id": 100,
-                    "amount": 6
-                },
-                {
-                    "id": 101,
-                    "amount": -4
-                }
-            ]
+            "satisfactions": {            
+                    "100": 6,
+                    "101": -4
+            },
+            "relation": null
         },
         {
             "title": "인사하기",
             "desc": "주변인에게 인사한다",
-            "satisfactions": [      
-                {
-                    "id": 100,
-                    "amount": -4
-                },         
-                {
-                    "id": 120,
-                    "amount": 6
-                }
-            ]
+            "satisfactions": {
+                    "100": -4,
+                    "120": 6
+                    
+            },            
+            "relation": null
         },
         {
             "title": "짝사랑하기",
             "desc": "아무도 모르게 혼자 짝사랑 한다",
-            "satisfactions": [               
-                {
-                    "id": 100,
-                    "amount": -4
-                },
-                {
-                    "id": 130,
-                    "amount": 6
-                }
-            ]
+            "satisfactions": {
+                    "100": -4,
+                    "130": 6
+                    
+            },
+            "relation": null
         },
         {
             "title": "일하기",
             "desc": "돈을 벌기 위해 일을 한다",
-            "satisfactions": [               
-                {
-                    "id": 100,
-                    "amount": -2
-                },
-                {
-                    "id": 101,
-                    "amount": 6
-                },
-                {
-                    "id": 120,
-                    "amount": -2
-                }
-            ]
+            "satisfactions": {
+                    "100": -2,
+                    "101": 6,
+                    "120": -2
+            },
+            "relation": null
         },
         {
             "title": "보안업체 고용",
             "desc": "보안을 위해 보안업체 사용비 지출",
-            "satisfactions": [               
-                {
-                    "id": 100,
-                    "amount": -4
-                },
-                {
-                    "id": 110,
-                    "amount": 6
-                }
-            ]
+            "satisfactions": {
+                    "100": -4,
+                    "110": 6
+            },
+            "relation": null
         }
     ]        
 }

@@ -5,12 +5,12 @@ namespace ENGINE {
                 public ConfigSatisfaction_Happening? Info { get; set; }
                 public int Counter { get; set; }
                 public Int64 LastTime { get; set; }
-                public int SatisfactionId { get; set; }
+                public string? SatisfactionId { get; set; }
             }
             public class HappeningHandler {
                 private Dictionary<int, HappeningInfo> mHappeningTable = new Dictionary<int, HappeningInfo>();
                 //type id, satisfaction id, happening id
-                private Dictionary<int, Dictionary<int, List<int>>> mDict = new Dictionary<int, Dictionary<int, List<int>>>();
+                private Dictionary<int, Dictionary<string, List<int>>> mDict = new Dictionary<int, Dictionary<string, List<int>>>();
                 private static readonly Lazy<HappeningHandler> instance =
                         new Lazy<HappeningHandler>(() => new HappeningHandler());
                 public static HappeningHandler Instance {
@@ -20,7 +20,7 @@ namespace ENGINE {
                 }
                 private HappeningHandler() { }
 
-                public void Add(int type, int satisfactionId, ConfigSatisfaction_Happening info) {
+                public void Add(int type, string satisfactionId, ConfigSatisfaction_Happening info) {
                     int happeningId = info.id;
                     if(mHappeningTable.ContainsKey(happeningId) == false) {
                         HappeningInfo p = new HappeningInfo();
@@ -30,7 +30,7 @@ namespace ENGINE {
                     }
                     //type
                     if(mDict.ContainsKey(type) == false) {
-                        mDict[type] = new Dictionary<int, List<int>>();                                                
+                        mDict[type] = new Dictionary<string, List<int>>();                                                
                     }
                     if(mDict[type].ContainsKey(satisfactionId) == false) {
                         mDict[type][satisfactionId] = new List<int>();
@@ -56,7 +56,7 @@ namespace ENGINE {
                     }
 
                     foreach(var actor in actors) {
-                        actor.Value.ApplySatisfaction(info.SatisfactionId, info.Info.amount, info.Info.measure);                        
+                        actor.Value.ApplySatisfaction(info.SatisfactionId, info.Info.amount, info.Info.measure, null);
                     }
                     mHappeningTable[happeningId].LastTime = counter;
                     mHappeningTable[happeningId].Counter ++;
@@ -70,7 +70,7 @@ namespace ENGINE {
                     if(sums != null && mDict.ContainsKey(type) == true) {
                         var dict = mDict[type];
                         foreach(var sum in sums) {
-                            int satisfactionId = sum.Key;
+                            string satisfactionId = sum.Key;
                             float value = sum.Value;
 
                             //check happening
@@ -101,7 +101,8 @@ namespace ENGINE {
                             continue;
                         }
 
-                        string satisfactionName = SatisfactionDefine.Instance.Get(p.SatisfactionId).title;
+                        ConfigSatisfaction_Define define = SatisfactionDefine.Instance.Get(p.SatisfactionId);
+                        string satisfactionName = define.title;
                         string measure = "";
                         if(p.Info.measure == 1) {
                             measure = "%";

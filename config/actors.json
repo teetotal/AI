@@ -1,33 +1,34 @@
 {
     "독고다이": {
         "type": 1,
+        "level": 1,
         "satisfactions": [
             {
-                "satisfactionId": 100,
+                "satisfactionId": "100",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 101,
+                "satisfactionId": "101",
                 "min": 50,
                 "max": 80,
                 "value": 20
             },
             {
-                "satisfactionId": 110,
+                "satisfactionId": "110",
                 "min": 50,
                 "max": 80,
                 "value": 80
             },
             {
-                "satisfactionId": 120,
+                "satisfactionId": "120",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 130,
+                "satisfactionId": "130",
                 "min": 50,
                 "max": 80,
                 "value": 60
@@ -36,33 +37,34 @@
     },
     "애정이": {
         "type": 1,
+        "level": 1,
         "satisfactions": [
             {
-                "satisfactionId": 100,
+                "satisfactionId": "100",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 101,
+                "satisfactionId": "101",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 110,
+                "satisfactionId": "110",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 120,
+                "satisfactionId": "120",
                 "min": 50,
                 "max": 80,
                 "value": 60
             },
             {
-                "satisfactionId": 130,
+                "satisfactionId": "130",
                 "min": 50,
                 "max": 80,
                 "value": 40

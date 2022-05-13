@@ -6,16 +6,13 @@ using ENGINE.GAMEPLAY.MOTIVATION;
 //TaskHandler.Instance.Add(new Task_Hello());
 
 var pLoader = new Loader();
-if(!pLoader.Load("config/satisfactions.json", "config/actors.json")) {
+if(!pLoader.Load("config/satisfactions.json", "config/actors.json", "config/level.json")) {
     Console.WriteLine("Failure Loading config");
 }
 
 
-string uniqueId = "애정이";
-string uniqueId2 = "test2";
-
+//string uniqueId = "애정이";
 int type = 1;
-int type2 = 0;
 
   
 
@@ -53,8 +50,12 @@ while(actors != null) {
         int taskid = actor.GetTaskId();
         var task = TaskHandler.Instance.GetTask(taskid);                 
         task.DoTask(actor);
-        Console.WriteLine("! {0} ({1})", task.mTaskTitle, task.mTaskDesc);
-        task.Print();       
+        bool isLevelUp = actor.checkLevelUp();
+        Console.WriteLine("! {0} ({1}), levelup? {2}", task.mTaskTitle, task.mTaskDesc, isLevelUp);
+        if(isLevelUp == true) {
+            actor.LevelUp();
+        }
+        task.Print(actor.mUniqueId);       
         actor.Print();
 
         Console.WriteLine("====");

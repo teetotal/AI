@@ -3,10 +3,12 @@ using System.Text.Json;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            //공통
-            public class Config_Id_Amount {
-                public int id { get; set; }
-                public float amount { get; set; }
+            //공통           
+            public class Config_Satisfaction {
+                public string? satisfactionId { get; set; }
+                public float min { get; set; }
+                public float max { get; set; }
+                public float value { get; set; }
             }
             //happening
             public class ConfigSatisfaction_Happening {
@@ -28,27 +30,55 @@ namespace ENGINE {
             }                       
             public class ConfigSatisfaction {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
-                public List<ConfigTaskDetail>? tasks { get; set; }
+                public List<ConfigTask_Detail>? tasks { get; set; }
             }
-            //Actors
-            public class ConfigActors_Satisfaction {
-                public int satisfactionId { get; set; }
-                public float min { get; set; }
-                public float max { get; set; }
-                public float value { get; set; }
-            }
+            //Actors            
             public class ConfigActors_Detail {
                 public int type { get; set; }
-                public List<ConfigActors_Satisfaction>? satisfactions { get; set; }
+                public int level { get; set; }
+                public List<Config_Satisfaction>? satisfactions { get; set; }
             }
-           
-            public class ConfigTaskDetail {
+            //Task ---------------------------------------------------------------           
+            public class ConfigTask_Detail {
+                public int level1 { get; set; } //사용가능한 Actor 최소 레벨
+                public int level2 { get; set; } //사용가능한 Actor 최대 레벨
                 public string? title { get; set; }
                 public string? desc { get; set; }
-                public List<Config_Id_Amount>? satisfactions { get; set; }
-            }           
+                //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
+                public Dictionary<string, float>? satisfactions { get; set; }
+                public ConfigTask_Relation? relation { get; set; }
+            }         
+
+            public class ConfigTask_Relation {
+                public List<string>? target { get; set; }
+                public Dictionary<string, float>? satisfactions { get; set; }
+            }
+
+            //Level ---------------------------------------------------------------
+            public class ConfigLevel {
+                public int startLevel { get; set; }
+                public List<ConfigLevel_Detail>? levels { get; set; }
+            }
+            public class ConfigLevel_Detail {
+                public int level { get; set; }
+                public string? title { get; set; }
+                public ConfigLevel_Next? next { get; set; }
+            }  
+            public class ConfigLevel_Next {
+                public List<ConfigLevel_Threshold>? threshold { get; set; }
+                public List<ConfigLevel_Rewards>? rewards { get; set; }                
+            }
+            public class ConfigLevel_Threshold {
+                public string? key { get; set; }
+                public float value { get; set; }
+            }
+            public class ConfigLevel_Rewards{
+                public int itemId { get; set; }
+                public int quantity { get; set; }
+            }
+            // ----------------------------------------------------------------------
             public class Loader {
-                public bool Load(string pathSatisfactions, string pathActors) {
+                public bool Load(string pathSatisfactions, string pathActors, string pathLevel) {
                     string jsonString = File.ReadAllText(pathSatisfactions);
                     var sf = JsonSerializer.Deserialize<ConfigSatisfaction>(jsonString);
 
@@ -58,7 +88,7 @@ namespace ENGINE {
 
                     // define & discharge & happening
                     foreach(var p in sf.define) {          
-                        int satisfactionId = int.Parse(p.Key);              
+                        string satisfactionId = p.Key;
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);
                         //happening
@@ -72,14 +102,17 @@ namespace ENGINE {
                                 }                                
                             }
                         }
-                        
-                        
                     }
 
                     //default task
                     if(SetTask(sf.tasks) == false) {
                         return false;
                     }
+
+                    // level
+                    if(SetLevel(pathLevel) == false) {
+                        return false;
+                    }                   
 
                     //actors
                     if(SetActor(pathActors) == false) {
@@ -98,7 +131,7 @@ namespace ENGINE {
                     }
 
                     foreach(var p in actors) {
-                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key);
+                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level);
                         if(p.Value.satisfactions == null) {
                             return false;
                         }
@@ -110,16 +143,29 @@ namespace ENGINE {
                 }
 
                 // Set Task
-                private bool SetTask(List<ConfigTaskDetail> tasks) {
+                private bool SetTask(List<ConfigTask_Detail> tasks) {
                     foreach(var p in tasks) {
-                        if(p.title == null || p.desc == null || p.satisfactions == null) {
+                        if(p is null) {
                             return false;
                         }
-                        TaskDefaultFn fn = new TaskDefaultFn(p.title, p.desc);
-                        foreach(var d in p.satisfactions) {
-                            fn.AddValue(d.id, d.amount);
-                        }
+                        TaskDefaultFn fn = new TaskDefaultFn(p);                        
                         TaskHandler.Instance.Add(fn);
+                    }
+                    return true;
+                }
+
+                // Set Level
+                private bool SetLevel(string path) {
+                    //Actor     
+                    string jsonString = File.ReadAllText(path);
+                    var j = JsonSerializer.Deserialize< Dictionary<string, ConfigLevel> >(jsonString);  
+                    if(j == null) {
+                        return false;
+                    }
+
+                    foreach(var p in j) {
+                        int type = int.Parse(p.Key);                        
+                        LevelHandler.Instance.Set(type, p.Value);
                     }
                     return true;
                 }

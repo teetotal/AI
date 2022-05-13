@@ -10,7 +10,7 @@ namespace ENGINE {
                 //type별 actor
                 private Dictionary<int, Dictionary<string, Actor>> mDictType = new Dictionary<int, Dictionary<string, Actor>>();
                 //type별 satisfaction 합
-                private Dictionary<int, Dictionary<int, float>> mSatisfactionSums = new Dictionary<int, Dictionary<int, float>>();
+                private Dictionary<int, Dictionary<string, float>> mSatisfactionSums = new Dictionary<int, Dictionary<string, float>>();
             
                 public static ActorHandler Instance {
                     get {
@@ -21,8 +21,8 @@ namespace ENGINE {
                 private ActorHandler() {
                 }
 
-                public Actor AddActor(int type, string uniqueId) {
-                    Actor a = new Actor(type, uniqueId);
+                public Actor AddActor(int type, string uniqueId, int level) {
+                    Actor a = new Actor(type, uniqueId, level);
                     mDict.Add(uniqueId, a);
                     if(mDictType.ContainsKey(type) == false) {
                         mDictType[type] = new Dictionary<string, Actor>();
@@ -54,11 +54,11 @@ namespace ENGINE {
                             Actor actor = pActor.Value;
                             var satisfactions = actor.GetSatisfactions();
                             foreach(var pSatisfaction in satisfactions) {
-                                int satisfactionId = pSatisfaction.Key;
+                                string satisfactionId = pSatisfaction.Key;
                                 var satisfaction = pSatisfaction.Value;
 
                                 if(mSatisfactionSums.ContainsKey(type) == false) {
-                                    mSatisfactionSums.Add(type, new Dictionary<int, float>());
+                                    mSatisfactionSums.Add(type, new Dictionary<string, float>());
                                 }
 
                                 if(mSatisfactionSums[type].ContainsKey(satisfactionId) == false) {
@@ -70,7 +70,7 @@ namespace ENGINE {
                         }
                     }
                 }
-                public Dictionary<int, float>? GetSatisfactionSum(int type) {
+                public Dictionary<string, float>? GetSatisfactionSum(int type) {
                     if(mSatisfactionSums.ContainsKey(type) == false) {
                         return null;
                     }

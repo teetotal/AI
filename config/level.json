@@ -1,0 +1,47 @@
+{
+    "1": {
+        "startLevel": 1,    
+        "levels": [
+            {
+                "level": 1,
+                "title": "낯선자",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 4
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": 1,
+                            "quantity": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "level": 2,
+                "title": "익숙한자",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 16
+                        },
+                        {
+                            "key": "Satisfaction.100",
+                            "value": 32
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": 2,
+                            "quantity": 10
+                        }
+                    ]
+                }
+            }
+        ]
+    }    
+}
