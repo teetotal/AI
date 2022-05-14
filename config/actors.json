@@ -5,51 +5,58 @@
         "satisfactions": [
             {
                 "satisfactionId": "1",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 0,
+                "max": 100,
+                "value": 50
             },
             {
                 "satisfactionId": "2",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 0,
+                "max": 100,
+                "value": 50
             },
             {
                 "satisfactionId": "3",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 0,
+                "max": 100,
+                "value": 50
             },
             {
                 "satisfactionId": "100",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "101",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "110",
-                "min": 50,
-                "max": 80,
-                "value": 80
+                "min": 15,
+                "max": 85,
+                "value": 70
             },
             {
                 "satisfactionId": "120",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "130",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
+            }
+        ],
+        "inventory": [
+            {
+                "itemId": "item1",
+                "quantity": 1,
+                "installation": false
             }
         ]
     },
@@ -77,33 +84,33 @@
             },
             {
                 "satisfactionId": "100",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "101",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "110",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "120",
-                "min": 50,
-                "max": 80,
-                "value": 60
+                "min": 15,
+                "max": 85,
+                "value": 50
             },
             {
                 "satisfactionId": "130",
-                "min": 50,
-                "max": 80,
-                "value": 40
+                "min": 15,
+                "max": 85,
+                "value": 30
             }
         ]
     }
