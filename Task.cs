@@ -7,7 +7,7 @@ namespace ENGINE {
                 public string? mTaskDesc { get; set; }
                 public abstract Dictionary<string, float> GetValues(string fromActorId);
                 public abstract bool DoTask(Actor actor);
-                public void Print(string fromActorId) {
+                public string GetPrintString(string fromActorId) {
                     var values = GetValues(fromActorId);
                     string sz = "";
                     foreach(var p in values) {
@@ -18,7 +18,11 @@ namespace ENGINE {
                             sz += String.Format("{0}({1}) ", s.title, p.Value );                            
                         }                        
                     }
-                    Console.WriteLine(sz);
+                    return sz;
+                }
+                public void Print(string fromActorId) {
+                    
+                    Console.WriteLine(GetPrintString(fromActorId));
                 }
                 protected virtual void ApplyValue(Actor actor) {
                     Dictionary<string, float> values = GetValues(actor.mUniqueId);
