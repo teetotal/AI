@@ -1,5 +1,23 @@
 {
     "define": {
+        "1": {
+            "title": "이동속도",
+            "discharge": 0,
+            "period": 0,
+            "happening": []
+        },
+        "2": {
+            "title": "공격력",
+            "discharge": 0,
+            "period": 0,
+            "happening": []
+        },
+        "3": {
+            "title": "수비력",
+            "discharge": 0,
+            "period": 0,
+            "happening": []
+        },        
         "100": {
             "title": "HP",
             "discharge": 1,
