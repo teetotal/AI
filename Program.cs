@@ -3,7 +3,7 @@ using ENGINE.GAMEPLAY.MOTIVATION;
 using System;
 
 var p = new Loop();
-if(p.Load("config/satisfactions.json", "config/actors.json", "config/level.json")) {
+if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json")) {
     p.MainLoop();
 } else {
     Console.WriteLine("Failure loading config");
@@ -45,9 +45,9 @@ public class Loop {
             }
         }
     }
-    public bool Load(string pathSatisfaction, string pathActor, string pathLevel) {
+    public bool Load(string pathSatisfaction, string pathActor, string pathItem, string pathLevel) {
         var pLoader = new Loader();
-        if(!pLoader.Load(pathSatisfaction, pathActor, pathLevel)) {
+        if(!pLoader.Load(pathSatisfaction, pathActor, pathItem, pathLevel)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }

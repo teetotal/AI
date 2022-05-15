@@ -10,7 +10,73 @@ namespace ENGINE {
                 public float max { get; set; }
                 public float value { get; set; }
             }
-            //happening
+            /*
+            Item
+            {
+                "item1": {
+                    "name": "무기1",
+                    "desc": "",
+                    "level": 1,
+                    "cost": 10, //강화 재료로 쓰일경우 가치
+                    "invoke": {
+                        "type": 1, //발동타입, 0 받자마자 발동, 1 가방에 저장
+                        "expire": 0 // 발동되고 얼마동안 유지되나 0 영원히
+                    },
+                    "satisfaction": { //모든 능력치는 여기에 정의
+                        "min": 10,
+                        "max": 10,
+                        "value": 10,
+                        "measure": {
+                            "min": 0,
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "installation": { //몸에 들거나 입거나 일때 정의
+                        "type1": 0, //장착 타입, ex) 0 satisfaction만 변경, 1 의상, 2 무기
+                        "type2": 1, //서브 타입 ex) 무기 중 방어구, 무기 중 슛팅 속도
+                    },
+                    "draft": [ //강화 단계별 비용(min,max) 정의
+                        [50, 100],
+                        [150, 200],
+                        [250, 300]
+                    ] 
+                }
+            }
+            */
+            //Item ---------------------------------------------------------------    
+            public class ConfigItem_Detail {
+                public string? name { get; set; }
+                public string? desc { get; set; }
+                public int level { get; set; }
+                public int cost { get; set; }
+                public ConfigItem_Invoke? invoke { get; set; }
+                public ConfigItem_Satisfaction? satisfaction { get; set; }
+                public ConfigItem_Installation? installation { get; set; }
+                public List<int[]>? draft { get; set; }
+            }
+            public class ConfigItem_Invoke {
+                public int type { get; set; }
+                public int expire { get; set; }
+            }
+            public class ConfigItem_Satisfaction {
+                public float min { get; set; }
+                public float max { get; set; }
+                public float value { get; set; }
+                public ConfigItem_Satisfaction_Measure? measure { get; set; }
+
+            }
+            public class ConfigItem_Satisfaction_Measure {
+                public int min { get; set; }
+                public int max { get; set; }
+                public int value { get; set; }
+                
+            }
+            public class ConfigItem_Installation {
+                public int type1 { get; set; }
+                public int type2 { get; set; }
+            }
+            //happening -----------------------------------------------------------
             public class ConfigSatisfaction_Happening {
                 public List<int>? types { get; set; } //대상 actor type
                 public int id { get; set; } //happening id
@@ -78,7 +144,7 @@ namespace ENGINE {
             }
             // ----------------------------------------------------------------------
             public class Loader {
-                public bool Load(string pathSatisfactions, string pathActors, string pathLevel) {
+                public bool Load(string pathSatisfactions, string pathActors, string pathItem, string pathLevel) {
                     string jsonString = File.ReadAllText(pathSatisfactions);
                     var sf = JsonSerializer.Deserialize<ConfigSatisfaction>(jsonString);
 
@@ -112,8 +178,13 @@ namespace ENGINE {
                     // level
                     if(SetLevel(pathLevel) == false) {
                         return false;
-                    }                   
+                    }
 
+                    //Item
+                     if(SetItem(pathItem) == false) {
+                        return false;
+                    }
+                    
                     //actors
                     if(SetActor(pathActors) == false) {
                         return false;
@@ -167,6 +238,18 @@ namespace ENGINE {
                         int type = int.Parse(p.Key);                        
                         LevelHandler.Instance.Set(type, p.Value);
                     }
+                    return true;
+                }
+                // Set Item
+                private bool SetItem(string path) {
+                    string jsonString = File.ReadAllText(path);
+                    var j = JsonSerializer.Deserialize< Dictionary<string, ConfigItem_Detail> >(jsonString);  
+                    if(j == null) {
+                        return false;
+                    }
+
+                    ItemHandler.Instance.Set(j);
+
                     return true;
                 }
             }

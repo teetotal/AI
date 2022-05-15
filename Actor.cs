@@ -9,9 +9,15 @@ namespace ENGINE {
                 // Relation
                 // Actor id, Satisfaction id, amount
                 private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();
-                // Task 수행 횟수 저장.
-                // level up을 위해서
+                // Task 수행 횟수 저장 for level up
                 public Int64 mTaskCounter { get; set; }
+                //Inventory -------------------------------------------------------------------------------------------------
+                //item key, quantity
+                private Dictionary<string, int> mInventory = new Dictionary<string, int>();
+                //같은 타입의 아이템은 하나만 착용가능한가?
+                //private ConfigItem_Installation
+                private Dictionary<string, int> mInvoking
+                //-------------------------------------------------------------------------------------------------
                 public Actor(int type, string uniqueId, int level) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
@@ -67,7 +73,6 @@ namespace ENGINE {
                     }
                     return true;
                 }
-
                 public bool checkLevelUp() {
                     //check level up                   
                     var info = LevelHandler.Instance.Get(mType, mLevel);
@@ -89,11 +94,9 @@ namespace ENGINE {
                     }
                     return false;
                 }
-
                 public void LevelUp() {
                     mLevel++;
                 }
-
                 public Satisfaction? GetSatisfaction(string id) {
                     if(mSatisfaction.ContainsKey(id)) {
                         return mSatisfaction[id];
@@ -119,7 +122,6 @@ namespace ENGINE {
                     }
                     return taskId;
                 }
-
                 private float GetExpectedValue(FnTask fn) {
                     /*
                     1. satisfaction loop
@@ -142,7 +144,6 @@ namespace ENGINE {
                 private float GetNormValue(Satisfaction p) {
                     return GetNormValue(p.Value, p.Min, p.Max);
                 }
-
                 private float GetNormValue(float value, float min, float max) {                    
                     float v = value;
                     if(value > max) {
@@ -160,7 +161,6 @@ namespace ENGINE {
 
                     return v / max;
                 }
-
                 /*
                 return satisfaction id
                 */
@@ -184,8 +184,7 @@ namespace ENGINE {
                     }                    
                     
                     return new Tuple<string, float>(satisfactionId, mean);
-                }                
-
+                }
                 private float GetMean() {
                     float sum = 0.0f;
                     foreach(var p in mSatisfaction) {
