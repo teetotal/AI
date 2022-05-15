@@ -21,6 +21,19 @@ namespace ENGINE {
                     }
                     return mItemInfo[key];
                 }
+                public string GetPrintString(string key) {
+                    var info = GetItemInfo(key);
+                    string sz = "";
+                    if(info is not null && info.satisfaction is not null) {
+                        sz += String.Format("{0}", info.name);
+                        foreach(var p in info.satisfaction) {
+                            if(p.satisfactionId is not null) {
+                                sz += String.Format(" - {0}({1})", SatisfactionDefine.Instance.GetTitle(p.satisfactionId), p.value);
+                            }                            
+                        }                        
+                    }
+                    return sz;
+                }
             }
         }
     }

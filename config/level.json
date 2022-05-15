@@ -14,8 +14,12 @@
                     ],
                     "rewards": [
                         {
-                            "itemId": 1,
-                            "quantity": 10
+                            "itemId": "item1",
+                            "quantity": 1
+                        },
+                        {
+                            "itemId": "itemLevelup1",
+                            "quantity": 1
                         }
                     ]
                 }
@@ -36,8 +40,8 @@
                     ],
                     "rewards": [
                         {
-                            "itemId": 2,
-                            "quantity": 10
+                            "itemId": "item1",
+                            "quantity": 20
                         }
                     ]
                 }

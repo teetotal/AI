@@ -17,8 +17,9 @@ public class Loop {
         while(actors != null) {      
             Thread.Sleep(1000 * 1);
             PrintLine();
-            Console.Write("0(System) 1(Next) 2(Task) 3(Inquiry) 4(Inquiry All) q(Quit): ");
+            Console.Write("0(System) 1(Next) 2(Task) 3(Inquiry) 4(Inquiry All) 5(Inventory) q(Quit): ");
             var input = Console.ReadLine();
+            //string input  = "2";
             PrintLine();
             if(input is not null) {
                 if(input == "q") {
@@ -40,6 +41,9 @@ public class Loop {
                     break;
                     case 4:
                     InquiryAll(actors);
+                    break;
+                    case 5:
+                    InventoryAll(actors);
                     break;
                 }
             }
@@ -66,6 +70,11 @@ public class Loop {
             case "c":
             Console.WriteLine("Counter {0}", Counter.Instance.GetCount());
             break;
+        }
+    }
+    private void InventoryAll(Dictionary<string, Actor> actors) {
+        foreach(var actor in actors) {
+            Console.WriteLine("{0} {1}", actor.Key, actor.Value.PrintInventory());
         }
     }
     private void InquiryAll(Dictionary<string, Actor> actors) {
@@ -123,8 +132,15 @@ public class Loop {
             bool isLevelUp = actor.checkLevelUp();
             Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor.mUniqueId));
             if(isLevelUp == true) {
-                actor.LevelUp();
-                Console.WriteLine("Level up!! {0}", actor.mLevel);
+                var reward = LevelHandler.Instance.Get(actor.mType, actor.mLevel);
+                if(reward is not null && reward.next is not null) {
+                    actor.LevelUp(reward.next.rewards);
+                    Console.WriteLine("Level up!! {0}", actor.mLevel);
+                    foreach(var item in reward.next.rewards) {
+                        Console.WriteLine("> Reward {0}", ItemHandler.Instance.GetPrintString(item.itemId));
+                    }
+                    
+                }
             }  
         }
     }

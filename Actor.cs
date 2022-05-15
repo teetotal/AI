@@ -1,6 +1,30 @@
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
+            public enum ITEM_INVOKE_TYPE : int {
+                IMMEDIATELY = 0,
+                INVENTORY
+            }
+            public enum ITEM_INVOKE_EXPIRE : int {
+                FOREVER = 0,
+                LIMITED
+            }
+            public enum ITEM_SATISFACTION_MEASURE : int {
+                ABSOLUTE  = 0,
+                PERCENT,
+                INCREASE
+            }
+
+            public class ItemUsage {
+                public ItemUsage(string itemKey, int expire, int usage) {
+                    this.itemKey = itemKey;
+                    this.expire = expire;
+                    this.usage = usage; //사용량이 필요한 아이템일 경우 사용
+                }
+                public string itemKey { get; set; }
+                public int expire { get; set; }
+                public int usage { get; set; }
+            }            
             public class Actor {                
                 public int mType;
                 public string mUniqueId;
@@ -11,12 +35,13 @@ namespace ENGINE {
                 private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();
                 // Task 수행 횟수 저장 for level up
                 public Int64 mTaskCounter { get; set; }
-                //Inventory -------------------------------------------------------------------------------------------------
+                //Item -------------------------------------------------------------------------------------------------
                 //item key, quantity
                 private Dictionary<string, int> mInventory = new Dictionary<string, int>();
-                //같은 타입의 아이템은 하나만 착용가능한가?
-                //private ConfigItem_Installation
-                private Dictionary<string, int> mInvoking
+                //장착중인 아이템.만료처리는 mInvoking랑 같이 업데이트 해줘야함.
+                private Dictionary<string, List<ItemUsage>> mInstallation = new Dictionary<string, List<ItemUsage>>();
+                //발동중인 아이템 리스트                
+                private Dictionary<string, List<ItemUsage>> mInvoking = new Dictionary<string, List<ItemUsage>>();
                 //-------------------------------------------------------------------------------------------------
                 public Actor(int type, string uniqueId, int level) {
                     this.mType = type;
@@ -94,8 +119,20 @@ namespace ENGINE {
                     }
                     return false;
                 }
-                public void LevelUp() {
+                public bool LevelUp(List<ConfigLevel_Rewards>? rewards) {                    
                     mLevel++;
+                    
+                    if(rewards is not null) {
+                        foreach(var reward  in rewards) {
+                            if(reward.itemId is not null ) {
+                                if(!this.ReceiveItem(reward.itemId, reward.quantity)) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    return true;
                 }
                 public Satisfaction? GetSatisfaction(string id) {
                     if(mSatisfaction.ContainsKey(id)) {
@@ -192,6 +229,132 @@ namespace ENGINE {
                         sum += GetNormValue(v.Value, v.Min, v.Max);
                     }
                     return sum / mSatisfaction.Count();
+                }
+                //Item-------------------------------------------------------
+                public string PrintInventory() {
+                    string sz = "";
+                    foreach(var p in mInventory) {
+                        var info = ItemHandler.Instance.GetItemInfo(p.Key);
+                        if(info is not null)
+                            sz += String.Format("> {0} {1}\n", info.name, p.Value);
+                    }
+                    return sz;
+                }
+                public bool ReceiveItem(string itemKey, int quantity) {
+                    var item = ItemHandler.Instance.GetItemInfo(itemKey);
+                    if(item is null || item.invoke is null) {
+                        return false;
+                    }
+
+                    switch((ITEM_INVOKE_TYPE)item.invoke.type) {
+                        case ITEM_INVOKE_TYPE.IMMEDIATELY:
+                        if(item.satisfaction is not null) {
+                            for(int i = 0; i < quantity; i++)
+                                this.ApplyItemSatisfaction(item.satisfaction);
+                        }                        
+                        break;
+                        case ITEM_INVOKE_TYPE.INVENTORY:                        
+                        AddInventory(itemKey, quantity);
+                        break;
+                    }
+
+                    return true;
+                }
+                public void AddInventory(string itemKey, int quantity) {
+                    if(mInventory.ContainsKey(itemKey)) {
+                        mInventory[itemKey] += quantity;
+                    } else {
+                        mInventory[itemKey] = quantity;
+                    }
+                }
+                //아이템 사용은 한번에 하나씩만
+                public bool UseItemFromInventory(string itemKey) {
+                    if(mInventory.ContainsKey(itemKey) == false || mInventory[itemKey] <= 0) {
+                        return false;
+                    }   
+                    if(!InvokeItem(itemKey, 0)) {
+                        return false;
+                    }
+                    mInventory[itemKey] --;
+                    return true;
+                }
+                public bool InvokeItem(string itemKey, int usage) {
+                    var item = ItemHandler.Instance.GetItemInfo(itemKey);
+                    if(item is null || item.invoke is null) {
+                        return false;
+                    }
+                    //satisfaction 적용
+                    if(item.satisfaction is not null) {
+                        if(item.invoke.expire == (int)ITEM_INVOKE_EXPIRE.FOREVER) {
+                            ApplyItemSatisfaction(item.satisfaction); //적용하고 끝
+                        } else {                            
+                            if(item.installationKey is not null) {
+                                //몸에 탑재하는 아이템
+                                //몸에 연결은 front에서 처리
+                                if(mInstallation.ContainsKey(itemKey) == false) {
+                                    mInstallation[itemKey] = new List<ItemUsage>();
+                                }
+                                mInstallation[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
+                            }                             
+                            //발동
+                            if(mInvoking.ContainsKey(itemKey) == false) {
+                                mInvoking[itemKey] = new List<ItemUsage>();
+                            }
+                            mInvoking[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
+                        }                            
+                    }
+
+                    return true;
+                }
+                private bool ApplyItemSatisfaction(List<ConfigItem_Satisfaction> list) {
+
+                    for(int i =0; i < list.Count(); i++) {
+                        ConfigItem_Satisfaction p = list[i];
+                        if(p.measure is null || p.satisfactionId is null) {
+                            return false;
+                        }
+                        if(mSatisfaction.ContainsKey(p.satisfactionId) == false) {
+                            continue;
+                        }
+                        //min
+                        switch((ITEM_SATISFACTION_MEASURE)p.measure.min) {
+                            case ITEM_SATISFACTION_MEASURE.ABSOLUTE:
+                            mSatisfaction[p.satisfactionId].Min = p.min;
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.PERCENT:
+                            mSatisfaction[p.satisfactionId].Min += (mSatisfaction[p.satisfactionId].Min * (p.min / 100));
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.INCREASE:
+                            mSatisfaction[p.satisfactionId].Min += p.min;
+                            break;
+                        }
+                        //max
+                        switch((ITEM_SATISFACTION_MEASURE)p.measure.max) {
+                            case ITEM_SATISFACTION_MEASURE.ABSOLUTE:
+                            mSatisfaction[p.satisfactionId].Max = p.max;
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.PERCENT:
+                            mSatisfaction[p.satisfactionId].Max += (mSatisfaction[p.satisfactionId].Max * (p.max / 100));
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.INCREASE:
+                            mSatisfaction[p.satisfactionId].Max += p.max;
+                            break;
+                        }
+                        //value
+                        switch((ITEM_SATISFACTION_MEASURE)p.measure.value) {
+                            case ITEM_SATISFACTION_MEASURE.ABSOLUTE:
+                            mSatisfaction[p.satisfactionId].Value = p.value;
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.PERCENT:
+                            mSatisfaction[p.satisfactionId].Value += (mSatisfaction[p.satisfactionId].Value * (p.value / 100));
+                            break;
+                            case ITEM_SATISFACTION_MEASURE.INCREASE:
+                            mSatisfaction[p.satisfactionId].Value += p.value;
+                            break;
+                        }                                                
+                    }
+
+                    return true;
                 }
             }
         }
