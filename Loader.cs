@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-//using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
 
 namespace ENGINE {
     namespace GAMEPLAY {
@@ -151,8 +151,8 @@ namespace ENGINE {
             public class Loader {
                 public bool Load(string pathSatisfactions, string pathActors, string pathItem, string pathLevel) {
                     string jsonString = File.ReadAllText(pathSatisfactions);
-                    var sf = JsonSerializer.Deserialize<ConfigSatisfaction>(jsonString);
-
+                    
+                    var sf = JsonConvert.DeserializeObject<ConfigSatisfaction>(jsonString);                                                   
                     if(sf == null || sf.define == null || sf.tasks == null) {
                         return false;
                     }                    
@@ -193,15 +193,15 @@ namespace ENGINE {
                     //actors
                     if(SetActor(pathActors) == false) {
                         return false;
-                    }
+                    }                    
 
                     return true;
-                }
+                }                
                 // Set Actor
                 private bool SetActor(string pathActors) {
                     //Actor     
                     string jsonString = File.ReadAllText(pathActors);
-                    var actors = JsonSerializer.Deserialize< Dictionary<string, ConfigActors_Detail> >(jsonString);  
+                    var actors = JsonConvert.DeserializeObject< Dictionary<string, ConfigActors_Detail> >(jsonString);  
                     if(actors == null) {
                         return false;
                     }
@@ -234,7 +234,7 @@ namespace ENGINE {
                 private bool SetLevel(string path) {
                     //Actor     
                     string jsonString = File.ReadAllText(path);
-                    var j = JsonSerializer.Deserialize< Dictionary<string, ConfigLevel> >(jsonString);  
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigLevel> >(jsonString);  
                     if(j == null) {
                         return false;
                     }
@@ -248,7 +248,7 @@ namespace ENGINE {
                 // Set Item
                 private bool SetItem(string path) {
                     string jsonString = File.ReadAllText(path);
-                    var j = JsonSerializer.Deserialize< Dictionary<string, ConfigItem_Detail> >(jsonString);  
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigItem_Detail> >(jsonString);  
                     if(j == null) {
                         return false;
                     }
@@ -256,7 +256,7 @@ namespace ENGINE {
                     ItemHandler.Instance.Set(j);
 
                     return true;
-                }
+                }                
             }
         }
     }
