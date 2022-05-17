@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using ENGINE.GAMEPLAY.MOTIVATION;
 public enum SATISFACTION_CODE : int {
     HUNGRY = 100,

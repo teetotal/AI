@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
@@ -86,7 +90,7 @@ namespace ENGINE {
                     mSatisfaction[satisfactionId].Value += value;
                     
                     // update Relation 
-                    if(from is not null) {
+                    if(from != null) {
                         if(mRelation.ContainsKey(from) == false) {
                             mRelation[from] = new Dictionary<string, float>();
                         }
@@ -101,7 +105,7 @@ namespace ENGINE {
                 public bool checkLevelUp() {
                     //check level up                   
                     var info = LevelHandler.Instance.Get(mType, mLevel);
-                    if(info is not null && info.next is not null && info.next.threshold is not null) {                        
+                    if(info != null && info.next != null && info.next.threshold != null) {                        
                         foreach(ConfigLevel_Threshold t in info.next.threshold) {
                             if(t.key is null) {
                                 return false;
@@ -122,9 +126,9 @@ namespace ENGINE {
                 public bool LevelUp(List<ConfigLevel_Rewards>? rewards) {                    
                     mLevel++;
                     
-                    if(rewards is not null) {
+                    if(rewards != null) {
                         foreach(var reward  in rewards) {
-                            if(reward.itemId is not null ) {
+                            if(reward.itemId != null ) {
                                 if(!this.ReceiveItem(reward.itemId, reward.quantity)) {
                                     return false;
                                 }
@@ -207,7 +211,7 @@ namespace ENGINE {
                     1. get mean
                     2. finding max(norm(value) - avg)
                     */ 
-                    string satisfactionId = mSatisfaction.First().Key;  
+                    string satisfactionId = mSatisfaction.First().Key;
                     float minVal = 0;
                     float mean = GetMean();
                     foreach(var p in mSatisfaction) {
@@ -235,7 +239,7 @@ namespace ENGINE {
                     string sz = "";
                     foreach(var p in mInventory) {
                         var info = ItemHandler.Instance.GetItemInfo(p.Key);
-                        if(info is not null)
+                        if(info != null)
                             sz += String.Format("> {0} {1}\n", info.name, p.Value);
                     }
                     return sz;
@@ -248,7 +252,7 @@ namespace ENGINE {
 
                     switch((ITEM_INVOKE_TYPE)item.invoke.type) {
                         case ITEM_INVOKE_TYPE.IMMEDIATELY:
-                        if(item.satisfaction is not null) {
+                        if(item.satisfaction != null) {
                             for(int i = 0; i < quantity; i++)
                                 this.ApplyItemSatisfaction(item.satisfaction);
                         }                        
@@ -284,11 +288,11 @@ namespace ENGINE {
                         return false;
                     }
                     //satisfaction 적용
-                    if(item.satisfaction is not null) {
+                    if(item.satisfaction != null) {
                         if(item.invoke.expire == (int)ITEM_INVOKE_EXPIRE.FOREVER) {
                             ApplyItemSatisfaction(item.satisfaction); //적용하고 끝
                         } else {                            
-                            if(item.installationKey is not null) {
+                            if(item.installationKey != null) {
                                 //몸에 탑재하는 아이템
                                 //몸에 연결은 front에서 처리
                                 if(mInstallation.ContainsKey(itemKey) == false) {

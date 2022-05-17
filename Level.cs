@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
@@ -31,7 +34,7 @@ namespace ENGINE {
                         return null;
                     }
                     int idx = level-startLevel;         
-                    if(mLevelInfo.ContainsKey(type) && mLevelInfo[type].levels is not null && mLevelInfo[type].levels.Count() - 1 > idx) {                        
+                    if(mLevelInfo.ContainsKey(type) && mLevelInfo[type].levels != null && mLevelInfo[type].levels.Count - 1 > idx) {                        
                         return mLevelInfo[type].levels[idx];
                     }
                     return null;                        

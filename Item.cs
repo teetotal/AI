@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
@@ -24,10 +27,10 @@ namespace ENGINE {
                 public string GetPrintString(string key) {
                     var info = GetItemInfo(key);
                     string sz = "";
-                    if(info is not null && info.satisfaction is not null) {
+                    if(info != null && info.satisfaction != null) {
                         sz += String.Format("{0}", info.name);
                         foreach(var p in info.satisfaction) {
-                            if(p.satisfactionId is not null) {
+                            if(p.satisfactionId != null) {
                                 sz += String.Format(" - {0}({1})", SatisfactionDefine.Instance.GetTitle(p.satisfactionId), p.value);
                             }                            
                         }                        

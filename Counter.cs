@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ENGINE {
     namespace GAMEPLAY {
         //게임 전체 카운터

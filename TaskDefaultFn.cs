@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
@@ -13,7 +16,7 @@ namespace ENGINE {
                     this.mInfo = info;
                 }               
                 public override Dictionary<string, float> GetValues(string fromActorId) {
-                    if( (mInfo.relation is not null && mInfo.relation.target is not null && FindRelationTarget(mInfo.relation.target, fromActorId) is null)
+                    if( (mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(mInfo.relation.target, fromActorId) is null)
                         || mInfo.satisfactions is null) {
                         return new Dictionary<string, float>();
                     }
@@ -22,7 +25,7 @@ namespace ENGINE {
                 }
                 public override bool DoTask(Actor actor)
                 {                    
-                    if(mInfo.relation is not null && mInfo.relation.target is not null && mInfo.relation.satisfactions is not null) {
+                    if(mInfo.relation != null && mInfo.relation.target != null && mInfo.relation.satisfactions != null) {
                         //apply to someone
                         var targetActorId = FindRelationTarget(mInfo.relation.target, actor.mUniqueId);
                         if(targetActorId is null) {
@@ -69,7 +72,7 @@ namespace ENGINE {
                                     continue;
                                 }
                                 var satisfaction = actor.Value.GetSatisfaction(target2);
-                                if(satisfaction is not null) {
+                                if(satisfaction != null) {
                                     float v = satisfaction.Value;
                                     switch(condition) {
                                         case "MAX":

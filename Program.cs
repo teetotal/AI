@@ -1,17 +1,24 @@
 ﻿using ENGINE.GAMEPLAY;
 using ENGINE.GAMEPLAY.MOTIVATION;
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
-var p = new Loop();
-if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json")) {
-    p.MainLoop();
-} else {
-    Console.WriteLine("Failure loading config");
+class MainClass {
+    static void Main() {
+        var p = new Loop();
+        if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json")) {
+            p.MainLoop();
+        } else {
+            Console.WriteLine("Failure loading config");
+        }
+    }    
 }
 
 
+
 public class Loop {
-    int type = 1;
+    int type = 1;    
     public void MainLoop() {
         var actors = ActorHandler.Instance.GetActors(type);
         while(actors != null) {      
@@ -21,7 +28,7 @@ public class Loop {
             var input = Console.ReadLine();
             //string input  = "2";
             PrintLine();
-            if(input is not null) {
+            if(input != null) {
                 if(input == "q") {
                     return;
                 }
@@ -133,7 +140,7 @@ public class Loop {
             Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor.mUniqueId));
             if(isLevelUp == true) {
                 var reward = LevelHandler.Instance.Get(actor.mType, actor.mLevel);
-                if(reward is not null && reward.next is not null) {
+                if(reward != null && reward.next != null) {
                     actor.LevelUp(reward.next.rewards);
                     Console.WriteLine("Level up!! {0}", actor.mLevel);
                     foreach(var item in reward.next.rewards) {
