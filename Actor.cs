@@ -38,6 +38,11 @@ namespace ENGINE {
                 private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();
                 // Task 수행 횟수 저장 for level up
                 public Int64 mTaskCounter { get; set; }
+                //Quest ------------------------------------------------------------------------------------------------
+                //Quest handler에서 top만큼씩 수행 완료 처리.
+                public List<string> mQuestList { get; set; }
+                private Dictionary<string, double> mAccumulationSatisfaction = new Dictionary<string, double>(); //누적 Satisfaction
+                private Dictionary<string, Int64> mAccumulationTask = new Dictionary<string, Int64>(); //Task별 수행 횟수. taskhandler에서 호출
                 //Item -------------------------------------------------------------------------------------------------
                 //item key, quantity
                 private Dictionary<string, int> mInventory = new Dictionary<string, int>();
@@ -46,10 +51,11 @@ namespace ENGINE {
                 //발동중인 아이템 리스트                
                 private Dictionary<string, List<ItemUsage>> mInvoking = new Dictionary<string, List<ItemUsage>>();
                 //-------------------------------------------------------------------------------------------------
-                public Actor(int type, string uniqueId, int level) {
+                public Actor(int type, string uniqueId, int level, List<string> quests) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
                     this.mLevel = level;
+                    this.mQuestList = quests;
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
                 {
@@ -63,14 +69,24 @@ namespace ENGINE {
                         this.mUniqueId, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId), s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
+                //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
                 public bool Discharge(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, -amount, 0, null);
                 }
 
                 public bool Obtain(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, amount, 0, null);
-                }                
-                public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from) {
+                }     
+                //Task 수행횟수 기록
+                public void DoTask(string taskId) {
+                    if(mAccumulationTask.ContainsKey(taskId)) {
+                        mAccumulationTask[taskId] ++;
+                    } else {
+                        mAccumulationTask[taskId] = 1;
+                    }
+                    
+                }
+                public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
                         return false;
                     }
@@ -86,6 +102,14 @@ namespace ENGINE {
                     }
 
                     mSatisfaction[satisfactionId].Value += value;
+                    //quest를 위한 누적 집계. +만 집계한다. skipAccumulation값은 보상에 의한 건 skip하기 위한 flag
+                    if(value > 0 && skipAccumulation == false) {
+                        if(mAccumulationSatisfaction.ContainsKey(satisfactionId)) {
+                            mAccumulationSatisfaction[satisfactionId] += value;
+                        } else {
+                            mAccumulationSatisfaction[satisfactionId] = value;
+                        }
+                    }                    
                     
                     // update Relation 
                     if(from != null) {
@@ -98,13 +122,16 @@ namespace ENGINE {
                             mRelation[from][satisfactionId] += value;
                         }
                     }
+                    
                     return true;
-                }
+                }                
+
+                // Level up-------------------------------------------------------------------------------------------------------------
                 public bool checkLevelUp() {
                     //check level up                   
                     var info = LevelHandler.Instance.Get(mType, mLevel);
                     if(info != null && info.next != null && info.next.threshold != null) {                        
-                        foreach(ConfigLevel_Threshold t in info.next.threshold) {
+                        foreach(Config_KV_SF t in info.next.threshold) {
                             if(t.key is null) {
                                 return false;
                             }
@@ -121,7 +148,7 @@ namespace ENGINE {
                     }
                     return false;
                 }
-                public bool LevelUp(List<ConfigLevel_Rewards>? rewards) {                    
+                public bool LevelUp(List<Config_Reward>? rewards) {                    
                     mLevel++;
                     
                     if(rewards != null) {
@@ -145,19 +172,42 @@ namespace ENGINE {
                 public Dictionary<string, Satisfaction> GetSatisfactions() {
                     return mSatisfaction;
                 }
-                
+                // quest -------------------------------------------------------------------------------------------------------------
+                public List<string> GetQuest() {
+                    List<string> ret = new List<string>();
+                    int top = QuestHandler.Instance.GetTop(mType);
+                    int i = 0;
+                    foreach(string quest in this.mQuestList) {
+                        if(i >= top) {
+                            break;
+                        }
+                        ret.Add(quest);
+                        i++;                        
+                    }
+                    return ret;
+                }
+                public bool RemoveQuest(string questId) {
+                    return mQuestList.Remove(questId);
+                }
+                public double GetAccumulationSatisfaction(string satisfactionId) {
+                    if(mAccumulationSatisfaction.ContainsKey(satisfactionId))
+                        return mAccumulationSatisfaction[satisfactionId];
+                    return 0;
+                }
+                // task -------------------------------------------------------------------------------------------------------------
                 //return task id                
-                public int GetTaskId() {
-                    int taskId = 0;
+                public string? GetTaskId() {
+                    string? taskId = null;
                     float maxValue = 0.0f;                    
                     var tasks = TaskHandler.Instance.GetTasks();
-                    for(int i = 0; i < tasks.Count(); i++) {
-                        float expecedValue = GetExpectedValue(tasks[i]);
+                    foreach(var task in tasks) {
+                        //일정레벨 이상인 task가 조회하는거 구현해야 함
+                        float expecedValue = GetExpectedValue(task.Value);
                         if(expecedValue > maxValue) {
                             maxValue = expecedValue;
-                            taskId = i;
+                            taskId = task.Key;
                         }
-                    }
+                    }                    
                     return taskId;
                 }
                 private float GetExpectedValue(FnTask fn) {

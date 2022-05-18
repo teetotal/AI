@@ -8,6 +8,14 @@ namespace ENGINE {
         namespace MOTIVATION {
             using Newtonsoft.Json;
             //공통           
+            public class Config_KV_SF {
+                public string? key { get; set; }
+                public float value { get; set; }
+            }
+            public class Config_Reward {
+                public string? itemId { get; set; }
+                public int quantity { get; set; }
+            }
             public class Config_Satisfaction {
                 public string? satisfactionId { get; set; }
                 public float min { get; set; }
@@ -111,6 +119,7 @@ namespace ENGINE {
             }
             //Task ---------------------------------------------------------------           
             public class ConfigTask_Detail {
+                public string? id { get; set; }// task 고유 id
                 public int level1 { get; set; } //사용가능한 Actor 최소 레벨
                 public int level2 { get; set; } //사용가능한 Actor 최대 레벨
                 public string? title { get; set; }
@@ -136,21 +145,28 @@ namespace ENGINE {
                 public ConfigLevel_Next? next { get; set; }
             }  
             public class ConfigLevel_Next {
-                public List<ConfigLevel_Threshold>? threshold { get; set; }
-                public List<ConfigLevel_Rewards>? rewards { get; set; }                
+                public List<Config_KV_SF>? threshold { get; set; }
+                public List<Config_Reward>? rewards { get; set; }                
+            }            
+            //Quest ----------------------------------------------------------------------
+            public class ConfigQuest {
+                public int top { get; set; } //화면에 몇개씩 노출시킬것인가
+                public List<ConfigQuest_Detail>? quests { get; set; }
             }
-            public class ConfigLevel_Threshold {
-                public string? key { get; set; }
-                public float value { get; set; }
+            public class ConfigQuest_Detail {
+                public string? id { get; set; }
+                public string? title { get; set; }
+                public string? desc { get; set; }
+                public List<Config_KV_SF>? values { get; set; }     
+                public List<Config_Reward>? rewards  { get; set; }     
             }
-            public class ConfigLevel_Rewards{
-                public string? itemId { get; set; }
-                public int quantity { get; set; }
-            }
-            // ----------------------------------------------------------------------
-            /*
+            
             public class Loader {
-                public bool Load(string pathSatisfactions, string pathActors, string pathItem, string pathLevel) {
+                public bool Load( string pathSatisfactions, 
+                                  string pathActors, 
+                                  string pathItem, 
+                                  string pathLevel,
+                                  string pathQuest ) {
                     string jsonString = File.ReadAllText(pathSatisfactions);
                     
                     var sf = JsonConvert.DeserializeObject<ConfigSatisfaction>(jsonString);                                                   
@@ -178,6 +194,9 @@ namespace ENGINE {
 
                     //default task
                     if(SetTask(sf.tasks) == false) {
+                        return false;
+                    }
+                    if(SetQuest(pathQuest) == false)  {
                         return false;
                     }
 
@@ -208,21 +227,22 @@ namespace ENGINE {
                     }
 
                     foreach(var p in actors) {
-                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level);
+                        //나중에 진행한 quest도 읽어와서 넣어줘야 함
+                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level, null);
                         if(p.Value.satisfactions == null) {
                             return false;
                         }
                         foreach(var s in p.Value.satisfactions) {
+                            if(s.satisfactionId == null) return false;
                             a.SetSatisfaction(s.satisfactionId, s.min, s.max, s.value);
                         }
                     }
                     return true;
                 }
-
                 // Set Task
                 private bool SetTask(List<ConfigTask_Detail> tasks) {
                     foreach(var p in tasks) {
-                        if(p is null) {
+                        if(p == null) {
                             return false;
                         }
                         TaskDefaultFn fn = new TaskDefaultFn(p);                        
@@ -230,10 +250,22 @@ namespace ENGINE {
                     }
                     return true;
                 }
+                private bool SetQuest(string path) {                         
+                    string jsonString = File.ReadAllText(path);
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigQuest> >(jsonString);  
+                    if(j == null) {
+                        return false;
+                    }
+
+                    foreach(var p in j) {
+                        int type = int.Parse(p.Key);                        
+                        QuestHandler.Instance.Add(type, p.Value);
+                    }
+                    return true;
+                }
 
                 // Set Level
                 private bool SetLevel(string path) {
-                    //Actor     
                     string jsonString = File.ReadAllText(path);
                     var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigLevel> >(jsonString);  
                     if(j == null) {
@@ -258,7 +290,7 @@ namespace ENGINE {
 
                     return true;
                 }                
-            }*/
+            }
         }
     }
 }

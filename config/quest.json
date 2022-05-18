@@ -1,0 +1,58 @@
+{
+    "1": {
+        "top": 3,
+        "quests": [
+            {
+                "id": "basic_quest_1",
+                "title": "돈이 최고1",
+                "desc": "Gold 10모으기",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:101",
+                        "value": 10
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "basic_quest_2",
+                "title": "돈이 최고2",
+                "desc": "Gold 20모으기",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:101",
+                        "value": 20
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "basic_quest_3",
+                "title": "돈이 최고3",
+                "desc": "Gold 30모으기",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:101",
+                        "value": 30
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            }
+        ]
+    }
+}

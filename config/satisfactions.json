@@ -73,6 +73,7 @@
     },
     "tasks": [
         {
+            "id": "steal",
             "level1": 1,
             "level2": 3,
             "title": "도둑질",
@@ -94,6 +95,7 @@
             }
         },
         {
+            "id": "meal",
             "title": "밥먹기",
             "desc": "돈 내고 밥을 사먹는다",
             "satisfactions": {            
@@ -103,6 +105,7 @@
             "relation": null
         },
         {
+            "id": "hello",
             "title": "인사하기",
             "desc": "주변인에게 인사한다",
             "satisfactions": {
@@ -113,6 +116,7 @@
             "relation": null
         },
         {
+            "id": "love",
             "title": "짝사랑하기",
             "desc": "아무도 모르게 혼자 짝사랑 한다",
             "satisfactions": {
@@ -123,6 +127,7 @@
             "relation": null
         },
         {
+            "id": "work",
             "title": "일하기",
             "desc": "돈을 벌기 위해 일을 한다",
             "satisfactions": {
@@ -132,6 +137,7 @@
             "relation": null
         },
         {
+            "id": "security",
             "title": "보안업체 고용",
             "desc": "보안을 위해 보안업체 사용비 지출",
             "satisfactions": {

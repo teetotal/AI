@@ -1,19 +1,18 @@
-﻿/*
-global using global::System;
-global using global::System.Collections.Generic;
-global using global::System.IO;
-global using global::System.Linq;
-global using global::System.Net.Http;
-global using global::System.Threading;
-global using global::System.Threading.Tasks;
-//global using global::ENGINE.GAMEPLAY.MOTIVATION;
-global using global::ENGINE.GAMEPLAY;
-*/
-/*
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using ENGINE.GAMEPLAY.MOTIVATION;
+using ENGINE.GAMEPLAY;
+
+
 class MainClass {    
     static void Main() {
         var p = new Loop();
-        if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json")) {
+        if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json", "config/quest.json")) {
             p.MainLoop();
         } else {
             Console.WriteLine("Failure loading config");
@@ -31,8 +30,9 @@ public class Loop {
             Thread.Sleep(1000 * 1);
             PrintLine();
             Console.Write("0(System) 1(Next) 2(Task) 3(Inquiry) 4(Inquiry All) 5(Inventory) q(Quit): ");
-            var input = Console.ReadLine();
-            //string input  = "2";
+            //var input = Console.ReadLine();
+            string input  = "2";
+            Console.WriteLine();
             PrintLine();
             if(input != null) {
                 if(input == "q") {
@@ -62,9 +62,9 @@ public class Loop {
             }
         }
     }
-    public bool Load(string pathSatisfaction, string pathActor, string pathItem, string pathLevel) {
+    public bool Load(string pathSatisfaction, string pathActor, string pathItem, string pathLevel, string pathQuest) {
         var pLoader = new Loader();
-        if(!pLoader.Load(pathSatisfaction, pathActor, pathItem, pathLevel)) {
+        if(!pLoader.Load(pathSatisfaction, pathActor, pathItem, pathLevel, pathQuest)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }
@@ -139,22 +139,49 @@ public class Loop {
         foreach(var p in actors) {            
             var actor = p.Value;        
             //Task 
-            int taskid = actor.GetTaskId();
+            string? taskid = actor.GetTaskId();
+            if(taskid == null) continue;             
             var task = TaskHandler.Instance.GetTask(taskid);                 
+            if(task == null) continue;   
             task.DoTask(actor);
+
+            //levelup
             bool isLevelUp = actor.checkLevelUp();
-            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor.mUniqueId));
+            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor.mUniqueId));            
             if(isLevelUp == true) {
                 var reward = LevelHandler.Instance.Get(actor.mType, actor.mLevel);
-                if(reward != null && reward.next != null) {
+                if(reward != null && reward.next != null && reward.next.rewards != null) {
                     actor.LevelUp(reward.next.rewards);
                     Console.WriteLine("Level up!! {0}", actor.mLevel);
                     foreach(var item in reward.next.rewards) {
-                        Console.WriteLine("> Reward {0}", ItemHandler.Instance.GetPrintString(item.itemId));
+                        if(item.itemId != null)
+                            Console.WriteLine("> Reward {0}", ItemHandler.Instance.GetPrintString(item.itemId));
                     }
                     
                 }
-            }  
+            }
+
+            //quest
+            string completeQuestId = "";
+            List<string> quests = actor.GetQuest();
+            foreach(string questId  in quests) {
+                ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, questId);
+                if(quest == null) continue;
+                float complete = QuestHandler.Instance.GetCompleteRate(actor, questId);
+                Console.WriteLine("Quest> {0} ({1}) {2}%", quest.title, quest.desc, complete * 100);
+                if(complete >= 1 && completeQuestId.Length == 0) {
+                    //완료 처리
+                    completeQuestId = questId;
+                }
+            }
+
+            if(completeQuestId.Length > 0) {
+                bool ret = QuestHandler.Instance.Complete(actor, completeQuestId);                
+                ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, completeQuestId);
+                if(quest == null) continue;
+                Console.WriteLine("Quest Complete> {0} ({1}) {2}", quest.title, quest.desc, ret);
+            }
+            
         }
     }
     public void Next() {
@@ -179,4 +206,3 @@ public class Loop {
         }
     }
 }
-*/

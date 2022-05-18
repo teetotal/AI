@@ -5,6 +5,7 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public abstract class FnTask {
+                public string? mTaskId { get; set; }
                 public string? mTaskTitle { get; set; }
                 public string? mTaskDesc { get; set; }
                 public abstract Dictionary<string, float> GetValues(string fromActorId);
@@ -36,7 +37,7 @@ namespace ENGINE {
                 }                
             }
             public class TaskHandler {
-                private List<FnTask> mList = new List<FnTask>();
+                private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();
                 private static readonly Lazy<TaskHandler> instance =
                         new Lazy<TaskHandler>(() => new TaskHandler());
                 public static TaskHandler Instance {
@@ -46,14 +47,19 @@ namespace ENGINE {
                 }
 
                 private TaskHandler() { }
-                public void Add(FnTask task) {
-                    mList.Add(task);
+                public bool Add(FnTask task) {
+                    if(task.mTaskId == null) 
+                        return false;
+                    mDict.Add(task.mTaskId, task);
+                    return true;
                 }
-                public List<FnTask> GetTasks() {
-                    return mList;
+                public Dictionary<string, FnTask> GetTasks() {
+                    return mDict;
                 }
-                public FnTask GetTask(int idx) {
-                    return mList[idx];
+                public FnTask? GetTask(string taskId) {
+                    if(mDict.ContainsKey(taskId))
+                        return mDict[taskId];
+                    return null;
                 }
             }
         }

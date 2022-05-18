@@ -13,7 +13,6 @@ namespace ENGINE {
                         return instance.Value;
                     }
                 }
-
                 private ItemHandler() { }
                 public void Set(Dictionary<string, ConfigItem_Detail> p) {
                     mItemInfo = p;

@@ -11,6 +11,7 @@ namespace ENGINE {
             public class TaskDefaultFn : FnTask {
                 private ConfigTask_Detail mInfo;
                 public TaskDefaultFn(ConfigTask_Detail info) {
+                    this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
@@ -39,8 +40,10 @@ namespace ENGINE {
                             targetActor.ApplySatisfaction(p.Key, p.Value, 0, actor.mUniqueId);
                         }
                     }
-                    
-
+                    //Quest 계산
+                    if(mTaskId != null) {
+                        actor.DoTask(mTaskId);                        
+                    }                    
                     this.ApplyValue(actor);
                     return true;
                     

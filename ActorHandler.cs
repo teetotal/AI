@@ -23,14 +23,22 @@ namespace ENGINE {
 
                 private ActorHandler() {
                 }
-
-                public Actor AddActor(int type, string uniqueId, int level) {
-                    Actor a = new Actor(type, uniqueId, level);
+                // Quest list가 Null이면 받아온다.
+                public Actor AddActor(int type, string uniqueId, int level, List<string>? questList) {
+                    //quest
+                    List<string> quests;
+                    if(questList == null) {                        
+                        quests = QuestHandler.Instance.GetQuestList(type);
+                    } else {
+                        quests = questList;
+                    }
+                    Actor a = new Actor(type, uniqueId, level, quests);
                     mDict.Add(uniqueId, a);
                     if(mDictType.ContainsKey(type) == false) {
                         mDictType[type] = new Dictionary<string, Actor>();
                     }
                     mDictType[type][uniqueId] = a;
+                    
                     return a;
                 }
                 public Actor? GetActor(string uniqueId) {
