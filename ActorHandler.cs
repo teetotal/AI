@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+#nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
@@ -33,7 +33,6 @@ namespace ENGINE {
                     mDictType[type][uniqueId] = a;
                     return a;
                 }
-
                 public Actor? GetActor(string uniqueId) {
                     if(mDict.ContainsKey(uniqueId) == true) {
                         return mDict[uniqueId];

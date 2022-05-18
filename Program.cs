@@ -1,10 +1,16 @@
-﻿using ENGINE.GAMEPLAY;
-using ENGINE.GAMEPLAY.MOTIVATION;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-
-class MainClass {
+﻿/*
+global using global::System;
+global using global::System.Collections.Generic;
+global using global::System.IO;
+global using global::System.Linq;
+global using global::System.Net.Http;
+global using global::System.Threading;
+global using global::System.Threading.Tasks;
+//global using global::ENGINE.GAMEPLAY.MOTIVATION;
+global using global::ENGINE.GAMEPLAY;
+*/
+/*
+class MainClass {    
     static void Main() {
         var p = new Loop();
         if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json")) {
@@ -173,3 +179,4 @@ public class Loop {
         }
     }
 }
+*/

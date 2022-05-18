@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-
+#nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public abstract class FnTask {
-                //public int mTaskId { get; set; }
                 public string? mTaskTitle { get; set; }
                 public string? mTaskDesc { get; set; }
                 public abstract Dictionary<string, float> GetValues(string fromActorId);

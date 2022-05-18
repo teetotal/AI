@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
-
-
+using System.Linq;
+#nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
+            using Newtonsoft.Json;
             //공통           
             public class Config_Satisfaction {
                 public string? satisfactionId { get; set; }
@@ -49,7 +49,7 @@ namespace ENGINE {
                     ] 
                 }
             }
-            */
+            */            
             //Item ---------------------------------------------------------------    
             public class ConfigItem_Detail {
                 public string? name { get; set; }
@@ -148,6 +148,7 @@ namespace ENGINE {
                 public int quantity { get; set; }
             }
             // ----------------------------------------------------------------------
+            /*
             public class Loader {
                 public bool Load(string pathSatisfactions, string pathActors, string pathItem, string pathLevel) {
                     string jsonString = File.ReadAllText(pathSatisfactions);
@@ -257,7 +258,7 @@ namespace ENGINE {
 
                     return true;
                 }                
-            }
+            }*/
         }
     }
 }

@@ -1,24 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+#nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            public enum ITEM_INVOKE_TYPE : int {
-                IMMEDIATELY = 0,
-                INVENTORY
-            }
-            public enum ITEM_INVOKE_EXPIRE : int {
-                FOREVER = 0,
-                LIMITED
-            }
-            public enum ITEM_SATISFACTION_MEASURE : int {
-                ABSOLUTE  = 0,
-                PERCENT,
-                INCREASE
-            }
-
             public class ItemUsage {
                 public ItemUsage(string itemKey, int expire, int usage) {
                     this.itemKey = itemKey;
@@ -29,7 +15,20 @@ namespace ENGINE {
                 public int expire { get; set; }
                 public int usage { get; set; }
             }            
-            public class Actor {                
+            public class Actor {           
+                public enum ITEM_INVOKE_TYPE : int {
+                    IMMEDIATELY = 0,
+                    INVENTORY
+                }
+                public enum ITEM_INVOKE_EXPIRE : int {
+                    FOREVER = 0,
+                    LIMITED
+                }
+                public enum ITEM_SATISFACTION_MEASURE : int {
+                    ABSOLUTE  = 0,
+                    PERCENT,
+                    INCREASE
+                }     
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
@@ -70,8 +69,7 @@ namespace ENGINE {
 
                 public bool Obtain(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, amount, 0, null);
-                }
-
+                }                
                 public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
                         return false;
@@ -147,9 +145,8 @@ namespace ENGINE {
                 public Dictionary<string, Satisfaction> GetSatisfactions() {
                     return mSatisfaction;
                 }
-                /*
-                return task id
-                */
+                
+                //return task id                
                 public int GetTaskId() {
                     int taskId = 0;
                     float maxValue = 0.0f;                    
@@ -164,12 +161,11 @@ namespace ENGINE {
                     return taskId;
                 }
                 private float GetExpectedValue(FnTask fn) {
-                    /*
-                    1. satisfaction loop
-                    2. if check in fn then sum
-                    3. cal normalization
-                    4. get mean
-                    */  
+                    
+                    //1. satisfaction loop
+                    //2. if check in fn then sum
+                    //3. cal normalization
+                    //4. get mean                      
                     float sum = 0;
                     var taskSatisfaction = fn.GetValues(mUniqueId);                  
                     foreach(var p in mSatisfaction) {
@@ -202,15 +198,13 @@ namespace ENGINE {
 
                     return v / max;
                 }
-                /*
-                return satisfaction id
-                */
+                
+                //return satisfaction id                
                 public Tuple<string, float> GetMotivation()
-                {
-                    /*                                        
-                    1. get mean
-                    2. finding max(norm(value) - avg)
-                    */ 
+                {                                                            
+                    //1. get mean
+                    //2. finding max(norm(value) - avg)
+                     
                     string satisfactionId = mSatisfaction.First().Key;
                     float minVal = 0;
                     float mean = GetMean();

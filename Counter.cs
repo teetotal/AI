@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ENGINE {
-    namespace GAMEPLAY {
+    namespace GAMEPLAY {        
         //게임 전체 카운터
         public class Counter {
             private Int64 mCounter { get; set; }

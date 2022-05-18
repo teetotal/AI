@@ -4,10 +4,8 @@ using System.Linq;
 
 namespace ENGINE {
     namespace GAMEPLAY {
-        namespace MOTIVATION {
-            /*
-            Discharge가 호출되면 Counter값을 읽어와 시나리오별로 Period와 LastDischargeTime을 계산해서 실행한다.
-            */
+        namespace MOTIVATION {            
+            //Discharge가 호출되면 Counter값을 읽어와 시나리오별로 Period와 LastDischargeTime을 계산해서 실행한다.            
             class DischargeScenario {
                 public DischargeScenario(string satisfactionId, float amout, Int64 period) {
                     this.SatisfactionId = satisfactionId;

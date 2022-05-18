@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
+#nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
-        namespace MOTIVATION {
-            /*
-            단순 task
-            json으로 관리
-            */
+        namespace MOTIVATION {            
+            //단순 task
+            //json으로 관리            
             public class TaskDefaultFn : FnTask {
                 private ConfigTask_Detail mInfo;
                 public TaskDefaultFn(ConfigTask_Detail info) {
