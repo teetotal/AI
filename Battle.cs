@@ -49,6 +49,10 @@ namespace ENGINE {
                 public string GetPositionString(int x, int y) {
                     return string.Format("{0},{1}", x, y);
                 }
+                public int[] GetPositionInt(string position) {
+                    string[] arr = position.Split(',');
+                    return new int[] {int.Parse(arr[0]), int.Parse(arr[1])};
+                }
                 public bool AppendInitMapTile(int x, int y, int advantage1, int advantage2) {
                     string position = GetPositionString(x, y);
                     if(mBattleMap.ContainsKey(position)) return false;
@@ -95,9 +99,7 @@ namespace ENGINE {
                     string pos = GetActorPosition(actorId);
                     if(pos.Length == 0) 
                         return new int[] {-1, -1};
-
-                    string[] arr = pos.Split(',');
-                    return new int[] {int.Parse(arr[0]), int.Parse(arr[1])};
+                    return GetPositionInt(pos);
                 }
                 public string GetActorPosition(string actorId) {
                     if(mActorPosition.ContainsKey(actorId) == false) 
@@ -112,7 +114,13 @@ namespace ENGINE {
 
                     return mBattleMap[position];
                 }
-
+                public bool Exist(string pos) {
+                    if(mBattleMap.ContainsKey(pos)) {
+                        return true;
+                    }
+                    return false;
+                }
+                /*
                 public string Act(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
                     List<string> list = Sight(actor);
@@ -135,20 +143,26 @@ namespace ENGINE {
                     MoveTo(actorId, list[idx]);
                     return list[idx];
                 }
+                */
                 //candidates of possible position
-                private List<string> Sight(BattleActor actor) {
+                public List<string> Sight(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
+                    string currPos = GetActorPosition(actorId);
+                    return GetNearPostions(currPos, actor.mAbility.Sight);
+                }
+                public List<string> GetNearPostions(string position, int sight) {
+                    int[] pos = GetPositionInt(position);
                     List<string> ret = new List<string>(); 
-                    int[] currPos = GetActorPositionInt(actorId);
-                    if(currPos[0] == -1 && currPos[1] == -1) {
+                    if(pos[0] == -1 && pos[1] == -1) {
                         return ret;
                     }
+                    ret.Add(GetPositionString(pos[0], pos[1]));
                     
-                    for(int n = 1; n < actor.mAbility.Sight; n++) {
+                    for(int n = 1; n <= sight; n++) {
                         //상하좌우 + 대각선4
                         for(int i = 0; i < 8; i++) {
-                            int x = currPos[0];
-                            int y = currPos[1];
+                            int x = pos[0];
+                            int y = pos[1];
 
                             switch(i) {
                                 case 0: //+x  
@@ -180,17 +194,17 @@ namespace ENGINE {
                                 y = Math.Max(mHeight, y-n);
                                 break;
                             }
+                            if(pos[0] == x && pos[1] == y) continue;
                             ret.Add(GetPositionString(x, y));
                         }
                     }
                     return ret;
-                    
                 }
                 public BattleMapTile GetChangedTile(BattleMapTile origin, string actorId, BATTLEMAPTILE_STATE state) {
                     return new BattleMapTile(actorId, origin.advantage1, origin.advantage2, state);
                 }
                 //actor를 어디론가 이동. 그 자리에 누군가 있으면 실패
-                private bool MoveTo(string actorId, string to) {
+                public bool MoveTo(string actorId, string to) {
                     if(mBattleMap.ContainsKey(to) == false || mBattleMap[to].actorId.Length > 0 )
                         return false;
 
@@ -217,18 +231,7 @@ namespace ENGINE {
 
                     return true;
                 }
-                //이동시 이득 계산. 일단은 간단하게만.
-                private float GetEstimation(BattleActor actor, string from, string to) {
-                    if(mBattleMap.ContainsKey(from) && mBattleMap.ContainsKey(to)) {
-                        switch(actor.mSide) {
-                            case BATTLE_SIDE.HOME:
-                            return mBattleMap[to].advantage1 - mBattleMap[from].advantage1;
-                            case BATTLE_SIDE.AWAY:
-                            return mBattleMap[to].advantage2 - mBattleMap[from].advantage2;
-                        }
-                    }
-                    return 0;
-                }
+                
                 public List<string> GetReadyActors() {
                     List<string> ret = new List<string>();
                     foreach(var p in mActorPosition) {
@@ -292,7 +295,7 @@ namespace ENGINE {
                             continue;
                         }
 
-                        string to = mMap.Act(actor);
+                        string to = Act(actor);
                         if(to.Length > 0) {
                             ret.Add(actorId, to);
                         }
@@ -300,6 +303,28 @@ namespace ENGINE {
                     }                    
                     return ret;
                 }
+                public string Act(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
+                    List<string> list = mMap.Sight(actor);
+                    if(list.Count() == 0) {
+                        return "";
+                    }
+                    int idx = 0;
+                    string from = mMap.GetActorPosition(actorId);
+                    float max = GetEstimation(actor, from, list[idx]);
+
+                    for(int i = 0; i < list.Count(); i++) {
+                        string position = list[i];
+                        float v = GetEstimation(actor, from, position);
+
+                        if(v > max) {
+                            idx = i;
+                            max = v;
+                        }
+                    }
+                    mMap.MoveTo(actorId, list[idx]);
+                    return list[idx];
+                } 
                 public void Occupy(string actorId) {                    
                     string position = mMap.GetActorPosition(actorId);
                     if(IsValidPosition(position)) {
@@ -312,7 +337,50 @@ namespace ENGINE {
                 private bool IsValidPosition(string position) {                    
                     if(position.Length == 0) return false;
                     return true;
-                }                
+                }    
+
+                // ----------------------------------------------------------------------
+                //이동시 이득 계산. 
+                //adv - disadv + cost
+                private float GetEstimation(BattleActor actor, string from, string to) {
+                    var fromTile = mMap.GetBattleMapTile(from);
+                    var toTile = mMap.GetBattleMapTile(to);
+
+                    float ret = 0;
+                    if(fromTile != null && toTile != null) {
+                        switch(actor.mSide) {
+                            case BATTLE_SIDE.HOME:
+                            ret = toTile.advantage1 - fromTile.advantage1;
+                            break;
+                            case BATTLE_SIDE.AWAY:
+                            ret = toTile.advantage2 - fromTile.advantage2;
+                            break;
+                        }
+                    }
+
+                    ret = ret + GetCost(from, actor.mSide) - (GetCost(to, actor.mSide) * 0.9f);
+                    return ret;
+                }
+                private float GetCost(string position, BATTLE_SIDE mySide) {
+                    //주변의 공격
+                    //공격 가능 등
+
+                    //일단은 인접 공격만 계산
+                    float cost = 0;
+                    List<string> list = mMap.GetNearPostions(position, 1);
+                    foreach(string pos in list) {
+                        BattleMapTile? tile = mMap.GetBattleMapTile(pos);
+                        if(tile != null && tile.actorId.Length > 0) {
+                            var actor = mBattleActor.GetBattleActor(tile.actorId);
+                            if(actor != null) {
+                                if(actor.mSide != mySide) {
+                                    cost += 1.5f;
+                                }
+                            }
+                        }
+                    }
+                    return cost;
+                }            
             }
         }        
     }

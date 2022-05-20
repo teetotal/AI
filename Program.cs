@@ -30,11 +30,11 @@ public class BattleTest {
     public void Init() {        
         int[,] mapAdv1 =
         {
-            {2,      3,      4,       5,      6,    7},
-            {3,      4,      5,       6,      7,    8},
-            {4,      5,      6,       7,      8,    9},
-            {3,      4,      5,       6,      7,    8},
-            {2,      3,      4,       5,      6,    7}
+            {5,      5,      5,       5,      6,    7},
+            {6,      6,      5,       6,      7,    8},
+            {8,      8,      6,       7,      8,    9},
+            {6,      6,      5,       6,      7,    8},
+            {5,      5,      5,       5,      6,    7}
         };
 
         int[,] mapAdv2 =
@@ -52,14 +52,19 @@ public class BattleTest {
         }
 
         var pActor = ActorHandler.Instance.GetActor("독고다이");
-        if(pActor == null) {
+        var pActorAway1 = ActorHandler.Instance.GetActor("애정이");
+        var pActorAway2 = ActorHandler.Instance.GetActor("쌍콤이");
+        
+        if(pActor == null || pActorAway1 == null || pActorAway2 == null) {
             return;
         }
         BattleActorAbility ability = new BattleActorAbility();
-        ability.Sight = 2;        
+        ability.Sight = 1;        
         ability.Speed = 1;
 
         mBattle.AppendActor(0, 0, pActor, BATTLE_SIDE.HOME, ability);
+        mBattle.AppendActor(5, 2, pActorAway1, BATTLE_SIDE.AWAY, ability);
+        mBattle.AppendActor(5, 0, pActorAway2, BATTLE_SIDE.AWAY, ability);
         if(!mBattle.Validate()) {
             Console.WriteLine("Invalid");
             return;

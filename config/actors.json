@@ -113,5 +113,59 @@
                 "value": 30
             }
         ]
+    },
+    "쌍콤이": {
+        "type": 1,
+        "level": 1,
+        "satisfactions": [
+            {
+                "satisfactionId": "1",
+                "min": 50,
+                "max": 80,
+                "value": 60
+            },
+            {
+                "satisfactionId": "2",
+                "min": 50,
+                "max": 80,
+                "value": 60
+            },
+            {
+                "satisfactionId": "3",
+                "min": 50,
+                "max": 80,
+                "value": 60
+            },
+            {
+                "satisfactionId": "100",
+                "min": 15,
+                "max": 85,
+                "value": 50
+            },
+            {
+                "satisfactionId": "101",
+                "min": 15,
+                "max": 85,
+                "value": 50
+            },
+            {
+                "satisfactionId": "110",
+                "min": 15,
+                "max": 85,
+                "value": 50
+            },
+            {
+                "satisfactionId": "120",
+                "min": 15,
+                "max": 85,
+                "value": 50
+            },
+            {
+                "satisfactionId": "130",
+                "min": 15,
+                "max": 85,
+                "value": 30
+            }
+        ]
     }
 }
