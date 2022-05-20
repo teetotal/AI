@@ -39,11 +39,11 @@ public class BattleTest {
 
         int[,] mapAdv2 =
         {
-            {7,      8,      7,       6,      3,    2},
-            {8,      8,      7,       6,      4,    3},
+            {7,      8,      7,       6,      5,    2},
+            {8,      8,      7,       6,      5,    3},
             {9,      8,      7,       6,      5,    4},
-            {8,      8,      7,       6,      4,    3},
-            {7,      8,      7,       6,      3,    2}
+            {8,      8,      7,       6,      5,    3},
+            {7,      8,      7,       6,      5,    2}
         };
 
         mBattle = new Battle(6, 5);
@@ -51,23 +51,40 @@ public class BattleTest {
             return;
         }
 
-        var pActor1 = ActorHandler.Instance.GetActor("독고다이");
-        var pActor2 = ActorHandler.Instance.GetActor("애정이");
+        var pActor1 = ActorHandler.Instance.GetActor("hf");
+        var pActor2 = ActorHandler.Instance.GetActor("hs");
 
-        var pActorAway1 = ActorHandler.Instance.GetActor("얍실이");
-        var pActorAway2 = ActorHandler.Instance.GetActor("쌍콤이");
+        var pActorAway1 = ActorHandler.Instance.GetActor("af");
+        var pActorAway2 = ActorHandler.Instance.GetActor("as");
         
         if(pActor1 == null || pActor2 == null || pActorAway1 == null || pActorAway2 == null) {
             return;
         }
-        BattleActorAbility ability = new BattleActorAbility();
-        ability.Sight = 1;        
-        ability.Speed = 1;
+        BattleActorAbility abilityForward = new BattleActorAbility();
+        abilityForward.Sight = 1;        
+        abilityForward.Speed = 1;
+        abilityForward.MoveForward = 1;
+        abilityForward.MoveBack = 0;
+        abilityForward.MoveSide = 0;
 
-        mBattle.AppendActor(0, 0, pActor1, BATTLE_SIDE.HOME, ability);
-        mBattle.AppendActor(0, 2, pActor2, BATTLE_SIDE.HOME, ability);
-        mBattle.AppendActor(5, 2, pActorAway1, BATTLE_SIDE.AWAY, ability);
-        mBattle.AppendActor(5, 0, pActorAway2, BATTLE_SIDE.AWAY, ability);
+        BattleActorAbility abilityBack = new BattleActorAbility();
+        abilityBack.Sight = 1;        
+        abilityBack.Speed = 1;
+        abilityBack.MoveForward = 0;
+        abilityBack.MoveBack = 1;
+        abilityBack.MoveSide = 0;
+
+        BattleActorAbility abilitySide = new BattleActorAbility();
+        abilitySide.Sight = 1;        
+        abilitySide.Speed = 1;
+        abilitySide.MoveForward = 0;
+        abilitySide.MoveBack = 0;
+        abilitySide.MoveSide = 2;
+
+        mBattle.AppendActor(0, 0, pActor1, BATTLE_SIDE.HOME, abilityForward);
+        mBattle.AppendActor(2, 2, pActor2, BATTLE_SIDE.HOME, abilitySide);
+        mBattle.AppendActor(5, 0, pActorAway1, BATTLE_SIDE.AWAY, abilityForward);
+        mBattle.AppendActor(3, 3, pActorAway2, BATTLE_SIDE.AWAY, abilitySide);
         if(!mBattle.Validate()) {
             Console.WriteLine("Invalid");
             return;

@@ -148,7 +148,17 @@ namespace ENGINE {
                 public List<string> Sight(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
                     string currPos = GetActorPosition(actorId);
-                    return GetNearPostions(currPos, actor.mAbility.Sight);
+                    List<string> list = GetNearPostions(currPos, actor.mAbility.Sight);
+                    //check occupied
+                    List<string> ret = new List<string>();
+                    foreach(string pos in list) {
+                        var tile = GetBattleMapTile(pos);
+                        if(tile != null && tile.state == BATTLEMAPTILE_STATE.EMPTY) {
+                            ret.Add(pos);
+                        }
+                    }
+                    ret.Add(currPos); //현재 위치 추가.
+                    return ret;
                 }
                 public List<string> GetNearPostions(string position, int sight) {
                     int[] pos = GetPositionInt(position);
@@ -156,7 +166,9 @@ namespace ENGINE {
                     if(pos[0] == -1 && pos[1] == -1) {
                         return ret;
                     }
-                    ret.Add(GetPositionString(pos[0], pos[1]));
+                    
+                    int width = mWidth -1;
+                    int height = mHeight -1;
                     
                     for(int n = 1; n <= sight; n++) {
                         //상하좌우 + 대각선4
@@ -166,32 +178,32 @@ namespace ENGINE {
 
                             switch(i) {
                                 case 0: //+x  
-                                x = Math.Min(mWidth, x+n);
+                                x = Math.Min(width, x+n);
                                 break;
                                 case 1: //-x
                                 x = Math.Max(0, x-n);
                                 break;
                                 case 2: //+y
-                                y = Math.Min(mHeight, y+n);
+                                y = Math.Min(height, y+n);
                                 break;
                                 case 3: //-y
-                                y = Math.Max(mHeight, y-n);
+                                y = Math.Max(0, y-n);
                                 break;
                                 case 4: //-x +y
                                 x = Math.Max(0, x-n);
-                                y = Math.Min(mHeight, y+n);
+                                y = Math.Min(height, y+n);
                                 break;
                                 case 5: //+x +y
-                                x = Math.Min(mWidth, x+n);
-                                y = Math.Min(mHeight, y+n);
+                                x = Math.Min(width, x+n);
+                                y = Math.Min(height, y+n);
                                 break;
                                 case 6: //-x -y
                                 x = Math.Max(0, x-n);
-                                y = Math.Max(mHeight, y-n);
+                                y = Math.Max(0, y-n);
                                 break;
                                 case 7: //+x -y
-                                x = Math.Min(mWidth, x+n);
-                                y = Math.Max(mHeight, y-n);
+                                x = Math.Min(width, x+n);
+                                y = Math.Max(0, y-n);
                                 break;
                             }
                             if(pos[0] == x && pos[1] == y) continue;
@@ -309,21 +321,23 @@ namespace ENGINE {
                     if(list.Count() == 0) {
                         return "";
                     }
-                    int idx = 0;
+                    string maxPos = list[0];
                     string from = mMap.GetActorPosition(actorId);
-                    float max = GetEstimation(actor, from, list[idx]);
+                    float max = GetEstimation(actor, from, list[0]);
 
-                    for(int i = 0; i < list.Count(); i++) {
-                        string position = list[i];
-                        float v = GetEstimation(actor, from, position);
-
+                    //같은 패턴 반복을 막기 위해 
+                    var rnd = new Random();
+                    var randomized = list.OrderBy(item => rnd.Next());
+                    foreach(var to in randomized) {
+                        float v = GetEstimation(actor, from, to); 
                         if(v > max) {
-                            idx = i;
+                            maxPos = to;
                             max = v;
                         }
                     }
-                    mMap.MoveTo(actorId, list[idx]);
-                    return list[idx];
+
+                    mMap.MoveTo(actorId, maxPos);
+                    return maxPos;
                 } 
                 public void Occupy(string actorId) {                    
                     string position = mMap.GetActorPosition(actorId);
@@ -358,34 +372,82 @@ namespace ENGINE {
                         }
                     }
 
-                    ret = ret + GetCost(to, actor.mSide);
+                    ret = ret + GetCost(actor, from, to, actor.mSide);
                     return ret;
                 }
-                private float GetCost(string position, BATTLE_SIDE mySide) {
+                private float GetCost(BattleActor actor, string from, string to, BATTLE_SIDE mySide) {
                     //주변의 공격
                     //공격 가능 등
 
                     //일단은 인접 공격만 계산
                     float cost = 0;
-                    List<string> list = mMap.GetNearPostions(position, 1);
+                    //돌격성 or 안정성. 상대 진영으로 달려든다.
+                    cost += GetMoveCost(actor, from, to);
+                    /*
+                    List<string> list = mMap.GetNearPostions(to, 1);
                     foreach(string pos in list) {
                         BattleMapTile? tile = mMap.GetBattleMapTile(pos);
                         if(tile != null && tile.actorId.Length > 0) {
-                            var actor = mBattleActor.GetBattleActor(tile.actorId);
-                            if(actor != null) {
+                            var targetActor = mBattleActor.GetBattleActor(tile.actorId);
+                            if(targetActor != null) {
 
                                 //공격성 or 수비성. 상대방이 보이면 달려든다.
                                 if(actor.mSide != mySide) {
-                                    cost += 1.0f;
+                                    //cost += 1.0f;
                                 }
-
-                                //돌격성 or 안정성. 상대 진영으로 달려든다.
-
                             }
                         }
                     }
+                    */
                     return cost;
-                }            
+                }     
+                private float GetMoveCost(BattleActor actor, string from, string to) {
+                    int[] fromInt = mMap.GetPositionInt(from);
+                    int[] toInt = mMap.GetPositionInt(to);
+
+                    float cost = 0;
+                    
+                    switch(actor.mSide) {
+                        case BATTLE_SIDE.HOME:
+                        {
+                            if(actor.mAbility.MoveForward != 0) {
+                                if(toInt[0] - fromInt[0] > 0) { //전방
+                                    cost += actor.mAbility.MoveForward;
+                                }
+                            }
+                            
+                            if(actor.mAbility.MoveBack != 0) {
+                                if(toInt[0] - fromInt[0] < 0) { //후방
+                                    cost += actor.mAbility.MoveBack;
+                                }
+                            }
+                        }
+                        break;
+                        case BATTLE_SIDE.AWAY:
+                        {
+                            if(actor.mAbility.MoveForward != 0) {
+                                if(toInt[0] - fromInt[0] < 0) { //전방
+                                    cost += actor.mAbility.MoveForward;
+                                }
+                            }
+                            if(actor.mAbility.MoveBack != 0) {
+                                if(toInt[0] - fromInt[0] > 0) { //후방
+                                    cost += actor.mAbility.MoveBack;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    //라인 유지
+                    if(actor.mAbility.MoveSide != 0) {
+                        if(fromInt[0] == toInt[0] && fromInt[1] != toInt[1]) { 
+                            cost += actor.mAbility.MoveSide;
+                        }
+                    }
+                    //Console.WriteLine("{0} [{1}] > [{2}] : {3}", actor.mActor.mUniqueId,  from, to, cost);
+
+                    return cost;
+                }       
             }
         }        
     }

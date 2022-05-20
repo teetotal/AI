@@ -1,5 +1,5 @@
 {
-    "독고다이": {
+    "hf": {
         "type": 1,
         "level": 1,
         "satisfactions": [
@@ -60,7 +60,7 @@
             }
         ]
     },
-    "애정이": {
+    "hs": {
         "type": 1,
         "level": 1,
         "satisfactions": [
@@ -114,7 +114,7 @@
             }
         ]
     },
-    "쌍콤이": {
+    "af": {
         "type": 1,
         "level": 1,
         "satisfactions": [
@@ -168,7 +168,7 @@
             }
         ]
     },
-    "얍실이": {
+    "as": {
         "type": 1,
         "level": 1,
         "satisfactions": [

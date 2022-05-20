@@ -8,6 +8,15 @@ namespace ENGINE {
             public class BattleActorAbility {
                 public int Sight { get; set; }
                 public float Speed { get; set; }
+                /*
+                Move
+                전방 돌격형
+                수비라인 유지형
+                후방 안정형
+                */
+                public float MoveForward { get; set; } //전방
+                public float MoveBack { get; set; } // 후방 
+                public float MoveSide { get; set; } // 후방 
             }
             public enum BATTLE_SIDE {
                 NONE,
