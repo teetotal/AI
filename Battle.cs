@@ -113,18 +113,19 @@ namespace ENGINE {
                     return mBattleMap[position];
                 }
 
-                public string Act(string actorId) {
-                    List<string> list = Sight(actorId);
+                public string Act(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
+                    List<string> list = Sight(actor);
                     if(list.Count() == 0) {
                         return "";
                     }
                     int idx = 0;
                     string from = mActorPosition[actorId];
-                    float max = GetEstimation(actorId, from, list[idx]);
+                    float max = GetEstimation(actor, from, list[idx]);
 
                     for(int i = 0; i < list.Count(); i++) {
                         string position = list[i];
-                        float v = GetEstimation(actorId, from, position);
+                        float v = GetEstimation(actor, from, position);
 
                         if(v > max) {
                             idx = i;
@@ -135,33 +136,52 @@ namespace ENGINE {
                     return list[idx];
                 }
                 //candidates of possible position
-                private List<string> Sight(string actorId) {
+                private List<string> Sight(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
                     List<string> ret = new List<string>(); 
                     int[] currPos = GetActorPositionInt(actorId);
                     if(currPos[0] == -1 && currPos[1] == -1) {
                         return ret;
                     }
-                    //지금은 간단히 상하좌우만
-                    for(int i = 0; i < 4; i++) {
-                        int x = currPos[0];
-                        int y = currPos[1];
+                    
+                    for(int n = 1; n < actor.mAbility.Sight; n++) {
+                        //상하좌우 + 대각선4
+                        for(int i = 0; i < 8; i++) {
+                            int x = currPos[0];
+                            int y = currPos[1];
 
-                        switch(i) {
-                            case 0: //x+1  
-                            x = Math.Min(mWidth, x+1);
-                            break;
-                            case 1: //x-1
-                            x = Math.Max(0, x-1);
-                            break;
-                            case 2: //y+1
-                            y = Math.Min(mHeight, y+1);
-                            break;
-                            case 3: //y-1
-                            y = Math.Max(mHeight, y-1);
-                            break;
+                            switch(i) {
+                                case 0: //+x  
+                                x = Math.Min(mWidth, x+n);
+                                break;
+                                case 1: //-x
+                                x = Math.Max(0, x-n);
+                                break;
+                                case 2: //+y
+                                y = Math.Min(mHeight, y+n);
+                                break;
+                                case 3: //-y
+                                y = Math.Max(mHeight, y-n);
+                                break;
+                                case 4: //-x +y
+                                x = Math.Max(0, x-n);
+                                y = Math.Min(mHeight, y+n);
+                                break;
+                                case 5: //+x +y
+                                x = Math.Min(mWidth, x+n);
+                                y = Math.Min(mHeight, y+n);
+                                break;
+                                case 6: //-x -y
+                                x = Math.Max(0, x-n);
+                                y = Math.Max(mHeight, y-n);
+                                break;
+                                case 7: //+x -y
+                                x = Math.Min(mWidth, x+n);
+                                y = Math.Max(mHeight, y-n);
+                                break;
+                            }
+                            ret.Add(GetPositionString(x, y));
                         }
-
-                        ret.Add(GetPositionString(x, y));
                     }
                     return ret;
                     
@@ -198,12 +218,14 @@ namespace ENGINE {
                     return true;
                 }
                 //이동시 이득 계산. 일단은 간단하게만.
-                private float GetEstimation(string actorId, string from, string to, bool isMyTurn = true) {
+                private float GetEstimation(BattleActor actor, string from, string to) {
                     if(mBattleMap.ContainsKey(from) && mBattleMap.ContainsKey(to)) {
-                        if(isMyTurn)
+                        switch(actor.mSide) {
+                            case BATTLE_SIDE.HOME:
                             return mBattleMap[to].advantage1 - mBattleMap[from].advantage1;
-                        else 
+                            case BATTLE_SIDE.AWAY:
                             return mBattleMap[to].advantage2 - mBattleMap[from].advantage2;
+                        }
                     }
                     return 0;
                 }
@@ -239,6 +261,7 @@ namespace ENGINE {
             }
             public class Battle {
                 public BattleMap mMap;
+                private BattleActorHandler mBattleActor = new BattleActorHandler();
                 public Battle(int mapWidth, int mapHeight) {
                      mMap = new BattleMap(mapWidth, mapHeight);
                 }
@@ -254,8 +277,9 @@ namespace ENGINE {
 
                     return true;
                 }
-                public bool AppendActor(int x, int y, string actorId) {                    
-                    return mMap.AppendActor(x, y, actorId);
+                public bool AppendActor(int x, int y, Actor actor, BATTLE_SIDE side, BattleActorAbility ability) {
+                    mBattleActor.CreateBattleActor(side, actor, ability);
+                    return mMap.AppendActor(x, y, actor.mUniqueId);
                 }
                 // actorid, to
                 public Dictionary<string, string> Next() {
@@ -263,7 +287,12 @@ namespace ENGINE {
                     // 점령한 tile에 있는 Actor만 찾는다.                    
                     List<string> list = mMap.GetReadyActors();
                     foreach(string actorId in list) {
-                        string to = mMap.Act(actorId);
+                        var actor = mBattleActor.GetBattleActor(actorId);
+                        if(actor == null) {
+                            continue;
+                        }
+
+                        string to = mMap.Act(actor);
                         if(to.Length > 0) {
                             ret.Add(actorId, to);
                         }

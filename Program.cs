@@ -10,14 +10,15 @@ using ENGINE.GAMEPLAY;
 
 #nullable enable
 class MainClass {    
-    static void Main() {
-        //Battle test
-        BattleTest battle = new BattleTest();
-        battle.Init();
+    static void Main() {        
         
         var p = new Loop();
         if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json", "config/quest.json")) {
-            p.MainLoop();
+            //Battle test
+            BattleTest battle = new BattleTest();
+            battle.Init();
+
+            //p.MainLoop();
         } else {
             Console.WriteLine("Failure loading config");
         }
@@ -49,7 +50,16 @@ public class BattleTest {
         if(!mBattle.Init(mapAdv1, mapAdv2)) {            
             return;
         }
-        mBattle.AppendActor(0, 0, "Tester");        
+
+        var pActor = ActorHandler.Instance.GetActor("독고다이");
+        if(pActor == null) {
+            return;
+        }
+        BattleActorAbility ability = new BattleActorAbility();
+        ability.Sight = 2;        
+        ability.Speed = 1;
+
+        mBattle.AppendActor(0, 0, pActor, BATTLE_SIDE.HOME, ability);
         if(!mBattle.Validate()) {
             Console.WriteLine("Invalid");
             return;
