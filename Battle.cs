@@ -10,7 +10,7 @@ namespace ENGINE {
                 public int disadvantage { get; set; }
             }
             public class Battle {
-                private BattleMapTile[,] mBattleMap;
+                private BattleMapTile[,]? mBattleMap;
             }
         }        
     }

@@ -64,7 +64,7 @@ namespace ENGINE {
                             int cnt = 0;
                             foreach(Config_KV_SF v in quest.values) {
                                 if(v.key == null) break;
-                                string[] keys = v.key.Split(":");
+                                string[] keys = v.key.Split(':');
                                 switch(keys[0].ToUpper()) {
                                     case QUEST_KEY_SATISFACTION:
                                     {

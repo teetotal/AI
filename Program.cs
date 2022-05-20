@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ENGINE.GAMEPLAY.MOTIVATION;
 using ENGINE.GAMEPLAY;
 
-
+#nullable enable
 class MainClass {    
     static void Main() {
         var p = new Loop();
