@@ -358,7 +358,7 @@ namespace ENGINE {
                         }
                     }
 
-                    ret = ret + GetCost(from, actor.mSide) - (GetCost(to, actor.mSide) * 0.9f);
+                    ret = ret + GetCost(to, actor.mSide);
                     return ret;
                 }
                 private float GetCost(string position, BATTLE_SIDE mySide) {
@@ -373,9 +373,14 @@ namespace ENGINE {
                         if(tile != null && tile.actorId.Length > 0) {
                             var actor = mBattleActor.GetBattleActor(tile.actorId);
                             if(actor != null) {
+
+                                //공격성 or 수비성. 상대방이 보이면 달려든다.
                                 if(actor.mSide != mySide) {
-                                    cost += 1.5f;
+                                    cost += 1.0f;
                                 }
+
+                                //돌격성 or 안정성. 상대 진영으로 달려든다.
+
                             }
                         }
                     }

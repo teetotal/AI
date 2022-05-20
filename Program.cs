@@ -30,20 +30,20 @@ public class BattleTest {
     public void Init() {        
         int[,] mapAdv1 =
         {
-            {5,      5,      5,       5,      6,    7},
-            {6,      6,      5,       6,      7,    8},
-            {8,      8,      6,       7,      8,    9},
-            {6,      6,      5,       6,      7,    8},
-            {5,      5,      5,       5,      6,    7}
+            {2,      5,      6,       7,      8,    7},
+            {3,      5,      6,       7,      8,    8},
+            {4,      5,      6,       7,      8,    9},
+            {3,      5,      6,       7,      8,    8},
+            {2,      5,      6,       7,      8,    7}
         };
 
         int[,] mapAdv2 =
         {
-            {7,      6,      5,       4,      3,    2},
-            {8,      7,      6,       5,      4,    3},
+            {7,      8,      7,       6,      3,    2},
+            {8,      8,      7,       6,      4,    3},
             {9,      8,      7,       6,      5,    4},
-            {8,      7,      6,       5,      4,    3},
-            {7,      6,      5,       4,      3,    2}
+            {8,      8,      7,       6,      4,    3},
+            {7,      8,      7,       6,      3,    2}
         };
 
         mBattle = new Battle(6, 5);
@@ -51,18 +51,21 @@ public class BattleTest {
             return;
         }
 
-        var pActor = ActorHandler.Instance.GetActor("독고다이");
-        var pActorAway1 = ActorHandler.Instance.GetActor("애정이");
+        var pActor1 = ActorHandler.Instance.GetActor("독고다이");
+        var pActor2 = ActorHandler.Instance.GetActor("애정이");
+
+        var pActorAway1 = ActorHandler.Instance.GetActor("얍실이");
         var pActorAway2 = ActorHandler.Instance.GetActor("쌍콤이");
         
-        if(pActor == null || pActorAway1 == null || pActorAway2 == null) {
+        if(pActor1 == null || pActor2 == null || pActorAway1 == null || pActorAway2 == null) {
             return;
         }
         BattleActorAbility ability = new BattleActorAbility();
         ability.Sight = 1;        
         ability.Speed = 1;
 
-        mBattle.AppendActor(0, 0, pActor, BATTLE_SIDE.HOME, ability);
+        mBattle.AppendActor(0, 0, pActor1, BATTLE_SIDE.HOME, ability);
+        mBattle.AppendActor(0, 2, pActor2, BATTLE_SIDE.HOME, ability);
         mBattle.AppendActor(5, 2, pActorAway1, BATTLE_SIDE.AWAY, ability);
         mBattle.AppendActor(5, 0, pActorAway2, BATTLE_SIDE.AWAY, ability);
         if(!mBattle.Validate()) {
