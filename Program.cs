@@ -11,6 +11,10 @@ using ENGINE.GAMEPLAY;
 #nullable enable
 class MainClass {    
     static void Main() {
+        //Battle test
+        BattleTest battle = new BattleTest();
+        battle.Init();
+        
         var p = new Loop();
         if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json", "config/quest.json")) {
             p.MainLoop();
@@ -18,6 +22,47 @@ class MainClass {
             Console.WriteLine("Failure loading config");
         }
     }    
+}
+
+public class BattleTest {
+    private Battle mBattle;
+    public void Init() {        
+        int[,] mapAdv1 =
+        {
+            {2,      3,      4,       5,      6,    7},
+            {3,      4,      5,       6,      7,    8},
+            {4,      5,      6,       7,      8,    9},
+            {3,      4,      5,       6,      7,    8},
+            {2,      3,      4,       5,      6,    7}
+        };
+
+        int[,] mapAdv2 =
+        {
+            {7,      6,      5,       4,      3,    2},
+            {8,      7,      6,       5,      4,    3},
+            {9,      8,      7,       6,      5,    4},
+            {8,      7,      6,       5,      4,    3},
+            {7,      6,      5,       4,      3,    2}
+        };
+
+        mBattle = new Battle(6, 5);
+        if(!mBattle.Init(mapAdv1, mapAdv2)) {            
+            return;
+        }
+        mBattle.AppendActor(0, 0, "Tester");        
+        if(!mBattle.Validate()) {
+            Console.WriteLine("Invalid");
+            return;
+        }
+
+        while(true) {
+            mBattle.mMap.Print();
+            Dictionary<string, string> next = mBattle.Next();
+            foreach(var p in next) {
+                mBattle.Occupy(p.Key);
+            }
+        }
+    }
 }
 
 
