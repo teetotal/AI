@@ -30,13 +30,13 @@ public class BattleTest {
     public void Init() {        
         int[,] mapAdv1 =
         {
-            {2,      5,      6,       7,      8,    7},
-            {3,      5,      6,       7,      8,    8},
-            {4,      5,      6,       7,      8,    9},
-            {3,      5,      6,       7,      8,    8},
-            {2,      5,      6,       7,      8,    7}
+            {2,      2,      2,       2,      2,    2,  2,  2},
+            {2,      2,      2,       2,      2,    2,  2,  2},
+            {3,      2,      2,       2,      2,    2,  2,  3},
+            {2,      2,      2,       2,      2,    2,  2,  2},
+            {2,      2,      2,       2,      2,    2,  2,  2}
         };
-
+        /*
         int[,] mapAdv2 =
         {
             {7,      8,      7,       6,      5,    2},
@@ -45,25 +45,30 @@ public class BattleTest {
             {8,      8,      7,       6,      5,    3},
             {7,      8,      7,       6,      5,    2}
         };
+        */
 
-        mBattle = new Battle(6, 5);
-        if(!mBattle.Init(mapAdv1, mapAdv2)) {            
+        mBattle = new Battle(mapAdv1.GetLength(1), mapAdv1.GetLength(0));
+        if(!mBattle.Init(mapAdv1, mapAdv1)) {            
             return;
         }
 
-        var pActor1 = ActorHandler.Instance.GetActor("hf");
-        var pActor2 = ActorHandler.Instance.GetActor("hs");
+        var pActorHomeF = ActorHandler.Instance.GetActor("hf");
+        var pActorHomeB = ActorHandler.Instance.GetActor("hb");
+        var pActorHomeS = ActorHandler.Instance.GetActor("hs");
 
-        var pActorAway1 = ActorHandler.Instance.GetActor("af");
-        var pActorAway2 = ActorHandler.Instance.GetActor("as");
+        var pActorAwayF = ActorHandler.Instance.GetActor("af");
+        var pActorAwayB = ActorHandler.Instance.GetActor("ab");
+        var pActorAwayS = ActorHandler.Instance.GetActor("as");
         
-        if(pActor1 == null || pActor2 == null || pActorAway1 == null || pActorAway2 == null) {
+        if( pActorHomeF == null || pActorHomeB == null || pActorHomeS == null || 
+            pActorAwayF == null || pActorAwayB == null || pActorAwayS == null) 
+        {
             return;
         }
         BattleActorAbility abilityForward = new BattleActorAbility();
         abilityForward.Sight = 1;        
         abilityForward.Speed = 1;
-        abilityForward.MoveForward = 1;
+        abilityForward.MoveForward = 3f;
         abilityForward.MoveBack = 0;
         abilityForward.MoveSide = 0;
 
@@ -71,7 +76,7 @@ public class BattleTest {
         abilityBack.Sight = 1;        
         abilityBack.Speed = 1;
         abilityBack.MoveForward = 0;
-        abilityBack.MoveBack = 1;
+        abilityBack.MoveBack = 1.5f;
         abilityBack.MoveSide = 0;
 
         BattleActorAbility abilitySide = new BattleActorAbility();
@@ -79,12 +84,15 @@ public class BattleTest {
         abilitySide.Speed = 1;
         abilitySide.MoveForward = 0;
         abilitySide.MoveBack = 0;
-        abilitySide.MoveSide = 2;
+        abilitySide.MoveSide = 1.5f;
 
-        mBattle.AppendActor(0, 0, pActor1, BATTLE_SIDE.HOME, abilityForward);
-        mBattle.AppendActor(2, 2, pActor2, BATTLE_SIDE.HOME, abilitySide);
-        mBattle.AppendActor(5, 0, pActorAway1, BATTLE_SIDE.AWAY, abilityForward);
-        mBattle.AppendActor(3, 3, pActorAway2, BATTLE_SIDE.AWAY, abilitySide);
+        mBattle.AppendActor(0, 2, pActorHomeF, BATTLE_SIDE.HOME, abilityForward);
+        mBattle.AppendActor(3, 0, pActorHomeB, BATTLE_SIDE.HOME, abilityBack);
+        mBattle.AppendActor(2, 2, pActorHomeS, BATTLE_SIDE.HOME, abilitySide);
+
+        mBattle.AppendActor(7, 2, pActorAwayF, BATTLE_SIDE.AWAY, abilityForward);
+        mBattle.AppendActor(4, 4, pActorAwayB, BATTLE_SIDE.AWAY, abilityBack);
+        mBattle.AppendActor(4, 3, pActorAwayS, BATTLE_SIDE.AWAY, abilitySide);
         if(!mBattle.Validate()) {
             Console.WriteLine("Invalid");
             return;
