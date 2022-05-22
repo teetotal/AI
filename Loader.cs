@@ -162,12 +162,13 @@ namespace ENGINE {
             }
             
             public class Loader {
-                public bool Load( string pathSatisfactions, 
-                                  string pathActors, 
-                                  string pathItem, 
-                                  string pathLevel,
-                                  string pathQuest ) {
-                    string jsonString = File.ReadAllText(pathSatisfactions);
+                public bool Load( string stringSatisfactions, 
+                                  string stringActors, 
+                                  string stringItem, 
+                                  string stringLevel,
+                                  string stringQuest ) {
+                    //string jsonString = File.ReadAllText(pathSatisfactions);
+                    string jsonString = stringSatisfactions;
                     
                     var sf = JsonConvert.DeserializeObject<ConfigSatisfaction>(jsonString);                                                   
                     if(sf == null || sf.define == null || sf.tasks == null) {
@@ -196,31 +197,31 @@ namespace ENGINE {
                     if(SetTask(sf.tasks) == false) {
                         return false;
                     }
-                    if(SetQuest(pathQuest) == false)  {
+                    if(SetQuest(stringQuest) == false)  {
                         return false;
                     }
 
                     // level
-                    if(SetLevel(pathLevel) == false) {
+                    if(SetLevel(stringLevel) == false) {
                         return false;
                     }
 
                     //Item
-                     if(SetItem(pathItem) == false) {
+                     if(SetItem(stringItem) == false) {
                         return false;
                     }
                     
                     //actors
-                    if(SetActor(pathActors) == false) {
+                    if(SetActor(stringActors) == false) {
                         return false;
                     }                    
 
                     return true;
                 }                
                 // Set Actor
-                private bool SetActor(string pathActors) {
+                private bool SetActor(string sz) {
                     //Actor     
-                    string jsonString = File.ReadAllText(pathActors);
+                    string jsonString = sz; //File.ReadAllText(pathActors);
                     var actors = JsonConvert.DeserializeObject< Dictionary<string, ConfigActors_Detail> >(jsonString);  
                     if(actors == null) {
                         return false;
@@ -250,8 +251,8 @@ namespace ENGINE {
                     }
                     return true;
                 }
-                private bool SetQuest(string path) {                         
-                    string jsonString = File.ReadAllText(path);
+                private bool SetQuest(string sz) {                         
+                    string jsonString = sz; //File.ReadAllText(path);
                     var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigQuest> >(jsonString);  
                     if(j == null) {
                         return false;
@@ -265,8 +266,8 @@ namespace ENGINE {
                 }
 
                 // Set Level
-                private bool SetLevel(string path) {
-                    string jsonString = File.ReadAllText(path);
+                private bool SetLevel(string sz) {
+                    string jsonString = sz; //File.ReadAllText(path);
                     var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigLevel> >(jsonString);  
                     if(j == null) {
                         return false;
@@ -279,8 +280,8 @@ namespace ENGINE {
                     return true;
                 }
                 // Set Item
-                private bool SetItem(string path) {
-                    string jsonString = File.ReadAllText(path);
+                private bool SetItem(string sz) {
+                    string jsonString = sz; //File.ReadAllText(path);
                     var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigItem_Detail> >(jsonString);  
                     if(j == null) {
                         return false;
