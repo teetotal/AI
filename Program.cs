@@ -100,7 +100,7 @@ public class BattleTest {
 
         while(true) {
             mBattle.mMap.Print();
-            Dictionary<string, string> next = mBattle.Next();
+            Dictionary<string, string[]> next = mBattle.Next();
             foreach(var p in next) {
                 mBattle.Occupy(p.Key);
             }

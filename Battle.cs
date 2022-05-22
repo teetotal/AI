@@ -297,8 +297,8 @@ namespace ENGINE {
                     return mMap.AppendActor(x, y, actor.mUniqueId);
                 }
                 // actorid, to
-                public Dictionary<string, string> Next() {
-                    Dictionary<string, string> ret = new Dictionary<string, string>();                    
+                public Dictionary<string, string[]> Next() {
+                    Dictionary<string, string[]> ret = new Dictionary<string, string[]>();                    
                     // 점령한 tile에 있는 Actor만 찾는다.                    
                     List<string> list = mMap.GetReadyActors();
                     foreach(string actorId in list) {
@@ -307,9 +307,11 @@ namespace ENGINE {
                             continue;
                         }
 
+                        string from = mMap.GetActorPosition(actorId);
                         string to = Act(actor);
-                        if(to.Length > 0) {
-                            ret.Add(actorId, to);
+
+                        if(to.Length > 0 &&  from != to) {
+                            ret.Add(actorId, new string[2]{from, to});
                         }
                         
                     }                    
@@ -335,8 +337,8 @@ namespace ENGINE {
                             max = v;
                         }
                     }
-
-                    mMap.MoveTo(actorId, maxPos);
+                    if(from != maxPos)
+                        mMap.MoveTo(actorId, maxPos);
                     return maxPos;
                 } 
                 public void Occupy(string actorId) {                    
