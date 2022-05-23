@@ -40,6 +40,26 @@ namespace ENGINE {
                 HOME,
                 AWAY
             }
+            public enum BATTLE_ACTOR_ACTION_TYPE {
+                NONE,
+                MOVE,
+                ATTACK
+            }
+            public class BattleActorAction {
+                public BATTLE_ACTOR_ACTION_TYPE Type { get; set; }
+                public string FromPosition { get; set; }
+                public string TargetPosition { get; set; }
+                public string TargetActorId { get; set; }
+                public float AttackAmount { get; set; }
+
+                public BattleActorAction(string fromPosition, string toPostion) {
+                    Type = BATTLE_ACTOR_ACTION_TYPE.NONE;
+                    FromPosition = fromPosition;
+                    TargetPosition = toPostion;
+                    TargetActorId = "";
+                    AttackAmount = 0;
+                }
+            }
             public class BattleActor {
                 public BattleActorAbility mAbility { get; set; }
                 public Actor mActor { get; set; }
@@ -52,9 +72,12 @@ namespace ENGINE {
                 }
             }
             public class BattleActorHandler {
+                public const Int64 INVALID_LAST_TIME = -1;
                 private Dictionary<BATTLE_SIDE, Dictionary<string, BattleActor>> mDicSide = new Dictionary<BATTLE_SIDE, Dictionary<string, BattleActor>>();
                 private Dictionary<string, BattleActor> mDicActor = new Dictionary<string, BattleActor>();
-                public bool CreateBattleActor(BATTLE_SIDE side, Actor actor, BattleActorAbility ability) {
+                //actor id별 마지막 act counter값
+                private Dictionary<string, Int64> mDicCount = new Dictionary<string, Int64>();
+                public bool CreateBattleActor(BATTLE_SIDE side, Actor actor, BattleActorAbility ability, Int64 counter) {
                     if(mDicSide.ContainsKey(side) == false) {
                         mDicSide[side] = new Dictionary<string, BattleActor>();
                     }
@@ -64,6 +87,7 @@ namespace ENGINE {
                     BattleActor p = new BattleActor(actor, ability, side);
                     mDicSide[side].Add(actor.mUniqueId, p);
                     mDicActor.Add(actor.mUniqueId, p);
+                    mDicCount.Add(actor.mUniqueId, counter);
                     return true;
                 }
                 public BattleActor? GetBattleActor(string actorId) {
@@ -77,6 +101,20 @@ namespace ENGINE {
                         return null;
                     }
                     return mDicSide[side];
+                }
+                public Int64 GetLastActTime(string actorId) {
+                    if(mDicCount.ContainsKey(actorId) == false) {
+                        return -1;
+                    }
+                    return mDicCount[actorId];
+                }
+                public bool SetLastActTime(string actorId, Int64 counter) {
+                    if(mDicCount.ContainsKey(actorId) == false) {
+                        return false;
+                    }
+
+                    mDicCount[actorId] = counter;
+                    return true;
                 }
             }
         }

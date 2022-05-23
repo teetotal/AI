@@ -107,6 +107,9 @@ namespace ENGINE {
 
                     return mActorPosition[actorId];
                 }
+                public Dictionary<string, string> GetActorPositions() {
+                    return mActorPosition;
+                }
                 public BattleMapTile? GetBattleMapTile(string position) {
                     if(mBattleMap.ContainsKey(position) == false) {
                         return null;
@@ -244,20 +247,6 @@ namespace ENGINE {
                     return true;
                 }
                 
-                public List<string> GetReadyActors() {
-                    List<string> ret = new List<string>();
-                    foreach(var p in mActorPosition) {
-                        string actorId = p.Key;
-                        string position = p.Value;
-                        var tile = GetBattleMapTile(position);
-                        if(tile != null) {
-                            if(tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {
-                                ret.Add(actorId);
-                            }
-                        }
-                    }
-                    return ret;
-                }
                 public void Print() {
                     Console.WriteLine("-----------------------");
                     for(int y = 0; y < mHeight; y++) {
@@ -294,14 +283,15 @@ namespace ENGINE {
                     return true;
                 }
                 public bool AppendActor(int x, int y, Actor actor, BATTLE_SIDE side, BattleActorAbility ability) {
-                    mBattleActor.CreateBattleActor(side, actor, ability);
+                    mBattleActor.CreateBattleActor(side, actor, ability, mCounter.GetCount());
                     return mMap.AppendActor(x, y, actor.mUniqueId);
                 }
-                // actorid, to
-                public Dictionary<string, string[]> Next() {
-                    Dictionary<string, string[]> ret = new Dictionary<string, string[]>();                    
+                // actorid, action
+                public Dictionary<string, BattleActorAction> Next() {
+                    mCounter.Next();
+                    Dictionary<string, BattleActorAction> ret = new Dictionary<string, BattleActorAction>();                    
                     // 점령한 tile에 있는 Actor만 찾는다.                    
-                    List<string> list = mMap.GetReadyActors();
+                    List<string> list = GetReadyActors();
                     foreach(string actorId in list) {
                         var actor = mBattleActor.GetBattleActor(actorId);
                         if(actor == null) {
@@ -309,23 +299,60 @@ namespace ENGINE {
                         }
 
                         string from = mMap.GetActorPosition(actorId);
-                        string to = Act(actor);
-
-                        if(to.Length > 0 &&  from != to) {
-                            ret.Add(actorId, new string[2]{from, to});
+                        BattleActorAction action = Act(actor);
+                        if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
+                            ret.Add(actorId, action);
                         }
-                        
                     }                    
                     return ret;
                 }
-                public string Act(BattleActor actor) {
+                public List<string> GetReadyActors() {
+                    List<string> ret = new List<string>();
+                    var actorPositions = mMap.GetActorPositions();
+                    foreach(var p in actorPositions) {
+                        string actorId = p.Key;
+                        string position = p.Value;
+
+                        Int64 lastTime = mBattleActor.GetLastActTime(actorId);
+
+                        if(lastTime == BattleActorHandler.INVALID_LAST_TIME || lastTime >= mCounter.GetCount()) {
+                            continue;
+                        }
+                        var tile = mMap.GetBattleMapTile(position);
+                        if(tile != null) {
+                            if(tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {
+                                ret.Add(actorId);
+                            }
+                        }
+                    }
+                    return ret;
+                }
+                public BattleActorAction Act(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
+                    string from = mMap.GetActorPosition(actorId);
+                    BattleActorAction ret = new BattleActorAction(from, from);
+
                     List<string> list = mMap.Sight(actor);
                     if(list.Count() == 0) {
-                        return "";
+                        return ret;
                     }
+
+                    //Move 할지 Attack할지 
+                    /*
+                    1. 현재 공격중인지 판단.
+                    2. actor.mAbility.AttackInstinct로 계속 공격할지 이동할지 판단
+                        - 
+                    3. 공격 or 이동
+                    */
+
+                    ret.Type = BATTLE_ACTOR_ACTION_TYPE.MOVE;
+                    ret.TargetPosition = Move(list, actor, from);
+                    
+                    mBattleActor.SetLastActTime(actorId, mCounter.GetCount());
+                    return ret;
+                } 
+                private string Move(List<string> list, BattleActor actor, string from) {
                     string maxPos = list[0];
-                    string from = mMap.GetActorPosition(actorId);
                     float max = GetEstimation(actor, from, list[0]);
 
                     //같은 패턴 반복을 막기 위해 
@@ -338,10 +365,11 @@ namespace ENGINE {
                             max = v;
                         }
                     }
-                    if(from != maxPos)
-                        mMap.MoveTo(actorId, maxPos);
+                    if(from != maxPos) {
+                        mMap.MoveTo(actor.mActor.mUniqueId, maxPos);
+                    }
                     return maxPos;
-                } 
+                }
                 public void Occupy(string actorId) {                    
                     string position = mMap.GetActorPosition(actorId);
                     if(IsValidPosition(position)) {
