@@ -10,10 +10,16 @@ using ENGINE.GAMEPLAY;
 
 #nullable enable
 class MainClass {    
-    static void Main() {        
-        
+    static void Main() {                
         var p = new Loop();
-        if(p.Load("config/satisfactions.json", "config/actors.json", "config/item.json", "config/level.json", "config/quest.json")) {
+        string[] szConfigs = new string[] {
+            File.ReadAllText("config/satisfactions.json"),
+            File.ReadAllText("config/actors.json"),
+            File.ReadAllText("config/item.json"),
+            File.ReadAllText("config/level.json"),
+            File.ReadAllText("config/quest.json")
+        };
+        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4])) {
             //Battle test
             BattleTest battle = new BattleTest();
             battle.Init();
@@ -26,7 +32,7 @@ class MainClass {
 }
 
 public class BattleTest {
-    private Battle mBattle;
+    private Battle? mBattle;
     public void Init() {        
         int[,] mapAdv1 =
         {
@@ -150,9 +156,9 @@ public class Loop {
             }
         }
     }
-    public bool Load(string pathSatisfaction, string pathActor, string pathItem, string pathLevel, string pathQuest) {
+    public bool Load(string jsonSatisfaction, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest) {
         var pLoader = new Loader();
-        if(!pLoader.Load(pathSatisfaction, pathActor, pathItem, pathLevel, pathQuest)) {
+        if(!pLoader.Load(jsonSatisfaction, jsonActor, jsonItem, jsonLevel, jsonQuest)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }
@@ -169,7 +175,7 @@ public class Loop {
             ActorHandler.Instance.PrintSatisfactionSum(type);
             break;
             case "c":
-            Console.WriteLine("Counter {0}", Counter.Instance.GetCount());
+            Console.WriteLine("Counter {0}", CounterHandler.Instance.GetCount());
             break;
         }
     }
@@ -273,7 +279,7 @@ public class Loop {
         }
     }
     public void Next() {
-        Int64 counter = Counter.Instance.Next();
+        Int64 counter = CounterHandler.Instance.Next();
         //Discharge
         DischargeHandler.Instance.Discharge(type);
         ActorHandler.Instance.UpdateSatisfactionSum();

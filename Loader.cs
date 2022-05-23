@@ -221,7 +221,7 @@ namespace ENGINE {
                 // Set Actor
                 private bool SetActor(string sz) {
                     //Actor     
-                    string jsonString = sz; //File.ReadAllText(pathActors);
+                    string jsonString = sz; 
                     var actors = JsonConvert.DeserializeObject< Dictionary<string, ConfigActors_Detail> >(jsonString);  
                     if(actors == null) {
                         return false;

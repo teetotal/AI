@@ -275,6 +275,7 @@ namespace ENGINE {
                 }
             }
             public class Battle {
+                public Counter mCounter = new Counter(); //전체 counter랑 별개로 전투 인스턴스별로 가지고 있는 counter. 이걸 기준으로 Next 적용
                 public BattleMap mMap;
                 private BattleActorHandler mBattleActor = new BattleActorHandler();
                 public Battle(int mapWidth, int mapHeight) {

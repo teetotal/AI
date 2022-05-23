@@ -35,7 +35,7 @@ namespace ENGINE {
                     mList.Add(new DischargeScenario(satisfactionId, amout, period));
                 }
                 public void Discharge(int actorType) {
-                    Int64 count = Counter.Instance.GetCount();
+                    Int64 count = CounterHandler.Instance.GetCount();
                     var d = ActorHandler.Instance.GetActors(actorType);
                     if(d != null) {
                         

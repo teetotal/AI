@@ -3,19 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace ENGINE {
-    namespace GAMEPLAY {        
-        //게임 전체 카운터
+    namespace GAMEPLAY {                
         public class Counter {
             private Int64 mCounter { get; set; }
-            private static readonly Lazy<Counter> instance =
-                        new Lazy<Counter>(() => new Counter());
-            public static Counter Instance {
-                get {
-                    return instance.Value;
-                }
-            }
-            private Counter() { }
-
             public void SetCounter(Int64 count) {
                 mCounter = count;
             }
@@ -26,6 +16,29 @@ namespace ENGINE {
                 mCounter ++;
                 return mCounter;
             }
+        }
+        public class CounterHandler {
+            private Counter mCounter = new Counter();
+            
+            private static readonly Lazy<CounterHandler> instance =
+                        new Lazy<CounterHandler>(() => new CounterHandler());
+            public static CounterHandler Instance {
+                get {
+                    return instance.Value;
+                }
+            }
+            private CounterHandler() { }
+            public void SetCounter(Int64 count) {
+                mCounter.SetCounter(count);
+            }
+            public Int64 GetCount() {
+                return mCounter.GetCount();
+            }
+            public Int64 Next() {                
+                return mCounter.Next();
+            }
+
+            
         }
     }
 }

@@ -53,7 +53,7 @@ namespace ENGINE {
                         return false;
                     }
 
-                    Int64 counter = Counter.Instance.GetCount();
+                    Int64 counter = CounterHandler.Instance.GetCount();
                     if(mHappeningTable[happeningId].LastTime >= counter) {
                         return false;
                     }
