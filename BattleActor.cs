@@ -47,8 +47,8 @@ namespace ENGINE {
             public enum BATTLE_ACTOR_ACTION_TYPE {
                 INVALID,
                 NONE,
-                MOVE,
-                ATTACK
+                MOVING,
+                ATTACKING
             }
             public class BattleActorAction {
                 public BATTLE_ACTOR_ACTION_TYPE Type { get; set; }
@@ -58,7 +58,7 @@ namespace ENGINE {
                 public float AttackAmount { get; set; }
 
                 public BattleActorAction(string fromPosition, string toPostion) {
-                    Type = BATTLE_ACTOR_ACTION_TYPE.NONE;
+                    Type = BATTLE_ACTOR_ACTION_TYPE.INVALID;
                     FromPosition = fromPosition;
                     TargetPosition = toPostion;
                     TargetActorId = "";
@@ -82,7 +82,9 @@ namespace ENGINE {
                 private Dictionary<string, BattleActor> mDicActor = new Dictionary<string, BattleActor>();
                 //actor id별 마지막 act counter값
                 private Dictionary<string, Int64> mDicCount = new Dictionary<string, Int64>();
+                //action 정보
                 private Dictionary<string, BATTLE_ACTOR_ACTION_TYPE> mDicAction = new Dictionary<string, BATTLE_ACTOR_ACTION_TYPE>();
+                private Dictionary<string, float> mDicHP = new Dictionary<string, float>();
                 public bool CreateBattleActor(BATTLE_SIDE side, Actor actor, BattleActorAbility ability, Int64 counter) {
                     if(mDicSide.ContainsKey(side) == false) {
                         mDicSide[side] = new Dictionary<string, BattleActor>();
@@ -95,7 +97,16 @@ namespace ENGINE {
                     mDicActor.Add(actor.mUniqueId, p);
                     mDicCount.Add(actor.mUniqueId, counter);
                     mDicAction.Add(actor.mUniqueId, BATTLE_ACTOR_ACTION_TYPE.NONE);
+                    mDicHP.Add(actor.mUniqueId, ability.HP);
                     return true;
+                }
+                public void RemoveActor(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
+                    mDicSide[actor.mSide].Remove(actorId);
+                    mDicActor.Remove(actorId);
+                    mDicCount.Remove(actorId);
+                    mDicAction.Remove(actorId);
+                    mDicHP.Remove(actorId);
                 }
                 public BattleActor? GetBattleActor(string actorId) {
                     if(mDicActor.ContainsKey(actorId) == false) {
@@ -135,6 +146,19 @@ namespace ENGINE {
                         return BATTLE_ACTOR_ACTION_TYPE.INVALID;
                     }
                     return mDicAction[actorId];
+                }
+                public float GetHP(string actorId) {
+                    if(mDicHP.ContainsKey(actorId) == false) {
+                        return -1;
+                    }
+                    return mDicHP[actorId];
+                }
+                public float DecreaseHP(string actorId, float amount) {
+                    if(mDicHP.ContainsKey(actorId) == false) {
+                        return -1;
+                    }
+                    mDicHP[actorId] = Math.Max(0, mDicHP[actorId] -amount);                   
+                    return mDicHP[actorId];
                 }
             }
         }

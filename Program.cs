@@ -72,7 +72,11 @@ public class BattleTest {
             return;
         }
         BattleActorAbility abilityForward = new BattleActorAbility();
+        abilityForward.HP = 9;
         abilityForward.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
+        abilityForward.AttackPower = 1;
+        abilityForward.AttackDistance = 1;        
+        abilityForward.AttackAccuracy = 1;
         abilityForward.Sight = 1;        
         abilityForward.Speed = 1;
         abilityForward.MoveForward = 3f;
@@ -80,7 +84,11 @@ public class BattleTest {
         abilityForward.MoveSide = 0;
 
         BattleActorAbility abilityBack = new BattleActorAbility();
+        abilityBack.HP = 9;
         abilityBack.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
+        abilityBack.AttackPower = 1;
+        abilityBack.AttackDistance = 1;   
+        abilityBack.AttackAccuracy = 1;     
         abilityBack.Sight = 1;        
         abilityBack.Speed = 1;
         abilityBack.MoveForward = 0;
@@ -88,7 +96,11 @@ public class BattleTest {
         abilityBack.MoveSide = 0;
 
         BattleActorAbility abilitySide = new BattleActorAbility();
+        abilitySide.HP = 9;
         abilitySide.AttackStyle = BattleActorAbility.ATTACK_STYLE.DEFENSE;
+        abilitySide.AttackPower = 1;
+        abilitySide.AttackDistance = 1;      
+        abilitySide.AttackAccuracy = 1;  
         abilitySide.Sight = 1;        
         abilitySide.Speed = 1;
         abilitySide.MoveForward = 0;
@@ -109,10 +121,19 @@ public class BattleTest {
 
         while(true) {
             Thread.Sleep(1000 * 1);
-            mBattle.mMap.Print();
-            Dictionary<string, BattleActorAction> next = mBattle.Next();
+            mBattle.Print();
+            Dictionary<string, BattleActorAction> next = mBattle.Next();            
             foreach(var p in next) {
-                mBattle.Occupy(p.Key);
+                switch(p.Value.Type) {
+                    case BATTLE_ACTOR_ACTION_TYPE.MOVING:
+                    mBattle.Occupy(p.Key);
+                    break;
+                    case BATTLE_ACTOR_ACTION_TYPE.ATTACKING:
+                    mBattle.Attack(p.Key, p.Value);
+                    break;
+                }
+                    
+                
             }
         }
     }
