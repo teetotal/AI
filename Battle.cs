@@ -163,6 +163,22 @@ namespace ENGINE {
                     ret.Add(currPos); //현재 위치 추가.
                     return ret;
                 }
+                //주변 공격 대상 찾기
+                public List<string> LookOut(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
+                    string currPos = GetActorPosition(actorId);
+                    List<string> list = GetNearPostions(currPos, actor.mAbility.AttackDistance);
+                    //check occupied
+                    List<string> ret = new List<string>();
+                    foreach(string pos in list) {
+                        var tile = GetBattleMapTile(pos);
+                        if(tile != null && tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {                            
+                            ret.Add(pos);
+                        }
+                    }
+                    return ret;
+                }
+
                 public List<string> GetNearPostions(string position, int sight) {
                     int[] pos = GetPositionInt(position);
                     List<string> ret = new List<string>(); 
@@ -332,23 +348,59 @@ namespace ENGINE {
                     string from = mMap.GetActorPosition(actorId);
                     BattleActorAction ret = new BattleActorAction(from, from);
 
-                    List<string> list = mMap.Sight(actor);
-                    if(list.Count() == 0) {
-                        return ret;
-                    }
-
+                    
                     //Move 할지 Attack할지 
                     /*
                     1. 현재 공격중인지 판단.
-                    2. actor.mAbility.AttackInstinct로 계속 공격할지 이동할지 판단
-                        - 
+                    2. 계속 공격할지 이동할지 판단
                     3. 공격 or 이동
                     */
 
-                    ret.Type = BATTLE_ACTOR_ACTION_TYPE.MOVE;
-                    ret.TargetPosition = Move(list, actor, from);
+                    //현재 공격중인지 판단.
+
+
+                    bool isUpdateLastTime = false;
+                    switch(actor.mAbility.AttackStyle) {
+                        case BattleActorAbility.ATTACK_STYLE.DEFENSE:
+                        {
+                            //인접한 상대가 없으면 
+                            List<string> list = mMap.LookOut(actor);
+                            foreach(var pos in list) {
+                                var tile = mMap.GetBattleMapTile(pos);
+                                if(tile != null) {
+                                    var opponent = mBattleActor.GetBattleActor(tile.actorId);
+                                    if(opponent != null && opponent.mSide != actor.mSide) {
+                                        //공격 대상. 공격!
+                                        
+                                    }
+                                }
+                            }
+                            //moving
+                        }
+                        break;
+                        case BattleActorAbility.ATTACK_STYLE.MOVING:
+                        {               
+                            List<string> list = mMap.Sight(actor);
+                            if(list.Count() == 0) {
+                                return ret;
+                            }             
+                            string to = Move(list, actor, from);
+                            if(to.Length > 0) {
+                                ret.TargetPosition =  to;
+                                isUpdateLastTime = true;                            
+                            } else { // 같은 자리면 공격 대상 확인
+
+                            }
+                        }
+                        break;
+                    }
+
+                    if(isUpdateLastTime) {
+                        ret.Type = mBattleActor.GetActionState(actorId);
+                        mBattleActor.SetLastActTime(actorId, mCounter.GetCount());
+                    }
+                        
                     
-                    mBattleActor.SetLastActTime(actorId, mCounter.GetCount());
                     return ret;
                 } 
                 private string Move(List<string> list, BattleActor actor, string from) {
@@ -367,13 +419,16 @@ namespace ENGINE {
                     }
                     if(from != maxPos) {
                         mMap.MoveTo(actor.mActor.mUniqueId, maxPos);
+                        mBattleActor.SetActionState(actor.mActor.mUniqueId, BATTLE_ACTOR_ACTION_TYPE.MOVE);
+                        return maxPos;
                     }
-                    return maxPos;
+                    return "";
                 }
                 public void Occupy(string actorId) {                    
                     string position = mMap.GetActorPosition(actorId);
                     if(IsValidPosition(position)) {
-                        mMap.Occupy(actorId, position);                        
+                        mMap.Occupy(actorId, position);
+                        mBattleActor.SetActionState(actorId, BATTLE_ACTOR_ACTION_TYPE.NONE);
                     }                    
                 }
                 public bool Validate() {                    

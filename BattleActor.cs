@@ -6,6 +6,12 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class BattleActorAbility {
+                public enum ATTACK_STYLE {
+                    DEFENSE,
+                    MOVING
+                }
+                //공격 스타일, 이동이 먼저냐 공격이 먼저냐. true이면 무조건 자리에서 계속 공격, false면 이동
+                public ATTACK_STYLE AttackStyle { get; set; } 
                 //HP
                 public float HP { get; set; } 
                 //이동 가능 범위
@@ -25,14 +31,12 @@ namespace ENGINE {
                 Attack
                 공격거리. 
                 공격력. 
-                명중률
-                공격 본능, 이동이 먼저냐 공격이 먼저냐. 1이면 무조건 자리에서 계속 공격, 0이면 이동
+                명중률                
                 이타심. 주변 동료를 도우러 가는 정도
                 */
                 public int AttackDistance { get; set; } 
                 public float AttackPower { get; set; } 
-                public float AttackAccuracy { get; set; } 
-                public float AttackInstinct { get; set; } 
+                public float AttackAccuracy { get; set; }                 
                 public float Altruism { get; set; } 
             }
             public enum BATTLE_SIDE {
@@ -41,6 +45,7 @@ namespace ENGINE {
                 AWAY
             }
             public enum BATTLE_ACTOR_ACTION_TYPE {
+                INVALID,
                 NONE,
                 MOVE,
                 ATTACK
@@ -77,6 +82,7 @@ namespace ENGINE {
                 private Dictionary<string, BattleActor> mDicActor = new Dictionary<string, BattleActor>();
                 //actor id별 마지막 act counter값
                 private Dictionary<string, Int64> mDicCount = new Dictionary<string, Int64>();
+                private Dictionary<string, BATTLE_ACTOR_ACTION_TYPE> mDicAction = new Dictionary<string, BATTLE_ACTOR_ACTION_TYPE>();
                 public bool CreateBattleActor(BATTLE_SIDE side, Actor actor, BattleActorAbility ability, Int64 counter) {
                     if(mDicSide.ContainsKey(side) == false) {
                         mDicSide[side] = new Dictionary<string, BattleActor>();
@@ -88,6 +94,7 @@ namespace ENGINE {
                     mDicSide[side].Add(actor.mUniqueId, p);
                     mDicActor.Add(actor.mUniqueId, p);
                     mDicCount.Add(actor.mUniqueId, counter);
+                    mDicAction.Add(actor.mUniqueId, BATTLE_ACTOR_ACTION_TYPE.NONE);
                     return true;
                 }
                 public BattleActor? GetBattleActor(string actorId) {
@@ -115,6 +122,19 @@ namespace ENGINE {
 
                     mDicCount[actorId] = counter;
                     return true;
+                }
+                public bool SetActionState(string actorId, BATTLE_ACTOR_ACTION_TYPE type) {
+                    if(mDicAction.ContainsKey(actorId) == false) {
+                        return false;
+                    }
+                    mDicAction[actorId] = type;
+                    return true;
+                }
+                public BATTLE_ACTOR_ACTION_TYPE GetActionState(string actorId) {
+                    if(mDicAction.ContainsKey(actorId) == false) {
+                        return BATTLE_ACTOR_ACTION_TYPE.INVALID;
+                    }
+                    return mDicAction[actorId];
                 }
             }
         }

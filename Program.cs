@@ -72,6 +72,7 @@ public class BattleTest {
             return;
         }
         BattleActorAbility abilityForward = new BattleActorAbility();
+        abilityForward.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
         abilityForward.Sight = 1;        
         abilityForward.Speed = 1;
         abilityForward.MoveForward = 3f;
@@ -79,6 +80,7 @@ public class BattleTest {
         abilityForward.MoveSide = 0;
 
         BattleActorAbility abilityBack = new BattleActorAbility();
+        abilityBack.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
         abilityBack.Sight = 1;        
         abilityBack.Speed = 1;
         abilityBack.MoveForward = 0;
@@ -86,6 +88,7 @@ public class BattleTest {
         abilityBack.MoveSide = 0;
 
         BattleActorAbility abilitySide = new BattleActorAbility();
+        abilitySide.AttackStyle = BattleActorAbility.ATTACK_STYLE.DEFENSE;
         abilitySide.Sight = 1;        
         abilitySide.Speed = 1;
         abilitySide.MoveForward = 0;
@@ -105,6 +108,7 @@ public class BattleTest {
         }
 
         while(true) {
+            Thread.Sleep(1000 * 1);
             mBattle.mMap.Print();
             Dictionary<string, BattleActorAction> next = mBattle.Next();
             foreach(var p in next) {
