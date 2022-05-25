@@ -42,11 +42,21 @@ namespace ENGINE {
 
                         string from = mMap.GetActorPosition(actorId);
                         BattleActorAction action = Act(actor);
-                        if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
-                            ret.Add(actorId, action);
-                        }
+                        //if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
+                        ret.Add(actorId, action);
+                        //}
                     }                    
                     return ret;
+                }
+                public float GetHP(string actorId) {
+                    return mBattleActor.GetHP(actorId);
+                }
+                public float GetHPRatio(string actorId) {
+                    var actor = mBattleActor.GetBattleActor(actorId);
+                    if(actor == null) {
+                        return -1;
+                    }
+                    return GetHP(actorId) / actor.mAbility.HP;
                 }
                 //Next에서 받아온 attack action 적용
                 public float Attack(string actorId, BattleActorAction action) {
