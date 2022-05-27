@@ -7,8 +7,9 @@ namespace ENGINE {
         namespace MOTIVATION {
             public class BattleActorAbility {
                 public enum ATTACK_STYLE {
-                    DEFENSE,
-                    MOVING
+                    DEFENDER,
+                    MOVER,
+                    ATTACKER
                 }
                 //공격 스타일, 이동이 먼저냐 공격이 먼저냐. true이면 무조건 자리에서 계속 공격, false면 이동
                 public ATTACK_STYLE AttackStyle { get; set; } 
@@ -48,7 +49,8 @@ namespace ENGINE {
                 INVALID,
                 NONE,
                 MOVING,
-                ATTACKING
+                ATTACKING,
+                ATTACKED
             }
             public class BattleActorAction {
                 public BATTLE_ACTOR_ACTION_TYPE Type { get; set; }
@@ -133,6 +135,17 @@ namespace ENGINE {
 
                     mDicCount[actorId] = counter;
                     return true;
+                }
+                public void ReleaseAttacked() {
+                    List<string> list = new List<string>();
+                    foreach(var p in mDicAction) {
+                        list.Add(p.Key);
+                    }
+                    foreach(var actorId in list) {
+                        if(mDicAction[actorId] == BATTLE_ACTOR_ACTION_TYPE.ATTACKED) {
+                            mDicAction[actorId] = BATTLE_ACTOR_ACTION_TYPE.NONE;
+                        }
+                    }
                 }
                 public bool SetActionState(string actorId, BATTLE_ACTOR_ACTION_TYPE type) {
                     if(mDicAction.ContainsKey(actorId) == false) {

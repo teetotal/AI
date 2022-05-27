@@ -156,22 +156,7 @@ namespace ENGINE {
                     return list[idx];
                 }
                 */
-                //candidates of possible position
-                public List<string> Sight(BattleActor actor) {
-                    string actorId = actor.mActor.mUniqueId;
-                    string currPos = GetActorPosition(actorId);
-                    List<string> list = GetNearPostions(currPos, actor.mAbility.Sight);
-                    //check occupied
-                    List<string> ret = new List<string>();
-                    foreach(string pos in list) {
-                        var tile = GetBattleMapTile(pos);
-                        if(tile != null && tile.state == BATTLEMAPTILE_STATE.EMPTY) {
-                            ret.Add(pos);
-                        }
-                    }
-                    ret.Add(currPos); //현재 위치 추가.
-                    return ret;
-                }
+                
                 //주변 공격 대상 찾기
                 public List<string> LookOut(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
@@ -182,6 +167,19 @@ namespace ENGINE {
                     foreach(string pos in list) {
                         var tile = GetBattleMapTile(pos);
                         if(tile != null && tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {                            
+                            ret.Add(pos);
+                        }
+                    }
+                    return ret;
+                }
+                //인접한 공간 찾기
+                public List<string> GetNearPositionsByState(string position, BATTLEMAPTILE_STATE state, int sight = 1) {
+                    List<string> list = GetNearPostions(position, sight);
+                    //check occupied
+                    List<string> ret = new List<string>();
+                    foreach(string pos in list) {
+                        var tile = GetBattleMapTile(pos);
+                        if(tile != null && tile.state == state) {                            
                             ret.Add(pos);
                         }
                     }
@@ -266,8 +264,8 @@ namespace ENGINE {
                         position != mActorPosition[actorId]) {
                         return false;
                     }
-
-                    mBattleMap[position] = GetChangedTile(mBattleMap[position], mBattleMap[position].actorId, BATTLEMAPTILE_STATE.OCCUPIED);
+                    if(mBattleMap[position].state != BATTLEMAPTILE_STATE.OCCUPIED) 
+                        mBattleMap[position] = GetChangedTile(mBattleMap[position], mBattleMap[position].actorId, BATTLEMAPTILE_STATE.OCCUPIED);
 
                     return true;
                 }

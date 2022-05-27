@@ -73,7 +73,7 @@ public class BattleTest {
         }
         BattleActorAbility abilityForward = new BattleActorAbility();
         abilityForward.HP = 9;
-        abilityForward.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
+        abilityForward.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVER;
         abilityForward.AttackPower = 1;
         abilityForward.AttackDistance = 1;        
         abilityForward.AttackAccuracy = 1;
@@ -85,7 +85,7 @@ public class BattleTest {
 
         BattleActorAbility abilityBack = new BattleActorAbility();
         abilityBack.HP = 9;
-        abilityBack.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVING;
+        abilityBack.AttackStyle = BattleActorAbility.ATTACK_STYLE.MOVER;
         abilityBack.AttackPower = 1;
         abilityBack.AttackDistance = 1;   
         abilityBack.AttackAccuracy = 1;     
@@ -97,7 +97,7 @@ public class BattleTest {
 
         BattleActorAbility abilitySide = new BattleActorAbility();
         abilitySide.HP = 9;
-        abilitySide.AttackStyle = BattleActorAbility.ATTACK_STYLE.DEFENSE;
+        abilitySide.AttackStyle = BattleActorAbility.ATTACK_STYLE.DEFENDER;
         abilitySide.AttackPower = 1;
         abilitySide.AttackDistance = 1;      
         abilitySide.AttackAccuracy = 1;  

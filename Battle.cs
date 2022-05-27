@@ -31,20 +31,29 @@ namespace ENGINE {
                 // actorid, action
                 public Dictionary<string, BattleActorAction> Next() {
                     mCounter.Next();
+
+                    //Attacked 풀어주기
+                    mBattleActor.ReleaseAttacked();
+
                     Dictionary<string, BattleActorAction> ret = new Dictionary<string, BattleActorAction>();                    
-                    // 점령한 tile에 있는 Actor만 찾는다.                    
                     List<string> list = GetReadyActors();
                     foreach(string actorId in list) {
                         var actor = mBattleActor.GetBattleActor(actorId);
                         if(actor == null) {
                             continue;
                         }
-
-                        string from = mMap.GetActorPosition(actorId);
-                        BattleActorAction action = Act(actor);
-                        //if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
-                        ret.Add(actorId, action);
-                        //}
+                        //누구한테 맞은건지는 알수 없다.
+                        if(mBattleActor.GetActionState(actorId) == BATTLE_ACTOR_ACTION_TYPE.ATTACKED) {
+                            string from = mMap.GetActorPosition(actorId);
+                            BattleActorAction attacked = new BattleActorAction(from, from);
+                            attacked.Type = BATTLE_ACTOR_ACTION_TYPE.ATTACKED;
+                            ret.Add(actorId, attacked);
+                        } else {
+                            string from = mMap.GetActorPosition(actorId);
+                            BattleActorAction action = Act(actor);
+                            //if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
+                            ret.Add(actorId, action);
+                        }
                     }                    
                     return ret;
                 }
@@ -88,8 +97,13 @@ namespace ENGINE {
                         }
                         var tile = mMap.GetBattleMapTile(position);
                         if(tile != null) {
-                            if(tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {
-                                ret.Add(actorId);
+                            if(tile.state == BATTLEMAPTILE_STATE.OCCUPIED) {                                
+                                //counter에 따라 입력 순서를 바꿔서
+                                if(mCounter.GetCount() % 2 == 0) {
+                                    ret.Add(actorId);
+                                } else {
+                                    ret.Insert(0, actorId);
+                                }                                
                             }
                         }
                     }
@@ -99,11 +113,12 @@ namespace ENGINE {
                     string actorId = actor.mActor.mUniqueId;
                     string from = mMap.GetActorPosition(actorId);
                     BattleActorAction ret = new BattleActorAction(from, from);
-
                     
                     //Move 할지 Attack할지 
-                    switch(actor.mAbility.AttackStyle) {
-                        case BattleActorAbility.ATTACK_STYLE.DEFENSE:
+                    switch(actor.mAbility.AttackStyle) {                        
+                        case BattleActorAbility.ATTACK_STYLE.ATTACKER:                        
+                        //공격할 상대 찾아 헤메는 스타일. Attacker는 무의미한 moving없음.
+                        case BattleActorAbility.ATTACK_STYLE.DEFENDER:
                         {
                             ret = Attacking(actor, from);
                             if(ret.Type == BATTLE_ACTOR_ACTION_TYPE.NONE) {// 공격대상 없음 moving
@@ -111,7 +126,7 @@ namespace ENGINE {
                             } 
                         }
                         break;
-                        case BattleActorAbility.ATTACK_STYLE.MOVING:
+                        case BattleActorAbility.ATTACK_STYLE.MOVER:
                         {   
                             ret = Moving(actor, from);
                             if(ret.Type == BATTLE_ACTOR_ACTION_TYPE.NONE) {// 이동대상 없음 attacking
@@ -143,8 +158,7 @@ namespace ENGINE {
 
                     foreach(var to in list) {
                         var tile = mMap.GetBattleMapTile(to);
-                        if(tile != null) {
-                            targetActorId = tile.actorId;
+                        if(tile != null) {                            
                             var opponent = mBattleActor.GetBattleActor(tile.actorId);
                             if(opponent != null && opponent.mSide != actor.mSide) {
                                 //공격 대상. 공격시 이득
@@ -152,6 +166,7 @@ namespace ENGINE {
                                 if(v > max) {
                                     maxPos = to;
                                     max = v;
+                                    targetActorId = tile.actorId;
                                 }
                             }
                         }                        
@@ -162,7 +177,10 @@ namespace ENGINE {
                         ret.Type = BATTLE_ACTOR_ACTION_TYPE.ATTACKING;
                         ret.TargetActorId = targetActorId;
                         ret.TargetPosition = maxPos;
-                        ret.AttackAmount = actor.mAbility.AttackPower * actor.mAbility.AttackAccuracy;
+                        ret.AttackAmount = actor.mAbility.AttackPower * actor.mAbility.AttackAccuracy;      
+                                               
+                        //맞는 상대 상태
+                        mBattleActor.SetActionState(targetActorId, BATTLE_ACTOR_ACTION_TYPE.ATTACKED);
                     }
                     return ret;
                     
@@ -170,7 +188,7 @@ namespace ENGINE {
                 private BattleActorAction Moving(BattleActor actor, string from) {
                     BattleActorAction ret = new BattleActorAction(from, from);
                     ret.Type = BATTLE_ACTOR_ACTION_TYPE.NONE;
-                    List<string> list = mMap.Sight(actor);
+                    List<string> list = Sight(actor);
                     if(list.Count() == 0) {
                         return ret;
                     }             
@@ -195,7 +213,41 @@ namespace ENGINE {
                     }
                     return ret;
                 }
-                public void Occupy(string actorId) {                    
+                //candidates of possible position
+                private List<string> Sight(BattleActor actor) {
+                    string actorId = actor.mActor.mUniqueId;
+                    string currPos = mMap.GetActorPosition(actorId);
+                    List<string> list = mMap.GetNearPostions(currPos, actor.mAbility.Sight);
+                    //check occupied
+                    List<string> ret = new List<string>();
+                    foreach(string pos in list) {
+                        var tile = mMap.GetBattleMapTile(pos);
+                        switch(actor.mAbility.AttackStyle) {
+                            case BattleActorAbility.ATTACK_STYLE.ATTACKER:
+                            {
+                                //1. 상대방을 찾고                                
+                                if(tile != null && tile.state == BATTLEMAPTILE_STATE.OCCUPIED ) {
+                                    var opponent = mBattleActor.GetBattleActor(tile.actorId);
+                                    if(opponent != null && opponent.mSide != actor.mSide) {
+                                        //2. 상대방 주변의 빈곳을 찾는다.
+                                        List<string> nears = mMap.GetNearPositionsByState(pos, BATTLEMAPTILE_STATE.EMPTY);
+                                        if(nears.Count > 0) {
+                                            ret.Add(nears[0]); //첫번째. 봐서 나중에 랜덤하게 할지 고민.
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                            default: 
+                            if(tile != null && tile.state == BATTLEMAPTILE_STATE.EMPTY) 
+                               ret.Add(pos);                            
+                            break;
+                        }
+                    }
+                    ret.Add(currPos); //현재 위치 추가.
+                    return ret;
+                }
+                public void Occupy(string actorId) {                                        
                     string position = mMap.GetActorPosition(actorId);
                     if(IsValidPosition(position)) {
                         mMap.Occupy(actorId, position);
