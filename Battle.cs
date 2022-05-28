@@ -33,7 +33,7 @@ namespace ENGINE {
                     mCounter.Next();
 
                     //Attacked 풀어주기
-                    mBattleActor.ReleaseAttacked();
+                    mBattleActor.ReleaseAction();
 
                     Dictionary<string, BattleActorAction> ret = new Dictionary<string, BattleActorAction>();                    
                     List<string> list = GetReadyActors();
@@ -41,19 +41,37 @@ namespace ENGINE {
                         var actor = mBattleActor.GetBattleActor(actorId);
                         if(actor == null) {
                             continue;
-                        }
-                        //누구한테 맞은건지는 알수 없다.
-                        if(mBattleActor.GetActionState(actorId) == BATTLE_ACTOR_ACTION_TYPE.ATTACKED) {
-                            string from = mMap.GetActorPosition(actorId);
-                            BattleActorAction attacked = new BattleActorAction(from, from);
-                            attacked.Type = BATTLE_ACTOR_ACTION_TYPE.ATTACKED;
-                            ret.Add(actorId, attacked);
-                        } else {
-                            string from = mMap.GetActorPosition(actorId);
-                            BattleActorAction action = Act(actor);
-                            //if(action.Type != BATTLE_ACTOR_ACTION_TYPE.NONE) {
-                            ret.Add(actorId, action);
-                        }
+                        }                                                
+                        switch(mBattleActor.GetActionState(actorId)) {
+                            case BATTLE_ACTOR_ACTION_TYPE.INVALID:
+                            case BATTLE_ACTOR_ACTION_TYPE.ATTACKED:                                                        
+                            break;
+                            default:
+                            {                                
+                                BattleActorAction action = Act(actor);
+                                ret.Add(actorId, action);
+                                if(action.Type == BATTLE_ACTOR_ACTION_TYPE.ATTACKING) {
+                                    //맞은 상대 처리                                
+                                    if(ret.ContainsKey(action.TargetActorId)) {
+                                        //여러명한테 맞을 수 있다. 최초 공격자로 하고 AttackAmount를 합한다.
+                                        BattleActorAction attacked = ret[action.TargetActorId].Clone();    
+                                        attacked.AttackAmount += action.AttackAmount; 
+                                        ret[action.TargetActorId] = attacked;
+                                    } else {
+                                        string from = mMap.GetActorPosition(actorId);
+                                        string to = mMap.GetActorPosition(action.TargetActorId);
+                                        BattleActorAction attacked = new BattleActorAction(mCounter.GetCount(), from, to);
+                                        attacked.AttackAmount = action.AttackAmount;
+                                        attacked.TargetActorId = actorId;
+                                        attacked.Type = BATTLE_ACTOR_ACTION_TYPE.ATTACKED;
+                                        
+                                        ret.Add(action.TargetActorId, attacked);
+                                    }
+                                    
+                                }
+                            }
+                            break;
+                        }                        
                     }                    
                     return ret;
                 }
@@ -67,16 +85,16 @@ namespace ENGINE {
                     }
                     return GetHP(actorId) / actor.mAbility.HP;
                 }
-                //Next에서 받아온 attack action 적용
-                public float Attack(string actorId, BattleActorAction action) {
+                //Attacked 적용
+                public float Attacked(string actorId, BattleActorAction action) {
                     //공격대상에게 피해 적용
-                    float remain = mBattleActor.DecreaseHP(action.TargetActorId, action.AttackAmount);
+                    float remain = mBattleActor.DecreaseHP(actorId, action.AttackAmount);
                     if(remain == 0) {                                                                         
                         //actor삭제
-                        var actor = mBattleActor.GetBattleActor(action.TargetActorId); 
+                        var actor = mBattleActor.GetBattleActor(actorId); 
                         if(actor != null) {
                             //map에서 삭제
-                            mMap.RemoveActor(action.TargetActorId);
+                            mMap.RemoveActor(actorId);
                             //BattleActorHandler 에서 삭제
                             mBattleActor.RemoveActor(actor);
                         }                        
@@ -112,7 +130,7 @@ namespace ENGINE {
                 public BattleActorAction Act(BattleActor actor) {
                     string actorId = actor.mActor.mUniqueId;
                     string from = mMap.GetActorPosition(actorId);
-                    BattleActorAction ret = new BattleActorAction(from, from);
+                    BattleActorAction ret = new BattleActorAction(mCounter.GetCount(), from, from);
                     
                     //Move 할지 Attack할지 
                     switch(actor.mAbility.AttackStyle) {                        
@@ -144,7 +162,7 @@ namespace ENGINE {
                     return ret;
                 } 
                 private BattleActorAction Attacking(BattleActor actor, string from) {
-                    BattleActorAction ret = new BattleActorAction(from, from);
+                    BattleActorAction ret = new BattleActorAction(mCounter.GetCount(), from, from);
                     ret.Type = BATTLE_ACTOR_ACTION_TYPE.NONE;
                     //공속 처리. 넣을것인가....
                     List<string> list = mMap.LookOut(actor);
@@ -178,15 +196,14 @@ namespace ENGINE {
                         ret.TargetActorId = targetActorId;
                         ret.TargetPosition = maxPos;
                         ret.AttackAmount = actor.mAbility.AttackPower * actor.mAbility.AttackAccuracy;      
-                                               
-                        //맞는 상대 상태
-                        mBattleActor.SetActionState(targetActorId, BATTLE_ACTOR_ACTION_TYPE.ATTACKED);
+
+                        mBattleActor.SetActionState(targetActorId, BATTLE_ACTOR_ACTION_TYPE.ATTACKED); //여러명한테서 맞을 수도 있다.
                     }
                     return ret;
                     
                 }
                 private BattleActorAction Moving(BattleActor actor, string from) {
-                    BattleActorAction ret = new BattleActorAction(from, from);
+                    BattleActorAction ret = new BattleActorAction(mCounter.GetCount(), from, from);
                     ret.Type = BATTLE_ACTOR_ACTION_TYPE.NONE;
                     List<string> list = Sight(actor);
                     if(list.Count() == 0) {

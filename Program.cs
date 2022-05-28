@@ -128,8 +128,8 @@ public class BattleTest {
                     case BATTLE_ACTOR_ACTION_TYPE.MOVING:
                     mBattle.Occupy(p.Key);
                     break;
-                    case BATTLE_ACTOR_ACTION_TYPE.ATTACKING:
-                    mBattle.Attack(p.Key, p.Value);
+                    case BATTLE_ACTOR_ACTION_TYPE.ATTACKED:
+                    mBattle.Attacked(p.Key, p.Value);
                     break;
                 }
                     

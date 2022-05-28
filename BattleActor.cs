@@ -53,18 +53,27 @@ namespace ENGINE {
                 ATTACKED
             }
             public class BattleActorAction {
+                public Int64 Counter { get; set; }
                 public BATTLE_ACTOR_ACTION_TYPE Type { get; set; }
                 public string FromPosition { get; set; }
                 public string TargetPosition { get; set; }
                 public string TargetActorId { get; set; }
                 public float AttackAmount { get; set; }
 
-                public BattleActorAction(string fromPosition, string toPostion) {
-                    Type = BATTLE_ACTOR_ACTION_TYPE.INVALID;
-                    FromPosition = fromPosition;
-                    TargetPosition = toPostion;
-                    TargetActorId = "";
-                    AttackAmount = 0;
+                public BattleActorAction(Int64 counter, string fromPosition, string toPostion) {
+                    this.Counter = counter;
+                    this.Type = BATTLE_ACTOR_ACTION_TYPE.INVALID;
+                    this.FromPosition = fromPosition;
+                    this.TargetPosition = toPostion;
+                    this.TargetActorId = "";
+                    this.AttackAmount = 0;
+                }
+                public BattleActorAction Clone() {
+                    BattleActorAction ret = new BattleActorAction(Counter, FromPosition, TargetPosition);
+                    ret.Type = Type;
+                    ret.TargetActorId = TargetActorId;
+                    ret.AttackAmount = AttackAmount;
+                    return ret;
                 }
             }
             public class BattleActor {
@@ -136,15 +145,19 @@ namespace ENGINE {
                     mDicCount[actorId] = counter;
                     return true;
                 }
-                public void ReleaseAttacked() {
+                public void ReleaseAction() {
                     List<string> list = new List<string>();
                     foreach(var p in mDicAction) {
                         list.Add(p.Key);
                     }
                     foreach(var actorId in list) {
-                        if(mDicAction[actorId] == BATTLE_ACTOR_ACTION_TYPE.ATTACKED) {
+
+                        switch(mDicAction[actorId]){
+                            case BATTLE_ACTOR_ACTION_TYPE.ATTACKING:
+                            case BATTLE_ACTOR_ACTION_TYPE.ATTACKED:
                             mDicAction[actorId] = BATTLE_ACTOR_ACTION_TYPE.NONE;
-                        }
+                            break;
+                        } 
                     }
                 }
                 public bool SetActionState(string actorId, BATTLE_ACTOR_ACTION_TYPE type) {
