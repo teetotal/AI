@@ -50,7 +50,10 @@ namespace ENGINE {
                 NONE,
                 MOVING,
                 ATTACKING,
-                ATTACKED
+                ATTACKED,
+                READY_ATTACKING,
+                READY_ATTACKED,
+                DYING
             }
             public class BattleActorAction {
                 public Int64 Counter { get; set; }
@@ -60,12 +63,12 @@ namespace ENGINE {
                 public string TargetActorId { get; set; }
                 public float AttackAmount { get; set; }
 
-                public BattleActorAction(Int64 counter, string fromPosition, string toPostion) {
+                public BattleActorAction(Int64 counter, string fromPosition, string toPostion, BATTLE_ACTOR_ACTION_TYPE type = BATTLE_ACTOR_ACTION_TYPE.INVALID, string targetActorId = "") {
                     this.Counter = counter;
-                    this.Type = BATTLE_ACTOR_ACTION_TYPE.INVALID;
+                    this.Type = type;
                     this.FromPosition = fromPosition;
                     this.TargetPosition = toPostion;
-                    this.TargetActorId = "";
+                    this.TargetActorId = targetActorId;
                     this.AttackAmount = 0;
                 }
                 public BattleActorAction Clone() {
@@ -94,7 +97,7 @@ namespace ENGINE {
                 //actor id별 마지막 act counter값
                 private Dictionary<string, Int64> mDicCount = new Dictionary<string, Int64>();
                 //action 정보
-                private Dictionary<string, BATTLE_ACTOR_ACTION_TYPE> mDicAction = new Dictionary<string, BATTLE_ACTOR_ACTION_TYPE>();
+                //private Dictionary<string, BATTLE_ACTOR_ACTION_TYPE> mDicAction = new Dictionary<string, BATTLE_ACTOR_ACTION_TYPE>();
                 private Dictionary<string, float> mDicHP = new Dictionary<string, float>();
                 public bool CreateBattleActor(BATTLE_SIDE side, Actor actor, BattleActorAbility ability, Int64 counter) {
                     if(mDicSide.ContainsKey(side) == false) {
@@ -107,7 +110,7 @@ namespace ENGINE {
                     mDicSide[side].Add(actor.mUniqueId, p);
                     mDicActor.Add(actor.mUniqueId, p);
                     mDicCount.Add(actor.mUniqueId, counter);
-                    mDicAction.Add(actor.mUniqueId, BATTLE_ACTOR_ACTION_TYPE.NONE);
+                    //mDicAction.Add(actor.mUniqueId, BATTLE_ACTOR_ACTION_TYPE.NONE);
                     mDicHP.Add(actor.mUniqueId, ability.HP);
                     return true;
                 }
@@ -116,7 +119,7 @@ namespace ENGINE {
                     mDicSide[actor.mSide].Remove(actorId);
                     mDicActor.Remove(actorId);
                     mDicCount.Remove(actorId);
-                    mDicAction.Remove(actorId);
+                    //mDicAction.Remove(actorId);
                     mDicHP.Remove(actorId);
                 }
                 public BattleActor? GetBattleActor(string actorId) {
@@ -145,6 +148,7 @@ namespace ENGINE {
                     mDicCount[actorId] = counter;
                     return true;
                 }
+                /*
                 public void ReleaseAction() {
                     List<string> list = new List<string>();
                     foreach(var p in mDicAction) {
@@ -173,6 +177,7 @@ namespace ENGINE {
                     }
                     return mDicAction[actorId];
                 }
+                */
                 public float GetHP(string actorId) {
                     if(mDicHP.ContainsKey(actorId) == false) {
                         return -1;

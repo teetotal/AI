@@ -12,6 +12,9 @@ namespace ENGINE {
             public Int64 GetCount() {
                 return mCounter;
             }
+            public Int64 GetNextCount() {
+                return mCounter + 1;
+            }
             public Int64 Next() {
                 mCounter ++;
                 return mCounter;
