@@ -217,7 +217,7 @@ namespace ENGINE {
                     //3. cal normalization
                     //4. get mean                      
                     float sum = 0;
-                    var taskSatisfaction = fn.GetValues(mUniqueId);                  
+                    var taskSatisfaction = fn.GetValues(this);                  
                     foreach(var p in mSatisfaction) {
                         float val = p.Value.Value;
                         if(taskSatisfaction.ContainsKey(p.Key)) {

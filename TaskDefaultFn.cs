@@ -8,17 +8,16 @@ namespace ENGINE {
         namespace MOTIVATION {            
             //단순 task
             //json으로 관리            
-            public class TaskDefaultFn : FnTask {
-                private ConfigTask_Detail mInfo;
+            public class TaskDefaultFn : FnTask {                
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
                 }               
-                public override Dictionary<string, float> GetValues(string fromActorId) {
-                    if( (mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(mInfo.relation.target, fromActorId) is null)
-                        || mInfo.satisfactions is null) {
+                public override Dictionary<string, float> GetValues(Actor actor) {
+                    if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor) == null)
+                        || (mInfo != null && mInfo.satisfactions == null) ) {
                         return new Dictionary<string, float>();
                     }
 
@@ -26,9 +25,9 @@ namespace ENGINE {
                 }
                 public override bool DoTask(Actor actor)
                 {                    
-                    if(mInfo.relation != null && mInfo.relation.target != null && mInfo.relation.satisfactions != null) {
+                    if(mInfo != null && mInfo.relation != null && mInfo.relation.target != null && mInfo.relation.satisfactions != null) {
                         //apply to someone
-                        var targetActorId = FindRelationTarget(mInfo.relation.target, actor.mUniqueId);
+                        var targetActorId = FindRelationTarget(actor);
                         if(targetActorId is null) {
                             return false;
                         }
@@ -48,7 +47,12 @@ namespace ENGINE {
                     return true;
                     
                 }
-                private string? FindRelationTarget(List<string> conditions, string fromActorId) {
+                public override string FindRelationTarget(Actor actor) {
+                    if(mInfo == null || mInfo.relation == null || mInfo.relation.target == null) {
+                        return "";
+                    }
+                    List<string> conditions = mInfo.relation.target;
+                    string fromActorId = actor.mUniqueId;                    
                     string actorId = "";
                     //type.target1.target2:condition
                     //2.Satisfaction.100:max
@@ -69,25 +73,25 @@ namespace ENGINE {
                             }
                             
                             float value = condition == "MAX"? 0: -1;
-                            foreach(var actor in actors) {
+                            foreach(var p in actors) {
                                 //자신이면 skip
-                                if(actor.Value.mUniqueId == fromActorId) {
+                                if(p.Value.mUniqueId == fromActorId) {
                                     continue;
                                 }
-                                var satisfaction = actor.Value.GetSatisfaction(target2);
+                                var satisfaction = p.Value.GetSatisfaction(target2);
                                 if(satisfaction != null) {
                                     float v = satisfaction.Value;
                                     switch(condition) {
                                         case "MAX":
                                         if(v > value) {
                                             value = v;
-                                            actorId = actor.Value.mUniqueId;
+                                            actorId = p.Value.mUniqueId;
                                         }
                                         break;
                                         case "MIN":
                                         if(v < value) {
                                             value = v;
-                                            actorId = actor.Value.mUniqueId;
+                                            actorId = p.Value.mUniqueId;
                                         }
                                         break;
                                     }                                    
@@ -99,7 +103,7 @@ namespace ENGINE {
                             }
                         }                        
                     }
-                    return null;
+                    return "";
                 }
             }
         }

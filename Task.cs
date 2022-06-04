@@ -8,10 +8,12 @@ namespace ENGINE {
                 public string? mTaskId { get; set; }
                 public string? mTaskTitle { get; set; }
                 public string? mTaskDesc { get; set; }
-                public abstract Dictionary<string, float> GetValues(string fromActorId);
+                public ConfigTask_Detail? mInfo { get; set; }
+                public abstract Dictionary<string, float> GetValues(Actor actor);
                 public abstract bool DoTask(Actor actor);
-                public string GetPrintString(string fromActorId) {
-                    var values = GetValues(fromActorId);
+                public abstract string FindRelationTarget(Actor actor);
+                public string GetPrintString(Actor actor) {
+                    var values = GetValues(actor);
                     string sz = "";
                     foreach(var p in values) {
                         var s = SatisfactionDefine.Instance.Get(p.Key);
@@ -23,12 +25,12 @@ namespace ENGINE {
                     }
                     return sz;
                 }
-                public void Print(string fromActorId) {
+                public void Print(Actor actor) {
                     
-                    Console.WriteLine(GetPrintString(fromActorId));
+                    Console.WriteLine(GetPrintString(actor));
                 }
                 protected virtual void ApplyValue(Actor actor) {
-                    Dictionary<string, float> values = GetValues(actor.mUniqueId);
+                    Dictionary<string, float> values = GetValues(actor);
                     //apply to self
                     foreach(var p in values) {
                         actor.Obtain(p.Key, p.Value);                        

@@ -266,7 +266,7 @@ public class Loop {
 
             //levelup
             bool isLevelUp = actor.checkLevelUp();
-            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor.mUniqueId));            
+            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor));            
             if(isLevelUp == true) {
                 var reward = LevelHandler.Instance.Get(actor.mType, actor.mLevel);
                 if(reward != null && reward.next != null && reward.next.rewards != null) {
