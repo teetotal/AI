@@ -32,6 +32,7 @@ namespace ENGINE {
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
+                public string? prefab;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
@@ -51,10 +52,11 @@ namespace ENGINE {
                 //발동중인 아이템 리스트                
                 private Dictionary<string, List<ItemUsage>> mInvoking = new Dictionary<string, List<ItemUsage>>();
                 //-------------------------------------------------------------------------------------------------
-                public Actor(int type, string uniqueId, int level, List<string> quests) {
+                public Actor(int type, string uniqueId, int level, string? prefab, List<string> quests) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
                     this.mLevel = level;
+                    this.prefab = prefab;
                     this.mQuestList = quests;
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)

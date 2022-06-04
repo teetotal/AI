@@ -115,6 +115,7 @@ namespace ENGINE {
             public class ConfigActors_Detail {
                 public int type { get; set; }
                 public int level { get; set; }
+                public string? prefab { get; set; }
                 public List<Config_Satisfaction>? satisfactions { get; set; }
             }
             //Task ---------------------------------------------------------------           
@@ -125,6 +126,8 @@ namespace ENGINE {
                 public string? title { get; set; }
                 public string? desc { get; set; }
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
+                public string? targetObject { get; set; }
+                public string? animation { get; set; }
                 public Dictionary<string, float>? satisfactions { get; set; }
                 public ConfigTask_Relation? relation { get; set; }
             }         
@@ -229,7 +232,7 @@ namespace ENGINE {
 
                     foreach(var p in actors) {
                         //나중에 진행한 quest도 읽어와서 넣어줘야 함
-                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level, null);
+                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level, p.Value.prefab, null);
                         if(p.Value.satisfactions == null) {
                             return false;
                         }
