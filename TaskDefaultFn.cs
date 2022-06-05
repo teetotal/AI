@@ -14,7 +14,18 @@ namespace ENGINE {
                     this.mTaskTitle = info.title;
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
-                }               
+                }     
+                public override string GetTargetObject(Actor actor) {
+                    var targetActorId = FindRelationTarget(actor);
+                    if(targetActorId.Length > 0) {
+                        return targetActorId;
+                    }
+                    var targetObject = GetDefaultTargetObject();
+                    if(targetObject.Length > 0) {
+                        return targetObject;
+                    }
+                    return "";
+                }          
                 public override Dictionary<string, float> GetValues(Actor actor) {
                     if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor) == null)
                         || (mInfo != null && mInfo.satisfactions == null) ) {
@@ -47,7 +58,13 @@ namespace ENGINE {
                     return true;
                     
                 }
-                public override string FindRelationTarget(Actor actor) {
+                private string GetDefaultTargetObject() {
+                    if(mInfo == null || mInfo.targetObject == null) {
+                        return "";
+                    }
+                    return mInfo.targetObject;
+                }
+                private string FindRelationTarget(Actor actor) {
                     if(mInfo == null || mInfo.relation == null || mInfo.relation.target == null) {
                         return "";
                     }

@@ -11,7 +11,13 @@ namespace ENGINE {
                 public ConfigTask_Detail? mInfo { get; set; }
                 public abstract Dictionary<string, float> GetValues(Actor actor);
                 public abstract bool DoTask(Actor actor);
-                public abstract string FindRelationTarget(Actor actor);
+                public abstract string GetTargetObject(Actor actor);
+                public string GetAnimation() {
+                    if(mInfo == null || mInfo.animation == null) {
+                        return "";
+                    }
+                    return mInfo.animation;
+                }
                 public string GetPrintString(Actor actor) {
                     var values = GetValues(actor);
                     string sz = "";
@@ -58,7 +64,10 @@ namespace ENGINE {
                 public Dictionary<string, FnTask> GetTasks() {
                     return mDict;
                 }
-                public FnTask? GetTask(string taskId) {
+                public FnTask? GetTask(string? taskId) {
+                    if(taskId == null) {
+                        return null;
+                    }
                     if(mDict.ContainsKey(taskId))
                         return mDict[taskId];
                     return null;
