@@ -80,6 +80,7 @@
             "desc": "배고픔을 참지 못하고 도둑질을 한다",
             "targetObject": null,
             "animation": "steal",
+            "time": 3,
             "satisfactions": {
                 "101": 6,
                 "110": -6,
@@ -100,8 +101,9 @@
             "id": "meal",
             "title": "밥먹기",
             "desc": "돈 내고 밥을 사먹는다",
-            "targetObject": "SM_Env_Sidewalk_Straight_69",
-            "animation": "meal",
+            "targetObject": "SM_Bld_Shop_Corner_06",
+            "animation": "Strong",
+            "time": 5,
             "satisfactions": {            
                     "100": 6,
                     "101": -3
@@ -113,7 +115,8 @@
             "title": "인사하기",
             "desc": "주변인에게 인사한다",
             "targetObject": null,
-            "animation": "hello",
+            "animation": "Greeting",
+            "time": 2,
             "satisfactions": {
                     "100": -1,
                     "120": 6
@@ -125,8 +128,9 @@
             "id": "love",
             "title": "짝사랑하기",
             "desc": "아무도 모르게 혼자 짝사랑 한다",
-            "targetObject": null,
-            "animation": "love",
+            "targetObject": "SM_Env_GrassPath_Straight_11",
+            "animation": "Bashful",
+            "time": 5,
             "satisfactions": {
                     "100": -2,
                     "130": 6
@@ -138,8 +142,9 @@
             "id": "work",
             "title": "일하기",
             "desc": "돈을 벌기 위해 일을 한다",
-            "targetObject": null,
-            "animation": "work",
+            "targetObject": "SM_Env_Sidewalk_397",
+            "animation": "Digging",
+            "time": 3,
             "satisfactions": {
                     "100": -3,
                     "101": 8
@@ -152,6 +157,7 @@
             "desc": "보안을 위해 보안업체 사용비 지출",
             "targetObject": null,
             "animation": "security",
+            "time": 3,
             "satisfactions": {
                     "100": -4,
                     "110": 6

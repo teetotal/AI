@@ -14,7 +14,20 @@ namespace ENGINE {
                 public string itemKey { get; set; }
                 public int expire { get; set; }
                 public int usage { get; set; }
-            }            
+            }          
+            public class Position {
+                public float x { get; set; }
+                public float y { get; set; }
+                public float z { get; set; }
+                public Position(float x, float y, float z) {
+                    this.x = x;
+                    this.y = y;
+                    this.z = z;
+                }
+                public double GetDistance(Position to) {
+                    return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
+                }
+            }  
             public class Actor {           
                 public enum ITEM_INVOKE_TYPE : int {
                     IMMEDIATELY = 0,
@@ -33,6 +46,7 @@ namespace ENGINE {
                 public string mUniqueId;
                 public int mLevel;
                 public string? prefab;
+                public Position? position;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
@@ -52,11 +66,13 @@ namespace ENGINE {
                 //발동중인 아이템 리스트                
                 private Dictionary<string, List<ItemUsage>> mInvoking = new Dictionary<string, List<ItemUsage>>();
                 //-------------------------------------------------------------------------------------------------
-                public Actor(int type, string uniqueId, int level, string? prefab, List<string> quests) {
+                public Actor(int type, string uniqueId, int level, string? prefab, List<float>? position, List<string> quests) {
                     this.mType = type;
                     this.mUniqueId = uniqueId;
                     this.mLevel = level;
                     this.prefab = prefab;
+                    if(position != null && position.Count == 3)
+                        this.position = new Position(position[0], position[1], position[2]);
                     this.mQuestList = quests;
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
