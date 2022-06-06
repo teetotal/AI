@@ -20,6 +20,9 @@ namespace ENGINE {
                 public float y { get; set; }
                 public float z { get; set; }
                 public Position(float x, float y, float z) {
+                    Set(x, y, z);
+                }
+                public void Set(float x, float y, float z) {
                     this.x = x;
                     this.y = y;
                     this.z = z;
@@ -28,7 +31,12 @@ namespace ENGINE {
                     return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
                 }
             }  
-            public class Actor {           
+            public class Actor {      
+                public enum STATE {
+                    READY,
+                    MOVING,
+                    TASKING,                    
+                }     
                 public enum ITEM_INVOKE_TYPE : int {
                     IMMEDIATELY = 0,
                     INVENTORY
@@ -41,12 +49,18 @@ namespace ENGINE {
                     ABSOLUTE  = 0,
                     PERCENT,
                     INCREASE
-                }     
+                }                     
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
                 public string? prefab;
-                public Position? position;
+                public Position? position;                
+                private STATE mState = STATE.READY;
+                public FnTask? mCurrentTask = null;
+                //target이 actor일 경우 actorId
+                public Tuple<bool, string>? mTaskTarget;
+                //interaction을 위한 예약 flag. 예약한 actor가 와서 풀어줘야 한다.
+                public bool mIsReserved = false;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
@@ -96,13 +110,55 @@ namespace ENGINE {
                     return ApplySatisfaction(satisfactionId, amount, 0, null);
                 }     
                 //Task 수행횟수 기록
-                public void DoTask(string taskId) {
+                public bool DoTask() {
+                    if(mCurrentTask == null || mCurrentTask.mTaskId == null || mTaskTarget == null)
+                        return false;
+                    //relation
+                    if(mTaskTarget.Item1 == true && mCurrentTask.mInfo != null && mCurrentTask.mInfo.relation != null && mCurrentTask.mInfo.relation.satisfactions != null) {
+                        //apply to someone                        
+                        var targetActor = ActorHandler.Instance.GetActor(mTaskTarget.Item2);                        
+                        if(targetActor is null) {
+                            return false;
+                        }
+                        foreach(var p in mCurrentTask.mInfo.relation.satisfactions) {
+                            targetActor.ApplySatisfaction(p.Key, p.Value, 0, this.mUniqueId);
+                        }
+                        targetActor.mIsReserved = false;
+                    }
+                    //accumulation
+                    string taskId = mCurrentTask.mTaskId;
                     if(mAccumulationTask.ContainsKey(taskId)) {
                         mAccumulationTask[taskId] ++;
                     } else {
                         mAccumulationTask[taskId] = 1;
+                    }       
+                    //satisfaction
+                    Dictionary<string, float> values = mCurrentTask.GetValues(this);                    
+                    foreach(var p in values) {
+                        Obtain(p.Key, p.Value);
                     }
+                    mTaskCounter++;
                     
+                    SetState(STATE.READY);
+                    mCurrentTask = null;
+                    mTaskTarget = null;
+
+                    return true;
+                }
+                public void SetState(STATE state) {
+                    mState = state;
+                }
+                public STATE GetState() {
+                    return mState;
+                }
+                public void SetPosition(float x, float y, float z) {
+                    if(position == null) {
+                        position = new Position(x, y, z);
+                    } else {
+                        position.x = x;
+                        position.y = y;
+                        position.z = z;
+                    }
                 }
                 public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
@@ -212,21 +268,37 @@ namespace ENGINE {
                         return mAccumulationSatisfaction[satisfactionId];
                     return 0;
                 }
-                // task -------------------------------------------------------------------------------------------------------------
-                //return task id                
-                public string? GetTaskId() {
-                    string? taskId = null;
+                // task -------------------------------------------------------------------------------------------------------------                
+                public bool TakeTask() {
+                    string taskId = "";
                     float maxValue = 0.0f;                    
                     var tasks = TaskHandler.Instance.GetTasks();
-                    foreach(var task in tasks) {
+                    foreach(var p in tasks) {
                         //일정레벨 이상인 task가 조회하는거 구현해야 함
-                        float expecedValue = GetExpectedValue(task.Value);
+                        float expecedValue = GetExpectedValue(p.Value);
                         if(expecedValue > maxValue) {
                             maxValue = expecedValue;
-                            taskId = task.Key;
+                            taskId = p.Key;
                         }
-                    }                    
-                    return taskId;
+                    }   
+                    //task가져오고
+                    FnTask? task = TaskHandler.Instance.GetTask(taskId);
+                    if(task == null) {
+                        return false;
+                    }
+                    //target가져오고
+                    mTaskTarget = task.GetTargetObject(this);
+                    if(mTaskTarget.Item1 == true) {
+                        //target이 actor일경우 상대방에게 reserve하고
+                        var targetActor = ActorHandler.Instance.GetActor(mTaskTarget.Item2);
+                        if(targetActor == null)
+                            return false;
+                        
+                        targetActor.mIsReserved = true;                        
+                    }
+                    mCurrentTask = task;                                        
+                            
+                    return true;
                 }
                 private float GetExpectedValue(FnTask fn) {
                     
@@ -235,7 +307,10 @@ namespace ENGINE {
                     //3. cal normalization
                     //4. get mean                      
                     float sum = 0;
-                    var taskSatisfaction = fn.GetValues(this);                  
+                    var taskSatisfaction = fn.GetValues(this);    
+                    if(taskSatisfaction == null)
+                        return 0;
+                        
                     foreach(var p in mSatisfaction) {
                         float val = p.Value.Value;
                         if(taskSatisfaction.ContainsKey(p.Key)) {

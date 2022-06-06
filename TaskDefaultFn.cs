@@ -15,25 +15,26 @@ namespace ENGINE {
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
                 }     
-                public override string GetTargetObject(Actor actor) {
+                public override Tuple<bool, string> GetTargetObject(Actor actor) {
                     var targetActorId = FindRelationTarget(actor);
-                    if(targetActorId.Length > 0) {
-                        return targetActorId;
+                    if(targetActorId.Length > 0) {                        
+                        return new Tuple<bool, string>(true, targetActorId);
                     }
                     var targetObject = GetDefaultTargetObject();
                     if(targetObject.Length > 0) {
-                        return targetObject;
+                        return new Tuple<bool, string>(false, targetObject);
                     }
-                    return "";
+                    return new Tuple<bool, string>(false, "");
                 }          
-                public override Dictionary<string, float> GetValues(Actor actor) {
+                public override Dictionary<string, float>? GetValues(Actor actor) {
                     if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor) == null)
                         || (mInfo != null && mInfo.satisfactions == null) ) {
-                        return new Dictionary<string, float>();
+                        return null;
                     }
 
                     return mInfo.satisfactions;
                 }
+                /*
                 public override bool DoTask(Actor actor)
                 {                    
                     if(mInfo != null && mInfo.relation != null && mInfo.relation.target != null && mInfo.relation.satisfactions != null) {
@@ -58,6 +59,7 @@ namespace ENGINE {
                     return true;
                     
                 }
+                */
                 private string GetDefaultTargetObject() {
                     if(mInfo == null || mInfo.targetObject == null) {
                         return "";
@@ -88,11 +90,22 @@ namespace ENGINE {
                             if(actors is null) {
                                 continue;
                             }
-                            
-                            float value = condition == "MAX"? 0: -1;
+
+                            float value = condition == "MAX"? -1: float.MaxValue;
                             foreach(var p in actors) {
                                 //자신이면 skip
                                 if(p.Value.mUniqueId == fromActorId) {
+                                    continue;
+                                }
+                                //reserved가 아니고, 허용 가능한 범위 안에 있고 현재 Ready이거나 Tasking인 상태 actor
+                                if(p.Value.mIsReserved) {
+                                    continue;
+                                }
+                                if(actor.position == null || p.Value.position == null) {
+                                    continue;
+                                }
+                                double distance = actor.position.GetDistance(p.Value.position);
+                                if(distance > 20 || p.Value.GetState() == Actor.STATE.MOVING) {
                                     continue;
                                 }
                                 var satisfaction = p.Value.GetSatisfaction(target2);

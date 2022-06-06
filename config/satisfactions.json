@@ -122,7 +122,15 @@
                     "120": 6
                     
             },            
-            "relation": null
+            "relation": {
+                "target": [
+                    "1.Satisfaction.120:min"
+                ],
+                "satisfactions": {
+                        "120": 1,
+                        "130": 1
+                }                
+            }
         },
         {
             "id": "love",

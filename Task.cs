@@ -9,9 +9,11 @@ namespace ENGINE {
                 public string? mTaskTitle { get; set; }
                 public string? mTaskDesc { get; set; }
                 public ConfigTask_Detail? mInfo { get; set; }
-                public abstract Dictionary<string, float> GetValues(Actor actor);
-                public abstract bool DoTask(Actor actor);
-                public abstract string GetTargetObject(Actor actor);
+                public abstract Dictionary<string, float>? GetValues(Actor actor);
+                //public abstract bool DoTask(Actor actor);
+                
+                // isActor, id
+                public abstract Tuple<bool, string> GetTargetObject(Actor actor);
                 public string GetAnimation() {
                     if(mInfo == null || mInfo.animation == null) {
                         return "";
@@ -35,14 +37,7 @@ namespace ENGINE {
                     
                     Console.WriteLine(GetPrintString(actor));
                 }
-                protected virtual void ApplyValue(Actor actor) {
-                    Dictionary<string, float> values = GetValues(actor);
-                    //apply to self
-                    foreach(var p in values) {
-                        actor.Obtain(p.Key, p.Value);                        
-                    }
-                    actor.mTaskCounter++;
-                }                
+                
             }
             public class TaskHandler {
                 private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();

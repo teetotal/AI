@@ -258,11 +258,10 @@ public class Loop {
         foreach(var p in actors) {            
             var actor = p.Value;        
             //Task 
-            string? taskid = actor.GetTaskId();
-            if(taskid == null) continue;             
-            var task = TaskHandler.Instance.GetTask(taskid);                 
-            if(task == null) continue;   
-            task.DoTask(actor);
+            
+            if(actor.TakeTask() == false) continue;    
+            FnTask? task = actor.mCurrentTask;
+            actor.DoTask();
 
             //levelup
             bool isLevelUp = actor.checkLevelUp();
