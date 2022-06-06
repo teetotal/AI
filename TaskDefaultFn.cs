@@ -98,14 +98,14 @@ namespace ENGINE {
                                     continue;
                                 }
                                 //reserved가 아니고, 허용 가능한 범위 안에 있고 현재 Ready이거나 Tasking인 상태 actor
-                                if(p.Value.mIsReserved) {
+                                if(p.Value.GetReserve()) {
                                     continue;
                                 }
                                 if(actor.position == null || p.Value.position == null) {
                                     continue;
                                 }
                                 double distance = actor.position.GetDistance(p.Value.position);
-                                if(distance > 20 || p.Value.GetState() == Actor.STATE.MOVING) {
+                                if(distance > 20 || p.Value.GetState() != Actor.STATE.READY) {
                                     continue;
                                 }
                                 var satisfaction = p.Value.GetSatisfaction(target2);

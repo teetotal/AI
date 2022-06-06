@@ -33,9 +33,8 @@ namespace ENGINE {
             }  
             public class Actor {      
                 public enum STATE {
-                    READY,
-                    MOVING,
-                    TASKING,                    
+                    READY,                    
+                    TASKED,                    
                 }     
                 public enum ITEM_INVOKE_TYPE : int {
                     IMMEDIATELY = 0,
@@ -60,7 +59,7 @@ namespace ENGINE {
                 //target이 actor일 경우 actorId
                 public Tuple<bool, string>? mTaskTarget;
                 //interaction을 위한 예약 flag. 예약한 actor가 와서 풀어줘야 한다.
-                public bool mIsReserved = false;
+                private bool mIsReserved = false;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
@@ -109,6 +108,20 @@ namespace ENGINE {
                 public bool Obtain(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, amount, 0, null);
                 }     
+                //Reserve ----------------------------------------------------------
+                public bool GetReserve() {
+                    return mIsReserved;
+                }
+                public bool SetReserve(string fromActorId) {                    
+                    if(mIsReserved) 
+                        return false;
+                    mIsReserved = true;
+                    return true;
+                }
+                public void ReleaseReserve() {                    
+                    mIsReserved = false;
+                }
+                // ---------------------------------------------------------------------
                 //Task 수행횟수 기록
                 public bool DoTask() {
                     if(mCurrentTask == null || mCurrentTask.mTaskId == null || mTaskTarget == null)
@@ -123,7 +136,7 @@ namespace ENGINE {
                         foreach(var p in mCurrentTask.mInfo.relation.satisfactions) {
                             targetActor.ApplySatisfaction(p.Key, p.Value, 0, this.mUniqueId);
                         }
-                        targetActor.mIsReserved = false;
+                        targetActor.ReleaseReserve();
                     }
                     //accumulation
                     string taskId = mCurrentTask.mTaskId;
@@ -294,9 +307,10 @@ namespace ENGINE {
                         if(targetActor == null)
                             return false;
                         
-                        targetActor.mIsReserved = true;                        
+                        targetActor.SetReserve(mUniqueId);                        
                     }
-                    mCurrentTask = task;                                        
+                    mCurrentTask = task;   
+                    SetState(STATE.TASKED);
                             
                     return true;
                 }
