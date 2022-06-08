@@ -146,13 +146,15 @@ namespace ENGINE {
                         mAccumulationTask[taskId] = 1;
                     }       
                     //satisfaction
-                    Dictionary<string, float> values = mCurrentTask.GetValues(this);                    
+                    //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
+                    Dictionary<string, float> values = mCurrentTask.GetSatisfactions(this);                    
                     foreach(var p in values) {
                         Obtain(p.Key, p.Value);
                     }
                     mTaskCounter++;
                     
-                    SetState(STATE.READY);
+                    //Levelup확인한 후 READY로 돌려야 한다.
+                    //SetState(STATE.READY);
                     mCurrentTask = null;
                     mTaskTarget = null;
 
@@ -323,7 +325,7 @@ namespace ENGINE {
                     float sum = 0;
                     var taskSatisfaction = fn.GetValues(this);    
                     if(taskSatisfaction == null)
-                        return 0;
+                        return float.MinValue;
                         
                     foreach(var p in mSatisfaction) {
                         float val = p.Value.Value;

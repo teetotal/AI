@@ -136,7 +136,7 @@
             "id": "love",
             "title": "짝사랑하기",
             "desc": "아무도 모르게 혼자 짝사랑 한다",
-            "targetObject": "SM_Env_GrassPath_Straight_11",
+            "targetObject": "SM_Env_Grass_11",
             "animation": "Bashful",
             "time": 5,
             "satisfactions": {

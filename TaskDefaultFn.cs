@@ -27,12 +27,18 @@ namespace ENGINE {
                     return new Tuple<bool, string>(false, "");
                 }          
                 public override Dictionary<string, float>? GetValues(Actor actor) {
-                    if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor) == null)
+                    if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor).Length == 0)
                         || (mInfo != null && mInfo.satisfactions == null) ) {
                         return null;
                     }
 
                     return mInfo.satisfactions;
+                }
+                public override Dictionary<string, float> GetSatisfactions(Actor actor) {
+                    if(mInfo != null && mInfo.satisfactions != null) {
+                        return mInfo.satisfactions;
+                    }
+                    return new Dictionary<string, float>();
                 }
                 /*
                 public override bool DoTask(Actor actor)

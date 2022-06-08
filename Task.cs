@@ -10,7 +10,7 @@ namespace ENGINE {
                 public string? mTaskDesc { get; set; }
                 public ConfigTask_Detail? mInfo { get; set; }
                 public abstract Dictionary<string, float>? GetValues(Actor actor);
-                //public abstract bool DoTask(Actor actor);
+                public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
                 
                 // isActor, id
                 public abstract Tuple<bool, string> GetTargetObject(Actor actor);
