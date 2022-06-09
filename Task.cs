@@ -5,10 +5,10 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public abstract class FnTask {
-                public string? mTaskId { get; set; }
-                public string? mTaskTitle { get; set; }
-                public string? mTaskDesc { get; set; }
-                public ConfigTask_Detail? mInfo { get; set; }
+                public string mTaskId { get; set; } = "";
+                public string mTaskTitle { get; set; } = "";
+                public string mTaskDesc { get; set; } = "";
+                public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
                 public abstract Dictionary<string, float>? GetValues(Actor actor);
                 public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
                 
@@ -23,6 +23,7 @@ namespace ENGINE {
                 public string GetPrintString(Actor actor) {
                     var values = GetValues(actor);
                     string sz = "";
+                    if(values == null) return sz;
                     foreach(var p in values) {
                         var s = SatisfactionDefine.Instance.Get(p.Key);
                         if(s == null) {
@@ -56,8 +57,20 @@ namespace ENGINE {
                     mDict.Add(task.mTaskId, task);
                     return true;
                 }
-                public Dictionary<string, FnTask> GetTasks() {
-                    return mDict;
+                public Dictionary<string, FnTask> GetTasks(int level) {
+                    Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
+                    foreach(var p in mDict) {
+                        if( p.Value.mInfo != null && p.Value.mInfo.level != null)
+                        {
+                            var info = p.Value.mInfo;
+                            if( ((info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
+                                && info.type == TASK_TYPE.NORMAL // check type
+                            ) {
+                                ret.Add(p.Key, p.Value);
+                            }
+                        }  
+                    }
+                    return ret;
                 }
                 public FnTask? GetTask(string? taskId) {
                     if(taskId == null) {

@@ -122,18 +122,17 @@ namespace ENGINE {
                     mIsReserved = false;
                 }
                 // ---------------------------------------------------------------------
-                //Task 수행횟수 기록
                 public bool DoTask() {
                     if(mCurrentTask == null || mCurrentTask.mTaskId == null || mTaskTarget == null)
                         return false;
                     //relation
-                    if(mTaskTarget.Item1 == true && mCurrentTask.mInfo != null && mCurrentTask.mInfo.relation != null && mCurrentTask.mInfo.relation.satisfactions != null) {
+                    if(mCurrentTask.mInfo.target.type == TASK_TARGET_TYPE.ACTOR_CONDITION && mCurrentTask.mInfo.target.satisfactions != null) {
                         //apply to someone                        
                         var targetActor = ActorHandler.Instance.GetActor(mTaskTarget.Item2);                        
                         if(targetActor is null) {
                             return false;
                         }
-                        foreach(var p in mCurrentTask.mInfo.relation.satisfactions) {
+                        foreach(var p in mCurrentTask.mInfo.target.satisfactions) {
                             targetActor.ApplySatisfaction(p.Key, p.Value, 0, this.mUniqueId);
                         }
                         targetActor.ReleaseReserve();
@@ -155,6 +154,10 @@ namespace ENGINE {
                     
                     //Levelup확인한 후 READY로 돌려야 한다.
                     //SetState(STATE.READY);
+
+                    //다음 task
+
+
                     mCurrentTask = null;
                     mTaskTarget = null;
 
@@ -283,13 +286,16 @@ namespace ENGINE {
                         return mAccumulationSatisfaction[satisfactionId];
                     return 0;
                 }
-                // task -------------------------------------------------------------------------------------------------------------                
+                // task ------------------------------------------------------------------------------------------------------------- 
+                /*
+                ask, interrupt 처리
+                fromActor처리
+                */               
                 public bool TakeTask() {
                     string taskId = "";
                     float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks();
+                    var tasks = TaskHandler.Instance.GetTasks(mLevel); 
                     foreach(var p in tasks) {
-                        //일정레벨 이상인 task가 조회하는거 구현해야 함
                         float expecedValue = GetExpectedValue(p.Value);
                         if(expecedValue > maxValue) {
                             maxValue = expecedValue;

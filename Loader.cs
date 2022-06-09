@@ -119,25 +119,45 @@ namespace ENGINE {
                 public List<float>? position { get; set; }
                 public List<Config_Satisfaction>? satisfactions { get; set; }
             }
-            //Task ---------------------------------------------------------------           
+            //Task ---------------------------------------------------------------         
+            public enum TASK_TYPE : int {
+                NORMAL = 0,
+                REACTION
+            }  
+            public enum TASK_TARGET_TYPE : int {
+                NON_TARGET = 0,
+                OBJECT,
+                ACTOR,
+                ACTOR_CONDITION
+            }
+            public enum TASK_INTERACTION_TYPE : int {
+                NO_INTERACTION = 0,
+                ASK,
+                INTERRUPT
+            }
             public class ConfigTask_Detail {
-                public string? id { get; set; }// task 고유 id
-                public int level1 { get; set; } //사용가능한 Actor 최소 레벨
-                public int level2 { get; set; } //사용가능한 Actor 최대 레벨
-                public string? title { get; set; }
-                public string? desc { get; set; }
+                public string id { get; set; } = "";// task 고유 id
+                public TASK_TYPE type { get; set; }
+                public List<int>? level { get; set; } //사용가능한 Actor 최소 레벨, 최대 레벨
+                public string title { get; set; } = "";
+                public string desc { get; set; } = "";
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
-                public string? targetObject { get; set; }
+                public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
                 public string? animation { get; set; }
-                public string? animationAck { get; set; }
                 public float time { get; set; }
                 public Dictionary<string, float>? satisfactions { get; set; }
-                public ConfigTask_Relation? relation { get; set; }
             }         
 
-            public class ConfigTask_Relation {
-                public List<string>? target { get; set; }
+            public class ConfigTask_Interaction {
+                public TASK_INTERACTION_TYPE type { get; set; }
+                public string? taskId { get; set; }
+                
+            }
+            public class ConfigTask_Target {
+                public TASK_TARGET_TYPE type { get; set; }
+                public string? value { get; set; }
                 public Dictionary<string, float>? satisfactions { get; set; }
+                public ConfigTask_Interaction? interaction { get; set; }
             }
 
             //Level ---------------------------------------------------------------
@@ -249,7 +269,7 @@ namespace ENGINE {
                 // Set Task
                 private bool SetTask(List<ConfigTask_Detail> tasks) {
                     foreach(var p in tasks) {
-                        if(p == null) {
+                        if(p == null || p.target == null || p.id.Length == 0) {
                             return false;
                         }
                         TaskDefaultFn fn = new TaskDefaultFn(p);                        

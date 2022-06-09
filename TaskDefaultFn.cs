@@ -16,22 +16,28 @@ namespace ENGINE {
                     this.mInfo = info;
                 }     
                 public override Tuple<bool, string> GetTargetObject(Actor actor) {
-                    var targetActorId = FindRelationTarget(actor);
-                    if(targetActorId.Length > 0) {                        
-                        return new Tuple<bool, string>(true, targetActorId);
+                    string targetValue = mInfo.target.value == null ? "" : mInfo.target.value;
+                    bool isActor = false;
+                    switch(mInfo.target.type) {
+                        case TASK_TARGET_TYPE.ACTOR:
+                        isActor = true;
+                        break;
+                        case TASK_TARGET_TYPE.ACTOR_CONDITION:
+                        targetValue =FindRelationTarget(actor);
+                        isActor = true;
+                        break;
                     }
-                    var targetObject = GetDefaultTargetObject();
-                    if(targetObject.Length > 0) {
-                        return new Tuple<bool, string>(false, targetObject);
-                    }
-                    return new Tuple<bool, string>(false, "");
+                    return new Tuple<bool, string>(isActor, targetValue);
                 }          
                 public override Dictionary<string, float>? GetValues(Actor actor) {
-                    if( (mInfo != null && mInfo.relation != null && mInfo.relation.target != null && FindRelationTarget(actor).Length == 0)
-                        || (mInfo != null && mInfo.satisfactions == null) ) {
-                        return null;
+                    switch(mInfo.target.type) {
+                        case TASK_TARGET_TYPE.ACTOR_CONDITION:
+                        if(FindRelationTarget(actor).Length == 0)
+                            return null;
+                        break;
+                        default:
+                        break;
                     }
-
                     return mInfo.satisfactions;
                 }
                 public override Dictionary<string, float> GetSatisfactions(Actor actor) {
@@ -66,17 +72,12 @@ namespace ENGINE {
                     
                 }
                 */
-                private string GetDefaultTargetObject() {
-                    if(mInfo == null || mInfo.targetObject == null) {
-                        return "";
-                    }
-                    return mInfo.targetObject;
-                }
+                
                 private string FindRelationTarget(Actor actor) {
-                    if(mInfo == null || mInfo.relation == null || mInfo.relation.target == null) {
+                    if(mInfo.target.value == null || mInfo.target.value.Length == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
                         return "";
                     }
-                    List<string> conditions = mInfo.relation.target;
+                    string[] conditions = mInfo.target.value.Split(',');
                     string fromActorId = actor.mUniqueId;                    
                     string actorId = "";
                     //type.target1.target2:condition
