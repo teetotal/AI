@@ -145,7 +145,7 @@ namespace ENGINE {
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
                 public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
                 public string? animation { get; set; }
-                public float time { get; set; }
+                public int time { get; set; }
                 public Dictionary<string, float>? satisfactions { get; set; }
             }         
 
