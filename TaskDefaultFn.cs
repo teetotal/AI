@@ -27,10 +27,11 @@ namespace ENGINE {
                         isActor = true;
                         break;
                         case TASK_TARGET_TYPE.ACTOR_FROM:
-                        if(actor.GetTaskContext().interactionFromActor == null)
+                        Actor.TaskContext context = actor.GetTaskContext();
+                        if(context.interactionFromActor == null)
                             targetValue = "";    
                         else 
-                            targetValue = actor.GetTaskContext().interactionFromActor.mUniqueId;
+                            targetValue = context.interactionFromActor.mUniqueId;
                         isActor = true;
                         break;
                     }
