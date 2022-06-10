@@ -80,11 +80,7 @@
             "desc": "배고픔을 참지 못하고 도둑질을 한다",
             "target": {
                 "type": 4,
-                "value": "1.Satisfaction.100:max,1.Satisfaction.101:max",
-                "satisfactions": {
-                    "101": -6,
-                    "110": -2
-                },
+                "value": "1.Satisfaction.100:max,1.Satisfaction.101:max",                
                 "interaction": {
                     "type": 2,
                     "taskId": "steal_ack"
@@ -105,13 +101,9 @@
             "title": "도둑질을 당하고 도둑에게 욕한다.",
             "desc": "",
             "target": {
-                "desc": "type 0: non target, 1: 사물, 2: Actor, 3: 조건에 맞는 사물, 4: 조건에 맞는 actor, 5: interaction을 건 상대",
-                "type": 5,
-                "value": null,
-                "satisfactions": {
-                    "101": -6,
-                    "110": -2
-                },
+                "desc": "type 0: non target, 1: 사물, 2: Actor, 3: 조건에 맞는 actor, 4: interaction을 건 상대",
+                "type": 4,
+                "value": null,                
                 "interaction": {
                     "type": 3,
                     "taskId": "runaway"
@@ -133,9 +125,11 @@
             "desc": "",
             "target": {
                 "type": 1,
-                "value": "뒷골목 어딘가",
-                "satisfactions": null,
-                "interaction": null
+                "value": "뒷골목 어딘가",                
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
             },
             "animation": "run",
             "time": 3,
@@ -153,8 +147,10 @@
             "target": {
                 "type": 2,
                 "value": "핫도그 사장",
-                "satisfactions": null,
-                "interaction": null
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
             },
             "animation": "Strong",
             "time": 5,
@@ -170,12 +166,8 @@
             "title": "인사하기",
             "desc": "주변인에게 인사한다",
             "target": {
-                "type": 4,
-                "value": "1.Satisfaction.120:min",
-                "satisfactions": {
-                    "120": 1,
-                    "130": 1
-                },
+                "type": 3,
+                "value": "1.Satisfaction.120:min",                
                 "interaction": {
                     "type": 1,
                     "taskId": "hello_ack"
@@ -193,14 +185,11 @@
             "id": "hello_ack",
             "type": 1,
             "level": null,
-            "title": "인사하기",
-            "desc": "주변인에게 인사한다",
+            "title": "인사 받아주기",
+            "desc": "인사를 받아준다",
             "target": {
-                "type": 5,
-                "value": null,
-                "satisfactions": {
-                    "120": 3
-                },
+                "type": 4,
+                "value": null,                
                 "interaction": {
                     "type": 0,
                     "taskId": null
@@ -222,8 +211,10 @@
             "target": {
                 "type": 1,
                 "value": "SM_Env_Grass_11",
-                "satisfactions": null,
-                "interaction": null
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
             },
             "animation": "Bashful",
             "time": 5,
@@ -242,8 +233,10 @@
             "target": {
                 "type": 1,
                 "value": "SM_Env_Sidewalk_397",
-                "satisfactions": null,
-                "interaction": null
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
             },
             "animation": "Digging",
             "time": 3,
@@ -261,8 +254,10 @@
             "target": {
                 "type": 2,
                 "value": "경호업체 직원",
-                "satisfactions": null,
-                "interaction": null
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
             },
             "animation": "security",
             "time": 3,

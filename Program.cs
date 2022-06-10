@@ -21,10 +21,10 @@ class MainClass {
         };
         if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4])) {
             //Battle test
-            BattleTest battle = new BattleTest();
-            battle.Init();
+            //BattleTest battle = new BattleTest();
+            //battle.Init();
 
-            //p.MainLoop();
+            p.MainLoop();
         } else {
             Console.WriteLine("Failure loading config");
         }
@@ -165,8 +165,9 @@ public class Loop {
                     Next();
                     break;
                     case 2:
-                    DoActor(actors);
                     Next();
+                    TakeTask(actors);
+                    DoActor(actors);                    
                     break;
                     case 3:
                     Inquiry(actors);
@@ -254,32 +255,38 @@ public class Loop {
             Console.WriteLine("> {0} 만족도 ({1}) 동기 ({2})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId));
         }
     }
-    private void DoActor(Dictionary<string, Actor> actors) {
+    private void TakeTask(Dictionary<string, Actor> actors) {
         foreach(var p in actors) {            
             var actor = p.Value;        
             //Task 
             
             if(actor.TakeTask() == false) continue;    
-            FnTask? task = actor.mCurrentTask;
-            actor.DoTask();
+            FnTask? task = actor.GetCurrentTask();
+            if(task == null) 
+                continue;     
+            Console.WriteLine("> {0}: take task {1} ", actor.mUniqueId, task.mTaskTitle);       
+        }
+    }
+    private void DoActor(Dictionary<string, Actor> actors) {
+        foreach(var p in actors) {            
+            var actor = p.Value;        
+            if(actor.GetState() != Actor.STATE.TASKED)
+                continue;
+            //Task 
+            FnTask? task = actor.GetCurrentTask();
+            if(task == null) 
+                continue;
+            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString());
+            Tuple<bool, bool> retTask = actor.DoTask();
 
             //levelup
-            bool isLevelUp = actor.checkLevelUp();
-            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, task.GetPrintString(actor));            
+            bool isLevelUp = retTask.Item2;            
             if(isLevelUp == true) {
-                var reward = LevelHandler.Instance.Get(actor.mType, actor.mLevel);
-                if(reward != null && reward.next != null && reward.next.rewards != null) {
-                    actor.LevelUp(reward.next.rewards);
-                    Console.WriteLine("Level up!! {0}", actor.mLevel);
-                    foreach(var item in reward.next.rewards) {
-                        if(item.itemId != null)
-                            Console.WriteLine("> Reward {0}", ItemHandler.Instance.GetPrintString(item.itemId));
-                    }
-                    
-                }
+                Console.WriteLine("Level up!! {0}", actor.mLevel);
             }
 
             //quest
+            /*
             string completeQuestId = "";
             List<string> quests = actor.GetQuest();
             foreach(string questId  in quests) {
@@ -299,16 +306,18 @@ public class Loop {
                 if(quest == null) continue;
                 Console.WriteLine("Quest Complete> {0} ({1}) {2}", quest.title, quest.desc, ret);
             }
+            */
             
         }
     }
     public void Next() {
         Int64 counter = CounterHandler.Instance.Next();
         //Discharge
-        DischargeHandler.Instance.Discharge(type);
-        ActorHandler.Instance.UpdateSatisfactionSum();
+        //DischargeHandler.Instance.Discharge(type);
+        //ActorHandler.Instance.UpdateSatisfactionSum();
         
         //happening
+        /*
         var happeningList = HappeningHandler.Instance.GetHappeningCandidates(type);
         //HappeningHandler.Instance.PrintCandidates(happeningList);
         foreach(var happening in happeningList) {
@@ -321,6 +330,6 @@ public class Loop {
             } else {
                 Console.WriteLine("Failure Happening");
             }
-        }
+        }*/
     }
 }

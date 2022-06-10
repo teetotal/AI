@@ -23,7 +23,14 @@ namespace ENGINE {
                         isActor = true;
                         break;
                         case TASK_TARGET_TYPE.ACTOR_CONDITION:
-                        targetValue =FindRelationTarget(actor);
+                        targetValue = FindRelationTarget(actor);
+                        isActor = true;
+                        break;
+                        case TASK_TARGET_TYPE.ACTOR_FROM:
+                        if(actor.GetTaskContext().interactionFromActor == null)
+                            targetValue = "";    
+                        else 
+                            targetValue = actor.GetTaskContext().interactionFromActor.mUniqueId;
                         isActor = true;
                         break;
                     }
@@ -104,10 +111,7 @@ namespace ENGINE {
                                 if(p.Value.mUniqueId == fromActorId) {
                                     continue;
                                 }
-                                //reserved가 아니고, 허용 가능한 범위 안에 있고 현재 Ready이거나 Tasking인 상태 actor
-                                if(p.Value.GetReserve()) {
-                                    continue;
-                                }
+                                //reserved가 아니고, 허용 가능한 범위 안에 있고 현재 Ready이거나 Tasking인 상태 actor                                
                                 if(actor.position == null || p.Value.position == null) {
                                     continue;
                                 }

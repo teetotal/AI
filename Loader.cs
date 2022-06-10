@@ -128,7 +128,8 @@ namespace ENGINE {
                 NON_TARGET = 0,
                 OBJECT,
                 ACTOR,
-                ACTOR_CONDITION
+                ACTOR_CONDITION,
+                ACTOR_FROM, //interaction을 건 상대
             }
             public enum TASK_INTERACTION_TYPE : int {
                 NO_INTERACTION = 0,
@@ -155,9 +156,8 @@ namespace ENGINE {
             }
             public class ConfigTask_Target {
                 public TASK_TARGET_TYPE type { get; set; }
-                public string? value { get; set; }
-                public Dictionary<string, float>? satisfactions { get; set; }
-                public ConfigTask_Interaction? interaction { get; set; }
+                public string? value { get; set; }                
+                public ConfigTask_Interaction interaction { get; set; } = new ConfigTask_Interaction();
             }
 
             //Level ---------------------------------------------------------------

@@ -19,26 +19,7 @@ namespace ENGINE {
                         return "";
                     }
                     return mInfo.animation;
-                }
-                public string GetPrintString(Actor actor) {
-                    var values = GetValues(actor);
-                    string sz = "";
-                    if(values == null) return sz;
-                    foreach(var p in values) {
-                        var s = SatisfactionDefine.Instance.Get(p.Key);
-                        if(s == null) {
-                            Console.WriteLine("Invalid SatisfactionDefine id");
-                        } else {
-                            sz += String.Format("{0}({1}) ", s.title, p.Value );                            
-                        }                        
-                    }
-                    return sz;
-                }
-                public void Print(Actor actor) {
-                    
-                    Console.WriteLine(GetPrintString(actor));
-                }
-                
+                }                
             }
             public class TaskHandler {
                 private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();
@@ -59,16 +40,13 @@ namespace ENGINE {
                 }
                 public Dictionary<string, FnTask> GetTasks(int level) {
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
-                    foreach(var p in mDict) {
-                        if( p.Value.mInfo != null && p.Value.mInfo.level != null)
-                        {
-                            var info = p.Value.mInfo;
-                            if( ((info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
-                                && info.type == TASK_TYPE.NORMAL // check type
-                            ) {
-                                ret.Add(p.Key, p.Value);
-                            }
-                        }  
+                    foreach(var p in mDict) {                        
+                        var info = p.Value.mInfo;
+                        if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
+                            && info.type == TASK_TYPE.NORMAL // check type
+                        ) {
+                            ret.Add(p.Key, p.Value);
+                        }                          
                     }
                     return ret;
                 }

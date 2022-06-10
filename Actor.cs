@@ -11,10 +11,10 @@ namespace ENGINE {
                     this.expire = expire;
                     this.usage = usage; //사용량이 필요한 아이템일 경우 사용
                 }
-                public string itemKey { get; set; }
-                public int expire { get; set; }
-                public int usage { get; set; }
-            }          
+                    public string itemKey { get; set; }
+                    public int expire { get; set; }
+                    public int usage { get; set; }
+                }          
             public class Position {
                 public float x { get; set; }
                 public float y { get; set; }
@@ -31,10 +31,23 @@ namespace ENGINE {
                     return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
                 }
             }  
-            public class Actor {      
+            public class Actor {     
+                public enum CALLBACK_TYPE {
+                    SET_READY,
+                    TAKE_TASK,
+                    DO_TASK,
+                    RESERVE,
+                    RESERVED,
+                    ASK,
+                    ASKED,
+                    INTERRUPT,
+                    INTERRUPTED
+                }
+                public delegate void Callback(CALLBACK_TYPE type); 
                 public enum STATE {
                     READY,                    
-                    TASKED,                    
+                    TASKED,    
+                    RESERVED, //누군가에 의해 ASK요청을 받은 상태                
                 }     
                 public enum ITEM_INVOKE_TYPE : int {
                     IMMEDIATELY = 0,
@@ -48,36 +61,79 @@ namespace ENGINE {
                     ABSOLUTE  = 0,
                     PERCENT,
                     INCREASE
-                }                     
+                }           
+                public class TaskContext {
+                    // Task 수행 횟수 저장 for level up
+                    public Int64 taskCounter { get; set; }
+                    public STATE state = STATE.READY;
+                    public FnTask? currentTask = null;
+                    //target이 actor일 경우 actorId
+                    public Tuple<bool, string>? target;       
+                    public Actor? interactionFromActor;             
+                    public void Release() {
+                        this.currentTask = null;
+                        this.target = null;
+                        this.interactionFromActor = null;
+                        state = STATE.READY;
+                    }
+                    public void Set(FnTask task, Tuple<bool, string> target) {
+                        this.currentTask = task;
+                        this.target = target;
+                        state = STATE.TASKED;
+                    }
+                    public void IncreaseTaskCounter() {
+                        taskCounter++;
+                    }
+                }      
+                private class ItemContext {
+                    //item key, quantity
+                    public Dictionary<string, int> inventory = new Dictionary<string, int>();
+                    //장착중인 아이템.만료처리는 mInvoking랑 같이 업데이트 해줘야함.
+                    public Dictionary<string, List<ItemUsage>> installation = new Dictionary<string, List<ItemUsage>>();
+                    //발동중인 아이템 리스트                
+                    public Dictionary<string, List<ItemUsage>> invoking = new Dictionary<string, List<ItemUsage>>();
+                }          
+                private class QuestContext {                    
+                    public List<string> questList { get; set; } = new List<string>(); //Quest handler에서 top만큼씩 수행 완료 처리.
+                    public Dictionary<string, double> accumulationSatisfaction = new Dictionary<string, double>(); //누적 Satisfaction
+                    public Dictionary<string, Int64> accumulationTask = new Dictionary<string, Int64>(); //Task별 수행 횟수. taskhandler에서 호출
+                    public void AddSatisfaction(string satisfactionId, float value) {
+                        if(accumulationSatisfaction.ContainsKey(satisfactionId)) {
+                            accumulationSatisfaction[satisfactionId] += value;
+                        } else {
+                            accumulationSatisfaction[satisfactionId] = value;
+                        }
+                    }
+                    public double GetSatisfaction(string satisfactionId) {
+                        if(accumulationSatisfaction.ContainsKey(satisfactionId))
+                            return accumulationSatisfaction[satisfactionId];
+                        return 0;
+                    }
+                    public void IncreaseTaskCount(string taskId) {
+                         if(accumulationTask.ContainsKey(taskId)) {
+                            accumulationTask[taskId] ++;
+                        } else {
+                            accumulationTask[taskId] = 1;
+                        }       
+                    }
+                }
+
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
                 public string? prefab;
-                public Position? position;                
-                private STATE mState = STATE.READY;
-                public FnTask? mCurrentTask = null;
-                //target이 actor일 경우 actorId
-                public Tuple<bool, string>? mTaskTarget;
-                //interaction을 위한 예약 flag. 예약한 actor가 와서 풀어줘야 한다.
-                private bool mIsReserved = false;
+                public Position? position;       
+                private Callback? mCallback;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
-                private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();
-                // Task 수행 횟수 저장 for level up
-                public Int64 mTaskCounter { get; set; }
+                private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();                
+                //Task --------------------------------------------------------------------------------------------------
+                private TaskContext mTaskContext = new TaskContext();                
                 //Quest ------------------------------------------------------------------------------------------------
-                //Quest handler에서 top만큼씩 수행 완료 처리.
-                public List<string> mQuestList { get; set; }
-                private Dictionary<string, double> mAccumulationSatisfaction = new Dictionary<string, double>(); //누적 Satisfaction
-                private Dictionary<string, Int64> mAccumulationTask = new Dictionary<string, Int64>(); //Task별 수행 횟수. taskhandler에서 호출
+                private QuestContext mQuestContext = new QuestContext();
                 //Item -------------------------------------------------------------------------------------------------
-                //item key, quantity
-                private Dictionary<string, int> mInventory = new Dictionary<string, int>();
-                //장착중인 아이템.만료처리는 mInvoking랑 같이 업데이트 해줘야함.
-                private Dictionary<string, List<ItemUsage>> mInstallation = new Dictionary<string, List<ItemUsage>>();
-                //발동중인 아이템 리스트                
-                private Dictionary<string, List<ItemUsage>> mInvoking = new Dictionary<string, List<ItemUsage>>();
+                private ItemContext mItemContext = new ItemContext();
                 //-------------------------------------------------------------------------------------------------
                 public Actor(int type, string uniqueId, int level, string? prefab, List<float>? position, List<string> quests) {
                     this.mType = type;
@@ -86,7 +142,16 @@ namespace ENGINE {
                     this.prefab = prefab;
                     if(position != null && position.Count == 3)
                         this.position = new Position(position[0], position[1], position[2]);
-                    this.mQuestList = quests;
+                    this.mQuestContext.questList = quests;
+                    this.mCallback = null;
+                }
+                public void SetCallback(Callback fn) {
+                    mCallback = fn;
+                }
+                public void CallCallback(CALLBACK_TYPE type) {
+                    if(mCallback != null) {
+                        mCallback(type);
+                    }
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
                 {
@@ -100,6 +165,24 @@ namespace ENGINE {
                         this.mUniqueId, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId), s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
+                public string GetTaskString() {
+                    if(mTaskContext.currentTask == null || mTaskContext.target == null)
+                        return "error";
+
+                    var values = mTaskContext.currentTask.mInfo.satisfactions;                    
+                    string sz = "";
+                    if(values == null) return sz;
+                    foreach(var p in values) {
+                        var s = SatisfactionDefine.Instance.Get(p.Key);
+                        if(s == null) {
+                            Console.WriteLine("Invalid SatisfactionDefine id");
+                        } else {
+                            sz += String.Format("{0}({1}) ", s.title, p.Value );                                                        
+                        }                        
+                    }
+                    sz += mTaskContext.target.ToString();
+                    return sz;
+                }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
                 public bool Discharge(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, -amount, 0, null);
@@ -108,66 +191,137 @@ namespace ENGINE {
                 public bool Obtain(string satisfactionId, float amount) {
                     return ApplySatisfaction(satisfactionId, amount, 0, null);
                 }     
-                //Reserve ----------------------------------------------------------
-                public bool GetReserve() {
-                    return mIsReserved;
-                }
-                public bool SetReserve(string fromActorId) {                    
-                    if(mIsReserved) 
+                //Ask ----------------------------------------------------------       
+                private bool SetReserveToTarget(string targetActorId) {
+                    var targetActor = ActorHandler.Instance.GetActor(targetActorId);
+                    if(targetActor == null)
                         return false;
-                    mIsReserved = true;
+                    
+                    if(!targetActor.SetAskReserve(this))
+                        return false;
+                    
+                    CallCallback(CALLBACK_TYPE.RESERVE);
+                    
+                    return true;                    
+                }         
+                public bool SetAskReserve(Actor actorFrom) {
+                    if(mTaskContext.state != STATE.READY) 
+                        return false;
+                    mTaskContext.state = STATE.RESERVED;
+                    mTaskContext.interactionFromActor = actorFrom;
+
+                    CallCallback(CALLBACK_TYPE.RESERVED);
+                    return true;
+                }                                
+                public bool SendAskTaskToTarget(string taskId) {
+                    if(mTaskContext.target == null || mTaskContext.target.Item1 == false) 
+                        return false;
+                    var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
+                    if(targetActor == null)
+                        return false;
+                    if(!targetActor.SetCurrentTask(taskId))
+                        return false;
+                    CallCallback(CALLBACK_TYPE.ASK);
+                    targetActor.CallCallback(CALLBACK_TYPE.ASKED);
                     return true;
                 }
-                public void ReleaseReserve() {                    
-                    mIsReserved = false;
-                }
                 // ---------------------------------------------------------------------
-                public bool DoTask() {
-                    if(mCurrentTask == null || mCurrentTask.mTaskId == null || mTaskTarget == null)
-                        return false;
-                    //relation
-                    if(mCurrentTask.mInfo.target.type == TASK_TARGET_TYPE.ACTOR_CONDITION && mCurrentTask.mInfo.target.satisfactions != null) {
-                        //apply to someone                        
-                        var targetActor = ActorHandler.Instance.GetActor(mTaskTarget.Item2);                        
-                        if(targetActor is null) {
-                            return false;
-                        }
-                        foreach(var p in mCurrentTask.mInfo.target.satisfactions) {
-                            targetActor.ApplySatisfaction(p.Key, p.Value, 0, this.mUniqueId);
-                        }
-                        targetActor.ReleaseReserve();
+                public TaskContext GetTaskContext() {
+                    return mTaskContext;
+                }
+                //ret DoTask, islevelup
+                public Tuple<bool, bool> DoTask() {
+                    if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null || mTaskContext.target == null)
+                        return new Tuple<bool, bool>(false, false);
+                    var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
+                    //ask, interrupt 처리
+                    switch(interaction.type) {
+                        case TASK_INTERACTION_TYPE.ASK:
+                        if(interaction.taskId == null || !SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
+                            return new Tuple<bool, bool>(false, false);
+                        break;
+                        case TASK_INTERACTION_TYPE.INTERRUPT:                        
+                        //상대의 현재 task를 중단 시키고 재설정 시킨다.
+                        break;
+                        default:
+                        break;
                     }
-                    //accumulation
-                    string taskId = mCurrentTask.mTaskId;
-                    if(mAccumulationTask.ContainsKey(taskId)) {
-                        mAccumulationTask[taskId] ++;
-                    } else {
-                        mAccumulationTask[taskId] = 1;
-                    }       
+                    
+                    //accumulation                    
+                    mQuestContext.IncreaseTaskCount(mTaskContext.currentTask.mTaskId);
                     //satisfaction
                     //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
-                    Dictionary<string, float> values = mCurrentTask.GetSatisfactions(this);                    
+                    Dictionary<string, float> values = mTaskContext.currentTask.GetSatisfactions(this);                    
                     foreach(var p in values) {
                         Obtain(p.Key, p.Value);
                     }
-                    mTaskCounter++;
-                    
-                    //Levelup확인한 후 READY로 돌려야 한다.
-                    //SetState(STATE.READY);
+                    mTaskContext.IncreaseTaskCounter();                    
 
-                    //다음 task
+                    //Levelup 처리                           
+                    bool isLevelup = checkLevelUp();
+                    if(isLevelup) {
+                        var reward = LevelHandler.Instance.Get(mType, mLevel);
+                        if(reward != null && reward.next != null && reward.next.rewards != null) {
+                            LevelUp(reward.next.rewards);
+                        }
+                    }
+                    CallCallback(CALLBACK_TYPE.DO_TASK);
+                    mTaskContext.Release();
+                    CallCallback(CALLBACK_TYPE.SET_READY);
 
+                    return new Tuple<bool, bool>(true, isLevelup);
+                }
+                /*
+                ask, interrupt 처리
+                fromActor처리
+                */               
+                public bool TakeTask() {
+                    if(mTaskContext.state != STATE.READY)
+                        return false;
 
-                    mCurrentTask = null;
-                    mTaskTarget = null;
-
+                    string taskId = "";
+                    float maxValue = 0.0f;                    
+                    var tasks = TaskHandler.Instance.GetTasks(mLevel); 
+                    foreach(var p in tasks) {
+                        float expecedValue = GetExpectedValue(p.Value);
+                        if(expecedValue > maxValue) {
+                            maxValue = expecedValue;
+                            taskId = p.Key;
+                        }
+                    }   
+                    if(!SetCurrentTask(taskId))
+                        return false;
+                    CallCallback(CALLBACK_TYPE.TAKE_TASK);
+                    return true;
+                }       
+                private bool SetCurrentTask(string taskId) {
+                    //task가져오고
+                    FnTask? task = TaskHandler.Instance.GetTask(taskId);
+                    if(task == null) {
+                        return false;
+                    }
+                    //target가져오고
+                    Tuple<bool, string> target = task.GetTargetObject(this);
+                    //ASK 처리
+                    switch(task.mInfo.target.interaction.type) {
+                        case TASK_INTERACTION_TYPE.ASK:
+                        if(!SetReserveToTarget(target.Item2)) 
+                            return false;
+                        break;
+                        case TASK_INTERACTION_TYPE.INTERRUPT: //interrupt를 걸면 어차피 중단 시켜 버리니까 reserve를 하지 않는다.                        
+                        break;
+                        default:
+                        break;
+                    }                    
+                    mTaskContext.Set(task, target);
+                            
                     return true;
                 }
-                public void SetState(STATE state) {
-                    mState = state;
-                }
+                public FnTask? GetCurrentTask() {
+                    return mTaskContext.currentTask;
+                }       
                 public STATE GetState() {
-                    return mState;
+                    return mTaskContext.state;
                 }
                 public void SetPosition(float x, float y, float z) {
                     if(position == null) {
@@ -196,11 +350,7 @@ namespace ENGINE {
                     mSatisfaction[satisfactionId].Value += value;
                     //quest를 위한 누적 집계. +만 집계한다. skipAccumulation값은 보상에 의한 건 skip하기 위한 flag
                     if(value > 0 && skipAccumulation == false) {
-                        if(mAccumulationSatisfaction.ContainsKey(satisfactionId)) {
-                            mAccumulationSatisfaction[satisfactionId] += value;
-                        } else {
-                            mAccumulationSatisfaction[satisfactionId] = value;
-                        }
+                        mQuestContext.AddSatisfaction(satisfactionId, value);
                     }                    
                     
                     // update Relation 
@@ -230,7 +380,7 @@ namespace ENGINE {
                             //나중에 필요하면 추가. 지금은 task수행 횟수만 구현
                             switch(t.key.ToUpper()) {
                                 case "TASKCOUNTER":
-                                if(mTaskCounter < t.value) {
+                                if( mTaskContext.taskCounter < t.value) {
                                     return false;
                                 }
                                 break;                                
@@ -269,7 +419,7 @@ namespace ENGINE {
                     List<string> ret = new List<string>();
                     int top = QuestHandler.Instance.GetTop(mType);
                     int i = 0;
-                    foreach(string quest in this.mQuestList) {
+                    foreach(string quest in mQuestContext.questList) {
                         if(i >= top) {
                             break;
                         }
@@ -279,49 +429,12 @@ namespace ENGINE {
                     return ret;
                 }
                 public bool RemoveQuest(string questId) {
-                    return mQuestList.Remove(questId);
+                    return mQuestContext.questList.Remove(questId);
                 }
                 public double GetAccumulationSatisfaction(string satisfactionId) {
-                    if(mAccumulationSatisfaction.ContainsKey(satisfactionId))
-                        return mAccumulationSatisfaction[satisfactionId];
-                    return 0;
+                    return mQuestContext.GetSatisfaction(satisfactionId);
                 }
-                // task ------------------------------------------------------------------------------------------------------------- 
-                /*
-                ask, interrupt 처리
-                fromActor처리
-                */               
-                public bool TakeTask() {
-                    string taskId = "";
-                    float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks(mLevel); 
-                    foreach(var p in tasks) {
-                        float expecedValue = GetExpectedValue(p.Value);
-                        if(expecedValue > maxValue) {
-                            maxValue = expecedValue;
-                            taskId = p.Key;
-                        }
-                    }   
-                    //task가져오고
-                    FnTask? task = TaskHandler.Instance.GetTask(taskId);
-                    if(task == null) {
-                        return false;
-                    }
-                    //target가져오고
-                    mTaskTarget = task.GetTargetObject(this);
-                    if(mTaskTarget.Item1 == true) {
-                        //target이 actor일경우 상대방에게 reserve하고
-                        var targetActor = ActorHandler.Instance.GetActor(mTaskTarget.Item2);
-                        if(targetActor == null)
-                            return false;
-                        
-                        targetActor.SetReserve(mUniqueId);                        
-                    }
-                    mCurrentTask = task;   
-                    SetState(STATE.TASKED);
-                            
-                    return true;
-                }
+                // -------------------------------------------------------------------------------------------------------------                 
                 private float GetExpectedValue(FnTask fn) {
                     
                     //1. satisfaction loop
@@ -396,7 +509,7 @@ namespace ENGINE {
                 //Item-------------------------------------------------------
                 public string PrintInventory() {
                     string sz = "";
-                    foreach(var p in mInventory) {
+                    foreach(var p in mItemContext.inventory) {
                         var info = ItemHandler.Instance.GetItemInfo(p.Key);
                         if(info != null)
                             sz += String.Format("> {0} {1}\n", info.name, p.Value);
@@ -424,21 +537,21 @@ namespace ENGINE {
                     return true;
                 }
                 public void AddInventory(string itemKey, int quantity) {
-                    if(mInventory.ContainsKey(itemKey)) {
-                        mInventory[itemKey] += quantity;
+                    if(mItemContext.inventory.ContainsKey(itemKey)) {
+                        mItemContext.inventory[itemKey] += quantity;
                     } else {
-                        mInventory[itemKey] = quantity;
+                        mItemContext.inventory[itemKey] = quantity;
                     }
                 }
                 //아이템 사용은 한번에 하나씩만
                 public bool UseItemFromInventory(string itemKey) {
-                    if(mInventory.ContainsKey(itemKey) == false || mInventory[itemKey] <= 0) {
+                    if(mItemContext.inventory.ContainsKey(itemKey) == false || mItemContext.inventory[itemKey] <= 0) {
                         return false;
                     }   
                     if(!InvokeItem(itemKey, 0)) {
                         return false;
                     }
-                    mInventory[itemKey] --;
+                    mItemContext.inventory[itemKey] --;
                     return true;
                 }
                 public bool InvokeItem(string itemKey, int usage) {
@@ -454,16 +567,16 @@ namespace ENGINE {
                             if(item.installationKey != null) {
                                 //몸에 탑재하는 아이템
                                 //몸에 연결은 front에서 처리
-                                if(mInstallation.ContainsKey(itemKey) == false) {
-                                    mInstallation[itemKey] = new List<ItemUsage>();
+                                if(mItemContext.installation.ContainsKey(itemKey) == false) {
+                                    mItemContext.installation[itemKey] = new List<ItemUsage>();
                                 }
-                                mInstallation[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
+                                mItemContext.installation[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
                             }                             
                             //발동
-                            if(mInvoking.ContainsKey(itemKey) == false) {
-                                mInvoking[itemKey] = new List<ItemUsage>();
+                            if(mItemContext.invoking.ContainsKey(itemKey) == false) {
+                                mItemContext.invoking[itemKey] = new List<ItemUsage>();
                             }
-                            mInvoking[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
+                            mItemContext.invoking[itemKey].Add(new ItemUsage(itemKey, item.invoke.expire, usage));
                         }                            
                     }
 
