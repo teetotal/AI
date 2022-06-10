@@ -210,7 +210,7 @@
             "desc": "아무도 모르게 혼자 짝사랑 한다",
             "target": {
                 "type": 1,
-                "value": "SM_Env_Grass_11",
+                "value": "SM_Env_GrassPath_Corner_01",
                 "interaction": {
                     "type": 0,
                     "taskId": null
