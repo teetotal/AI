@@ -146,7 +146,7 @@
             "desc": "돈 내고 밥을 사먹는다",
             "target": {
                 "type": 2,
-                "value": "핫도그 사장",
+                "value": "hotdog",
                 "interaction": {
                     "type": 0,
                     "taskId": null
@@ -232,7 +232,7 @@
             "desc": "돈을 벌기 위해 일을 한다",
             "target": {
                 "type": 1,
-                "value": "SM_Env_Sidewalk_397",
+                "value": "SM_Env_Sidewalk_240",
                 "interaction": {
                     "type": 0,
                     "taskId": null

@@ -129,7 +129,7 @@
     "김밥이": {
         "type": 1,
         "level": 1,
-        "prefab": "Actors/actor1",
+        "prefab": "Actors/actor2",
         "position": [25, 0, 40],
         "satisfactions": [
             {
@@ -185,7 +185,7 @@
     "포그니": {
         "type": 1,
         "level": 1,
-        "prefab": "Actors/actor1",
+        "prefab": "Actors/actor3",
         "position": [35, 0, 35],
         "satisfactions": [
             {
@@ -241,7 +241,7 @@
     "대꼬": {
         "type": 1,
         "level": 1,
-        "prefab": "Actors/actor1",
+        "prefab": "Actors/actor4",
         "position": [5, 0, 45],
         "satisfactions": [
             {

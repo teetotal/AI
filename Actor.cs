@@ -221,13 +221,29 @@ namespace ENGINE {
                         return false;
                     if(!targetActor.SetCurrentTask(taskId))
                         return false;
-                    CallCallback(CALLBACK_TYPE.ASK);
-                    targetActor.CallCallback(CALLBACK_TYPE.ASKED);
+                    CallCallback(CALLBACK_TYPE.ASK);                    
+                    targetActor.CallCallback(CALLBACK_TYPE.TAKE_TASK);
                     return true;
                 }
                 // ---------------------------------------------------------------------
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
+                }
+                public void DoTaskBefore() {
+                    if(mTaskContext.currentTask != null && mTaskContext.target != null && mTaskContext.target.Item1) {
+                        var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
+                        if(targetActor == null)
+                            return;
+                        var interaction = mTaskContext.currentTask.mInfo.target.interaction;                            
+                        switch(interaction.type) {
+                        case TASK_INTERACTION_TYPE.ASK:
+                            targetActor.CallCallback(CALLBACK_TYPE.ASKED);
+                        break;
+                        case TASK_INTERACTION_TYPE.INTERRUPT:  
+                        break;
+                        }
+                    }
+                    
                 }
                 //ret DoTask, islevelup
                 public Tuple<bool, bool> DoTask() {

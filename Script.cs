@@ -34,7 +34,7 @@ namespace ENGINE {
                 }
                 private ScriptHandler() { 
                     Add("hello", hello);
-                    AddAck("hello", helloAck);
+                    AddAck("hello_ack", helloAck);
                 }
                 private void Add(string key, string[] arr) {
                     List<string> list = new List<string>();
