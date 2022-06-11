@@ -229,39 +229,31 @@ namespace ENGINE {
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
                 }
-                public void DoTaskBefore() {
+                public bool DoTaskBefore() {
                     if(mTaskContext.currentTask != null && mTaskContext.target != null && mTaskContext.target.Item1) {
                         var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
                         if(targetActor == null)
-                            return;
-                        var interaction = mTaskContext.currentTask.mInfo.target.interaction;                            
+                            return false;
+                        var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
+                        //ask, interrupt 처리
                         switch(interaction.type) {
-                        case TASK_INTERACTION_TYPE.ASK:
-                            targetActor.CallCallback(CALLBACK_TYPE.ASKED);
-                        break;
-                        case TASK_INTERACTION_TYPE.INTERRUPT:  
-                        break;
-                        }
+                            case TASK_INTERACTION_TYPE.ASK:
+                            if(interaction.taskId == null || !SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
+                                return false;
+                            break;
+                            case TASK_INTERACTION_TYPE.INTERRUPT:                        
+                            //상대의 현재 task를 중단 시키고 재설정 시킨다.
+                            break;
+                            default:
+                            break;
+                        }                        
                     }
-                    
+                    return true;
                 }
                 //ret DoTask, islevelup
                 public Tuple<bool, bool> DoTask() {
                     if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null || mTaskContext.target == null)
                         return new Tuple<bool, bool>(false, false);
-                    var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
-                    //ask, interrupt 처리
-                    switch(interaction.type) {
-                        case TASK_INTERACTION_TYPE.ASK:
-                        if(interaction.taskId == null || !SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
-                            return new Tuple<bool, bool>(false, false);
-                        break;
-                        case TASK_INTERACTION_TYPE.INTERRUPT:                        
-                        //상대의 현재 task를 중단 시키고 재설정 시킨다.
-                        break;
-                        default:
-                        break;
-                    }
                     
                     //accumulation                    
                     mQuestContext.IncreaseTaskCount(mTaskContext.currentTask.mTaskId);
@@ -297,7 +289,7 @@ namespace ENGINE {
 
                     string taskId = "";
                     float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks(mLevel); 
+                    var tasks = TaskHandler.Instance.GetTasks(mType, mLevel); 
                     foreach(var p in tasks) {
                         float expecedValue = GetExpectedValue(p.Value);
                         if(expecedValue > maxValue) {

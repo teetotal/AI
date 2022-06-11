@@ -16,7 +16,7 @@ namespace ENGINE {
                     this.mInfo = info;
                 }     
                 public override Tuple<bool, string> GetTargetObject(Actor actor) {
-                    string targetValue = mInfo.target.value == null ? "" : mInfo.target.value;
+                    string targetValue = mInfo.target.value == null ? string.Empty : mInfo.target.value[UnityEngine.Random.Range(0, mInfo.target.value.Count)];
                     bool isActor = false;
                     switch(mInfo.target.type) {
                         case TASK_TARGET_TYPE.ACTOR:
@@ -82,15 +82,17 @@ namespace ENGINE {
                 */
                 
                 private string FindRelationTarget(Actor actor) {
-                    if(mInfo.target.value == null || mInfo.target.value.Length == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
+                    if(mInfo.target.value == null || mInfo.target.value.Count == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
                         return "";
                     }
-                    string[] conditions = mInfo.target.value.Split(',');
+                    List<string> conditions = mInfo.target.value;
                     string fromActorId = actor.mUniqueId;                    
                     string actorId = "";
                     //type.target1.target2:condition
                     //2.Satisfaction.100:max
-                    foreach(var sz in conditions) {
+                    for(int i = 0; i < conditions.Count; i++)
+                    {
+                        string sz = conditions[i];
                         int type;                        
                         string condition;
                         //표현식을 확장할때 고치자. 일단은 고정된 형태만

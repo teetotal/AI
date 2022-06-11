@@ -23,6 +23,8 @@ namespace ENGINE {
             }
             public class TaskHandler {
                 private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();
+                //Actor type, taskid
+                private Dictionary<int, List<string>> mDictByActorType = new Dictionary<int, List<string>>();
                 private static readonly Lazy<TaskHandler> instance =
                         new Lazy<TaskHandler>(() => new TaskHandler());
                 public static TaskHandler Instance {
@@ -32,20 +34,28 @@ namespace ENGINE {
                 }
 
                 private TaskHandler() { }
-                public bool Add(FnTask task) {
+                public bool Add(int actorType, FnTask task) {
                     if(task.mTaskId == null) 
                         return false;
                     mDict.Add(task.mTaskId, task);
+                    if(mDictByActorType.ContainsKey(actorType) == false) {
+                        mDictByActorType[actorType] = new List<string>();
+                    }
+                    mDictByActorType[actorType].Add(task.mTaskId);
                     return true;
                 }
-                public Dictionary<string, FnTask> GetTasks(int level) {
+                public Dictionary<string, FnTask> GetTasks(int actorType, int level) {
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
-                    foreach(var p in mDict) {                        
-                        var info = p.Value.mInfo;
+                    if(mDictByActorType.ContainsKey(actorType) == false)
+                        return ret;
+
+                    for(int i = 0; i < mDictByActorType[actorType].Count; i++) {
+                        string taskId = mDictByActorType[actorType][i];
+                        var info = mDict[taskId].mInfo;
                         if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
                             && info.type == TASK_TYPE.NORMAL // check type
                         ) {
-                            ret.Add(p.Key, p.Value);
+                            ret.Add(taskId, mDict[taskId]);
                         }                          
                     }
                     return ret;

@@ -11,7 +11,8 @@ namespace ENGINE {
             public class Config_KV_SF {
                 public string? key { get; set; }
                 public float value { get; set; }
-            }
+            }            
+            //-------------------------------------------------------------
             public class Config_Reward {
                 public string? itemId { get; set; }
                 public int quantity { get; set; }
@@ -109,7 +110,7 @@ namespace ENGINE {
             }                       
             public class ConfigSatisfaction {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
-                public List<ConfigTask_Detail>? tasks { get; set; }
+                public Dictionary<string, List<ConfigTask_Detail>?>? tasks { get; set; }
             }
             //Actors            
             public class ConfigActors_Detail {
@@ -156,7 +157,7 @@ namespace ENGINE {
             }
             public class ConfigTask_Target {
                 public TASK_TARGET_TYPE type { get; set; }
-                public string? value { get; set; }                
+                public List<string>? value { get; set; }
                 public ConfigTask_Interaction interaction { get; set; } = new ConfigTask_Interaction();
             }
 
@@ -186,13 +187,14 @@ namespace ENGINE {
                 public List<Config_KV_SF>? values { get; set; }     
                 public List<Config_Reward>? rewards  { get; set; }     
             }
-            
+            //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool Load( string stringSatisfactions, 
                                   string stringActors, 
                                   string stringItem, 
                                   string stringLevel,
-                                  string stringQuest ) {
+                                  string stringQuest,
+                                  string stringScript ) {
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
@@ -240,10 +242,26 @@ namespace ENGINE {
                     //actors
                     if(SetActor(stringActors) == false) {
                         return false;
-                    }                    
+                    }        
+                    //Script
+                    if(SetScript(stringScript) == false) {
+                        return false;
+                    }     
 
                     return true;
-                }                
+                }          
+                // Set Script
+                private bool SetScript(string sz) {
+                    string jsonString = sz; 
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, List<string>> >(jsonString);  
+                    if(j == null) {
+                        return false;
+                    }
+                    foreach(var p in j) {
+                        ScriptHandler.Instance.Add(p.Key, p.Value);
+                    }
+                    return true;
+                }
                 // Set Actor
                 private bool SetActor(string sz) {
                     //Actor     
@@ -267,13 +285,19 @@ namespace ENGINE {
                     return true;
                 }
                 // Set Task
-                private bool SetTask(List<ConfigTask_Detail> tasks) {
-                    foreach(var p in tasks) {
-                        if(p == null || p.target == null || p.id.Length == 0) {
-                            return false;
+                private bool SetTask(Dictionary<string, List<ConfigTask_Detail>?> taskData) {
+                    foreach(var pTask in taskData) {
+                        int actorType = int.Parse(pTask.Key);
+                        List<ConfigTask_Detail>? tasks = pTask.Value;
+                        if(tasks == null) continue;
+                        for(int i=0; i < tasks.Count; i++) {
+                            var task = tasks[i];
+                            if(task == null || task.target == null || task.id.Length == 0) {
+                                return false;
+                            }
+                            TaskDefaultFn fn = new TaskDefaultFn(task);
+                            TaskHandler.Instance.Add(actorType, fn);
                         }
-                        TaskDefaultFn fn = new TaskDefaultFn(p);                        
-                        TaskHandler.Instance.Add(fn);
                     }
                     return true;
                 }
