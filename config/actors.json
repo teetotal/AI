@@ -1,5 +1,6 @@
 {
     "h1": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -8,6 +9,7 @@
         "inventory": []
     },
     "hf": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -16,6 +18,7 @@
         "inventory": []
     },
     "hb": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -24,6 +27,7 @@
         "inventory": []
     },
     "hs": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -32,6 +36,7 @@
         "inventory": []
     },
     "a1": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -40,6 +45,7 @@
         "inventory": []
     },
     "af": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -48,6 +54,7 @@
         "inventory": []
     },
     "ab": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -56,6 +63,7 @@
         "inventory": []
     },
     "as": {
+        "enable": false,
         "type": 1,
         "level": 1,
         "prefab": null,
@@ -63,7 +71,30 @@
         "satisfactions": [],
         "inventory": []
     },
+    "hotdog": {
+        "enable": true,
+        "type": 2,
+        "level": 1,
+        "prefab": "Actors/actor7",
+        "position": [27.7, 0, -13],
+        "satisfactions": [            
+            {
+                "satisfactionId": "100",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "101",
+                "min": 99999,
+                "max": 100000,
+                "value": 0 
+            }
+        ],
+        "inventory": null
+    },
     "꼼이": {
+        "enable": true,
         "type": 1,
         "level": 1,
         "prefab": "Actors/actor1",
@@ -100,6 +131,12 @@
                 "value": 50
             },
             {
+                "satisfactionId": "102",
+                "min": 30,
+                "max": 85,
+                "value": 35
+            },
+            {
                 "satisfactionId": "110",
                 "min": 15,
                 "max": 85,
@@ -127,6 +164,7 @@
         ]
     },
     "김밥이": {
+        "enable": true,
         "type": 1,
         "level": 1,
         "prefab": "Actors/actor2",
@@ -163,6 +201,12 @@
                 "value": 50
             },
             {
+                "satisfactionId": "102",
+                "min": 30,
+                "max": 85,
+                "value": 35
+            },
+            {
                 "satisfactionId": "110",
                 "min": 15,
                 "max": 85,
@@ -183,6 +227,7 @@
         ]
     },
     "포그니": {
+        "enable": true,
         "type": 1,
         "level": 1,
         "prefab": "Actors/actor3",
@@ -219,6 +264,12 @@
                 "value": 50
             },
             {
+                "satisfactionId": "102",
+                "min": 30,
+                "max": 85,
+                "value": 35
+            },
+            {
                 "satisfactionId": "110",
                 "min": 15,
                 "max": 85,
@@ -239,6 +290,7 @@
         ]
     },
     "대꼬": {
+        "enable": true,
         "type": 1,
         "level": 1,
         "prefab": "Actors/actor4",
@@ -273,6 +325,12 @@
                 "min": 15,
                 "max": 85,
                 "value": 50
+            },
+            {
+                "satisfactionId": "102",
+                "min": 30,
+                "max": 85,
+                "value": 35
             },
             {
                 "satisfactionId": "110",

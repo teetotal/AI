@@ -48,6 +48,11 @@ namespace ENGINE {
                     }
                     return null;
                 }
+                public Dictionary<string, Actor> GetActors() {                    
+                    if(mDict == null)
+                        return new Dictionary<string, Actor>();
+                    return mDict;
+                }
 
                 public Dictionary<string, Actor>? GetActors(int type) {
                     if(mDictType.ContainsKey(type) == true) {

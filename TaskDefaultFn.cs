@@ -16,7 +16,7 @@ namespace ENGINE {
                     this.mInfo = info;
                 }     
                 public override Tuple<bool, string> GetTargetObject(Actor actor) {
-                    string targetValue = mInfo.target.value == null ? string.Empty : mInfo.target.value[UnityEngine.Random.Range(0, mInfo.target.value.Count)];
+                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[UnityEngine.Random.Range(0, mInfo.target.value.Count)];
                     bool isActor = false;
                     switch(mInfo.target.type) {
                         case TASK_TARGET_TYPE.ACTOR:

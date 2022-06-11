@@ -114,6 +114,7 @@ namespace ENGINE {
             }
             //Actors            
             public class ConfigActors_Detail {
+                public bool enable { get; set; }
                 public int type { get; set; }
                 public int level { get; set; }
                 public string? prefab { get; set; }
@@ -272,6 +273,7 @@ namespace ENGINE {
                     }
 
                     foreach(var p in actors) {
+                        if(!p.Value.enable) continue;
                         //나중에 진행한 quest도 읽어와서 넣어줘야 함
                         Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level, p.Value.prefab, p.Value.position, null);
                         if(p.Value.satisfactions == null) {

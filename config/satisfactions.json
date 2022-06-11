@@ -41,6 +41,12 @@
             "period": 0,
             "happening": []
         },
+        "102": {
+            "title": "자아실현 만족",
+            "discharge": 0,
+            "period": 0,
+            "happening": []
+        },
         "110": {
             "title": "안전욕구",
             "discharge": 0,
@@ -164,7 +170,7 @@
                 "time": 5,
                 "satisfactions": {            
                     "100": 6,
-                    "101": -3
+                    "101": -3                    
                 }
             },
             {
@@ -186,8 +192,8 @@
                 "animation": "Greeting",
                 "time": 1,
                 "satisfactions": {
-                        "100": -1,
-                        "120": 6
+                    "100": -1,                    
+                    "120": 6
                         
                 }
             },
@@ -208,7 +214,7 @@
                 "animation": "Greeting",
                 "time": 1,
                 "satisfactions": {
-                    "100": -1,
+                    "100": -1,                    
                     "120": 6  
                 }
             },
@@ -235,7 +241,8 @@
                 "time": 1,
                 "satisfactions": {
                     "100": -2,
-                    "130": 6
+                    "102": -1,
+                    "130": 16
                         
                 }
             },
@@ -262,33 +269,83 @@
                 "time": 3,
                 "satisfactions": {
                     "100": -3,
-                    "101": 8
+                    "101": 10,
+                    "102": -3
                 }
             },
             {
-                "id": "security",
+                "id": "dancing",
                 "type": 0,
                 "level": null,
-                "title": "보안업체 고용",
-                "desc": "보안을 위해 보안업체 사용비 지출",
+                "title": "온몸으로 춤추기",
+                "desc": "춤추면 복이와요",
                 "target": {
-                    "type": 2,
+                    "type": 1,
                     "value": [
-                        "경호업체 직원"
+                        "SM_Env_Sidewalk_Straight_162",
+                        "SM_Env_Sidewalk_70",
+                        "SM_Env_Sidewalk_Straight_161"
                     ],
                     "interaction": {
                         "type": 0,
                         "taskId": null
                     }
                 },
-                "animation": "security",
+                "animation": "Dancing",
                 "time": 3,
                 "satisfactions": {
-                    "100": -4,
-                    "110": 6
+                    "100": -2,
+                    "102": 3
                 }
             }
         ], 
-        "2": null
+        "2": [
+            {
+                "id": "sell_hotdog",
+                "type": 0,
+                "level": null,
+                "title": "수줍게 핫도그 팔기",
+                "desc": "수줍게 핫도그를 판다",
+                "target": {
+                    "type": 0,
+                    "value": [
+                        "SM_Prop_HotdogStand_01"
+                    ],
+                    "interaction": {
+                        "type": 0,
+                        "taskId": null
+                    }
+                },
+                "animation": "Bashful",
+                "time": 50,
+                "satisfactions": {        
+                    "100": 0.5,            
+                    "101": 0.1
+                }
+            },
+            {
+                "id": "sell_hotdog_dancing",
+                "type": 0,
+                "level": null,
+                "title": "춤추며 핫도그 팔기",
+                "desc": "춤추며 핫도그를 판다",
+                "target": {
+                    "type": 0,
+                    "value": [
+                        "SM_Prop_HotdogStand_01"
+                    ],
+                    "interaction": {
+                        "type": 0,
+                        "taskId": null
+                    }
+                },
+                "animation": "Dancing",
+                "time": 3,
+                "satisfactions": {                    
+                    "100": -3,
+                    "101": 0.5
+                }
+            }
+        ]
     }      
 }

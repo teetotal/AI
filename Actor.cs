@@ -170,7 +170,7 @@ namespace ENGINE {
                         return "error";
 
                     var values = mTaskContext.currentTask.mInfo.satisfactions;                    
-                    string sz = "";
+                    string sz = mTaskContext.currentTask.mInfo.title + "\n";
                     if(values == null) return sz;
                     foreach(var p in values) {
                         var s = SatisfactionDefine.Instance.Get(p.Key);
@@ -180,7 +180,7 @@ namespace ENGINE {
                             sz += String.Format("{0}({1}) ", s.title, p.Value );                                                        
                         }                        
                     }
-                    sz += mTaskContext.target.ToString();
+                    //sz += mTaskContext.target.ToString();
                     return sz;
                 }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
@@ -287,12 +287,12 @@ namespace ENGINE {
                     if(mTaskContext.state != STATE.READY)
                         return false;
 
-                    string taskId = "";
+                    string taskId = string.Empty;
                     float maxValue = 0.0f;                    
                     var tasks = TaskHandler.Instance.GetTasks(mType, mLevel); 
                     foreach(var p in tasks) {
-                        float expecedValue = GetExpectedValue(p.Value);
-                        if(expecedValue > maxValue) {
+                        float expecedValue = GetExpectedValue(p.Value);                        
+                        if(taskId == string.Empty || expecedValue > maxValue) {
                             maxValue = expecedValue;
                             taskId = p.Key;
                         }
