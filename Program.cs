@@ -167,9 +167,19 @@ public class Loop {
                     Next();
                     break;
                     case 2:
-                    Next();
-                    TakeTask(actors);
-                    DoActor(actors);                    
+                    {
+                        long counter = CounterHandler.Instance.Next();
+                        foreach(var p in ActorHandler.Instance.GetActors()) {
+                            Actor actor = p.Value;
+                            if(actor.GetState() == Actor.STATE.READY && actor.TakeTask() == false) {                    
+                                Console.WriteLine(p.Key + " Take Task Failure");
+                                continue;            
+                            }
+                        }
+                    }
+                    //Next();
+                    //TakeTask(actors);
+                    //DoActor(actors);                    
                     break;
                     case 3:
                     Inquiry(actors);
@@ -190,10 +200,45 @@ public class Loop {
             Console.WriteLine("Failure Loading config");
             return false;
         }
+        foreach(var p in ActorHandler.Instance.GetActors()) {
+            Actor actor = p.Value;
+            actor.SetCallback(Callback);
+        }
         return true;
     }
     private void PrintLine() {
         Console.WriteLine("---------------------------------------------------------");
+    }
+    public void Callback(Actor.CALLBACK_TYPE type, string actorId) {
+        //Console.WriteLine(actorId + " " + type.ToString());
+        var actor = ActorHandler.Instance.GetActor(actorId);
+        if(actor == null)
+            return;
+
+        switch(type) {            
+            case Actor.CALLBACK_TYPE.TAKE_TASK:
+            {
+                if(actor.DoTaskBefore())
+                    DoActor(actor);
+            }
+            break;
+            case Actor.CALLBACK_TYPE.ASKED:
+            break;
+            case Actor.CALLBACK_TYPE.SET_READY:
+            break;
+            case Actor.CALLBACK_TYPE.DO_TASK:
+            break;
+            case Actor.CALLBACK_TYPE.RESERVE:
+            break;
+            case Actor.CALLBACK_TYPE.RESERVED:
+            break;
+            case Actor.CALLBACK_TYPE.ASK:
+            break;
+            case Actor.CALLBACK_TYPE.INTERRUPT:
+            break;
+            case Actor.CALLBACK_TYPE.INTERRUPTED:
+            break;
+        }
     }
     private void System() {
         Console.Write("s(SatisfactionSum) c(Counter): ");
@@ -257,60 +302,46 @@ public class Loop {
             Console.WriteLine("> {0} 만족도 ({1}) 동기 ({2})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId));
         }
     }
-    private void TakeTask(Dictionary<string, Actor> actors) {
-        foreach(var p in actors) {            
-            var actor = p.Value;        
-            //Task 
-            
-            if(actor.TakeTask() == false) continue;    
-            FnTask? task = actor.GetCurrentTask();
-            if(task == null) 
-                continue;     
-            Console.WriteLine("> {0}: take task {1} ", actor.mUniqueId, task.mTaskTitle);       
+    private bool DoActor(Actor actor) {
+                    
+        if(actor.GetState() != Actor.STATE.TASKED)
+            return false;
+        //Task 
+        FnTask? task = actor.GetCurrentTask();
+        if(task == null) 
+            return false;
+        Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString());
+        Tuple<bool, bool> retTask = actor.DoTask();
+
+        //levelup
+        bool isLevelUp = retTask.Item2;            
+        if(isLevelUp == true) {
+            Console.WriteLine("Level up!! {0}", actor.mLevel);
         }
-    }
-    private void DoActor(Dictionary<string, Actor> actors) {
-        foreach(var p in actors) {            
-            var actor = p.Value;        
-            if(actor.GetState() != Actor.STATE.TASKED)
-                continue;
-            //Task 
-            FnTask? task = actor.GetCurrentTask();
-            if(task == null) 
-                continue;
-            Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString());
-            Tuple<bool, bool> retTask = actor.DoTask();
 
-            //levelup
-            bool isLevelUp = retTask.Item2;            
-            if(isLevelUp == true) {
-                Console.WriteLine("Level up!! {0}", actor.mLevel);
+        //quest
+        /*
+        string completeQuestId = "";
+        List<string> quests = actor.GetQuest();
+        foreach(string questId  in quests) {
+            ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, questId);
+            if(quest == null) continue;
+            float complete = QuestHandler.Instance.GetCompleteRate(actor, questId);
+            Console.WriteLine("Quest> {0} ({1}) {2}%", quest.title, quest.desc, complete * 100);
+            if(complete >= 1 && completeQuestId.Length == 0) {
+                //완료 처리
+                completeQuestId = questId;
             }
-
-            //quest
-            /*
-            string completeQuestId = "";
-            List<string> quests = actor.GetQuest();
-            foreach(string questId  in quests) {
-                ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, questId);
-                if(quest == null) continue;
-                float complete = QuestHandler.Instance.GetCompleteRate(actor, questId);
-                Console.WriteLine("Quest> {0} ({1}) {2}%", quest.title, quest.desc, complete * 100);
-                if(complete >= 1 && completeQuestId.Length == 0) {
-                    //완료 처리
-                    completeQuestId = questId;
-                }
-            }
-
-            if(completeQuestId.Length > 0) {
-                bool ret = QuestHandler.Instance.Complete(actor, completeQuestId);                
-                ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, completeQuestId);
-                if(quest == null) continue;
-                Console.WriteLine("Quest Complete> {0} ({1}) {2}", quest.title, quest.desc, ret);
-            }
-            */
-            
         }
+
+        if(completeQuestId.Length > 0) {
+            bool ret = QuestHandler.Instance.Complete(actor, completeQuestId);                
+            ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, completeQuestId);
+            if(quest == null) continue;
+            Console.WriteLine("Quest Complete> {0} ({1}) {2}", quest.title, quest.desc, ret);
+        }
+        */
+        return true;
     }
     public void Next() {
         Int64 counter = CounterHandler.Instance.Next();

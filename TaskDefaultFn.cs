@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 
 #nullable enable
 namespace ENGINE {
@@ -8,7 +8,8 @@ namespace ENGINE {
         namespace MOTIVATION {            
             //단순 task
             //json으로 관리            
-            public class TaskDefaultFn : FnTask {                
+            public class TaskDefaultFn : FnTask {        
+                Random mRandom = new Random();        
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
@@ -16,7 +17,7 @@ namespace ENGINE {
                     this.mInfo = info;
                 }     
                 public override Tuple<bool, string> GetTargetObject(Actor actor) {
-                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[UnityEngine.Random.Range(0, mInfo.target.value.Count)];
+                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];
                     bool isActor = false;
                     switch(mInfo.target.type) {
                         case TASK_TARGET_TYPE.ACTOR:
@@ -37,7 +38,7 @@ namespace ENGINE {
                     }
                     return new Tuple<bool, string>(isActor, targetValue);
                 }          
-                public override Dictionary<string, float>? GetValues(Actor actor) {
+                public override Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor) {
                     switch(mInfo.target.type) {
                         case TASK_TARGET_TYPE.ACTOR_CONDITION:
                         if(FindRelationTarget(actor).Length == 0)
@@ -46,7 +47,7 @@ namespace ENGINE {
                         default:
                         break;
                     }
-                    return mInfo.satisfactions;
+                    return new Tuple<Dictionary<string, float>, Dictionary<string, float>>(mInfo.satisfactions, mInfo.satisfactionsRefusal);
                 }
                 public override Dictionary<string, float> GetSatisfactions(Actor actor) {
                     if(mInfo != null && mInfo.satisfactions != null) {

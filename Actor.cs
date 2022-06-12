@@ -41,9 +41,10 @@ namespace ENGINE {
                     ASK,
                     ASKED,
                     INTERRUPT,
-                    INTERRUPTED
+                    INTERRUPTED,
+                    REFUSAL
                 }
-                public delegate void Callback(CALLBACK_TYPE type); 
+                public delegate void Callback(CALLBACK_TYPE type, string actorId); 
                 public enum STATE {
                     READY,                    
                     TASKED,    
@@ -150,7 +151,7 @@ namespace ENGINE {
                 }
                 public void CallCallback(CALLBACK_TYPE type) {
                     if(mCallback != null) {
-                        mCallback(type);
+                        mCallback(type, mUniqueId);
                     }
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
@@ -234,6 +235,20 @@ namespace ENGINE {
                         var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
                         if(targetActor == null)
                             return false;
+
+                        //ask에 대한 응답을 할지 않할지 판단
+                        if(mTaskContext.currentTask.mInfo.type == TASK_TYPE.REACTION) {
+                            /*
+                            고려사항.
+                            - 응답했을 때 얻게될 satisfaction * relation을 보고 가중치
+                            - 응답 할 시간에 다른 task를 하면 얻게될 satisfaction
+                            */
+                            //거절하면
+                            CallCallback(CALLBACK_TYPE.REFUSAL);
+                            mTaskContext.Release();
+                            CallCallback(CALLBACK_TYPE.SET_READY);
+                        }
+                    
                         var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
                         //ask, interrupt 처리
                         switch(interaction.type) {
@@ -450,19 +465,39 @@ namespace ENGINE {
                     //3. cal normalization
                     //4. get mean                      
                     float sum = 0;
+                    float sumRefusal = 0;
                     var taskSatisfaction = fn.GetValues(this);    
                     if(taskSatisfaction == null)
                         return float.MinValue;
                         
+                    float val, normVal;
                     foreach(var p in mSatisfaction) {
-                        float val = p.Value.Value;
-                        if(taskSatisfaction.ContainsKey(p.Key)) {
-                            val += taskSatisfaction[p.Key];
+                        val = p.Value.Value;
+                        if(taskSatisfaction.Item1.ContainsKey(p.Key)) {
+                            val += taskSatisfaction.Item1[p.Key];
                         }
-                        var normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
                         sum += normVal;
+
+                        //refusal
+                        val = p.Value.Value;
+                        if(taskSatisfaction.Item2.ContainsKey(p.Key)) {
+                            val += taskSatisfaction.Item2[p.Key];
+                        }
+                        normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        sumRefusal += normVal;
                     }
-                    return sum / mSatisfaction.Count();
+
+                    if(taskSatisfaction.Item2.Count == 0)
+                        return sum / mSatisfaction.Count;
+                    else {
+                        /*
+                        (sum / mSatisfaction.Count) * 0.5f + (sumRefusal / mSatisfaction.Count) * 0.5f
+                        = (0.5 / mSatisfaction.Count) * (sum + sumRefusal)
+                        */
+                        float ret = (0.5f / mSatisfaction.Count) * (sum + sumRefusal);
+                        return ret;
+                    }
                 }
                 private float GetNormValue(Satisfaction p) {
                     return GetNormValue(p.Value, p.Min, p.Max);

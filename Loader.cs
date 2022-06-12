@@ -149,6 +149,7 @@ namespace ENGINE {
                 public string? animation { get; set; }
                 public int time { get; set; }
                 public Dictionary<string, float> satisfactions { get; set; } = new Dictionary<string, float>();
+                public Dictionary<string, float> satisfactionsRefusal { get; set; } = new Dictionary<string, float>();
             }         
 
             public class ConfigTask_Interaction {
@@ -187,6 +188,11 @@ namespace ENGINE {
                 public string? desc { get; set; }
                 public List<Config_KV_SF>? values { get; set; }     
                 public List<Config_Reward>? rewards  { get; set; }     
+            }
+            //Script ----------------------------------------------------------------------
+            public class ConfigScript {
+                public Dictionary<string, List<string>>? refusal { get; set; }
+                public Dictionary<string, List<string>>? scripts { get; set; }
             }
             //-----------------------------------------------------------------------------------
             public class Loader {
@@ -255,11 +261,14 @@ namespace ENGINE {
                 // Set Script
                 private bool SetScript(string sz) {
                     string jsonString = sz; 
-                    var j = JsonConvert.DeserializeObject< Dictionary<string, List<string>> >(jsonString);  
-                    if(j == null) {
+                    var j = JsonConvert.DeserializeObject<ConfigScript>(jsonString);  
+                    if(j == null || j.refusal == null || j.scripts == null) {
                         return false;
                     }
-                    foreach(var p in j) {
+                    foreach(var p in j.refusal) {
+                        ScriptHandler.Instance.AddRefusal(p.Key, p.Value);
+                    }
+                    foreach(var p in j.scripts) {
                         ScriptHandler.Instance.Add(p.Key, p.Value);
                     }
                     return true;
@@ -290,6 +299,8 @@ namespace ENGINE {
                 // Set Task
                 private bool SetTask(string sz) {
                     Dictionary<string, List<ConfigTask_Detail>?> taskData = JsonConvert.DeserializeObject< Dictionary<string, List<ConfigTask_Detail>?> >(sz); 
+                    if(taskData == null)
+                        return false;
                     foreach(var pTask in taskData) {
                         int actorType = int.Parse(pTask.Key);
                         List<ConfigTask_Detail>? tasks = pTask.Value;

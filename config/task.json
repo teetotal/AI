@@ -17,7 +17,7 @@
             "animation": "Greeting",
             "time": 1,
             "satisfactions": {
-                "MP": 1
+                "MP": 2
             }
         }, 
         {
@@ -86,7 +86,10 @@
             "time": 1,
             "satisfactions": {
                 "HP": -2,
-                "MP": 6
+                "MP": 16
+            },
+            "satisfactionsRefusal": {
+                "MP": -4
             }
         }, 
         {

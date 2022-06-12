@@ -5,11 +5,11 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public abstract class FnTask {
-                public string mTaskId { get; set; } = "";
-                public string mTaskTitle { get; set; } = "";
-                public string mTaskDesc { get; set; } = "";
+                public string mTaskId { get; set; } = string.Empty;
+                public string mTaskTitle { get; set; } = string.Empty;
+                public string mTaskDesc { get; set; } = string.Empty;
                 public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
-                public abstract Dictionary<string, float>? GetValues(Actor actor);
+                public abstract Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor);
                 public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
                 
                 // isActor, id
