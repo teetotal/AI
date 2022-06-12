@@ -93,6 +93,50 @@
         ],
         "inventory": null
     },
+    "무료 피자 시식 알바": {
+        "enable": true,
+        "type": 3,
+        "level": 1,
+        "prefab": "Actors/actor5",
+        "position": [44, 0, 17.5],
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10 
+            }
+        ],
+        "inventory": null
+    },
+    "맥주파는 인싸": {
+        "enable": true,
+        "type": 4,
+        "level": 1,
+        "prefab": "Actors/actor8",
+        "position": [51, 0, 45],
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10 
+            }
+        ],
+        "inventory": null
+    },
     "꼼이": {
         "enable": true,
         "type": 1,
@@ -102,21 +146,27 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "MP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "gold",
-                "min": 0,
-                "max": 100,
-                "value": 50
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "cute",
+                "min": 30,
+                "max": 60,
+                "value": 10
             }
         ],
         "inventory": [
@@ -136,21 +186,27 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "MP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "gold",
-                "min": 0,
-                "max": 100,
-                "value": 50
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "cute",
+                "min": 30,
+                "max": 60,
+                "value": 10
             }
         ]
     },
@@ -163,21 +219,27 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "MP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "gold",
-                "min": 0,
-                "max": 100,
-                "value": 50
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "cute",
+                "min": 30,
+                "max": 60,
+                "value": 10
             }
         ]
     },
@@ -190,21 +252,27 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "MP",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
             },
             {
                 "satisfactionId": "gold",
-                "min": 0,
-                "max": 100,
+                "min": 20,
+                "max": 50,
                 "value": 50
+            },
+            {
+                "satisfactionId": "cute",
+                "min": 30,
+                "max": 60,
+                "value": 10
             }
         ]
     }

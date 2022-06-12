@@ -289,7 +289,7 @@ namespace ENGINE {
 
                     string taskId = string.Empty;
                     float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks(mType, mLevel); 
+                    var tasks = TaskHandler.Instance.GetTasks(this); 
                     foreach(var p in tasks) {
                         float expecedValue = GetExpectedValue(p.Value);                        
                         if(taskId == string.Empty || expecedValue > maxValue) {

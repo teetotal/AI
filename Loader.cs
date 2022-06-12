@@ -148,7 +148,7 @@ namespace ENGINE {
                 public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
                 public string? animation { get; set; }
                 public int time { get; set; }
-                public Dictionary<string, float>? satisfactions { get; set; }
+                public Dictionary<string, float> satisfactions { get; set; } = new Dictionary<string, float>();
             }         
 
             public class ConfigTask_Interaction {

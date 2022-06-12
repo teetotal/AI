@@ -44,7 +44,9 @@ namespace ENGINE {
                     mDictByActorType[actorType].Add(task.mTaskId);
                     return true;
                 }
-                public Dictionary<string, FnTask> GetTasks(int actorType, int level) {
+                public Dictionary<string, FnTask> GetTasks(Actor actor) {
+                    int actorType = actor.mType;
+                    int level = actor.mLevel;
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
                     if(mDictByActorType.ContainsKey(actorType) == false)
                         return ret;
@@ -55,6 +57,10 @@ namespace ENGINE {
                         if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
                             && info.type == TASK_TYPE.NORMAL // check type
                         ) {
+                            //actor가 가지고 있는 satisfaction만 추가
+                            foreach(var satisfaction in info.satisfactions) {
+                                if(actor.GetSatisfaction(satisfaction.Key) == null) continue;
+                            }                            
                             ret.Add(taskId, mDict[taskId]);
                         }                          
                     }
