@@ -71,21 +71,21 @@
         "satisfactions": [],
         "inventory": []
     },
-    "hotdog": {
+    "핫도그아저씨": {
         "enable": true,
         "type": 2,
         "level": 1,
         "prefab": "Actors/actor7",
-        "position": [27.7, 0, -13],
+        "position": [85, 0, 9.5],
         "satisfactions": [            
             {
-                "satisfactionId": "100",
+                "satisfactionId": "HP",
                 "min": 15,
                 "max": 85,
                 "value": 90
             },
             {
-                "satisfactionId": "101",
+                "satisfactionId": "gold",
                 "min": 99999,
                 "max": 100000,
                 "value": 0 
@@ -101,57 +101,21 @@
         "position": [25, 0, 35],
         "satisfactions": [
             {
-                "satisfactionId": "1",
+                "satisfactionId": "HP",
                 "min": 0,
                 "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "2",
+                "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "3",
+                "satisfactionId": "gold",
                 "min": 0,
                 "max": 100,
-                "value": 50
-            },
-            {
-                "satisfactionId": "100",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "101",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "102",
-                "min": 30,
-                "max": 85,
-                "value": 35
-            },
-            {
-                "satisfactionId": "110",
-                "min": 15,
-                "max": 85,
-                "value": 70
-            },
-            {
-                "satisfactionId": "120",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "130",
-                "min": 15,
-                "max": 85,
                 "value": 50
             }
         ],
@@ -171,58 +135,22 @@
         "position": [25, 0, 40],
         "satisfactions": [
             {
-                "satisfactionId": "1",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "2",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "3",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "100",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "101",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "102",
-                "min": 30,
-                "max": 85,
-                "value": 35
-            },
-            {
-                "satisfactionId": "110",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "gold",
+                "min": 0,
+                "max": 100,
                 "value": 50
-            },
-            {
-                "satisfactionId": "120",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "130",
-                "min": 15,
-                "max": 85,
-                "value": 30
             }
         ]
     },
@@ -234,58 +162,22 @@
         "position": [35, 0, 35],
         "satisfactions": [
             {
-                "satisfactionId": "1",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "2",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "3",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "100",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "101",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "102",
-                "min": 30,
-                "max": 85,
-                "value": 35
-            },
-            {
-                "satisfactionId": "110",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "gold",
+                "min": 0,
+                "max": 100,
                 "value": 50
-            },
-            {
-                "satisfactionId": "120",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "130",
-                "min": 15,
-                "max": 85,
-                "value": 30
             }
         ]
     },
@@ -297,58 +189,22 @@
         "position": [5, 0, 45],
         "satisfactions": [
             {
-                "satisfactionId": "1",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "2",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "3",
-                "min": 50,
-                "max": 80,
-                "value": 60
-            },
-            {
-                "satisfactionId": "100",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "101",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
                 "value": 50
             },
             {
-                "satisfactionId": "102",
-                "min": 30,
-                "max": 85,
-                "value": 35
-            },
-            {
-                "satisfactionId": "110",
-                "min": 15,
-                "max": 85,
+                "satisfactionId": "gold",
+                "min": 0,
+                "max": 100,
                 "value": 50
-            },
-            {
-                "satisfactionId": "120",
-                "min": 15,
-                "max": 85,
-                "value": 50
-            },
-            {
-                "satisfactionId": "130",
-                "min": 15,
-                "max": 85,
-                "value": 30
             }
         ]
     }

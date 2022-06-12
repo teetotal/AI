@@ -170,7 +170,7 @@ namespace ENGINE {
                         return "error";
 
                     var values = mTaskContext.currentTask.mInfo.satisfactions;                    
-                    string sz = mTaskContext.currentTask.mInfo.title + "\n";
+                    string sz = string.Empty;
                     if(values == null) return sz;
                     foreach(var p in values) {
                         var s = SatisfactionDefine.Instance.Get(p.Key);

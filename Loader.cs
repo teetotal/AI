@@ -191,6 +191,7 @@ namespace ENGINE {
             //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool Load( string stringSatisfactions, 
+                                  string stringTask,
                                   string stringActors, 
                                   string stringItem, 
                                   string stringLevel,
@@ -200,7 +201,7 @@ namespace ENGINE {
                     string jsonString = stringSatisfactions;
                     
                     var sf = JsonConvert.DeserializeObject<ConfigSatisfaction>(jsonString);                                                   
-                    if(sf == null || sf.define == null || sf.tasks == null) {
+                    if(sf == null || sf.define == null) {
                         return false;
                     }                    
 
@@ -223,7 +224,7 @@ namespace ENGINE {
                     }
 
                     //default task
-                    if(SetTask(sf.tasks) == false) {
+                    if(SetTask(stringTask) == false) {
                         return false;
                     }
                     if(SetQuest(stringQuest) == false)  {
@@ -287,7 +288,8 @@ namespace ENGINE {
                     return true;
                 }
                 // Set Task
-                private bool SetTask(Dictionary<string, List<ConfigTask_Detail>?> taskData) {
+                private bool SetTask(string sz) {
+                    Dictionary<string, List<ConfigTask_Detail>?> taskData = JsonConvert.DeserializeObject< Dictionary<string, List<ConfigTask_Detail>?> >(sz); 
                     foreach(var pTask in taskData) {
                         int actorType = int.Parse(pTask.Key);
                         List<ConfigTask_Detail>? tasks = pTask.Value;

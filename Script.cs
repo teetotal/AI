@@ -46,8 +46,20 @@ namespace ENGINE {
                     }
                     return "...";
                 }               
-                private string GetReplacedString(string sz, Actor from, Actor to) {
-                    return sz.Replace("{from}", from.mUniqueId).Replace("{to}", to.mUniqueId);
+                public string GetScript(string taskId, Actor from) {
+                    if(mDict.ContainsKey(taskId)) {
+                        var rnd = new Random();
+                        int idx = rnd.Next(mDict[taskId].Count);
+                        return GetReplacedString(mDict[taskId][idx], from, null);
+                    }
+                    return "...";
+                }               
+                private string GetReplacedString(string sz, Actor from, Actor? to) {
+                    string ret = sz.Replace("{from}", from.mUniqueId);
+                    if(to != null) {
+                        ret = ret.Replace("{to}", to.mUniqueId);
+                    }
+                    return ret;
                 }
             }
         }

@@ -1,0 +1,197 @@
+{
+    "1": [        
+        {
+            "id": "basic-A-I",
+            "type": 0,
+            "level": null,
+            "title": "핫도그 사먹기",
+            "desc": "핫도그를 사먹는다",
+            "target": {
+                "type": 2,
+                "value": [
+                    "핫도그아저씨"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Strong",
+            "time": 1,
+            "satisfactions": {            
+                "HP": 6,
+                "gold": -2                    
+            }
+        },
+        {
+            "id": "basic-B-I",
+            "type": 0,
+            "level": null,
+            "title": "인사하기",
+            "desc": "주변에 가장 매력적인 사람에게 인사한다",
+            "target": {
+                "type": 3,
+                "value": [
+                    "1.Satisfaction.attraction:max"
+                ],                
+                "interaction": {
+                    "type": 1,
+                    "taskId": "hello_ack"
+                }      
+            },
+            "animation": "Greeting",
+            "time": 1,
+            "satisfactions": {
+                "HP": -2,
+                "MP": 6
+            }
+        },
+        {
+            "id": "hello_ack",
+            "type": 1,
+            "level": null,
+            "title": "인사 받아주기",
+            "desc": "인사를 받아준다",
+            "target": {
+                "type": 4,
+                "value": null,                
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }      
+            },
+            "animation": "Greeting",
+            "time": 1,
+            "satisfactions": {
+                "MP": 1
+            }
+        },
+        {
+            "id": "basic-C-I",
+            "type": 0,
+            "level": null,
+            "title": "일용직 일하기",
+            "desc": "돈을 벌기 위해 일용직일을 한다",
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_Panel_03",
+                    "SM_Env_Sidewalk_48",
+                    "SM_Env_Sidewalk_61",
+                    "SM_Env_Sidewalk_Straight_94"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Digging",
+            "time": 3,
+            "satisfactions": {
+                "HP": -4,
+                "MP": -4,
+                "gold": 8
+            }
+        },
+        {
+            "id": "love",
+            "type": 0,
+            "level": null,
+            "title": "짝사랑하기",
+            "desc": "아무도 모르게 혼자 짝사랑 한다",
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_GrassPath_Corner_01",
+                    "SM_Env_Grass_03 (1)",
+                    "SM_Env_Grass_03 (2)",
+                    "SM_Env_Grass_03 (3)"                    
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Bashful",
+            "time": 1,
+            "satisfactions": {
+                "cute": 6,
+                "MP": -2                    
+            }
+        },        
+        {
+            "id": "dancing",
+            "type": 0,
+            "level": null,
+            "title": "온몸으로 춤추기",
+            "desc": "춤추면 복이와요",
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_Straight_162",
+                    "SM_Env_Sidewalk_70",
+                    "SM_Env_Sidewalk_Straight_161"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Dancing",
+            "time": 3,
+            "satisfactions": {
+                "attraction": 6,
+                "strength": -2,
+                "cute": -2
+            }
+        }
+    ], 
+    "2": [
+        {
+            "id": "sell_hotdog",
+            "type": 0,
+            "level": null,
+            "title": "수줍게 핫도그 팔기",
+            "desc": "수줍게 핫도그를 판다",
+            "target": {
+                "type": 0,
+                "value": [
+                    "SM_Prop_HotdogStand_01"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Bashful",
+            "time": 50,
+            "satisfactions": {        
+                "HP": 0.1,            
+                "gold": 0.1
+            }
+        },
+        {
+            "id": "sell_hotdog_dancing",
+            "type": 0,
+            "level": null,
+            "title": "춤추며 핫도그 팔기",
+            "desc": "춤추며 핫도그를 판다",
+            "target": {
+                "type": 0,
+                "value": [
+                    "SM_Prop_HotdogStand_01"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Dancing",
+            "time": 3,
+            "satisfactions": {                    
+                "HP": -0.5,
+                "gold": 0.5
+            }
+        }
+    ]
+}    
