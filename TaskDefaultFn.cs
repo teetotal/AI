@@ -84,11 +84,11 @@ namespace ENGINE {
                 
                 private string FindRelationTarget(Actor actor) {
                     if(mInfo.target.value == null || mInfo.target.value.Count == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
-                        return "";
+                        return string.Empty;
                     }
                     List<string> conditions = mInfo.target.value;
                     string fromActorId = actor.mUniqueId;                    
-                    string actorId = "";
+                    string actorId = string.Empty;
                     //type.target1.target2:condition
                     //2.Satisfaction.100:max
                     for(int i = 0; i < conditions.Count; i++)
@@ -148,7 +148,7 @@ namespace ENGINE {
                             }
                         }                        
                     }
-                    return "";
+                    return string.Empty;
                 }
             }
         }

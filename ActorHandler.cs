@@ -25,20 +25,20 @@ namespace ENGINE {
                 private ActorHandler() {
                 }
                 // Quest list가 Null이면 받아온다.
-                public Actor AddActor(int type, string uniqueId, int level, string? prefab, List<float>? position, List<string>? questList) {
+                public Actor AddActor(string actorId, ConfigActors_Detail info, List<string>? questList) {
                     //quest
                     List<string> quests;
                     if(questList == null) {                        
-                        quests = QuestHandler.Instance.GetQuestList(type);
+                        quests = QuestHandler.Instance.GetQuestList(info.type);
                     } else {
                         quests = questList;
                     }
-                    Actor a = new Actor(type, uniqueId, level, prefab, position, quests);
-                    mDict.Add(uniqueId, a);
-                    if(mDictType.ContainsKey(type) == false) {
-                        mDictType[type] = new Dictionary<string, Actor>();
+                    Actor a = new Actor(actorId, info, quests);
+                    mDict.Add(actorId, a);
+                    if(mDictType.ContainsKey(info.type) == false) {
+                        mDictType[info.type] = new Dictionary<string, Actor>();
                     }
-                    mDictType[type][uniqueId] = a;
+                    mDictType[info.type][actorId] = a;
                     
                     return a;
                 }

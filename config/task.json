@@ -173,22 +173,20 @@
             "id": "1-B-I-1",
             "type": 0,
             "level": null,
-            "title": "짝사랑하기",
-            "desc": "아무도 모르게 혼자 짝사랑 한다",
+            "title": "아이돌 덕질 하기",
+            "desc": "아이돌 사무실 앞에서 덕질 하기",
             "target": {
-                "type": 1,
+                "type": 2,
                 "value": [
-                    "SM_Env_GrassPath_Straight_05",
-                    "SM_Env_GrassPath_Corner_03",
-                    "SM_Env_GrassPath_T_01"                  
+                    "아이돌경비원"
                 ],
                 "interaction": {
                     "type": 0,
                     "taskId": null
                 }
             },
-            "animation": "Bashful",
-            "time": 1,
+            "animation": "HandUp",
+            "time": 3,
             "satisfactions": {
                 "cute": 12,
                 "MP": -4,
@@ -309,6 +307,29 @@
                 }
             },
             "animation": "Dancing",
+            "time": 8,
+            "satisfactions": {        
+                "HP": 0.01,            
+                "MP": 0.01
+            }
+        }
+    ],
+    "5": [
+        {
+            "id": "prevent_fan",
+            "type": 0,
+            "level": null,
+            "title": "아이돌 회사 입구 막기",
+            "desc": "팬들이 내부로 못 들어가게 막기",
+            "target": {
+                "type": 0,
+                "value": null,
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Restrain",
             "time": 8,
             "satisfactions": {        
                 "HP": 0.01,            

@@ -122,8 +122,8 @@ namespace ENGINE {
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
-                public string? prefab;
-                public Position? position;       
+                public Position position;
+                public ConfigActors_Detail mInfo;                
                 private Callback? mCallback;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
@@ -136,13 +136,13 @@ namespace ENGINE {
                 //Item -------------------------------------------------------------------------------------------------
                 private ItemContext mItemContext = new ItemContext();
                 //-------------------------------------------------------------------------------------------------
-                public Actor(int type, string uniqueId, int level, string? prefab, List<float>? position, List<string> quests) {
-                    this.mType = type;
-                    this.mUniqueId = uniqueId;
-                    this.mLevel = level;
-                    this.prefab = prefab;
-                    if(position != null && position.Count == 3)
-                        this.position = new Position(position[0], position[1], position[2]);
+                public Actor(string actorId, ConfigActors_Detail info, List<string> quests) {
+                    this.mType = info.type;
+                    this.mUniqueId = actorId;
+                    this.mLevel = info.level;
+                    this.mInfo = info;
+                    if(info.position != null && info.position.Count == 3)
+                        this.position = new Position(info.position[0], info.position[1], info.position[2]);
                     this.mQuestContext.questList = quests;
                     this.mCallback = null;
                 }
@@ -189,8 +189,8 @@ namespace ENGINE {
                     return ApplySatisfaction(satisfactionId, -amount, 0, null);
                 }
 
-                public bool Obtain(string satisfactionId, float amount) {
-                    return ApplySatisfaction(satisfactionId, amount, 0, null);
+                public bool Obtain(string satisfactionId, float amount, string? from) {
+                    return ApplySatisfaction(satisfactionId, amount, 0, from);
                 }     
                 //Ask ----------------------------------------------------------       
                 private bool SetReserveToTarget(string targetActorId) {
@@ -276,7 +276,15 @@ namespace ENGINE {
                     //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
                     Dictionary<string, float> values = mTaskContext.currentTask.GetSatisfactions(this);                    
                     foreach(var p in values) {
-                        Obtain(p.Key, p.Value);
+                        string? from = null;
+                        if(mTaskContext.currentTask.mInfo.type == TASK_TYPE.REACTION) {
+                            if(mTaskContext.interactionFromActor == null)
+                                throw new Exception("Invalid interaction from actor.");
+                            from = mTaskContext.interactionFromActor.mUniqueId;
+                        }                            
+                        else if(mTaskContext.currentTask.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK) 
+                            from = mTaskContext.target.Item2;
+                        Obtain(p.Key, p.Value, from);
                     }
                     mTaskContext.IncreaseTaskCounter();                    
 
@@ -459,7 +467,6 @@ namespace ENGINE {
                 }
                 // -------------------------------------------------------------------------------------------------------------                 
                 private float GetExpectedValue(FnTask fn) {
-                    
                     //1. satisfaction loop
                     //2. if check in fn then sum
                     //3. cal normalization
@@ -492,12 +499,25 @@ namespace ENGINE {
                         return sum / mSatisfaction.Count;
                     else {
                         /*
+                        기대값 
                         (sum / mSatisfaction.Count) * 0.5f + (sumRefusal / mSatisfaction.Count) * 0.5f
-                        = (0.5 / mSatisfaction.Count) * (sum + sumRefusal)
+                        여기서 확률을 relation으로 계산해서 받아온다.
                         */
-                        float ret = (0.5f / mSatisfaction.Count) * (sum + sumRefusal);
+                        // relation에서 weight
+                        var target = fn.GetTargetObject(this);
+                        if(target.Item1 == false) {
+                            //error!
+                            throw new Exception("Invalid target info. the item2 value of [" + fn.mTaskTitle + "] must be true.");
+                        }
+                        float expectedWeight = GetExpectedWeight(target.Item2);
+                        float ret = ((sum / mSatisfaction.Count) * expectedWeight) + ((sumRefusal / mSatisfaction.Count) * (1.0f - expectedWeight)); 
                         return ret;
                     }
+                }
+                private float GetExpectedWeight(string targetAcrotId) {
+                    if(mRelation.ContainsKey(targetAcrotId) == false)
+                        return 0.5f;
+                    return 0.5f;
                 }
                 private float GetNormValue(Satisfaction p) {
                     return GetNormValue(p.Value, p.Min, p.Max);

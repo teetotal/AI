@@ -119,6 +119,7 @@ namespace ENGINE {
                 public int level { get; set; }
                 public string? prefab { get; set; }
                 public List<float>? position { get; set; }
+                public List<float>? rotation { get; set; }                
                 public List<Config_Satisfaction>? satisfactions { get; set; }
             }
             //Task ---------------------------------------------------------------         
@@ -285,7 +286,7 @@ namespace ENGINE {
                     foreach(var p in actors) {
                         if(!p.Value.enable) continue;
                         //나중에 진행한 quest도 읽어와서 넣어줘야 함
-                        Actor a = ActorHandler.Instance.AddActor(p.Value.type, p.Key, p.Value.level, p.Value.prefab, p.Value.position, null);
+                        Actor a = ActorHandler.Instance.AddActor(p.Key, p.Value, null);
                         if(p.Value.satisfactions == null) {
                             return false;
                         }
