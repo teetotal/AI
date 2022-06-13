@@ -13,7 +13,7 @@ namespace ENGINE {
                 public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
                 
                 // isActor, id
-                public abstract Tuple<bool, string> GetTargetObject(Actor actor);
+                public abstract Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor);
                 public string GetAnimation() {
                     if(mInfo == null || mInfo.animation == null) {
                         return "";

@@ -115,6 +115,29 @@
                 "HP": 3,
                 "MP": 3
             }
+        },   
+        {
+            "id": "basic-B-I-3",
+            "type": 0,
+            "level": null,
+            "title": "공원 벤치에서 쉬기",
+            "desc": "공원 벤치에 앉아 쉬기",
+            "target": {
+                "type": 5,
+                "value": [
+                    "61.2,0,45.5",
+                    "63,0,45.5"
+                ],                
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }      
+            },
+            "animation": "Sitting",
+            "time": 1,
+            "satisfactions": {                
+                "MP": 10
+            }
         },        
         {
             "id": "basic-C-I-1",

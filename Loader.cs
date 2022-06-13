@@ -119,8 +119,17 @@ namespace ENGINE {
                 public int level { get; set; }
                 public string? prefab { get; set; }
                 public List<float>? position { get; set; }
-                public List<float>? rotation { get; set; }                
+                public List<float>? rotation { get; set; }      
+                public ConfigActor_Trigger? trigger { get; set; }          
                 public List<Config_Satisfaction>? satisfactions { get; set; }
+            }
+            public enum TRIGGER_TYPE {
+                NO_TRIGGER,
+                DISTANCE
+            }
+            public class ConfigActor_Trigger {
+                public TRIGGER_TYPE type { get; set; }
+                public string value { get; set; } = String.Empty;
             }
             //Task ---------------------------------------------------------------         
             public enum TASK_TYPE : int {
@@ -133,6 +142,7 @@ namespace ENGINE {
                 ACTOR,
                 ACTOR_CONDITION,
                 ACTOR_FROM, //interaction을 건 상대
+                POSITION, //좌표
             }
             public enum TASK_INTERACTION_TYPE : int {
                 NO_INTERACTION = 0,
@@ -162,6 +172,8 @@ namespace ENGINE {
                 public TASK_TARGET_TYPE type { get; set; }
                 public List<string>? value { get; set; }
                 public ConfigTask_Interaction interaction { get; set; } = new ConfigTask_Interaction();
+                public Position position = new Position(-1, -1, -1);
+                public Position lookAt = new Position(-1, -1, -1);
             }
 
             //Level ---------------------------------------------------------------
@@ -310,6 +322,15 @@ namespace ENGINE {
                             var task = tasks[i];
                             if(task == null || task.target == null || task.id.Length == 0) {
                                 return false;
+                            }
+                            if(task.target.type == TASK_TARGET_TYPE.POSITION) {
+                                if(task.target.value == null) {
+                                    throw new Exception("task.target.value must exist");
+                                }
+                                string[] positionArr = task.target.value[0].Split(',');
+                                string[] lootAtArr = task.target.value[1].Split(',');
+                                task.target.position = new Position(float.Parse(positionArr[0]), float.Parse(positionArr[1]), float.Parse(positionArr[2]));
+                                task.target.lookAt = new Position(float.Parse(lootAtArr[0]), float.Parse(lootAtArr[1]), float.Parse(lootAtArr[2]));
                             }
                             TaskDefaultFn fn = new TaskDefaultFn(task);
                             TaskHandler.Instance.Add(actorType, fn);

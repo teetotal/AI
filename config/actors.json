@@ -78,6 +78,10 @@
         "prefab": "Actors/actor7",
         "position": [85, 0, 9.5],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 1,
+            "value": "15"
+        },
         "satisfactions": [            
             {
                 "satisfactionId": "HP",
@@ -101,6 +105,10 @@
         "prefab": "Actors/actor5",
         "position": [44, 0, 17.5],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 1,
+            "value": "15"
+        },
         "satisfactions": [            
             {
                 "satisfactionId": "HP",
@@ -124,6 +132,10 @@
         "prefab": "Actors/actor8",
         "position": [51, 0, 45],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
         "satisfactions": [            
             {
                 "satisfactionId": "HP",
@@ -146,7 +158,11 @@
         "level": 1,
         "prefab": "Actors/npc1",
         "position": [82.5, 0, -14],
-        "rotation": [0, 30, 0],
+        "rotation": [0, 45, 0],
+        "trigger": {
+            "type": 1,
+            "value": "5"
+        },
         "satisfactions": [            
             {
                 "satisfactionId": "HP",
@@ -170,6 +186,10 @@
         "prefab": "Actors/actor1",
         "position": [25, 0, 35],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
         "satisfactions": [
             {
                 "satisfactionId": "HP",
@@ -211,6 +231,10 @@
         "prefab": "Actors/actor2",
         "position": [25, 0, 40],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
         "satisfactions": [
             {
                 "satisfactionId": "HP",
@@ -245,6 +269,10 @@
         "prefab": "Actors/actor3",
         "position": [35, 0, 35],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
         "satisfactions": [
             {
                 "satisfactionId": "HP",
@@ -279,6 +307,10 @@
         "prefab": "Actors/actor4",
         "position": [5, 0, 45],
         "rotation": [0, 0, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
         "satisfactions": [
             {
                 "satisfactionId": "HP",

@@ -16,16 +16,25 @@ namespace ENGINE {
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
                 }     
-                public override Tuple<bool, string> GetTargetObject(Actor actor) {
-                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];
-                    bool isActor = false;
+                public override Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor) {
+                    Actor.TASKCONTEXT_TARGET_TYPE type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
+                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];                    
+                    Position? position = null;
+                    Position? lootAt = null;
+
                     switch(mInfo.target.type) {
+                        case TASK_TARGET_TYPE.NON_TARGET:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.NON_TARGET;
+                        break;
                         case TASK_TARGET_TYPE.ACTOR:
-                        isActor = true;
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
+                        break;
+                        case TASK_TARGET_TYPE.OBJECT:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.OBJECT;
                         break;
                         case TASK_TARGET_TYPE.ACTOR_CONDITION:
                         targetValue = FindRelationTarget(actor);
-                        isActor = true;
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
                         break;
                         case TASK_TARGET_TYPE.ACTOR_FROM:
                         Actor.TaskContext context = actor.GetTaskContext();
@@ -33,10 +42,15 @@ namespace ENGINE {
                             targetValue = "";    
                         else 
                             targetValue = context.interactionFromActor.mUniqueId;
-                        isActor = true;
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
+                        break;
+                        case TASK_TARGET_TYPE.POSITION:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.POSITION;
+                        position = mInfo.target.position;
+                        lootAt = mInfo.target.lookAt;
                         break;
                     }
-                    return new Tuple<bool, string>(isActor, targetValue);
+                    return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(type, targetValue, position, lootAt);
                 }          
                 public override Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor) {
                     switch(mInfo.target.type) {

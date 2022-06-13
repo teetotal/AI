@@ -62,24 +62,52 @@ namespace ENGINE {
                     ABSOLUTE  = 0,
                     PERCENT,
                     INCREASE
-                }           
+                }       
+                public enum TASKCONTEXT_TARGET_TYPE {
+                    INVALID,
+                    NON_TARGET,
+                    OBJECT,
+                    ACTOR,
+                    POSITION
+                }
+                public class TaskContext_Target {
+                    public TASKCONTEXT_TARGET_TYPE type = TASKCONTEXT_TARGET_TYPE.INVALID;                    
+                    public string objectName = string.Empty;
+                    public Position position = new Position(-1, -1, -1);
+                    public Position lookAt = new Position(-1, -1, -1);
+                    public void Set(TASKCONTEXT_TARGET_TYPE type, string? objectName, Position? position, Position? lookAt) {
+                        this.type = type;
+                        if(objectName == null)
+                            this.objectName = string.Empty;
+                        else
+                            this.objectName = objectName;
+
+                        if(position != null) {
+                            this.position.Set(position.x, position.y, position.z);
+                        }
+
+                        if(lookAt != null) {
+                            this.lookAt.Set(lookAt.x, lookAt.y, lookAt.z);
+                        }
+                    }
+                }    
                 public class TaskContext {
                     // Task 수행 횟수 저장 for level up
                     public Int64 taskCounter { get; set; }
                     public STATE state = STATE.READY;
                     public FnTask? currentTask = null;
                     //target이 actor일 경우 actorId
-                    public Tuple<bool, string>? target;       
+                    public TaskContext_Target target = new TaskContext_Target();
                     public Actor? interactionFromActor;             
                     public void Release() {
                         this.currentTask = null;
-                        this.target = null;
+                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
                         this.interactionFromActor = null;
                         state = STATE.READY;
                     }
-                    public void Set(FnTask task, Tuple<bool, string> target) {
-                        this.currentTask = task;
-                        this.target = target;
+                    public void Set(FnTask task, TASKCONTEXT_TARGET_TYPE targetType, string? targetName, Position? position, Position? lookAt) {
+                        this.currentTask = task;                        
+                        this.target.Set(targetType, targetName, position, lookAt);
                         state = STATE.TASKED;
                     }
                     public void IncreaseTaskCounter() {
@@ -122,7 +150,7 @@ namespace ENGINE {
                 public int mType;
                 public string mUniqueId;
                 public int mLevel;
-                public Position position;
+                public Position position = new Position(0, 0, 0);
                 public ConfigActors_Detail mInfo;                
                 private Callback? mCallback;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
@@ -215,9 +243,9 @@ namespace ENGINE {
                     return true;
                 }                                
                 public bool SendAskTaskToTarget(string taskId) {
-                    if(mTaskContext.target == null || mTaskContext.target.Item1 == false) 
+                    if(mTaskContext.target.type != TASKCONTEXT_TARGET_TYPE.ACTOR) 
                         return false;
-                    var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
+                    var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                     if(targetActor == null)
                         return false;
                     if(!targetActor.SetCurrentTask(taskId))
@@ -231,8 +259,8 @@ namespace ENGINE {
                     return mTaskContext;
                 }
                 public bool DoTaskBefore() {
-                    if(mTaskContext.currentTask != null && mTaskContext.target != null && mTaskContext.target.Item1) {
-                        var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.Item2);
+                    if(mTaskContext.currentTask != null && mTaskContext.target.type == TASKCONTEXT_TARGET_TYPE.ACTOR) {
+                        var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                         if(targetActor == null)
                             return false;
 
@@ -267,7 +295,7 @@ namespace ENGINE {
                 }
                 //ret DoTask, islevelup
                 public Tuple<bool, bool> DoTask() {
-                    if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null || mTaskContext.target == null)
+                    if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null)
                         return new Tuple<bool, bool>(false, false);
                     
                     //accumulation                    
@@ -283,7 +311,7 @@ namespace ENGINE {
                             from = mTaskContext.interactionFromActor.mUniqueId;
                         }                            
                         else if(mTaskContext.currentTask.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK) 
-                            from = mTaskContext.target.Item2;
+                            from = mTaskContext.target.objectName;
                         Obtain(p.Key, p.Value, from);
                     }
                     mTaskContext.IncreaseTaskCounter();                    
@@ -309,6 +337,12 @@ namespace ENGINE {
                 public bool TakeTask() {
                     if(mTaskContext.state != STATE.READY)
                         return false;
+                    
+                    //trigger확인
+                    if(!CheckTrigger()) {
+                        //callback없이 true리턴, 이러면 아무일도 없다.
+                        return true;
+                    }
 
                     string taskId = string.Empty;
                     float maxValue = 0.0f;                    
@@ -332,7 +366,7 @@ namespace ENGINE {
                         return false;
                     }
                     //target가져오고
-                    Tuple<bool, string> target = task.GetTargetObject(this);
+                    Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
                     //ASK 처리
                     switch(task.mInfo.target.interaction.type) {
                         case TASK_INTERACTION_TYPE.ASK:
@@ -343,8 +377,9 @@ namespace ENGINE {
                         break;
                         default:
                         break;
-                    }                    
-                    mTaskContext.Set(task, target);
+                    }         
+                               
+                    mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
                             
                     return true;
                 }
@@ -398,6 +433,29 @@ namespace ENGINE {
                     
                     return true;
                 }                
+                // Trigger-------------------------------------------------------------------------------------------------------------
+                private bool CheckTrigger() {
+                    //null이거나 NO_TRIGGER면 항상 true
+                    if(mInfo.trigger == null)
+                        return true;
+                    switch(mInfo.trigger.type) {
+                        case TRIGGER_TYPE.NO_TRIGGER:
+                        return true;
+                        case TRIGGER_TYPE.DISTANCE: {
+                            float distance = float.Parse(mInfo.trigger.value);
+                            var actors = ActorHandler.Instance.GetActors();                            
+                            foreach(var actor in actors) {
+                                if(actor.Key == mUniqueId)
+                                    continue;
+                                
+                                if(position.GetDistance(actor.Value.position) <= distance)
+                                    return true;
+                            }
+                        }
+                        break;
+                    }
+                    return false;
+                }
 
                 // Level up-------------------------------------------------------------------------------------------------------------
                 public bool checkLevelUp() {
@@ -505,9 +563,9 @@ namespace ENGINE {
                         */
                         // relation에서 weight
                         var target = fn.GetTargetObject(this);
-                        if(target.Item1 == false) {
+                        if(target.Item1 != TASKCONTEXT_TARGET_TYPE.ACTOR) {
                             //error!
-                            throw new Exception("Invalid target info. the item2 value of [" + fn.mTaskTitle + "] must be true.");
+                            throw new Exception("Invalid target info. the target of [" + fn.mTaskTitle + "] must ACTOR. " + target.Item1.ToString());
                         }
                         float expectedWeight = GetExpectedWeight(target.Item2);
                         float ret = ((sum / mSatisfaction.Count) * expectedWeight) + ((sumRefusal / mSatisfaction.Count) * (1.0f - expectedWeight)); 
