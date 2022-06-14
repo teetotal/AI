@@ -103,7 +103,8 @@ namespace ENGINE {
                         this.currentTask = null;
                         this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
                         this.interactionFromActor = null;
-                        state = STATE.READY;
+                        this.state = STATE.READY;
+                        
                     }
                     public void Set(FnTask task, TASKCONTEXT_TARGET_TYPE targetType, string? targetName, Position? position, Position? lookAt) {
                         this.currentTask = task;                        
@@ -241,13 +242,24 @@ namespace ENGINE {
 
                     CallCallback(CALLBACK_TYPE.RESERVED);
                     return true;
-                }                                
+                }            
+                //요청에 대한 수락 여부 결정   
+                public bool CheckAccept(Actor actorFrom, string taskId) {
+                    //relation정보로 판단한다.
+                    CallCallback(CALLBACK_TYPE.REFUSAL);
+                    mTaskContext.Release();
+                    return false;
+                }                 
                 public bool SendAskTaskToTarget(string taskId) {
                     if(mTaskContext.target.type != TASKCONTEXT_TARGET_TYPE.ACTOR) 
                         return false;
                     var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                     if(targetActor == null)
                         return false;
+                    //거절 여부를 여기서 확인하다.
+                    if(!targetActor.CheckAccept(this, taskId))
+                        return false;
+                    
                     if(!targetActor.SetCurrentTask(taskId))
                         return false;
                     CallCallback(CALLBACK_TYPE.ASK);                    
@@ -258,31 +270,22 @@ namespace ENGINE {
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
                 }
+                //ask가 거절 당하면 false
                 public bool DoTaskBefore() {
                     if(mTaskContext.currentTask != null && mTaskContext.target.type == TASKCONTEXT_TARGET_TYPE.ACTOR) {
                         var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                         if(targetActor == null)
-                            return false;
-
-                        //ask에 대한 응답을 할지 않할지 판단
-                        if(mTaskContext.currentTask.mInfo.type == TASK_TYPE.REACTION) {
-                            /*
-                            고려사항.
-                            - 응답했을 때 얻게될 satisfaction * relation을 보고 가중치
-                            - 응답 할 시간에 다른 task를 하면 얻게될 satisfaction
-                            */
-                            //거절하면
-                            CallCallback(CALLBACK_TYPE.REFUSAL);
-                            mTaskContext.Release();
-                            CallCallback(CALLBACK_TYPE.SET_READY);
-                        }
+                            throw new Exception("Target Actor must be");
                     
                         var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
                         //ask, interrupt 처리
                         switch(interaction.type) {
-                            case TASK_INTERACTION_TYPE.ASK:
-                            if(interaction.taskId == null || !SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
-                                return false;
+                            case TASK_INTERACTION_TYPE.ASK: {
+                                if(interaction.taskId == null) 
+                                    throw new Exception("interaction failure. null taskid or SendAskTaskToTarget failure.");
+                                if(!SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
+                                    return false; //거절하면 false
+                            }
                             break;
                             case TASK_INTERACTION_TYPE.INTERRUPT:                        
                             //상대의 현재 task를 중단 시키고 재설정 시킨다.
@@ -294,7 +297,7 @@ namespace ENGINE {
                     return true;
                 }
                 //ret DoTask, islevelup
-                public Tuple<bool, bool> DoTask() {
+                public Tuple<bool, bool> DoTask(bool isRefusal = false) {
                     if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null)
                         return new Tuple<bool, bool>(false, false);
                     
@@ -302,7 +305,7 @@ namespace ENGINE {
                     mQuestContext.IncreaseTaskCount(mTaskContext.currentTask.mTaskId);
                     //satisfaction
                     //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
-                    Dictionary<string, float> values = mTaskContext.currentTask.GetSatisfactions(this);                    
+                    Dictionary<string, float> values = isRefusal ? mTaskContext.currentTask.GetSatisfactionsRefusal(this) : mTaskContext.currentTask.GetSatisfactions(this);                    
                     foreach(var p in values) {
                         string? from = null;
                         if(mTaskContext.currentTask.mInfo.type == TASK_TYPE.REACTION) {

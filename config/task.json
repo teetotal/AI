@@ -89,7 +89,7 @@
                 "MP": 16
             },
             "satisfactionsRefusal": {
-                "MP": -4
+                "MP": -0.1
             }
         }, 
         {
@@ -136,7 +136,7 @@
             "animation": "Sitting",
             "time": 1,
             "satisfactions": {                
-                "MP": 10
+                "MP": 4
             }
         },        
         {

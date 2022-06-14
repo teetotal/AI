@@ -11,6 +11,7 @@ namespace ENGINE {
                 public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
                 public abstract Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor);
                 public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
+                public abstract Dictionary<string, float> GetSatisfactionsRefusal(Actor actor);
                 
                 // isActor, id
                 public abstract Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor);

@@ -69,6 +69,12 @@ namespace ENGINE {
                     }
                     return new Dictionary<string, float>();
                 }
+                public override Dictionary<string, float> GetSatisfactionsRefusal(Actor actor) {
+                    if(mInfo != null && mInfo.satisfactionsRefusal != null) {
+                        return mInfo.satisfactionsRefusal;
+                    }
+                    return new Dictionary<string, float>();
+                }
                 /*
                 public override bool DoTask(Actor actor)
                 {                    

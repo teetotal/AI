@@ -218,8 +218,7 @@ public class Loop {
         switch(type) {            
             case Actor.CALLBACK_TYPE.TAKE_TASK:
             {
-                if(actor.DoTaskBefore())
-                    DoActor(actor);
+                DoActor(actor, !actor.DoTaskBefore());
             }
             break;
             case Actor.CALLBACK_TYPE.ASKED:
@@ -237,6 +236,8 @@ public class Loop {
             case Actor.CALLBACK_TYPE.INTERRUPT:
             break;
             case Actor.CALLBACK_TYPE.INTERRUPTED:
+            break;
+            case Actor.CALLBACK_TYPE.REFUSAL:
             break;
         }
     }
@@ -302,7 +303,7 @@ public class Loop {
             Console.WriteLine("> {0} 만족도 ({1}) 동기 ({2})", actor.mUniqueId, motivation.Item2, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId));
         }
     }
-    private bool DoActor(Actor actor) {
+    private bool DoActor(Actor actor, bool isRefusal) {
                     
         if(actor.GetState() != Actor.STATE.TASKED)
             return false;
@@ -310,8 +311,8 @@ public class Loop {
         FnTask? task = actor.GetCurrentTask();
         if(task == null) 
             return false;
-        Console.WriteLine("> {0}: {1} ({2}), {3}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString());
-        Tuple<bool, bool> retTask = actor.DoTask();
+        Console.WriteLine("> {0}: {1} ({2}), {3} {4}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal);
+        Tuple<bool, bool> retTask = actor.DoTask(isRefusal);
 
         //levelup
         bool isLevelUp = retTask.Item2;            
