@@ -85,7 +85,7 @@
             "animation": "Greeting",
             "time": 1,
             "satisfactions": {
-                "HP": -2,
+                "gold": 16,
                 "MP": 16
             },
             "satisfactionsRefusal": {

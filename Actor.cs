@@ -247,7 +247,7 @@ namespace ENGINE {
                 public bool CheckAccept(Actor actorFrom, string taskId) {
                     //relation정보로 판단한다.
                     CallCallback(CALLBACK_TYPE.REFUSAL);
-                    mTaskContext.Release();
+                    ReleaseTask();
                     return false;
                 }                 
                 public bool SendAskTaskToTarget(string taskId) {
@@ -256,11 +256,10 @@ namespace ENGINE {
                     var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                     if(targetActor == null)
                         return false;
+                    if(!targetActor.SetCurrentTask(taskId))
+                        return false;
                     //거절 여부를 여기서 확인하다.
                     if(!targetActor.CheckAccept(this, taskId))
-                        return false;
-                    
-                    if(!targetActor.SetCurrentTask(taskId))
                         return false;
                     CallCallback(CALLBACK_TYPE.ASK);                    
                     targetActor.CallCallback(CALLBACK_TYPE.TAKE_TASK);
@@ -328,10 +327,13 @@ namespace ENGINE {
                         }
                     }
                     CallCallback(CALLBACK_TYPE.DO_TASK);
-                    mTaskContext.Release();
+                    ReleaseTask();
                     CallCallback(CALLBACK_TYPE.SET_READY);
 
                     return new Tuple<bool, bool>(true, isLevelup);
+                }
+                public void ReleaseTask() {
+                    mTaskContext.Release();
                 }
                 /*
                 ask, interrupt 처리
