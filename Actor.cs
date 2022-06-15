@@ -389,6 +389,12 @@ namespace ENGINE {
                 public FnTask? GetCurrentTask() {
                     return mTaskContext.currentTask;
                 }       
+                public string GetCurrentTaskTitle() {
+                    if(mTaskContext.currentTask != null) {
+                        return mTaskContext.currentTask.mInfo.title;
+                    }
+                    return string.Empty;
+                }
                 public STATE GetState() {
                     return mTaskContext.state;
                 }
