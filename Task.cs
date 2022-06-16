@@ -26,6 +26,8 @@ namespace ENGINE {
                 private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();
                 //Actor type, taskid
                 private Dictionary<int, List<string>> mDictByActorType = new Dictionary<int, List<string>>();
+                //reference count
+                private Dictionary<string, UInt32> mDicRefCount = new Dictionary<string, uint>();
                 private static readonly Lazy<TaskHandler> instance =
                         new Lazy<TaskHandler>(() => new TaskHandler());
                 public static TaskHandler Instance {
@@ -74,6 +76,21 @@ namespace ENGINE {
                     if(mDict.ContainsKey(taskId))
                         return mDict[taskId];
                     return null;
+                }
+                public UInt32 IncreaseRef(string taskId) {
+                    if(mDicRefCount.ContainsKey(taskId) == false) {
+                        mDicRefCount.Add(taskId, 1);
+                    } else {
+                        mDicRefCount[taskId] ++;
+                    }
+                    return mDicRefCount[taskId];
+                }
+                public UInt32 GetRef(string taskId) {
+                    if(mDicRefCount.ContainsKey(taskId) == false) {
+                        return 0;
+                    } else {
+                        return mDicRefCount[taskId];
+                    }
                 }
             }
         }

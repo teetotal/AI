@@ -16,6 +16,7 @@
             },
             "animation": "Greeting",
             "time": 1,
+            "maxRef": -1,
             "satisfactions": {
                 "MP": 2
             }
@@ -38,6 +39,7 @@
             },
             "animation": "Strong",
             "time": 1,
+            "maxRef": 1,
             "satisfactions": {            
                 "HP": 6,
                 "gold": -2                    
@@ -61,6 +63,7 @@
             },
             "animation": "Strong",
             "time": 1,
+            "maxRef": 1,
             "satisfactions": {            
                 "HP": 2,
                 "MP": -1
@@ -84,6 +87,7 @@
             },
             "animation": "Greeting",
             "time": 1,
+            "maxRef": 1,
             "satisfactions": {
                 "gold": 16,
                 "MP": 16
@@ -110,6 +114,7 @@
             },
             "animation": "Drinking",
             "time": 1,
+            "maxRef": -1,
             "satisfactions": {
                 "gold": -2,
                 "HP": 3,
@@ -135,6 +140,7 @@
             },
             "animation": "Sitting",
             "time": 1,
+            "maxRef": 1,
             "satisfactions": {                
                 "MP": 4
             }
@@ -160,6 +166,7 @@
             },
             "animation": "Digging",
             "time": 3,
+            "maxRef": -1,
             "satisfactions": {
                 "HP": -4,
                 "MP": -4,
@@ -187,6 +194,7 @@
             },
             "animation": "Farming",
             "time": 3,
+            "maxRef": -1,
             "satisfactions": {
                 "HP": -2,
                 "gold": 6
@@ -210,6 +218,7 @@
             },
             "animation": "HandUp",
             "time": 3,
+            "maxRef": -1,
             "satisfactions": {
                 "cute": 12,
                 "MP": -4,
@@ -236,6 +245,7 @@
             },
             "animation": "Dancing",
             "time": 3,
+            "maxRef": -1,
             "satisfactions": {
                 "attraction": 6,
                 "strength": -2,
@@ -262,6 +272,7 @@
             },
             "animation": "Bashful",
             "time": 50,
+            "maxRef": -1,
             "satisfactions": {        
                 "HP": 0.1,            
                 "gold": 0.1
@@ -285,6 +296,7 @@
             },
             "animation": "Dancing",
             "time": 3,
+            "maxRef": -1,
             "satisfactions": {                    
                 "HP": -0.5,
                 "gold": 0.5
@@ -308,6 +320,7 @@
             },
             "animation": "Bashful",
             "time": 2,
+            "maxRef": -1,
             "satisfactions": {        
                 "HP": 0.01,            
                 "MP": 0.01
@@ -331,6 +344,7 @@
             },
             "animation": "Dancing",
             "time": 8,
+            "maxRef": -1,
             "satisfactions": {        
                 "HP": 0.01,            
                 "MP": 0.01
@@ -354,6 +368,7 @@
             },
             "animation": "Restrain",
             "time": 8,
+            "maxRef": -1,
             "satisfactions": {        
                 "HP": 0.01,            
                 "MP": 0.01
