@@ -311,7 +311,8 @@ public class Loop {
         FnTask? task = actor.GetCurrentTask();
         if(task == null) 
             return false;
-        Console.WriteLine("> {0}: {1} ({2}), {3} {4}", actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal);
+        Console.WriteLine("> {0}: {1} ({2}), {3} refusal({4}) ref({5})", 
+            actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal, TaskHandler.Instance.GetRef(task.mTaskId));
         Tuple<bool, bool> retTask = actor.DoTask(isRefusal);
 
         //levelup

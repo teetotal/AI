@@ -100,16 +100,21 @@ namespace ENGINE {
                     public TaskContext_Target target = new TaskContext_Target();
                     public Actor? interactionFromActor;             
                     public void Release() {
+                        if(this.currentTask == null)
+                            throw new Exception("Release Error! CurrentTask didn't asign");
+                        //release refcount
+                        TaskHandler.Instance.ReleaseRef(this.currentTask.mTaskId);
                         this.currentTask = null;
                         this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
                         this.interactionFromActor = null;
                         this.state = STATE.READY;
-                        
                     }
                     public void Set(FnTask task, TASKCONTEXT_TARGET_TYPE targetType, string? targetName, Position? position, Position? lookAt) {
                         this.currentTask = task;                        
                         this.target.Set(targetType, targetName, position, lookAt);
                         state = STATE.TASKED;
+                        //increase refcount
+                        TaskHandler.Instance.IncreaseRef(task.mTaskId);
                     }
                     public void IncreaseTaskCounter() {
                         taskCounter++;
@@ -383,7 +388,6 @@ namespace ENGINE {
                         default:
                         break;
                     }         
-                               
                     mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
                             
                     return true;

@@ -89,11 +89,10 @@
             "time": 1,
             "maxRef": 1,
             "satisfactions": {
-                "gold": 16,
-                "MP": 16
+                "MP": 8
             },
             "satisfactionsRefusal": {
-                "MP": -0.1
+                "MP": -4
             }
         }, 
         {
