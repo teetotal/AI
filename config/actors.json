@@ -179,6 +179,60 @@
         ],
         "inventory": null
     },
+    "배달음식 기다리는 막네 회사원": {
+        "enable": true,
+        "type": 6,
+        "level": 1,
+        "prefab": "Actors/npc6",
+        "position": [-44, 0, 10],
+        "rotation": [0, 90, 0],
+        "trigger": {
+            "type": 1,
+            "value": "5"
+        },
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10 
+            }
+        ],
+        "inventory": null
+    },
+    "배달음식 기다리는 주민": {
+        "enable": true,
+        "type": 6,
+        "level": 1,
+        "prefab": "Actors/npc2",
+        "position": [30, 0, 82],
+        "rotation": [0, 90, 0],
+        "trigger": {
+            "type": 1,
+            "value": "5"
+        },
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10 
+            }
+        ],
+        "inventory": null
+    },
     "꼼이": {
         "enable": true,
         "type": 1,

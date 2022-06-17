@@ -209,6 +209,57 @@
             }
         },
         {
+            "id": "basic-C-II-1",
+            "chain": "basic-C-II-2",
+            "type": 0,
+            "level": null,
+            "title": "배달 알바 일감 받기",
+            "desc": "중국음식 배달 알바 하기",
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Bld_Shop_Corner_06"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }
+            },
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "satisfactions": {
+                "HP": -4,                
+                "gold": 8
+            }
+        },
+        {
+            "id": "basic-C-II-2",
+            "chain": null,
+            "type": 0,
+            "level": null,
+            "title": "배달 알바 배송완료",
+            "desc": "중국음식 배송 완료하기",
+            "target": {
+                "type": 2,
+                "value": [
+                    "배달음식 기다리는 막네 회사원",
+                    "배달음식 기다리는 주민"
+                ],
+                "interaction": {
+                    "type": 1,
+                    "taskId": "hello_ack"
+                }
+            },
+            "animation": "Levelup",
+            "time": 1,
+            "maxRef": -1,
+            "satisfactions": {
+                "HP": -4,                
+                "gold": 8
+            }
+        },
+        {
             "id": "1-B-I-1",
             "chain": null,
             "type": 0,

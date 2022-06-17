@@ -382,6 +382,10 @@ namespace ENGINE {
                         }
                     }   
 
+                    if(taskId == string.Empty) {
+                        return true;
+                    }
+                    
                     return SetCurrentTask(taskId);
                 }       
                 private bool SetCurrentTask(string taskId) {
