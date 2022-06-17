@@ -31,7 +31,8 @@ namespace ENGINE {
                     return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
                 }
             }  
-            public class Actor {     
+            public class Actor {    
+                public delegate void Callback(CALLBACK_TYPE type, string actorId);
                 public enum CALLBACK_TYPE {
                     SET_READY,
                     TAKE_TASK,
@@ -45,7 +46,6 @@ namespace ENGINE {
                     REFUSAL,
                     LEVELUP,
                 }
-                public delegate void Callback(CALLBACK_TYPE type, string actorId); 
                 public enum STATE {
                     READY,                    
                     TASKED,    
@@ -101,7 +101,16 @@ namespace ENGINE {
                     public string ackTaskId = string.Empty;
                     //target이 actor일 경우 actorId
                     public TaskContext_Target target = new TaskContext_Target();
-                    public Actor? interactionFromActor;             
+                    public Actor? interactionFromActor;      
+                    public Actor? GetTargetActor() {
+                        if(target.type == TASKCONTEXT_TARGET_TYPE.ACTOR) {
+                            var targetActor = ActorHandler.Instance.GetActor(target.objectName);
+                            if(targetActor == null)
+                                throw new Exception("Invalid ActorId. " + target.objectName);
+                            return targetActor;
+                        }
+                        return null;
+                    }       
                     public void Release() {
                         if(this.currentTask == null)
                             throw new Exception("Release Error! CurrentTask didn't asign.");
@@ -170,6 +179,8 @@ namespace ENGINE {
                 public Position position = new Position(0, 0, 0);
                 public ConfigActors_Detail mInfo;                
                 private Callback? mCallback;
+                //ask에 대한 의사결정 클래스
+                private DecideClass? mDecide;
                 private Dictionary<string, Satisfaction> mSatisfaction = new Dictionary<string, Satisfaction>();
                 // Relation
                 // Actor id, Satisfaction id, amount
@@ -194,10 +205,21 @@ namespace ENGINE {
                 public void SetCallback(Callback fn) {
                     mCallback = fn;
                 }
+                public void SetDecideFn(DecideClass fn) {
+                    mDecide = fn;
+                }
                 public void CallCallback(CALLBACK_TYPE type) {
                     if(mCallback != null) {
                         mCallback(type, mUniqueId);
                     }
+                }
+                public bool Decide(Actor asker, string taskId) {
+                    var task = TaskHandler.Instance.GetTask(taskId);
+                    if(task == null) 
+                        throw new Exception("Invalid TaskId. " + taskId);
+                    if(mDecide != null)
+                        return mDecide.Decide(this, asker, task);
+                    return true;
                 }
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
                 {
@@ -263,13 +285,15 @@ namespace ENGINE {
                 public bool CheckAccept(Actor actorFrom, string taskId) {         
                     mTaskContext.ackTaskId = taskId;           
                     //relation정보로 판단한다.
-                    CallCallback(CALLBACK_TYPE.REFUSAL);
-                    //GetTaskContext().ReleaseAck(); callback에서 ReleaseAck 해줘야 한다.
-                    /*
+                    if(!Decide(actorFrom, taskId)) {
+                        CallCallback(CALLBACK_TYPE.REFUSAL);
+                        //GetTaskContext().ReleaseAck(); callback에서 ReleaseAck 해줘야 한다.
+                        return false;
+                    }
+                        
                     if(!SetCurrentTask(taskId))
                         return false;
-                    */
-                    return false;
+                    return true;
                 }                 
                 public bool SendAskTaskToTarget(string taskId) {
                     if(mTaskContext.target.type != TASKCONTEXT_TARGET_TYPE.ACTOR) 

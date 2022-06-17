@@ -5,9 +5,11 @@ using System.Linq;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            public class ScriptHandler {
+            public class ScriptHandler { 
                private Dictionary<string, List<string>> mDict = new Dictionary<string, List<string>>();
                private Dictionary<string, List<string>> mDictRefusal = new Dictionary<string, List<string>>();
+               const string pre = "<";
+               const string post = ">";
                private static readonly Lazy<ScriptHandler> instance =
                         new Lazy<ScriptHandler>(() => new ScriptHandler());
                 public static ScriptHandler Instance {
@@ -28,7 +30,7 @@ namespace ENGINE {
                     mDictRefusal.Add(key, list);
                     return true;
                 }                
-                public string GetScript(string taskId, Actor from, Actor to) {
+                public string GetScript(string taskId, Actor from, Actor? to = null) {
                     if(mDict.ContainsKey(taskId)) {
                         var rnd = new Random();
                         int idx = rnd.Next(mDict[taskId].Count);
@@ -36,34 +38,18 @@ namespace ENGINE {
                     }
                     return "...";
                 }               
-                public string GetScript(string taskId, Actor from) {
-                    if(mDict.ContainsKey(taskId)) {
-                        var rnd = new Random();
-                        int idx = rnd.Next(mDict[taskId].Count);
-                        return GetReplacedString(mDict[taskId][idx], from, null);
-                    }
-                    return "...";
-                }   
-                public string GetScriptRefusal(string taskId, Actor from, Actor to) {
+                public string GetScriptRefusal(string taskId, Actor from, Actor? to = null) {
                     if(mDictRefusal.ContainsKey(taskId)) {
                         var rnd = new Random();
                         int idx = rnd.Next(mDictRefusal[taskId].Count);
                         return GetReplacedString(mDictRefusal[taskId][idx], from, to);
                     }
                     return "-.-";
-                }               
-                public string GetScriptRefusal(string taskId, Actor from) {
-                    if(mDictRefusal.ContainsKey(taskId)) {
-                        var rnd = new Random();
-                        int idx = rnd.Next(mDictRefusal[taskId].Count);
-                        return GetReplacedString(mDictRefusal[taskId][idx], from, null);
-                    }
-                    return "-.-";
-                }                
+                }                            
                 private string GetReplacedString(string sz, Actor from, Actor? to) {
-                    string ret = sz.Replace("{from}", from.mUniqueId);
+                    string ret = sz.Replace("{from}", pre + from.mUniqueId + post);
                     if(to != null) {
-                        ret = ret.Replace("{to}", to.mUniqueId);
+                        ret = ret.Replace("{to}", pre + to.mUniqueId + post);
                     }
                     return ret;
                 }

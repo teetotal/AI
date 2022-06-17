@@ -200,9 +200,11 @@ public class Loop {
             Console.WriteLine("Failure Loading config");
             return false;
         }
+        DecideAlwaysTrue decide = new DecideAlwaysTrue();
         foreach(var p in ActorHandler.Instance.GetActors()) {
             Actor actor = p.Value;
             actor.SetCallback(Callback);
+            actor.SetDecideFn(decide);
         }
         return true;
     }
@@ -238,12 +240,14 @@ public class Loop {
             case Actor.CALLBACK_TYPE.INTERRUPTED:
             break;
             case Actor.CALLBACK_TYPE.REFUSAL:
+            actor.GetTaskContext().ReleaseAck();
             break;
             case Actor.CALLBACK_TYPE.LEVELUP:
             Console.WriteLine("Level up!! {0}", actor.mLevel);
             break;
         }
     }
+    //---------------------------------------------------------------------------
     private void System() {
         Console.Write("s(SatisfactionSum) c(Counter): ");
         var input = Console.ReadLine();
@@ -314,8 +318,18 @@ public class Loop {
         FnTask? task = actor.GetCurrentTask();
         if(task == null) 
             return false;
-        Console.WriteLine("> {0}: {1} ({2}), {3} refusal({4}) ref({5})", 
-            actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal, TaskHandler.Instance.GetRef(task.mTaskId));
+        string pre = "-";
+        switch(task.mInfo.target.interaction.type) {
+            case TASK_INTERACTION_TYPE.ASK:
+            pre = "!";
+            break;
+        }
+        if(task.mInfo.type == TASK_TYPE.REACTION) {
+            pre = ">";
+        }
+        Console.WriteLine(pre + " {0}: {1} ({2}), {3} refusal({4}) ref({5}), {6}", 
+            actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal, TaskHandler.Instance.GetRef(task.mTaskId), 
+            ScriptHandler.Instance.GetScript(task.mTaskId, actor, actor.GetTaskContext().GetTargetActor()));
         actor.DoTask(isRefusal);
         
 
