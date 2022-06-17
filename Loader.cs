@@ -134,7 +134,8 @@ namespace ENGINE {
             //Task ---------------------------------------------------------------         
             public enum TASK_TYPE : int {
                 NORMAL = 0,
-                REACTION
+                REACTION,
+                CHAIN,
             }  
             public enum TASK_TARGET_TYPE : int {
                 NON_TARGET = 0,

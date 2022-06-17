@@ -258,7 +258,7 @@
         {
             "id": "basic-C-II-2",
             "chain": null,
-            "type": 0,
+            "type": 2,
             "level": null,
             "title": "배달 알바 배송완료",
             "desc": "중국음식 배송 완료하기",
