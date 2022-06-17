@@ -150,11 +150,12 @@ namespace ENGINE {
                 INTERRUPT
             }
             public class ConfigTask_Detail {
-                public string id { get; set; } = "";// task 고유 id
+                public string id { get; set; } = string.Empty;// task 고유 id
+                public string chain { get; set; } = string.Empty;// task 고유 id
                 public TASK_TYPE type { get; set; }
                 public List<int>? level { get; set; } //사용가능한 Actor 최소 레벨, 최대 레벨
-                public string title { get; set; } = "";
-                public string desc { get; set; } = "";
+                public string title { get; set; } = string.Empty;
+                public string desc { get; set; } = string.Empty;
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
                 public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
                 public string? animation { get; set; }

@@ -59,7 +59,7 @@ namespace ENGINE {
                         var info = mDict[taskId].mInfo;
                         if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
                             && info.type == TASK_TYPE.NORMAL // check type
-                            && (info.maxRef == -1 || info.maxRef >= GetRef(taskId)) //check ref count
+                            && (info.maxRef == -1 || info.maxRef > GetRef(taskId)) //check ref count
                         ) {
                             //actor가 가지고 있는 satisfaction만 추가
                             foreach(var satisfaction in info.satisfactions) {

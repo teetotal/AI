@@ -239,6 +239,9 @@ public class Loop {
             break;
             case Actor.CALLBACK_TYPE.REFUSAL:
             break;
+            case Actor.CALLBACK_TYPE.LEVELUP:
+            Console.WriteLine("Level up!! {0}", actor.mLevel);
+            break;
         }
     }
     private void System() {
@@ -313,13 +316,8 @@ public class Loop {
             return false;
         Console.WriteLine("> {0}: {1} ({2}), {3} refusal({4}) ref({5})", 
             actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal, TaskHandler.Instance.GetRef(task.mTaskId));
-        Tuple<bool, bool> retTask = actor.DoTask(isRefusal);
-
-        //levelup
-        bool isLevelUp = retTask.Item2;            
-        if(isLevelUp == true) {
-            Console.WriteLine("Level up!! {0}", actor.mLevel);
-        }
+        actor.DoTask(isRefusal);
+        
 
         //quest
         /*

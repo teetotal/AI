@@ -39,7 +39,7 @@ namespace ENGINE {
                         case TASK_TARGET_TYPE.ACTOR_FROM:
                         Actor.TaskContext context = actor.GetTaskContext();
                         if(context.interactionFromActor == null)
-                            targetValue = "";    
+                            targetValue = string.Empty;    
                         else 
                             targetValue = context.interactionFromActor.mUniqueId;
                         type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
@@ -61,7 +61,32 @@ namespace ENGINE {
                         default:
                         break;
                     }
-                    return new Tuple<Dictionary<string, float>, Dictionary<string, float>>(mInfo.satisfactions, mInfo.satisfactionsRefusal);
+                    //chain 처리
+                    FnTask? p = this;
+                    Dictionary<string, float> satisfaction = new Dictionary<string, float>();
+                    Dictionary<string, float> refusal = new Dictionary<string, float>();
+
+                    while(p != null) {
+                        var s = p.GetSatisfactions(actor);
+                        foreach(var kv in s) {
+                            if(satisfaction.ContainsKey(kv.Key))
+                                satisfaction[kv.Key] += kv.Value;
+                            else
+                                satisfaction[kv.Key] = kv.Value;
+                        }
+                        var r = p.GetSatisfactionsRefusal(actor);
+                        foreach(var kv in r) {
+                            if(refusal.ContainsKey(kv.Key))
+                                refusal[kv.Key] += kv.Value;
+                            else
+                                refusal[kv.Key] = kv.Value;
+                        }
+                        if(p.mInfo.chain != string.Empty)
+                            p = TaskHandler.Instance.GetTask(p.mInfo.chain);
+                        else
+                            p = null;
+                    }
+                    return new Tuple<Dictionary<string, float>, Dictionary<string, float>>(satisfaction, refusal);
                 }
                 public override Dictionary<string, float> GetSatisfactions(Actor actor) {
                     if(mInfo != null && mInfo.satisfactions != null) {

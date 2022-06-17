@@ -2,6 +2,7 @@
     "1": [       
         {
             "id": "hello_ack",
+            "chain": null,
             "type": 1,
             "level": null,
             "title": "인사 받아주기",
@@ -23,6 +24,7 @@
         }, 
         {
             "id": "basic-A-I-1",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "핫도그 사먹기",
@@ -47,6 +49,7 @@
         },
         {
             "id": "basic-A-I-2",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "무료 시식 피자 먹기",
@@ -71,6 +74,7 @@
         },
         {
             "id": "basic-B-I-1",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "부자에게 인사하기",
@@ -89,6 +93,7 @@
             "time": 1,
             "maxRef": 1,
             "satisfactions": {
+                "gold": 16,
                 "MP": 8
             },
             "satisfactionsRefusal": {
@@ -97,6 +102,7 @@
         }, 
         {
             "id": "basic-B-I-2",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "공원에서 맥주 마시기",
@@ -122,6 +128,7 @@
         },   
         {
             "id": "basic-B-I-3",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "공원 벤치에서 쉬기",
@@ -146,6 +153,7 @@
         },        
         {
             "id": "basic-C-I-1",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "일용직 일하기",
@@ -174,6 +182,7 @@
         },
         {
             "id": "basic-C-I-2",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "공원 잡초 뽑기 알바",
@@ -201,6 +210,7 @@
         },
         {
             "id": "1-B-I-1",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "아이돌 덕질 하기",
@@ -226,6 +236,7 @@
         },        
         {
             "id": "dancing",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "온몸으로 춤추기",
@@ -255,6 +266,7 @@
     "2": [
         {
             "id": "sell_hotdog",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "수줍게 핫도그 팔기",
@@ -279,6 +291,7 @@
         },
         {
             "id": "sell_hotdog_dancing",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "춤추며 핫도그 팔기",
@@ -305,6 +318,7 @@
     "3": [
         {
             "id": "free_pizza",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "무료 시식 피자 알바하기",
@@ -329,6 +343,7 @@
     "4": [
         {
             "id": "sell_beer",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "공원에서 맥주팔기",
@@ -353,6 +368,7 @@
     "5": [
         {
             "id": "prevent_fan",
+            "chain": null,
             "type": 0,
             "level": null,
             "title": "아이돌 회사 입구 막기",

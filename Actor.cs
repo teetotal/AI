@@ -42,7 +42,8 @@ namespace ENGINE {
                     ASKED,
                     INTERRUPT,
                     INTERRUPTED,
-                    REFUSAL
+                    REFUSAL,
+                    LEVELUP,
                 }
                 public delegate void Callback(CALLBACK_TYPE type, string actorId); 
                 public enum STATE {
@@ -96,15 +97,25 @@ namespace ENGINE {
                     public Int64 taskCounter { get; set; }
                     public STATE state = STATE.READY;
                     public FnTask? currentTask = null;
+                    //ask에 대한 응답 taskId저장. refusal이 아니면 이때 take task
+                    public string ackTaskId = string.Empty;
                     //target이 actor일 경우 actorId
                     public TaskContext_Target target = new TaskContext_Target();
                     public Actor? interactionFromActor;             
                     public void Release() {
                         if(this.currentTask == null)
-                            throw new Exception("Release Error! CurrentTask didn't asign");
+                            throw new Exception("Release Error! CurrentTask didn't asign.");
                         //release refcount
                         TaskHandler.Instance.ReleaseRef(this.currentTask.mTaskId);
                         this.currentTask = null;
+                        this.ackTaskId = string.Empty;
+                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
+                        this.interactionFromActor = null;
+                        this.state = STATE.READY;
+                    }
+                    public void ReleaseAck() {
+                        this.currentTask = null;
+                        this.ackTaskId = string.Empty;
                         this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
                         this.interactionFromActor = null;
                         this.state = STATE.READY;
@@ -249,10 +260,15 @@ namespace ENGINE {
                     return true;
                 }            
                 //요청에 대한 수락 여부 결정   
-                public bool CheckAccept(Actor actorFrom, string taskId) {
+                public bool CheckAccept(Actor actorFrom, string taskId) {         
+                    mTaskContext.ackTaskId = taskId;           
                     //relation정보로 판단한다.
                     CallCallback(CALLBACK_TYPE.REFUSAL);
-                    ReleaseTask();
+                    //GetTaskContext().ReleaseAck(); callback에서 ReleaseAck 해줘야 한다.
+                    /*
+                    if(!SetCurrentTask(taskId))
+                        return false;
+                    */
                     return false;
                 }                 
                 public bool SendAskTaskToTarget(string taskId) {
@@ -260,14 +276,11 @@ namespace ENGINE {
                         return false;
                     var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                     if(targetActor == null)
-                        return false;
-                    if(!targetActor.SetCurrentTask(taskId))
-                        return false;
+                        return false;                    
                     //거절 여부를 여기서 확인하다.
                     if(!targetActor.CheckAccept(this, taskId))
                         return false;
                     CallCallback(CALLBACK_TYPE.ASK);                    
-                    targetActor.CallCallback(CALLBACK_TYPE.TAKE_TASK);
                     return true;
                 }
                 // ---------------------------------------------------------------------
@@ -301,41 +314,45 @@ namespace ENGINE {
                     return true;
                 }
                 //ret DoTask, islevelup
-                public Tuple<bool, bool> DoTask(bool isRefusal = false) {
-                    if(mTaskContext.currentTask == null || mTaskContext.currentTask.mTaskId == null)
-                        return new Tuple<bool, bool>(false, false);
-                    
+                public void DoTask(bool isRefusal = false) {
+                    var task = GetCurrentTask();
+                    if(task == null || task.mTaskId == null)
+                        throw new Exception("DoTask failure. The current task must exist.");
                     //accumulation                    
-                    mQuestContext.IncreaseTaskCount(mTaskContext.currentTask.mTaskId);
+                    mQuestContext.IncreaseTaskCount(task.mTaskId);
                     //satisfaction
                     //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
-                    Dictionary<string, float> values = isRefusal ? mTaskContext.currentTask.GetSatisfactionsRefusal(this) : mTaskContext.currentTask.GetSatisfactions(this);                    
+                    Dictionary<string, float> values = isRefusal ? task.GetSatisfactionsRefusal(this) : task.GetSatisfactions(this);                    
                     foreach(var p in values) {
                         string? from = null;
-                        if(mTaskContext.currentTask.mInfo.type == TASK_TYPE.REACTION) {
+                        if(task.mInfo.type == TASK_TYPE.REACTION) {
                             if(mTaskContext.interactionFromActor == null)
                                 throw new Exception("Invalid interaction from actor.");
                             from = mTaskContext.interactionFromActor.mUniqueId;
                         }                            
-                        else if(mTaskContext.currentTask.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK) 
+                        else if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK) 
                             from = mTaskContext.target.objectName;
                         Obtain(p.Key, p.Value, from);
                     }
                     mTaskContext.IncreaseTaskCounter();                    
+                    CallCallback(CALLBACK_TYPE.DO_TASK);                    
+                    ReleaseTask();
 
-                    //Levelup 처리                           
-                    bool isLevelup = checkLevelUp();
-                    if(isLevelup) {
+                    //Levelup 처리                                               
+                    if(checkLevelUp()) {
                         var reward = LevelHandler.Instance.Get(mType, mLevel);
                         if(reward != null && reward.next != null && reward.next.rewards != null) {
                             LevelUp(reward.next.rewards);
+                            CallCallback(CALLBACK_TYPE.LEVELUP);
                         }
-                    }
-                    CallCallback(CALLBACK_TYPE.DO_TASK);
-                    ReleaseTask();
-                    CallCallback(CALLBACK_TYPE.SET_READY);
-
-                    return new Tuple<bool, bool>(true, isLevelup);
+                    }                    
+                    
+                    if(task.mInfo.chain != null && task.mInfo.chain != string.Empty) {
+                        if(!SetCurrentTask(task.mInfo.chain))
+                            CallCallback(CALLBACK_TYPE.SET_READY);
+                    } else {
+                        CallCallback(CALLBACK_TYPE.SET_READY);
+                    }                    
                 }
                 public void ReleaseTask() {
                     mTaskContext.Release();
@@ -364,16 +381,14 @@ namespace ENGINE {
                             taskId = p.Key;
                         }
                     }   
-                    if(!SetCurrentTask(taskId))
-                        return false;
-                    CallCallback(CALLBACK_TYPE.TAKE_TASK);
-                    return true;
+
+                    return SetCurrentTask(taskId);
                 }       
                 private bool SetCurrentTask(string taskId) {
                     //task가져오고
                     FnTask? task = TaskHandler.Instance.GetTask(taskId);
                     if(task == null) {
-                        return false;
+                        throw new Exception("Invalid Task id. " + taskId + " " + mUniqueId);
                     }
                     //target가져오고
                     Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
@@ -389,8 +404,15 @@ namespace ENGINE {
                         break;
                     }         
                     mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
+                    CallCallback(CALLBACK_TYPE.TAKE_TASK);
                             
                     return true;
+                }
+                public string GetCurrentTaskId() {
+                    var task = GetCurrentTask();
+                    if(task == null)
+                        return string.Empty;
+                    return task.mTaskId;
                 }
                 public FnTask? GetCurrentTask() {
                     return mTaskContext.currentTask;
