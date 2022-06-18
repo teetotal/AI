@@ -282,10 +282,10 @@ namespace ENGINE {
                     return true;
                 }            
                 //요청에 대한 수락 여부 결정   
-                public bool CheckAccept(Actor actorFrom, string taskId) {         
+                public bool CheckAccept(Actor actorFrom, string taskId, bool isInterrupt) {         
                     mTaskContext.ackTaskId = taskId;           
                     //relation정보로 판단한다.
-                    if(!Decide(actorFrom, taskId)) {
+                    if(!isInterrupt && !Decide(actorFrom, taskId)) {
                         CallCallback(CALLBACK_TYPE.REFUSAL);
                         //GetTaskContext().ReleaseAck(); callback에서 ReleaseAck 해줘야 한다.
                         return false;
@@ -295,14 +295,14 @@ namespace ENGINE {
                         return false;
                     return true;
                 }                 
-                public bool SendAskTaskToTarget(string taskId) {
+                public bool SendAskTaskToTarget(string taskId, bool isInterrupt) {
                     if(mTaskContext.target.type != TASKCONTEXT_TARGET_TYPE.ACTOR) 
                         return false;
                     var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
                     if(targetActor == null)
                         return false;                    
                     //거절 여부를 여기서 확인하다.
-                    if(!targetActor.CheckAccept(this, taskId))
+                    if(!targetActor.CheckAccept(this, taskId, isInterrupt))
                         return false;
                     CallCallback(CALLBACK_TYPE.ASK);                    
                     return true;
@@ -321,15 +321,14 @@ namespace ENGINE {
                         var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
                         //ask, interrupt 처리
                         switch(interaction.type) {
-                            case TASK_INTERACTION_TYPE.ASK: {
+                            case TASK_INTERACTION_TYPE.ASK: 
+                            case TASK_INTERACTION_TYPE.INTERRUPT:                        
+                            {
                                 if(interaction.taskId == null) 
                                     throw new Exception("interaction failure. null taskid or SendAskTaskToTarget failure.");
-                                if(!SendAskTaskToTarget(interaction.taskId)) //상대에게 task를 실행하라고 던진다.
-                                    return false; //거절하면 false
+                                if(!SendAskTaskToTarget(interaction.taskId, interaction.type == TASK_INTERACTION_TYPE.ASK ? false : true)) //상대에게 task를 실행하라고 던진다.
+                                    return false; //ask인데 거절하면 false
                             }
-                            break;
-                            case TASK_INTERACTION_TYPE.INTERRUPT:                        
-                            //상대의 현재 task를 중단 시키고 재설정 시킨다.
                             break;
                             default:
                             break;
@@ -348,13 +347,13 @@ namespace ENGINE {
                     //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
                     Dictionary<string, float> values = isRefusal ? task.GetSatisfactionsRefusal(this) : task.GetSatisfactions(this);                    
                     foreach(var p in values) {
-                        string? from = null;
+                        string? from = null;                        
                         if(task.mInfo.type == TASK_TYPE.REACTION) {
                             if(mTaskContext.interactionFromActor == null)
                                 throw new Exception("Invalid interaction from actor.");
                             from = mTaskContext.interactionFromActor.mUniqueId;
                         }                            
-                        else if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK) 
+                        else if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK || task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.INTERRUPT) 
                             from = mTaskContext.target.objectName;
                         Obtain(p.Key, p.Value, from);
                     }
@@ -422,11 +421,11 @@ namespace ENGINE {
                     Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
                     //ASK 처리
                     switch(task.mInfo.target.interaction.type) {
+                        //ask와 interrupt의 차이는 ask는 거절 할 수 있지만 interrupt는 무조건 true리턴
                         case TASK_INTERACTION_TYPE.ASK:
+                        case TASK_INTERACTION_TYPE.INTERRUPT: 
                         if(!SetReserveToTarget(target.Item2)) 
                             return false;
-                        break;
-                        case TASK_INTERACTION_TYPE.INTERRUPT: //interrupt를 걸면 어차피 중단 시켜 버리니까 reserve를 하지 않는다.                        
                         break;
                         default:
                         break;
@@ -520,6 +519,21 @@ namespace ENGINE {
                         break;
                     }
                     return false;
+                }
+                //주변에 가장 먼저 보이는 actorid 리턴
+                public string LookAround() {
+                    if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
+                        return string.Empty;
+                    float distance = float.Parse(mInfo.trigger.value);
+                    var actors = ActorHandler.Instance.GetActors();                            
+                    foreach(var actor in actors) {
+                        if(actor.Key == mUniqueId)
+                            continue;
+                        
+                        if(position.GetDistance(actor.Value.position) <= distance)
+                            return actor.Key;
+                    }
+                    return string.Empty;
                 }
 
                 // Level up-------------------------------------------------------------------------------------------------------------

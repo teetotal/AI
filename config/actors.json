@@ -188,7 +188,7 @@
         "rotation": [0, 90, 0],
         "trigger": {
             "type": 1,
-            "value": "5"
+            "value": "10"
         },
         "satisfactions": [            
             {
@@ -215,7 +215,7 @@
         "rotation": [0, 90, 0],
         "trigger": {
             "type": 1,
-            "value": "5"
+            "value": "10"
         },
         "satisfactions": [            
             {
