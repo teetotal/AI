@@ -95,6 +95,8 @@ namespace ENGINE {
                 public class TaskContext {
                     // Task 수행 횟수 저장 for level up
                     public Int64 taskCounter { get; set; }
+                    //마지막 task 시점의 counter
+                    public Int64 lastCount { get; set; }
                     public STATE state = STATE.READY;
                     public FnTask? currentTask = null;
                     //ask에 대한 응답 taskId저장. refusal이 아니면 이때 take task
@@ -135,6 +137,7 @@ namespace ENGINE {
                         state = STATE.TASKED;
                         //increase refcount
                         TaskHandler.Instance.IncreaseRef(task.mTaskId);
+                        this.lastCount = CounterHandler.Instance.GetCount();
                     }
                     public void IncreaseTaskCounter() {
                         taskCounter++;
@@ -534,6 +537,12 @@ namespace ENGINE {
                             return actor.Key;
                     }
                     return string.Empty;
+                }
+                public float GetDistance(string actorId) {
+                    var target = ActorHandler.Instance.GetActor(actorId);   
+                    if(target == null)
+                        throw new Exception("Invalid actorId. " + actorId);
+                    return (float)position.GetDistance(target.position);
                 }
 
                 // Level up-------------------------------------------------------------------------------------------------------------
