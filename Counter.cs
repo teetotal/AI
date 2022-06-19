@@ -30,7 +30,7 @@ namespace ENGINE {
                     return instance.Value;
                 }
             }
-            private CounterHandler() { }
+            public CounterHandler() { }
             public void SetCounter(Int64 count) {
                 mCounter.SetCounter(count);
             }
