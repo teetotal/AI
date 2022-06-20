@@ -250,7 +250,7 @@ namespace ENGINE {
                         if(s == null) {
                             Console.WriteLine("Invalid SatisfactionDefine id");
                         } else {
-                            sz += String.Format("{0}({1}) ", s.title, p.Value );                                                        
+                            sz += String.Format("{0}: {1}({2}%) ", s.title, p.Value, (int)(GetNormValue(mSatisfaction[p.Key]) * 100));
                         }                        
                     }
                     //sz += mTaskContext.target.ToString();
