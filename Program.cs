@@ -245,6 +245,9 @@ public class Loop {
             case Actor.CALLBACK_TYPE.LEVELUP:
             Console.WriteLine("Level up!! {0}", actor.mLevel);
             break;
+            case Actor.CALLBACK_TYPE.DISCHARGE:
+            Console.WriteLine("{0} DISCHARGE", actor.mUniqueId);
+            break;
         }
     }
     //---------------------------------------------------------------------------
@@ -327,14 +330,13 @@ public class Loop {
         if(task.mInfo.type == TASK_TYPE.REACTION) {
             pre = ">";
         }
-        Console.WriteLine(pre + " {0}: {1} ({2}), {3} refusal({4}) ref({5}), {6}", 
+        Console.WriteLine(pre + " {0}: {1} ({2}), {3} refusal({4}) ref({5}), {6} : {7}", 
             actor.mUniqueId, task.mTaskTitle, task.mTaskDesc, actor.GetTaskString(), isRefusal, TaskHandler.Instance.GetRef(task.mTaskId), 
-            ScriptHandler.Instance.GetScript(task.mTaskId, actor, actor.GetTaskContext().GetTargetActor()));
+            ScriptHandler.Instance.GetScript(task.mTaskId, actor, actor.GetTaskContext().GetTargetActor()), actor.GetLevelUpProgress());
         actor.DoTask(isRefusal);
         
 
         //quest
-        /*
         string completeQuestId = "";
         List<string> quests = actor.GetQuest();
         foreach(string questId  in quests) {
@@ -351,17 +353,17 @@ public class Loop {
         if(completeQuestId.Length > 0) {
             bool ret = QuestHandler.Instance.Complete(actor, completeQuestId);                
             ConfigQuest_Detail? quest = QuestHandler.Instance.GetQuestInfo(actor.mType, completeQuestId);
-            if(quest == null) continue;
+            if(quest == null) throw new Exception("Invalid Quest." + completeQuestId);
             Console.WriteLine("Quest Complete> {0} ({1}) {2}", quest.title, quest.desc, ret);
         }
-        */
+        
         return true;
     }
     public void Next() {
         Int64 counter = CounterHandler.Instance.Next();
         //Discharge
-        //DischargeHandler.Instance.Discharge(type);
-        //ActorHandler.Instance.UpdateSatisfactionSum();
+        DischargeHandler.Instance.Discharge(type);
+        ActorHandler.Instance.UpdateSatisfactionSum();
         
         //happening
         /*

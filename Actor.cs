@@ -47,6 +47,7 @@ namespace ENGINE {
                     INTERRUPTED,
                     REFUSAL,
                     LEVELUP,
+                    DISCHARGE,
                 }
                 public enum STATE {
                     READY,                    
@@ -258,6 +259,7 @@ namespace ENGINE {
                 }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
                 public bool Discharge(string satisfactionId, float amount) {
+                    CallCallback(CALLBACK_TYPE.DISCHARGE);
                     return ApplySatisfaction(satisfactionId, -amount, 0, null);
                 }
 
@@ -568,7 +570,7 @@ namespace ENGINE {
 
                         }
                     }
-                    return count == 0? 0: sum / count;
+                    return count == 0 ? 0: sum / count;
                 }
                 public bool checkLevelUp() {
                     //check level up                   
