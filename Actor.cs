@@ -637,7 +637,19 @@ namespace ENGINE {
                 public double GetAccumulationSatisfaction(string satisfactionId) {
                     return mQuestContext.GetSatisfaction(satisfactionId);
                 }
-                // -------------------------------------------------------------------------------------------------------------                 
+                // -------------------------------------------------------------------------------------------------------------  
+                public string GetMyMinSatisfaction() {
+                    float val = 0;
+                    string key = string.Empty;
+                    foreach(var p in mSatisfaction) {
+                        float normVal = GetNormValue(p.Value.Value, p.Value.Min, p.Value.Max);
+                        if(key == string.Empty || val > normVal) {
+                            val = normVal;
+                            key = p.Key;
+                        }
+                    }
+                    return key;
+                }               
                 private float GetExpectedValue(FnTask fn) {
                     //1. satisfaction loop
                     //2. if check in fn then sum

@@ -220,6 +220,7 @@ public class Loop {
         switch(type) {            
             case Actor.CALLBACK_TYPE.TAKE_TASK:
             {
+                Console.WriteLine(string.Format("{0} 가장 부족한 능력 {1}", actor.mUniqueId, actor.GetMyMinSatisfaction()));
                 DoActor(actor, !actor.DoTaskBefore());
             }
             break;
