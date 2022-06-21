@@ -168,7 +168,7 @@ public class Loop {
                     break;
                     case 2:
                     {
-                        long counter = CounterHandler.Instance.Next();
+                        Next();
                         foreach(var p in ActorHandler.Instance.GetActors()) {
                             Actor actor = p.Value;
                             if(actor.GetState() == Actor.STATE.READY && actor.TakeTask() == false) {                    

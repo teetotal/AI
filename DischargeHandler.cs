@@ -44,7 +44,8 @@ namespace ENGINE {
                             if(count - p.LastDischargeTime >= p.Period) {
                                 mList[i].LastDischargeTime = count;
                                 foreach(var a in d) {
-                                    a.Value.Discharge(p.SatisfactionId, p.Amount);
+                                    if(p.Amount > 0)
+                                        a.Value.Discharge(p.SatisfactionId, p.Amount);
                                 }
                             }
                         }                        
