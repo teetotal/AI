@@ -548,6 +548,28 @@ namespace ENGINE {
                 }
 
                 // Level up-------------------------------------------------------------------------------------------------------------
+                public float GetLevelUpProgress() {
+                    float sum = 0;
+                    int count = 0;
+                    var info = LevelHandler.Instance.Get(mType, mLevel);
+                    if(info != null && info.next != null && info.next.threshold != null) {                        
+                        foreach(Config_KV_SF t in info.next.threshold) {
+                            if(t.key is null) {
+                                return -1;
+                            }
+
+                            count++;
+
+                            switch(t.key.ToUpper()) {
+                                case "TASKCOUNTER":
+                                sum += mTaskContext.taskCounter / t.value;
+                                break;                                
+                            }
+
+                        }
+                    }
+                    return count == 0? 0: sum / count;
+                }
                 public bool checkLevelUp() {
                     //check level up                   
                     var info = LevelHandler.Instance.Get(mType, mLevel);
