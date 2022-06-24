@@ -239,7 +239,7 @@ namespace ENGINE {
                         this.mUniqueId, SatisfactionDefine.Instance.GetTitle(s.SatisfactionId), s.Value, s.Min, s.Max, GetNormValue(s));
                     }
                 }
-                public string GetTaskString() {
+                public string GetTaskString(bool includeState = false) {
                     if(mTaskContext.currentTask == null || mTaskContext.target == null)
                         return "error";
 
@@ -251,7 +251,10 @@ namespace ENGINE {
                         if(s == null) {
                             Console.WriteLine("Invalid SatisfactionDefine id");
                         } else {
-                            sz += String.Format("{0}: {1}({2}%) ", s.title, p.Value, (int)(GetNormValue(mSatisfaction[p.Key]) * 100));
+                            if(includeState)
+                                sz += String.Format("{0}: {1}({2}%) ", s.title, p.Value, (int)(GetNormValue(mSatisfaction[p.Key]) * 100));
+                            else 
+                                sz += String.Format("{0}: {1} ", s.title, p.Value);
                         }                        
                     }
                     //sz += mTaskContext.target.ToString();
