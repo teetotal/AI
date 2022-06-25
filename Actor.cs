@@ -48,6 +48,7 @@ namespace ENGINE {
                     REFUSAL,
                     LEVELUP,
                     DISCHARGE,
+                    COMPLETE_QUEST,
                 }
                 public enum STATE {
                     READY,                    
@@ -635,7 +636,11 @@ namespace ENGINE {
                     return ret;
                 }
                 public bool RemoveQuest(string questId) {
-                    return mQuestContext.questList.Remove(questId);
+                    bool ret = mQuestContext.questList.Remove(questId);
+                    if(ret) {
+                        CallCallback(CALLBACK_TYPE.COMPLETE_QUEST);
+                    }
+                    return ret;
                 }
                 public double GetAccumulationSatisfaction(string satisfactionId) {
                     return mQuestContext.GetSatisfaction(satisfactionId);
