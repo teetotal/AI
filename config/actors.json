@@ -249,25 +249,31 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 50
+                "value": 30
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 50
+                "value": 30
             },
             {
                 "satisfactionId": "gold",
                 "min": 20,
                 "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "sense",
+                "min": 30,
+                "max": 60,
                 "value": 10
             },
             {
                 "satisfactionId": "cute",
                 "min": 30,
                 "max": 60,
-                "value": 10
+                "value": 40
             }
         ],
         "inventory": [
@@ -309,6 +315,12 @@
                 "value": 10
             },
             {
+                "satisfactionId": "sense",
+                "min": 30,
+                "max": 60,
+                "value": 10
+            },
+            {
                 "satisfactionId": "cute",
                 "min": 30,
                 "max": 60,
@@ -344,6 +356,12 @@
                 "satisfactionId": "gold",
                 "min": 20,
                 "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "sense",
+                "min": 30,
+                "max": 60,
                 "value": 10
             },
             {
@@ -383,6 +401,12 @@
                 "min": 20,
                 "max": 50,
                 "value": 50
+            },
+            {
+                "satisfactionId": "sense",
+                "min": 30,
+                "max": 60,
+                "value": 10
             },
             {
                 "satisfactionId": "cute",

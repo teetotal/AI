@@ -19,7 +19,8 @@
             "time": 1,
             "maxRef": -1,
             "satisfactions": {
-                "MP": 2
+                "MP": 2,
+                "gold": 1
             }
         }, 
         {
@@ -90,8 +91,8 @@
             "time": 1,
             "maxRef": 1,
             "satisfactions": {            
-                "HP": 2,
-                "MP": -1
+                "HP": 6,
+                "MP": -2
             }
         },
         {
@@ -99,27 +100,24 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "title": "부자에게 인사하기",
-            "desc": "주변에 가장 부자인 사람에게 인사한다",
+            "title": "고래 보고 힐링하기",
+            "desc": "하늘을 나는 고래를 보며 힐링한다.",
             "target": {
-                "type": 3,
+                "type": 5,
                 "value": [
-                    "1.Satisfaction.gold:max"
+                    "102.5,0,-80",
+                    "106,9,-120"
                 ],                
                 "interaction": {
-                    "type": 1,
-                    "taskId": "hello_ack"
+                    "type": 0,
+                    "taskId": null
                 }      
             },
             "animation": "Greeting",
             "time": 1,
             "maxRef": 1,
-            "satisfactions": {
-                "gold": 16,
+            "satisfactions": {                
                 "MP": 8
-            },
-            "satisfactionsRefusal": {
-                "MP": -4
             }
         }, 
         {
@@ -280,6 +278,35 @@
                 "gold": 8
             }
         },
+        {
+            "id": "1-A-I-1",
+            "chain": null,
+            "type": 0,
+            "level": null,
+            "title": "부티나는 주변인에게 선물주며 친한척 하기",
+            "desc": "주변에 가장 부티나는 사람에게 선물을 주며 괜히 친한척 한다",
+            "target": {
+                "type": 3,
+                "value": [
+                    "1.Satisfaction.gold:max"
+                ],                
+                "interaction": {
+                    "type": 1,
+                    "taskId": "hello_ack"
+                }      
+            },
+            "animation": "Greeting",
+            "time": 1,
+            "maxRef": 1,
+            "satisfactions": {
+                "sense": 12,
+                "gold": -2,
+                "MP": -2
+            },
+            "satisfactionsRefusal": {
+                "MP": -4
+            }
+        }, 
         {
             "id": "1-B-I-1",
             "chain": null,
