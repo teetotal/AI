@@ -262,9 +262,12 @@ namespace ENGINE {
                     return sz;
                 }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
-                public bool Discharge(string satisfactionId, float amount) {
-                    CallCallback(CALLBACK_TYPE.DISCHARGE);
-                    return ApplySatisfaction(satisfactionId, -amount, 0, null);
+                public bool Discharge(string satisfactionId, float amount) {                    
+                    bool ret = ApplySatisfaction(satisfactionId, -amount, 0, null);
+                    if(ret) {
+                        CallCallback(CALLBACK_TYPE.DISCHARGE);
+                    }
+                    return ret;
                 }
 
                 public bool Obtain(string satisfactionId, float amount, string? from) {
@@ -530,9 +533,13 @@ namespace ENGINE {
                         break;
                     }
                     return false;
-                }
-                //주변에 가장 먼저 보이는 actorid 리턴
+                }                
                 public string LookAround() {
+                    //누군가에 의해 reserve된 상태이면
+                    if(mTaskContext.state == STATE.RESERVED && mTaskContext.interactionFromActor != null)
+                        return mTaskContext.interactionFromActor.mUniqueId;
+
+                    //주변에 가장 먼저 보이는 actorid 리턴   
                     if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
                         return string.Empty;
                     float distance = float.Parse(mInfo.trigger.value);

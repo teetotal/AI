@@ -3,7 +3,7 @@
         "HP": {
             "title": "HP",
             "discharge": 1,
-            "period": 1, 
+            "period": 10, 
             "happening": [
                 {
                     "types": [1],
@@ -29,8 +29,8 @@
             "period": 0,
             "happening": []
         },
-        "strength": {
-            "title": "체력",
+        "sympathy": {
+            "title": "이해심",
             "discharge": 0,
             "period": 0,
             "happening": []

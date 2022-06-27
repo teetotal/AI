@@ -233,6 +233,33 @@
         ],
         "inventory": null
     },
+    "장흥고씨 27대손 양이": {
+        "enable": true,
+        "type": 0,
+        "level": 1,
+        "prefab": "Actors/cat",
+        "position": [31.5, 0, 51.5],
+        "rotation": [0, 90, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10 
+            }
+        ],
+        "inventory": null
+    },
     "꼼이": {
         "enable": true,
         "type": 1,
@@ -274,6 +301,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 40
+            },
+            {
+                "satisfactionId": "sympathy",
+                "min": 30,
+                "max": 60,
+                "value": 10                
             }
         ],
         "inventory": [
@@ -325,6 +358,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 10
+            },
+            {
+                "satisfactionId": "sympathy",
+                "min": 30,
+                "max": 60,
+                "value": 10                
             }
         ]
     },
@@ -369,6 +408,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 10
+            },
+            {
+                "satisfactionId": "sympathy",
+                "min": 30,
+                "max": 60,
+                "value": 10                
             }
         ]
     },
@@ -413,6 +458,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 10
+            },
+            {
+                "satisfactionId": "sympathy",
+                "min": 30,
+                "max": 60,
+                "value": 10                
             }
         ]
     }

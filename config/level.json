@@ -9,7 +9,7 @@
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 4
+                            "value": 8
                         }
                     ],
                     "rewards": [
@@ -34,8 +34,52 @@
                             "value": 16
                         },
                         {
-                            "key": "Satisfaction.100",
+                            "key": "Satisfaction.gold",
+                            "value": 10
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "item1",
+                            "quantity": 20
+                        }
+                    ]
+                }
+            },
+            {
+                "level": 3,
+                "title": "능숙한자",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
                             "value": 32
+                        },
+                        {
+                            "key": "Satisfaction.gold",
+                            "value": 20
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "item1",
+                            "quantity": 20
+                        }
+                    ]
+                }
+            },
+            {
+                "level": 4,
+                "title": "더능숙한자",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 64
+                        },
+                        {
+                            "key": "Satisfaction.gold",
+                            "value": 40
                         }
                     ],
                     "rewards": [
