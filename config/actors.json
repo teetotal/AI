@@ -256,7 +256,13 @@
                 "min": 0,
                 "max": 100,
                 "value": 10 
-            }
+            },
+            {
+                "satisfactionId": "responsibility",
+                "min": 0,
+                "max": 1000,
+                "value": 0 
+            }            
         ],
         "inventory": null
     },
