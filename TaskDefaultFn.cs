@@ -48,6 +48,11 @@ namespace ENGINE {
                         position = mInfo.target.position;
                         lootAt = mInfo.target.lookAt;
                         break;
+                        case TASK_TARGET_TYPE.FLY:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.FLY;
+                        position = mInfo.target.position;
+                        lootAt = mInfo.target.lookAt;
+                        break;
                     }
                     return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(type, targetValue, position, lootAt);
                 }          

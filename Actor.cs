@@ -73,7 +73,8 @@ namespace ENGINE {
                     NON_TARGET,
                     OBJECT,
                     ACTOR,
-                    POSITION
+                    POSITION,
+                    FLY
                 }
                 public class TaskContext_Target {
                     public TASKCONTEXT_TARGET_TYPE type = TASKCONTEXT_TARGET_TYPE.INVALID;                    

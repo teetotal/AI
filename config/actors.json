@@ -266,6 +266,39 @@
         ],
         "inventory": null
     },
+    "하늘을 나는 고래": {
+        "enable": true,
+        "type": 100,
+        "level": 1,
+        "prefab": "Actors/Dragon",
+        "position": [115.4, 9, -125],
+        "rotation": [0, -111, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 50,
+                "max": 100,
+                "value": 48
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 50,
+                "max": 100,
+                "value": 50 
+            },
+            {
+                "satisfactionId": "responsibility",
+                "min": 0,
+                "max": 1000,
+                "value": 0 
+            }            
+        ],
+        "inventory": null
+    },
     "꼼이": {
         "enable": true,
         "type": 1,
