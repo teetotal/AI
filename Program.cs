@@ -19,9 +19,10 @@ class MainClass {
             File.ReadAllText("config/item.json"),
             File.ReadAllText("config/level.json"),
             File.ReadAllText("config/quest.json"),
-            File.ReadAllText("config/script.json")
+            File.ReadAllText("config/script.json"),
+            File.ReadAllText("config/scenario.json")
         };
-        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6])) {
+        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6], szConfigs[7])) {
             //Battle test
             //BattleTest battle = new BattleTest();
             //battle.Init();
@@ -194,9 +195,9 @@ public class Loop {
             }
         }
     }
-    public bool Load(string jsonSatisfaction, string jsonTask, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest, string jsonScript) {
+    public bool Load(string jsonSatisfaction, string jsonTask, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest, string jsonScript, string jsonScenario) {
         var pLoader = new Loader();
-        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript)) {
+        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }

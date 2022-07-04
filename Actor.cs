@@ -306,8 +306,9 @@ namespace ENGINE {
                         return false;
                     }
                         
-                    if(!SetCurrentTask(taskId))
-                        return false;
+                    //if(!SetCurrentTask(taskId)) return false;
+                    //의사만 결정하고 아무것도 안한 상태.
+                    //dialogue에서 SetCurrentTask와 DoTask를 해줘야 한다.
                     return true;
                 }                 
                 public bool SendAskTaskToTarget(string taskId, bool isInterrupt) {
@@ -426,7 +427,7 @@ namespace ENGINE {
                     
                     return SetCurrentTask(taskId);
                 }       
-                private bool SetCurrentTask(string taskId) {
+                public bool SetCurrentTask(string taskId) {
                     //task가져오고
                     FnTask? task = TaskHandler.Instance.GetTask(taskId);
                     if(task == null) {

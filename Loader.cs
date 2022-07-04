@@ -212,6 +212,26 @@ namespace ENGINE {
                 public Dictionary<string, List<string>>? refusal { get; set; }
                 public Dictionary<string, List<string>>? scripts { get; set; }
             }
+            //Scenario ----------------------------------------------------------------------
+            public enum SCENARIO_NODE_TYPE {
+                INVALID = 0,
+                SAY_FROM,
+                ANIMATION_FROM,
+                SAY_ANIMATION_FROM,
+                REACTION_FROM,
+                SAY_TO = 11,
+                ANIMATION_TO,
+                SAY_ANIMATION_TO,
+                FEEDBACK_TO,
+            }
+            public class ConfigScenario_Node {
+                public int time { get; set; }
+                public SCENARIO_NODE_TYPE type { get; set; }
+            }
+            public class ConfigScenario_Detail {
+                public List<ConfigScenario_Node>? from { get; set; }
+                public List<ConfigScenario_Node>? to { get; set; }
+            }
             //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool Load( string stringSatisfactions, 
@@ -220,7 +240,8 @@ namespace ENGINE {
                                   string stringItem, 
                                   string stringLevel,
                                   string stringQuest,
-                                  string stringScript ) {
+                                  string stringScript,
+                                  string stringScenario ) {
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
@@ -273,9 +294,23 @@ namespace ENGINE {
                     if(SetScript(stringScript) == false) {
                         return false;
                     }     
+                    //Scenario
+                    if(SetScenario(stringScenario) == false) {
+                        return false;
+                    }     
 
                     return true;
-                }          
+                }    
+                // Set Scenario   
+                private bool SetScenario(string sz) {
+                    var j = JsonConvert.DeserializeObject<Dictionary<string, ConfigScenario_Detail>>(sz);  
+                    foreach(var p in j) {
+                        string key = p.Key;
+                        ConfigScenario_Detail detail = p.Value;
+                        ScenarioInfoHandler.Instance.Insert(key, detail);
+                    }
+                    return true;
+                }
                 // Set Script
                 private bool SetScript(string sz) {
                     string jsonString = sz; 

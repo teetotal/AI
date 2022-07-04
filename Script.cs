@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
@@ -10,6 +11,8 @@ namespace ENGINE {
                private Dictionary<string, List<string>> mDictRefusal = new Dictionary<string, List<string>>();
                const string pre = "<";
                const string post = ">";
+               const string INVALID_SCRIPT = "...";
+               const string INVALID_SCRIPT_REFUSAL = "-.-";
                private static readonly Lazy<ScriptHandler> instance =
                         new Lazy<ScriptHandler>(() => new ScriptHandler());
                 public static ScriptHandler Instance {
@@ -36,7 +39,7 @@ namespace ENGINE {
                         int idx = rnd.Next(mDict[taskId].Count);
                         return GetReplacedString(mDict[taskId][idx], from, to);
                     }
-                    return "...";
+                    return INVALID_SCRIPT;
                 }               
                 public string GetScriptRefusal(string taskId, Actor from, Actor? to = null) {
                     if(mDictRefusal.ContainsKey(taskId)) {
@@ -44,14 +47,25 @@ namespace ENGINE {
                         int idx = rnd.Next(mDictRefusal[taskId].Count);
                         return GetReplacedString(mDictRefusal[taskId][idx], from, to);
                     }
-                    return "-.-";
+                    return INVALID_SCRIPT_REFUSAL;
                 }                            
                 private string GetReplacedString(string sz, Actor from, Actor? to) {
-                    string ret = sz.Replace("{from}", pre + from.mUniqueId + post);
+                    StringBuilder sbFrom = new StringBuilder(from.mUniqueId, from.mUniqueId.Length + pre.Length + post.Length);                    
+                    sbFrom.Insert(0, pre);
+                    sbFrom.Append(post);
+
+                    StringBuilder sb = new StringBuilder(sz, sz.Length + 64);
+                    sb.Replace("{from}", sbFrom.ToString());
+
+                    
                     if(to != null) {
-                        ret = ret.Replace("{to}", pre + to.mUniqueId + post);
+                        StringBuilder sbTo = new StringBuilder(to.mUniqueId, to.mUniqueId.Length + pre.Length + post.Length);
+                        sbTo.Insert(0, pre);
+                        sbTo.Append(post);
+
+                        sb.Replace("{to}", sbTo.ToString());
                     }
-                    return ret;
+                    return sb.ToString();
                 }
             }
         }
