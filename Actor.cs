@@ -210,7 +210,8 @@ namespace ENGINE {
                     REFUSAL,
                     CHAIN,
                     RELEASE,
-                    DISCHARGE
+                    DISCHARGE,
+                    COMPLETE_QUEST
                 }
                 private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
                 public LOOP_STATE GetState() {
@@ -422,6 +423,7 @@ namespace ENGINE {
                 // ------------------------------------------------------------------------------------------------------
                 public void SetCallback(Callback fn) {
                     mCallback = fn;
+                    Loop_Release();
                 }
                 public void SetDecideFn(DecideClass fn) {
                     mDecide = fn;
@@ -483,6 +485,17 @@ namespace ENGINE {
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
                 }
+                public Actor GetAsker() {
+                    if(mTaskContext.reserveContext.fromActor == null)
+                        throw new Exception("Null Reserved Actor");
+                    return mTaskContext.reserveContext.fromActor;
+                }
+                public Actor? GetTargetActor() {
+                    if(mTaskContext.target.type == TASKCONTEXT_TARGET_TYPE.ACTOR)
+                        return ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
+                    return null;
+                }
+
                 public string GetCurrentTaskId() {
                     var task = GetCurrentTask();
                     if(task == null)
@@ -566,12 +579,6 @@ namespace ENGINE {
                     return false;
                 }                
                 public string LookAround() {
-                    //누군가에 의해 reserve된 상태이면
-                    /*
-                    if(mTaskContext.state == STATE.RESERVED && mTaskContext.interactionFromActor != null)
-                        return mTaskContext.interactionFromActor.mUniqueId;
-                    */
-
                     //주변에 가장 먼저 보이는 actorid 리턴   
                     if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
                         return string.Empty;
@@ -678,7 +685,7 @@ namespace ENGINE {
                 public bool RemoveQuest(string questId) {
                     bool ret = mQuestContext.questList.Remove(questId);
                     if(ret) {
-                        //CallCallback(CALLBACK_TYPE.COMPLETE_QUEST);
+                        CallCallback(LOOP_STATE.COMPLETE_QUEST);
                     }
                     return ret;
                 }

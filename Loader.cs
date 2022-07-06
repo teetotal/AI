@@ -214,15 +214,14 @@ namespace ENGINE {
             }
             //Scenario ----------------------------------------------------------------------
             public enum SCENARIO_NODE_TYPE {
-                INVALID = 0,
-                SAY_FROM,
-                ANIMATION_FROM,
-                SAY_ANIMATION_FROM,
-                REACTION_FROM,
-                SAY_TO = 11,
-                ANIMATION_TO,
-                SAY_ANIMATION_TO,
-                FEEDBACK_TO,
+                FROM_STOP = 0,
+                FROM_SAY,
+                FROM_ANIMATION,
+                FROM_SAY_ANIMATION,
+                FROM_REACTION,     
+                TO_STOP = 10,
+                TO_FEEDBACK = 11,
+                TO_DECIDE,
             }
             public class ConfigScenario_Node {
                 public int time { get; set; }

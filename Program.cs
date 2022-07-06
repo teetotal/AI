@@ -171,7 +171,6 @@ public class ActorInstance {
     public ActorInstance(Actor actor) {
         mActor = actor;
         mActor.SetCallback(Callback);
-        mActor.Loop_Release();
     }
     public void Callback(Actor.LOOP_STATE state, Actor actor) {
         Console.WriteLine("{0} - {1}", actor.mUniqueId, state);
