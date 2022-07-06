@@ -210,11 +210,104 @@ namespace ENGINE {
                     this.mQuestContext.questList = quests;
                     this.mCallback = null;
                 }
+                // Loop -------------------------------------------------------------------------------------------------
+                public enum LOOP_STATE {
+                    INVALID,
+                    READY,
+                    PASS_WAIT,
+                    TASK_UI,
+                    TAKE_TASK,
+                    MOVE,
+                    RESERVED,
+                    LOOKAT,
+                    DIALOGUE,
+                    DECIDE,
+                    SET_TASK,
+                    DO_TASK,
+                    LEVELUP,
+                    REFUSAL,
+                    RELEASE
+                }
+                public LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
+                public bool Loop_Ready() {
+                    mLOOP_STATE = LOOP_STATE.READY; 
+                    CallCallback(LOOP_STATE.READY);
+                    return true;
+                }
+                public bool Loop_PassWait() {
+                    mLOOP_STATE = LOOP_STATE.PASS_WAIT; 
+                    CallCallback(LOOP_STATE.PASS_WAIT);
+                    return true;
+                }
+                public bool Loop_TaskUI() {
+                    mLOOP_STATE = LOOP_STATE.TASK_UI; 
+                    CallCallback(LOOP_STATE.TASK_UI);
+                    return true;
+                }
+                public bool Loop_TakeTask() {
+                    mLOOP_STATE = LOOP_STATE.TAKE_TASK; 
+                    CallCallback(LOOP_STATE.TAKE_TASK);
+                    return true;
+                }
+                public bool Loop_Move() {
+                    mLOOP_STATE = LOOP_STATE.MOVE; 
+                    CallCallback(LOOP_STATE.MOVE);
+                    return true;
+                }
+                public bool Loop_Reserved() {
+                    mLOOP_STATE = LOOP_STATE.RESERVED; 
+                    CallCallback(LOOP_STATE.RESERVED);
+                    return true;
+                }
+                public bool Loop_LookAt() {
+                    mLOOP_STATE = LOOP_STATE.LOOKAT; 
+                    CallCallback(LOOP_STATE.LOOKAT);
+                    return true;
+                }
+                public bool Loop_Dialogue() {
+                    mLOOP_STATE = LOOP_STATE.DIALOGUE; 
+                    CallCallback(LOOP_STATE.DIALOGUE);
+                    return true;
+                }
+                public bool Loop_Decide() {
+                    mLOOP_STATE = LOOP_STATE.DECIDE; 
+                    CallCallback(LOOP_STATE.DECIDE);
+                    return true;
+                }
+                public bool Loop_SetTask(string taskId) {
+                    mLOOP_STATE = LOOP_STATE.SET_TASK; 
+                    CallCallback(LOOP_STATE.SET_TASK);
+                    return true;
+                }
+                public bool Loop_DoTask() {
+                    mLOOP_STATE = LOOP_STATE.DO_TASK; 
+                    CallCallback(LOOP_STATE.DO_TASK);
+                    return true;
+                }
+                public bool Loop_Levelup() {
+                    mLOOP_STATE = LOOP_STATE.LEVELUP; 
+                    CallCallback(LOOP_STATE.LEVELUP);
+                    return true;
+                }
+                public bool Loop_Refusal() {
+                    mLOOP_STATE = LOOP_STATE.REFUSAL; 
+                    CallCallback(LOOP_STATE.REFUSAL);
+                    return true;
+                }
+                public bool Loop_Release() {
+                    mLOOP_STATE = LOOP_STATE.RELEASE; 
+                    CallCallback(LOOP_STATE.RELEASE);
+                    return true;
+                }
+                // ------------------------------------------------------------------------------------------------------
                 public void SetCallback(Callback fn) {
                     mCallback = fn;
                 }
                 public void SetDecideFn(DecideClass fn) {
                     mDecide = fn;
+                }
+                public void CallCallback(LOOP_STATE state) {
+                    
                 }
                 public void CallCallback(CALLBACK_TYPE type) {
                     if(mCallback != null) {

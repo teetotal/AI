@@ -11,7 +11,8 @@ using ENGINE.GAMEPLAY;
 #nullable enable
 class MainClass {    
     static void Main() {                
-        var p = new Loop();
+        //var p = new Loop();
+        var p = new GameControlInstance();
         string[] szConfigs = new string[] {
             File.ReadAllText("config/satisfactions.json"),
             File.ReadAllText("config/task.json"),
@@ -27,7 +28,7 @@ class MainClass {
             //BattleTest battle = new BattleTest();
             //battle.Init();
 
-            p.MainLoop();
+            //p.MainLoop();
         } else {
             Console.WriteLine("Failure loading config");
         }
@@ -143,9 +144,53 @@ public class BattleTest {
 }
 
 
+public class ActorInstance {
+    public Actor mActor;
+    public ActorInstance(Actor actor) {
+        mActor = actor;
+        mActor.SetCallback(Callback);
+    }
+    public void Callback(Actor.CALLBACK_TYPE type, string actorId) {
+
+    }
+}
+
+public class GameControlInstance {
+    private Dictionary<string, ActorInstance> mDictActor = new Dictionary<string, ActorInstance>();
+    public bool Load(string jsonSatisfaction, string jsonTask, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest, string jsonScript, string jsonScenario) {
+        var pLoader = new Loader();
+        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario)) {
+            Console.WriteLine("Failure Loading config");
+            return false;
+        }
+        DecideAlwaysTrue decide = new DecideAlwaysTrue();
+        foreach(var p in ActorHandler.Instance.GetActors()) {
+            Actor actor = p.Value;
+            var instance = new ActorInstance(actor);
+            mDictActor.Add(p.Key, instance);
+            /*
+            actor.SetCallback(Callback);
+            actor.SetDecideFn(decide);
+            */
+        }
+
+        Thread myThread = new Thread(new ParameterizedThreadStart(ThreadFn)); 
+        myThread.Start(this); 
+
+        return true;
+    }
+
+    private static void ThreadFn(object? instance) {
+        while(true) {
+            Thread.Sleep(1000 * 1);
+            Console.WriteLine("Thread");
+        }
+    }
+}
 
 public class Loop {
     int type = 1;    
+    Queue<KeyValuePair<Actor.LOOP_STATE, Actor>> mLoopQueue = new Queue<KeyValuePair<Actor.LOOP_STATE, Actor>>();
     public void MainLoop() {
         var actors = ActorHandler.Instance.GetActors(type);
         while(actors != null) {      
@@ -212,6 +257,21 @@ public class Loop {
     private void PrintLine() {
         Console.WriteLine("---------------------------------------------------------");
     }
+    //Loop -------------------------------------------------------------------------------
+    public void Callback(Actor.LOOP_STATE state, Actor actor) {
+        switch(state) {
+            default:
+            mLoopQueue.Enqueue(new KeyValuePair<Actor.LOOP_STATE, Actor>(state, actor));
+            break;
+        }
+    }
+    private void Dequeue() {
+        if(mLoopQueue.Count == 0)
+            return;
+        var node = mLoopQueue.Dequeue();
+
+    }
+    //-------------------------------------------------------------------------------
     public void Callback(Actor.CALLBACK_TYPE type, string actorId) {
         //Console.WriteLine(actorId + " " + type.ToString());
         var actor = ActorHandler.Instance.GetActor(actorId);
