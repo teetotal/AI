@@ -143,20 +143,109 @@ public class BattleTest {
     }
 }
 
+public class DialogueInstance {
+    public Actor from, to;
+    public FnTask fromTask;
+    private bool result;
+    public DialogueInstance(Actor from, Actor to, FnTask fromTask) {
+        this.from = from;
+        this.to = to;
+        this.fromTask = fromTask;
+        //미리 decide를 하고 animation 
+        result = to.Loop_Decide();
+    }
+    public void Do() {
+        if(result) {
+            from.Loop_DoTask();
+            to.Loop_AutoDoTask(fromTask.mInfo.target.interaction.taskId);
+        } else {
+            from.Loop_Refusal();
+            to.Loop_Release();
+        }
+        
+    }
+}
 
 public class ActorInstance {
     public Actor mActor;
     public ActorInstance(Actor actor) {
         mActor = actor;
         mActor.SetCallback(Callback);
+        mActor.Loop_Release();
     }
-    public void Callback(Actor.CALLBACK_TYPE type, string actorId) {
+    public void Callback(Actor.LOOP_STATE state, Actor actor) {
+        Console.WriteLine("{0} - {1}", actor.mUniqueId, state);
+        switch(state) {
+            case Actor.LOOP_STATE.INVALID:
+            break;
+            case Actor.LOOP_STATE.READY:
+            break;            
+            case Actor.LOOP_STATE.TASK_UI:
+            break;
+            case Actor.LOOP_STATE.TAKE_TASK:
+            Console.WriteLine("- {0}", actor.GetCurrentTaskTitle());
+            actor.Loop_Move();
+            break;
+            case Actor.LOOP_STATE.MOVE:
+            //이동 처리
+            //도착하면 
+            switch(actor.GetCurrentTask().mInfo.target.interaction.type) {
+                case TASK_INTERACTION_TYPE.ASK:
+                case TASK_INTERACTION_TYPE.INTERRUPT:
+                actor.Loop_Dialogue();
+                return;
+                default:
+                actor.Loop_Animation();
+                return;
+            }                        
+            case Actor.LOOP_STATE.ANIMATION:
+            actor.Loop_DoTask();
+            break;
+            case Actor.LOOP_STATE.RESERVED:
+            actor.Loop_LookAt();
+            break;
+            case Actor.LOOP_STATE.LOOKAT:
+            //쳐다 보기 설정
+            //actor.GetTaskContext().interactionFromActor;
 
+            //Decide가 호출될때 까지 처다만 본다.
+            break;
+            case Actor.LOOP_STATE.DIALOGUE:
+            //Dialogue로 handover
+            DialogueInstance p = new DialogueInstance(actor, actor.GetTaskContext().GetTargetActor(), actor.GetCurrentTask());       
+            p.Do();     
+            break;            
+            case Actor.LOOP_STATE.SET_TASK:
+            Console.WriteLine("- {0}", actor.GetCurrentTaskTitle());
+            actor.Loop_Move();
+            break;
+            case Actor.LOOP_STATE.DO_TASK:
+            actor.Loop_Levelup();
+            break;
+            case Actor.LOOP_STATE.AUTO_DO_TASK:
+            Console.WriteLine("- {0}", actor.GetCurrentTaskTitle());
+            actor.Loop_Levelup();
+            break;
+            case Actor.LOOP_STATE.LEVELUP:
+            //levelup 모션 처리
+            actor.Loop_Chain();
+            break;
+            case Actor.LOOP_STATE.REFUSAL:
+            actor.Loop_Chain();
+            break;            
+            case Actor.LOOP_STATE.RELEASE:
+            actor.Loop_Ready();
+            break;
+            case Actor.LOOP_STATE.DISCHARGE:
+            //update UI
+            break;
+        }
     }
 }
 
 public class GameControlInstance {
-    private Dictionary<string, ActorInstance> mDictActor = new Dictionary<string, ActorInstance>();
+    public Dictionary<string, ActorInstance> mDictActor = new Dictionary<string, ActorInstance>();
+    private int ManagedInterval = 3;
     public bool Load(string jsonSatisfaction, string jsonTask, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest, string jsonScript, string jsonScenario) {
         var pLoader = new Loader();
         if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario)) {
@@ -165,13 +254,9 @@ public class GameControlInstance {
         }
         DecideAlwaysTrue decide = new DecideAlwaysTrue();
         foreach(var p in ActorHandler.Instance.GetActors()) {
-            Actor actor = p.Value;
+            Actor actor = p.Value;            
             var instance = new ActorInstance(actor);
-            mDictActor.Add(p.Key, instance);
-            /*
-            actor.SetCallback(Callback);
-            actor.SetDecideFn(decide);
-            */
+            mDictActor.Add(p.Key, instance);           
         }
 
         Thread myThread = new Thread(new ParameterizedThreadStart(ThreadFn)); 
@@ -179,15 +264,45 @@ public class GameControlInstance {
 
         return true;
     }
+    public void Do(ActorInstance actor, long counter) {        
+        if(actor.mActor.GetState() != Actor.LOOP_STATE.READY)
+            return;
+        
+        //counter 확인
+        if(counter - actor.mActor.GetTaskContext().lastCount < ManagedInterval)
+            return;
+        
+        // UI & Auto확인
+
+        //take task
+        if(!actor.mActor.Loop_TakeTask()) {
+            actor.mActor.Loop_Ready();
+        }
+
+    }
 
     private static void ThreadFn(object? instance) {
+        if(instance == null)
+            return;
+
+        GameControlInstance pInstance = (GameControlInstance)instance;
+        int type = 1;
         while(true) {
             Thread.Sleep(1000 * 1);
-            Console.WriteLine("Thread");
+            Console.WriteLine("Thread -----------------------------------------");
+            long counter = CounterHandler.Instance.Next();
+            
+            //Discharge
+            DischargeHandler.Instance.Discharge(type);            
+            ActorHandler.Instance.UpdateSatisfactionSum();
+
+            foreach(var actor in pInstance.mDictActor) {
+                pInstance.Do(actor.Value, counter);
+            }
         }
     }
 }
-
+/*
 public class Loop {
     int type = 1;    
     Queue<KeyValuePair<Actor.LOOP_STATE, Actor>> mLoopQueue = new Queue<KeyValuePair<Actor.LOOP_STATE, Actor>>();
@@ -427,8 +542,7 @@ public class Loop {
         DischargeHandler.Instance.Discharge(type);
         ActorHandler.Instance.UpdateSatisfactionSum();
         
-        //happening
-        /*
+        //happening        
         var happeningList = HappeningHandler.Instance.GetHappeningCandidates(type);
         //HappeningHandler.Instance.PrintCandidates(happeningList);
         foreach(var happening in happeningList) {
@@ -441,6 +555,7 @@ public class Loop {
             } else {
                 Console.WriteLine("Failure Happening");
             }
-        }*/
+        }
     }
 }
+*/

@@ -37,10 +37,10 @@ namespace ENGINE {
                         break;
                         case TASK_TARGET_TYPE.ACTOR_FROM:
                         Actor.TaskContext context = actor.GetTaskContext();
-                        if(context.interactionFromActor == null)
+                        if(context.reserveContext.fromActor == null)
                             targetValue = string.Empty;    
                         else 
-                            targetValue = context.interactionFromActor.mUniqueId;
+                            targetValue = context.reserveContext.fromActor.mUniqueId;
                         type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
                         break;
                         case TASK_TARGET_TYPE.POSITION:
@@ -169,7 +169,7 @@ namespace ENGINE {
                                     continue;
                                 }
                                 double distance = actor.position.GetDistance(p.Value.position);
-                                if(distance > 20 || p.Value.GetState() != Actor.STATE.READY) {
+                                if(distance > 20 || p.Value.GetState() != Actor.LOOP_STATE.READY) {
                                     continue;
                                 }
                                 var satisfaction = p.Value.GetSatisfaction(target2);

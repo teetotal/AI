@@ -34,27 +34,7 @@ namespace ENGINE {
                 }
             }  
             public class Actor {    
-                public delegate void Callback(CALLBACK_TYPE type, string actorId);
-                public enum CALLBACK_TYPE {
-                    SET_READY,
-                    TAKE_TASK,
-                    DO_TASK,
-                    RESERVE,
-                    RESERVED,
-                    ASK,
-                    ASKED,
-                    INTERRUPT,
-                    INTERRUPTED,
-                    REFUSAL,
-                    LEVELUP,
-                    DISCHARGE,
-                    COMPLETE_QUEST,
-                }
-                public enum STATE {
-                    READY,                    
-                    TASKED,    
-                    RESERVED, //누군가에 의해 ASK요청을 받은 상태                
-                }     
+                public delegate void Callback(LOOP_STATE type, Actor actor);
                 public enum ITEM_INVOKE_TYPE : int {
                     IMMEDIATELY = 0,
                     INVENTORY
@@ -98,17 +78,25 @@ namespace ENGINE {
                     }
                 }    
                 public class TaskContext {
+                    public class ReserveContext {
+                        public Actor? fromActor;
+                        public FnTask? fromTask;                            
+                        public void Release() {
+                            this.fromActor = null;
+                            this.fromTask = null;
+                        }      
+                    }
                     // Task 수행 횟수 저장 for level up
                     public Int64 taskCounter { get; set; }
                     //마지막 task 시점의 counter
                     public Int64 lastCount { get; set; }
-                    public STATE state = STATE.READY;
+                    //public STATE state = STATE.READY;
                     public FnTask? currentTask = null;
                     //ask에 대한 응답 taskId저장. refusal이 아니면 이때 take task
                     public string ackTaskId = string.Empty;
                     //target이 actor일 경우 actorId
                     public TaskContext_Target target = new TaskContext_Target();
-                    public Actor? interactionFromActor;      
+                    public ReserveContext reserveContext = new ReserveContext();
                     public Actor? GetTargetActor() {
                         if(target.type == TASKCONTEXT_TARGET_TYPE.ACTOR) {
                             var targetActor = ActorHandler.Instance.GetActor(target.objectName);
@@ -119,27 +107,20 @@ namespace ENGINE {
                         return null;
                     }       
                     public void Release() {
-                        if(this.currentTask == null)
-                            throw new Exception("Release Error! CurrentTask didn't asign.");
+                        this.ackTaskId = string.Empty;
+                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
+                        this.reserveContext.Release();
+
+                        if(this.currentTask == null) 
+                            return;
                         //release refcount
                         TaskHandler.Instance.ReleaseRef(this.currentTask.mTaskId);
                         this.currentTask = null;
-                        this.ackTaskId = string.Empty;
-                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
-                        this.interactionFromActor = null;
-                        this.state = STATE.READY;
-                    }
-                    public void ReleaseAck() {
-                        this.currentTask = null;
-                        this.ackTaskId = string.Empty;
-                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
-                        this.interactionFromActor = null;
-                        this.state = STATE.READY;
-                    }
+                    }                    
                     public void Set(FnTask task, TASKCONTEXT_TARGET_TYPE targetType, string? targetName, Position? position, Position? lookAt) {
                         this.currentTask = task;                        
                         this.target.Set(targetType, targetName, position, lookAt);
-                        state = STATE.TASKED;
+                        //state = STATE.TASKED;
                         //increase refcount
                         TaskHandler.Instance.IncreaseRef(task.mTaskId);
                         this.lastCount = CounterHandler.Instance.GetCount();
@@ -181,7 +162,7 @@ namespace ENGINE {
                     }
                 }
 
-                public int mType;
+                public int mType;                
                 public string mUniqueId;
                 public int mLevel;
                 public Position position = new Position(0, 0, 0);
@@ -213,48 +194,116 @@ namespace ENGINE {
                 // Loop -------------------------------------------------------------------------------------------------
                 public enum LOOP_STATE {
                     INVALID,
-                    READY,
-                    PASS_WAIT,
+                    READY,                    
                     TASK_UI,
                     TAKE_TASK,
                     MOVE,
+                    ANIMATION,
                     RESERVED,
                     LOOKAT,
                     DIALOGUE,
                     DECIDE,
                     SET_TASK,
                     DO_TASK,
+                    AUTO_DO_TASK,
                     LEVELUP,
                     REFUSAL,
-                    RELEASE
+                    CHAIN,
+                    RELEASE,
+                    DISCHARGE
                 }
-                public LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
-                public bool Loop_Ready() {
+                private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
+                public LOOP_STATE GetState() {
+                    return mLOOP_STATE;
+                }
+                public void Loop_Ready() {
                     mLOOP_STATE = LOOP_STATE.READY; 
                     CallCallback(LOOP_STATE.READY);
-                    return true;
-                }
-                public bool Loop_PassWait() {
-                    mLOOP_STATE = LOOP_STATE.PASS_WAIT; 
-                    CallCallback(LOOP_STATE.PASS_WAIT);
-                    return true;
-                }
+                }               
                 public bool Loop_TaskUI() {
                     mLOOP_STATE = LOOP_STATE.TASK_UI; 
                     CallCallback(LOOP_STATE.TASK_UI);
                     return true;
                 }
+                // Loop_TakeTask ----------------------------------------
+                //trigger때문에 false 할 수도 있다.
                 public bool Loop_TakeTask() {
                     mLOOP_STATE = LOOP_STATE.TAKE_TASK; 
+                    if(!TakeTask())
+                        return false;
                     CallCallback(LOOP_STATE.TAKE_TASK);
                     return true;
                 }
-                public bool Loop_Move() {
-                    mLOOP_STATE = LOOP_STATE.MOVE; 
-                    CallCallback(LOOP_STATE.MOVE);
+                private bool TakeTask() {
+                    //trigger확인
+                    if(!CheckTrigger()) {                        
+                        return false;
+                    }
+                    string taskId = string.Empty;
+                    float maxValue = 0.0f;                    
+                    var tasks = TaskHandler.Instance.GetTasks(this); 
+                    foreach(var p in tasks) {
+                        float expecedValue = GetExpectedValue(p.Value);                        
+                        if(taskId == string.Empty || expecedValue > maxValue) {
+                            maxValue = expecedValue;
+                            taskId = p.Key;
+                        }
+                    }   
+
+                    if(taskId == string.Empty) {
+                        return false;
+                    }
+                    
+                    return SetCurrentTask(taskId);
+                }       
+                public bool SetCurrentTask(string taskId) {
+                    //task가져오고
+                    FnTask? task = TaskHandler.Instance.GetTask(taskId);
+                    if(task == null) {
+                        throw new Exception("Invalid Task id. " + taskId + " " + mUniqueId);
+                    }
+                    //target가져오고
+
+                    Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
+                    //ASK 처리
+                    switch(task.mInfo.target.interaction.type) {
+                        //ask와 interrupt의 차이는 ask는 거절 할 수 있지만 interrupt는 무조건 true리턴
+                        case TASK_INTERACTION_TYPE.ASK:
+                        case TASK_INTERACTION_TYPE.INTERRUPT: 
+                        if(!SetReserveToTarget(target.Item2, task)) 
+                            return false;
+                        break;
+                        default:
+                        break;
+                    }         
+                    mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
                     return true;
                 }
-                public bool Loop_Reserved() {
+                private bool SetReserveToTarget(string targetActorId, FnTask task) {
+                    var targetActor = ActorHandler.Instance.GetActor(targetActorId);
+                    if(targetActor == null)
+                        return false;
+
+                    if(!targetActor.Loop_Reserved(this, task))
+                        return false;                    
+                    return true;                    
+                }                         
+                // Loop_Move -------------------------------------------------------------------------------
+                public void Loop_Move() {
+                    mLOOP_STATE = LOOP_STATE.MOVE; 
+                    CallCallback(LOOP_STATE.MOVE);
+                }
+                public void Loop_Animation() {
+                    mLOOP_STATE = LOOP_STATE.ANIMATION; 
+                    CallCallback(LOOP_STATE.ANIMATION);
+                }
+                public bool Loop_Reserved(Actor from, FnTask fromTask) {
+                    if(mLOOP_STATE != LOOP_STATE.READY) 
+                        return false;                    
+
+                    mTaskContext.reserveContext.fromActor = from;
+                    mTaskContext.reserveContext.fromTask = fromTask;
+
                     mLOOP_STATE = LOOP_STATE.RESERVED; 
                     CallCallback(LOOP_STATE.RESERVED);
                     return true;
@@ -264,41 +313,112 @@ namespace ENGINE {
                     CallCallback(LOOP_STATE.LOOKAT);
                     return true;
                 }
-                public bool Loop_Dialogue() {
+                public void Loop_Dialogue() {
                     mLOOP_STATE = LOOP_STATE.DIALOGUE; 
-                    CallCallback(LOOP_STATE.DIALOGUE);
-                    return true;
+                    var task = GetCurrentTask();
+                    if(task == null)
+                        throw new Exception("DoTask failure. The current task must exist.");
+
+                    if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK || task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.INTERRUPT)  {                        
+                        CallCallback(LOOP_STATE.DIALOGUE);
+                    } else {
+                        throw new Exception("Invalid interaction type." + task.mInfo.target.interaction.type);
+                    }
                 }
+                // Loop Decide ---------------------------------------------------------------------
                 public bool Loop_Decide() {
-                    mLOOP_STATE = LOOP_STATE.DECIDE; 
-                    CallCallback(LOOP_STATE.DECIDE);
+                    mLOOP_STATE = LOOP_STATE.DECIDE;                     
+                    return Decide(GetTaskContext().reserveContext.fromActor, GetTaskContext().reserveContext.fromTask);
+                }
+                private bool Decide(Actor? asker, FnTask? task) {
+                    if(asker == null || task == null) 
+                        throw new Exception("Invalid asker or TaskId.");
+                    if(mDecide != null)
+                        return mDecide.Decide(this, asker, task);
                     return true;
                 }
+                // Loop SetTask ----------------------------------------------------------------------
                 public bool Loop_SetTask(string taskId) {
                     mLOOP_STATE = LOOP_STATE.SET_TASK; 
+                    SetCurrentTask(taskId);
                     CallCallback(LOOP_STATE.SET_TASK);
                     return true;
                 }
-                public bool Loop_DoTask() {
+                // LOOP Auto do task
+                public void Loop_AutoDoTask(string taskId) {
+                    mLOOP_STATE = LOOP_STATE.AUTO_DO_TASK; 
+                    SetCurrentTask(taskId);
+                    DoTask(false);
+                    CallCallback(LOOP_STATE.AUTO_DO_TASK);
+                }
+                // Do Task & Refusal ----------------------------------------------------------------------------------------------------
+                public void Loop_DoTask() {
                     mLOOP_STATE = LOOP_STATE.DO_TASK; 
-                    CallCallback(LOOP_STATE.DO_TASK);
-                    return true;
+                    DoTask(false);
+                    CallCallback(LOOP_STATE.DO_TASK);                    
                 }
-                public bool Loop_Levelup() {
-                    mLOOP_STATE = LOOP_STATE.LEVELUP; 
-                    CallCallback(LOOP_STATE.LEVELUP);
-                    return true;
-                }
-                public bool Loop_Refusal() {
+                public void Loop_Refusal() {
                     mLOOP_STATE = LOOP_STATE.REFUSAL; 
-                    CallCallback(LOOP_STATE.REFUSAL);
-                    return true;
+                    DoTask(true);
+                    CallCallback(LOOP_STATE.REFUSAL);                    
+                }               
+                //ret DoTask, islevelup
+                private void DoTask(bool isRefusal) {
+                    var task = GetCurrentTask();
+                    if(task == null || task.mTaskId == null)
+                        throw new Exception("DoTask failure. The current task must exist.");
+                    //accumulation                    
+                    mQuestContext.IncreaseTaskCount(task.mTaskId);
+                    //satisfaction                    
+                    Dictionary<string, float> values = isRefusal? task.GetSatisfactionsRefusal(this) : task.GetSatisfactions(this);
+                    string? from = null;                        
+                    if(task.mInfo.type == TASK_TYPE.REACTION) {
+                        if(mTaskContext.reserveContext.fromActor == null) throw new Exception("Invalid interaction from actor.");
+                        from = mTaskContext.reserveContext.fromActor.mUniqueId;
+                    }                            
+                    else if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK || task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.INTERRUPT) 
+                        from = mTaskContext.target.objectName;
+
+                    foreach(var p in values) {                        
+                        Obtain(p.Key, p.Value, from);
+                    }
+                    if(!isRefusal)
+                        mTaskContext.IncreaseTaskCounter();    
                 }
-                public bool Loop_Release() {
+                // --------------------------------------------------------------------------------------------------
+                public void Loop_Levelup() {
+                    mLOOP_STATE = LOOP_STATE.LEVELUP; 
+                    //Levelup 처리                                               
+                    if(checkLevelUp()) {
+                        var reward = LevelHandler.Instance.Get(mType, mLevel);
+                        if(reward != null && reward.next != null && reward.next.rewards != null) {
+                            LevelUp(reward.next.rewards);                            
+                        }
+                        CallCallback(LOOP_STATE.LEVELUP);
+                    } else {
+                        Loop_Chain();
+                    }
+                }
+                
+                //콜백 없음
+                public void Loop_Chain() {
+                    mLOOP_STATE = LOOP_STATE.CHAIN; 
+                    var task = GetCurrentTask();
+                    if(task == null || task.mTaskId == null)
+                        throw new Exception("DoTask failure. The current task must exist.");
+                    
+                    //chain
+                    if(task.mInfo.chain != null && task.mInfo.chain != string.Empty) {                        
+                        Loop_SetTask(task.mInfo.chain);                        
+                    } else {
+                        Loop_Release();                        
+                    }                 
+                }          
+                public void Loop_Release() {
                     mLOOP_STATE = LOOP_STATE.RELEASE; 
-                    CallCallback(LOOP_STATE.RELEASE);
-                    return true;
-                }
+                    mTaskContext.Release();
+                    CallCallback(LOOP_STATE.RELEASE);                    
+                }                
                 // ------------------------------------------------------------------------------------------------------
                 public void SetCallback(Callback fn) {
                     mCallback = fn;
@@ -307,21 +427,11 @@ namespace ENGINE {
                     mDecide = fn;
                 }
                 public void CallCallback(LOOP_STATE state) {
-                    
-                }
-                public void CallCallback(CALLBACK_TYPE type) {
                     if(mCallback != null) {
-                        mCallback(type, mUniqueId);
+                        mCallback(state, this);
                     }
-                }
-                public bool Decide(Actor asker, string taskId) {
-                    var task = TaskHandler.Instance.GetTask(taskId);
-                    if(task == null) 
-                        throw new Exception("Invalid TaskId. " + taskId);
-                    if(mDecide != null)
-                        return mDecide.Decide(this, asker, task);
-                    return true;
-                }
+                }      
+                //----------------------------------------------------------------------------------------------------------
                 public bool SetSatisfaction(string satisfactionId, float min, float max, float value)
                 {
                     mSatisfaction.Add(satisfactionId, new Satisfaction(satisfactionId, min, max, value));
@@ -358,191 +468,20 @@ namespace ENGINE {
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
                 public bool Discharge(string satisfactionId, float amount) {                    
                     bool ret = ApplySatisfaction(satisfactionId, -amount, 0, null);
+                    
                     if(ret) {
-                        CallCallback(CALLBACK_TYPE.DISCHARGE);
+                        CallCallback(LOOP_STATE.DISCHARGE);
                     }
+
                     return ret;
                 }
 
                 public bool Obtain(string satisfactionId, float amount, string? from) {
                     return ApplySatisfaction(satisfactionId, amount, 0, from);
-                }     
-                //Ask ----------------------------------------------------------       
-                private bool SetReserveToTarget(string targetActorId) {
-                    var targetActor = ActorHandler.Instance.GetActor(targetActorId);
-                    if(targetActor == null)
-                        return false;
-                    
-                    if(!targetActor.SetAskReserve(this))
-                        return false;
-                    
-                    CallCallback(CALLBACK_TYPE.RESERVE);
-                    
-                    return true;                    
-                }         
-                public bool SetAskReserve(Actor actorFrom) {
-                    if(mTaskContext.state != STATE.READY) 
-                        return false;
-                    mTaskContext.state = STATE.RESERVED;
-                    mTaskContext.interactionFromActor = actorFrom;
-
-                    CallCallback(CALLBACK_TYPE.RESERVED);
-                    return true;
-                }            
-                //요청에 대한 수락 여부 결정   
-                public bool CheckAccept(Actor actorFrom, string taskId, bool isInterrupt) {         
-                    mTaskContext.ackTaskId = taskId;           
-                    //relation정보로 판단한다.
-                    if(!isInterrupt && !Decide(actorFrom, taskId)) {
-                        CallCallback(CALLBACK_TYPE.REFUSAL);
-                        //GetTaskContext().ReleaseAck(); callback에서 ReleaseAck 해줘야 한다.
-                        return false;
-                    }
-                        
-                    //if(!SetCurrentTask(taskId)) return false;
-                    //의사만 결정하고 아무것도 안한 상태.
-                    //dialogue에서 SetCurrentTask와 DoTask를 해줘야 한다.
-                    return true;
-                }                 
-                public bool SendAskTaskToTarget(string taskId, bool isInterrupt) {
-                    if(mTaskContext.target.type != TASKCONTEXT_TARGET_TYPE.ACTOR) 
-                        return false;
-                    var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
-                    if(targetActor == null)
-                        return false;                    
-                    //거절 여부를 여기서 확인하다.
-                    if(!targetActor.CheckAccept(this, taskId, isInterrupt))
-                        return false;
-                    CallCallback(CALLBACK_TYPE.ASK);                    
-                    return true;
                 }
                 // ---------------------------------------------------------------------
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
-                }
-                //ask가 거절 당하면 false
-                public bool DoTaskBefore() {
-                    if(mTaskContext.currentTask != null && mTaskContext.target.type == TASKCONTEXT_TARGET_TYPE.ACTOR) {
-                        var targetActor = ActorHandler.Instance.GetActor(mTaskContext.target.objectName);
-                        if(targetActor == null)
-                            throw new Exception("Target Actor must be");
-                    
-                        var interaction = mTaskContext.currentTask.mInfo.target.interaction;                    
-                        //ask, interrupt 처리
-                        switch(interaction.type) {
-                            case TASK_INTERACTION_TYPE.ASK: 
-                            case TASK_INTERACTION_TYPE.INTERRUPT:                        
-                            {
-                                if(interaction.taskId == null) 
-                                    throw new Exception("interaction failure. null taskid or SendAskTaskToTarget failure.");
-                                if(!SendAskTaskToTarget(interaction.taskId, interaction.type == TASK_INTERACTION_TYPE.ASK ? false : true)) //상대에게 task를 실행하라고 던진다.
-                                    return false; //ask인데 거절하면 false
-                            }
-                            break;
-                            default:
-                            break;
-                        }                        
-                    }
-                    return true;
-                }
-                //ret DoTask, islevelup
-                public void DoTask(bool isRefusal = false) {
-                    var task = GetCurrentTask();
-                    if(task == null || task.mTaskId == null)
-                        throw new Exception("DoTask failure. The current task must exist.");
-                    //accumulation                    
-                    mQuestContext.IncreaseTaskCount(task.mTaskId);
-                    //satisfaction
-                    //이 시점엔 relation을 찾을 수 없기 때문에 걍 보상을 준다.
-                    Dictionary<string, float> values = isRefusal ? task.GetSatisfactionsRefusal(this) : task.GetSatisfactions(this);                    
-                    foreach(var p in values) {
-                        string? from = null;                        
-                        if(task.mInfo.type == TASK_TYPE.REACTION) {
-                            if(mTaskContext.interactionFromActor == null)
-                                throw new Exception("Invalid interaction from actor.");
-                            from = mTaskContext.interactionFromActor.mUniqueId;
-                        }                            
-                        else if(task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.ASK || task.mInfo.target.interaction.type == TASK_INTERACTION_TYPE.INTERRUPT) 
-                            from = mTaskContext.target.objectName;
-                        Obtain(p.Key, p.Value, from);
-                    }
-                    mTaskContext.IncreaseTaskCounter();                    
-                    CallCallback(CALLBACK_TYPE.DO_TASK);                    
-                    ReleaseTask();
-
-                    //Levelup 처리                                               
-                    if(checkLevelUp()) {
-                        var reward = LevelHandler.Instance.Get(mType, mLevel);
-                        if(reward != null && reward.next != null && reward.next.rewards != null) {
-                            LevelUp(reward.next.rewards);
-                            CallCallback(CALLBACK_TYPE.LEVELUP);
-                        }
-                    }                    
-                    
-                    if(task.mInfo.chain != null && task.mInfo.chain != string.Empty) {
-                        if(!SetCurrentTask(task.mInfo.chain))
-                            CallCallback(CALLBACK_TYPE.SET_READY);
-                    } else {
-                        CallCallback(CALLBACK_TYPE.SET_READY);
-                    }                    
-                }
-                public void ReleaseTask() {
-                    mTaskContext.Release();
-                }
-                /*
-                ask, interrupt 처리
-                fromActor처리
-                */               
-                public bool TakeTask() {
-                    if(mTaskContext.state != STATE.READY)
-                        return false;
-                    
-                    //trigger확인
-                    if(!CheckTrigger()) {
-                        //callback없이 true리턴, 이러면 아무일도 없다.
-                        return true;
-                    }
-
-                    string taskId = string.Empty;
-                    float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks(this); 
-                    foreach(var p in tasks) {
-                        float expecedValue = GetExpectedValue(p.Value);                        
-                        if(taskId == string.Empty || expecedValue > maxValue) {
-                            maxValue = expecedValue;
-                            taskId = p.Key;
-                        }
-                    }   
-
-                    if(taskId == string.Empty) {
-                        return true;
-                    }
-                    
-                    return SetCurrentTask(taskId);
-                }       
-                public bool SetCurrentTask(string taskId) {
-                    //task가져오고
-                    FnTask? task = TaskHandler.Instance.GetTask(taskId);
-                    if(task == null) {
-                        throw new Exception("Invalid Task id. " + taskId + " " + mUniqueId);
-                    }
-                    //target가져오고
-                    Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
-                    //ASK 처리
-                    switch(task.mInfo.target.interaction.type) {
-                        //ask와 interrupt의 차이는 ask는 거절 할 수 있지만 interrupt는 무조건 true리턴
-                        case TASK_INTERACTION_TYPE.ASK:
-                        case TASK_INTERACTION_TYPE.INTERRUPT: 
-                        if(!SetReserveToTarget(target.Item2)) 
-                            return false;
-                        break;
-                        default:
-                        break;
-                    }         
-                    mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
-                    CallCallback(CALLBACK_TYPE.TAKE_TASK);
-                            
-                    return true;
                 }
                 public string GetCurrentTaskId() {
                     var task = GetCurrentTask();
@@ -558,10 +497,7 @@ namespace ENGINE {
                         return mTaskContext.currentTask.mInfo.title;
                     }
                     return string.Empty;
-                }
-                public STATE GetState() {
-                    return mTaskContext.state;
-                }
+                }               
                 public void SetPosition(float x, float y, float z) {
                     if(position == null) {
                         position = new Position(x, y, z);
@@ -631,8 +567,10 @@ namespace ENGINE {
                 }                
                 public string LookAround() {
                     //누군가에 의해 reserve된 상태이면
+                    /*
                     if(mTaskContext.state == STATE.RESERVED && mTaskContext.interactionFromActor != null)
                         return mTaskContext.interactionFromActor.mUniqueId;
+                    */
 
                     //주변에 가장 먼저 보이는 actorid 리턴   
                     if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
@@ -740,7 +678,7 @@ namespace ENGINE {
                 public bool RemoveQuest(string questId) {
                     bool ret = mQuestContext.questList.Remove(questId);
                     if(ret) {
-                        CallCallback(CALLBACK_TYPE.COMPLETE_QUEST);
+                        //CallCallback(CALLBACK_TYPE.COMPLETE_QUEST);
                     }
                     return ret;
                 }
@@ -748,6 +686,7 @@ namespace ENGINE {
                     return mQuestContext.GetSatisfaction(satisfactionId);
                 }
                 // -------------------------------------------------------------------------------------------------------------  
+                /*
                 public string GetMyMinSatisfaction() {
                     float val = 0;
                     string key = string.Empty;
@@ -759,7 +698,8 @@ namespace ENGINE {
                         }
                     }
                     return key;
-                }               
+                } 
+                */              
                 private float GetExpectedValue(FnTask fn) {
                     //1. satisfaction loop
                     //2. if check in fn then sum
