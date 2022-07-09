@@ -2,6 +2,7 @@
     "h1": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -11,6 +12,7 @@
     "hf": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -20,6 +22,7 @@
     "hb": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -29,6 +32,7 @@
     "hs": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -38,6 +42,7 @@
     "a1": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -47,6 +52,7 @@
     "af": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -56,6 +62,7 @@
     "ab": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
@@ -65,15 +72,17 @@
     "as": {
         "enable": false,
         "type": 1,
+        "nickname": "",
         "level": 1,
         "prefab": null,
         "position": null,
         "satisfactions": [],
         "inventory": []
     },
-    "핫도그아저씨": {
+    "NPC2-1": {
         "enable": true,
         "type": 2,
+        "nickname": "핫도그아저씨",
         "level": 1,
         "prefab": "Actors/actor7",
         "position": [85, 0, 9.5],
@@ -98,9 +107,10 @@
         ],
         "inventory": null
     },
-    "무료 피자 시식 알바": {
+    "NPC3-1": {
         "enable": true,
         "type": 3,
+        "nickname": "무료 피자 시식 알바",
         "level": 1,
         "prefab": "Actors/actor5",
         "position": [44, 0, 17.5],
@@ -125,9 +135,10 @@
         ],
         "inventory": null
     },
-    "맥주파는 인싸": {
+    "NPC4-1": {
         "enable": true,
         "type": 4,
+        "nickname": "맥주파는 인싸",
         "level": 1,
         "prefab": "Actors/actor8",
         "position": [51, 0, 45],
@@ -152,9 +163,10 @@
         ],
         "inventory": null
     },
-    "아이돌경비원": {
+    "NPC5-1": {
         "enable": true,
         "type": 5,
+        "nickname": "아이돌경비원",
         "level": 1,
         "prefab": "Actors/npc1",
         "position": [82.5, 0, -14],
@@ -179,9 +191,10 @@
         ],
         "inventory": null
     },
-    "배달음식 기다리는 막네 회사원": {
+    "NPC6-1": {
         "enable": true,
         "type": 6,
+        "nickname": "배달음식 기다리는 막네 회사원",
         "level": 1,
         "prefab": "Actors/npc6",
         "position": [-44, 0, 10],
@@ -206,9 +219,10 @@
         ],
         "inventory": null
     },
-    "배달음식 기다리는 주민": {
+    "NPC6-2": {
         "enable": true,
         "type": 6,
+        "nickname": "배달음식 기다리는 주민",
         "level": 1,
         "prefab": "Actors/npc2",
         "position": [30, 0, 82],
@@ -233,9 +247,10 @@
         ],
         "inventory": null
     },
-    "장흥고씨 27대손 양이": {
+    "NPC0-1": {
         "enable": true,
         "type": 0,
+        "nickname": "장흥고씨 27대손 양이",
         "level": 1,
         "prefab": "Actors/cat",
         "position": [31.5, 0, 51.5],
@@ -266,9 +281,10 @@
         ],
         "inventory": null
     },
-    "하늘을 나는 고래": {
+    "NPC100-1": {
         "enable": true,
         "type": 100,
+        "nickname": "용수니",
         "level": 1,
         "prefab": "Actors/Dragon",
         "position": [115.4, 9, -125],
@@ -299,9 +315,10 @@
         ],
         "inventory": null
     },
-    "꼼이": {
+    "ACTOR1-1": {
         "enable": true,
         "type": 1,
+        "nickname": "꼼이",
         "level": 1,
         "prefab": "Actors/actor1",
         "position": [25, 0, 35],
@@ -356,9 +373,10 @@
             }
         ]
     },
-    "김밥이": {
+    "ACTOR1-2": {
         "enable": true,
         "type": 1,
+        "nickname": "김밥이",
         "level": 1,
         "prefab": "Actors/actor2",
         "position": [25, 0, 40],
@@ -406,9 +424,10 @@
             }
         ]
     },
-    "포그니": {
+    "ACTOR1-3": {
         "enable": true,
         "type": 1,
+        "nickname": "포그니",
         "level": 1,
         "prefab": "Actors/actor3",
         "position": [35, 0, 35],
@@ -456,9 +475,10 @@
             }
         ]
     },
-    "대꼬": {
+    "ACTOR1-4": {
         "enable": true,
         "type": 1,
+        "nickname": "대꼬",
         "level": 1,
         "prefab": "Actors/actor4",
         "position": [5, 0, 45],

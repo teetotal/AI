@@ -173,7 +173,7 @@ public class ActorInstance {
         mActor.SetCallback(Callback);
     }
     public void Callback(Actor.LOOP_STATE state, Actor actor) {
-        Console.WriteLine("{0} - {1}", actor.mUniqueId, state);
+        Console.WriteLine("{0}({1}) - {2}", actor.mUniqueId, actor.mInfo.nickname, state);
         switch(state) {
             case Actor.LOOP_STATE.INVALID:
             break;

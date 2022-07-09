@@ -135,7 +135,7 @@
             "target": {
                 "type": 2,
                 "value": [
-                    "핫도그아저씨"
+                    "NPC2-1"
                 ],
                 "interaction": {
                     "type": 0,
@@ -160,7 +160,7 @@
             "target": {
                 "type": 2,
                 "value": [
-                    "무료 피자 시식 알바"
+                    "NPC3-1"
                 ],
                 "interaction": {
                     "type": 0,
@@ -210,7 +210,7 @@
             "target": {
                 "type": 2,
                 "value": [
-                    "맥주파는 인싸"
+                    "NPC4-1"
                 ],                
                 "interaction": {
                     "type": 0,
@@ -343,7 +343,7 @@
             "target": {
                 "type": 2,
                 "value": [                    
-                    "배달음식 기다리는 주민"
+                    "NPC6-2"
                 ],
                 "interaction": {
                     "type": 2,
@@ -397,7 +397,7 @@
             "target": {
                 "type": 2,
                 "value": [
-                    "아이돌경비원"
+                    "NPC5-1"
                 ],
                 "interaction": {
                     "type": 0,
@@ -423,7 +423,7 @@
             "target": {
                 "type": 2,
                 "value": [
-                    "장흥고씨 27대손 양이"
+                    "NPC0-1"
                 ],                
                 "interaction": {
                     "type": 1,

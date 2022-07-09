@@ -116,6 +116,7 @@ namespace ENGINE {
             public class ConfigActors_Detail {
                 public bool enable { get; set; }
                 public int type { get; set; }
+                public string nickname {get; set; } = string.Empty;
                 public int level { get; set; }
                 public string? prefab { get; set; }
                 public List<float>? position { get; set; }
