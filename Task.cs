@@ -6,6 +6,7 @@ namespace ENGINE {
         namespace MOTIVATION {
             public abstract class FnTask {
                 public string mTaskId { get; set; } = string.Empty;
+                public int mActorType;
                 public string mTaskTitle { get; set; } = string.Empty;
                 public string mTaskDesc { get; set; } = string.Empty;
                 public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
@@ -48,9 +49,9 @@ namespace ENGINE {
                     return true;
                 }
                 public Dictionary<string, FnTask> GetTasks(Actor actor) {
-                    int actorType = actor.mType;
-                    int level = actor.mLevel;
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
+                    int actorType = actor.mType;
+                    int level = actor.level;
                     if(mDictByActorType.ContainsKey(actorType) == false)
                         return ret;
 
@@ -68,6 +69,7 @@ namespace ENGINE {
                             ret.Add(taskId, mDict[taskId]);
                         }                          
                     }
+                    
                     return ret;
                 }
                 public FnTask? GetTask(string? taskId) {

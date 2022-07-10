@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ENGINE.GAMEPLAY;
 
 #nullable enable
@@ -56,6 +55,7 @@ namespace ENGINE {
                     POSITION,
                     FLY
                 }
+                // Contexts -----------------------------------------------------------------
                 public class TaskContext_Target {
                     public TASKCONTEXT_TARGET_TYPE type = TASKCONTEXT_TARGET_TYPE.INVALID;                    
                     public string objectName = string.Empty;
@@ -161,10 +161,29 @@ namespace ENGINE {
                         }       
                     }
                 }
-
-                public int mType;                
+                private class PetContext {
+                    public Dictionary<string, Actor> pets = new Dictionary<string, Actor>();
+                    public bool AddPet(string actorId) {
+                        if(pets.ContainsKey(actorId))
+                            return false;
+                        var pet = ActorHandler.Instance.GetActor(actorId);
+                        if(pet == null)
+                            return false;
+                        pets.Add(pet.mUniqueId, pet);
+                        return true;
+                    }
+                    public bool RemovePet(string actorId) {
+                        if(!pets.ContainsKey(actorId))
+                            return false;
+                        pets.Remove(actorId);
+                        return true;
+                    }
+                }
+                // --------------------------------------------------------------------------
+                public int mType;     
+                public bool follower;           
                 public string mUniqueId;
-                public int mLevel;
+                public int level;
                 public Position position = new Position(0, 0, 0);
                 public ConfigActors_Detail mInfo;                
                 private Callback? mCallback;
@@ -174,22 +193,33 @@ namespace ENGINE {
                 // Relation
                 // Actor id, Satisfaction id, amount
                 private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();                
-                //Task --------------------------------------------------------------------------------------------------
+                //Task ------------------------------------------------------------------------------------------------
                 private TaskContext mTaskContext = new TaskContext();                
-                //Quest ------------------------------------------------------------------------------------------------
+                //Quest -----------------------------------------------------------------------------------------------
                 private QuestContext mQuestContext = new QuestContext();
-                //Item -------------------------------------------------------------------------------------------------
+                //Item ------------------------------------------------------------------------------------------------
                 private ItemContext mItemContext = new ItemContext();
-                //-------------------------------------------------------------------------------------------------
+                //Pet -------------------------------------------------------------------------------------------------
+                private PetContext mPetContext = new PetContext();
+                // -----------------------------------------------------------------------------------------------------
                 public Actor(string actorId, ConfigActors_Detail info, List<string> quests) {
                     this.mType = info.type;
                     this.mUniqueId = actorId;
-                    this.mLevel = info.level;
-                    this.mInfo = info;
+                    this.level = info.level;
+                    //set init position
                     if(info.position != null && info.position.Count == 3)
                         this.position = new Position(info.position[0], info.position[1], info.position[2]);
+                    //set pets
+                    for(int i =0; i < info.pets.Count; i++) {
+                        if(!mPetContext.AddPet(info.pets[i]))
+                            throw new Exception("Adding Pet Failure. " + info.pets[i]);
+                    }
+                    //set follower
+                    this.follower = info.follower;
+
                     this.mQuestContext.questList = quests;
                     this.mCallback = null;
+                    this.mInfo = info;
                 }
                 // Loop -------------------------------------------------------------------------------------------------
                 public enum LOOP_STATE {
@@ -240,22 +270,44 @@ namespace ENGINE {
                     if(!CheckTrigger()) {                        
                         return false;
                     }
+                    //master와 pets중 누가 더 불행한지...
+                    float minSC = GetSatisfactionCoefficient();
+                    Actor actor = this;
+                    foreach(var pet in mPetContext.pets) {
+                        if(pet.Value.GetState() != LOOP_STATE.READY) 
+                            continue;
+                        float sc = pet.Value.GetSatisfactionCoefficient();
+                        if(minSC > sc) {
+                            minSC = sc;
+                            actor = pet.Value;
+                        }
+                    }
+
+
                     string taskId = string.Empty;
-                    float maxValue = 0.0f;                    
-                    var tasks = TaskHandler.Instance.GetTasks(this); 
-                    foreach(var p in tasks) {
-                        float expecedValue = GetExpectedValue(p.Value);                        
+                    float maxValue = 0.0f;     
+
+                    //master tasks
+                    foreach(var p in TaskHandler.Instance.GetTasks(actor)) {
+                        float expecedValue = GetExpectedValue(p.Value, actor);                        
                         if(taskId == string.Empty || expecedValue > maxValue) {
                             maxValue = expecedValue;
                             taskId = p.Key;
                         }
-                    }   
-
+                    } 
+                    
                     if(taskId == string.Empty) {
                         return false;
                     }
                     
-                    return SetCurrentTask(taskId);
+                    if(actor.mUniqueId == mUniqueId)
+                        return SetCurrentTask(taskId);
+                    else {
+                        //pet에게 task set하고
+                        actor.Loop_SetTask(taskId);
+                        //master는 false 리턴해서 다시 ready상태로.
+                        return false;
+                    }
                 }       
                 public bool SetCurrentTask(string taskId) {
                     //task가져오고
@@ -391,7 +443,7 @@ namespace ENGINE {
                     mLOOP_STATE = LOOP_STATE.LEVELUP; 
                     //Levelup 처리                                               
                     if(checkLevelUp()) {
-                        var reward = LevelHandler.Instance.Get(mType, mLevel);
+                        var reward = LevelHandler.Instance.Get(mType, level);
                         if(reward != null && reward.next != null && reward.next.rewards != null) {
                             LevelUp(reward.next.rewards);                            
                         }
@@ -481,7 +533,7 @@ namespace ENGINE {
                 public bool Obtain(string satisfactionId, float amount, string? from) {
                     return ApplySatisfaction(satisfactionId, amount, 0, from);
                 }
-                // ---------------------------------------------------------------------
+                // task ---------------------------------------------------------------------
                 public TaskContext GetTaskContext() {
                     return mTaskContext;
                 }
@@ -510,7 +562,12 @@ namespace ENGINE {
                         return mTaskContext.currentTask.mInfo.title;
                     }
                     return string.Empty;
-                }               
+                }
+                // pets ------------------------------------------------------  
+                public Dictionary<string, Actor> GetPets() {
+                    return mPetContext.pets;
+                }
+                // position ------------------------------------------------------              
                 public void SetPosition(float x, float y, float z) {
                     if(position == null) {
                         position = new Position(x, y, z);
@@ -519,6 +576,16 @@ namespace ENGINE {
                         position.y = y;
                         position.z = z;
                     }
+                }
+                // satisfaction ----------------------------------------------------
+                public Satisfaction? GetSatisfaction(string id) {
+                    if(mSatisfaction.ContainsKey(id)) {
+                        return mSatisfaction[id];
+                    }
+                    return null;        
+                }
+                public Dictionary<string, Satisfaction> GetSatisfactions() {
+                    return mSatisfaction;
                 }
                 public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
@@ -554,145 +621,16 @@ namespace ENGINE {
                     }
                     
                     return true;
-                }                
-                // Trigger-------------------------------------------------------------------------------------------------------------
-                private bool CheckTrigger() {
-                    //null이거나 NO_TRIGGER면 항상 true
-                    if(mInfo.trigger == null)
-                        return true;
-                    switch(mInfo.trigger.type) {
-                        case TRIGGER_TYPE.NO_TRIGGER:
-                        return true;
-                        case TRIGGER_TYPE.DISTANCE: {
-                            float distance = float.Parse(mInfo.trigger.value);
-                            var actors = ActorHandler.Instance.GetActors();                            
-                            foreach(var actor in actors) {
-                                if(actor.Key == mUniqueId)
-                                    continue;
-                                
-                                if(position.GetDistance(actor.Value.position) <= distance)
-                                    return true;
-                            }
-                        }
-                        break;
-                    }
-                    return false;
-                }                
-                public string LookAround() {
-                    //주변에 가장 먼저 보이는 actorid 리턴   
-                    if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
-                        return string.Empty;
-                    float distance = float.Parse(mInfo.trigger.value);
-                    var actors = ActorHandler.Instance.GetActors();                            
-                    foreach(var actor in actors) {
-                        if(actor.Key == mUniqueId)
-                            continue;
-                        
-                        if(position.GetDistance(actor.Value.position) <= distance)
-                            return actor.Key;
-                    }
-                    return string.Empty;
-                }
-                public float GetDistance(string actorId) {
-                    var target = ActorHandler.Instance.GetActor(actorId);   
-                    if(target == null)
-                        throw new Exception("Invalid actorId. " + actorId);
-                    return (float)position.GetDistance(target.position);
-                }
-
-                // Level up-------------------------------------------------------------------------------------------------------------
-                public float GetLevelUpProgress() {
+                }               
+                //행복지수 
+                public float GetSatisfactionCoefficient() {
                     float sum = 0;
-                    int count = 0;
-                    var info = LevelHandler.Instance.Get(mType, mLevel);
-                    if(info != null && info.next != null && info.next.threshold != null) {                        
-                        foreach(Config_KV_SF t in info.next.threshold) {
-                            if(t.key is null) {
-                                return -1;
-                            }
-
-                            count++;
-
-                            switch(t.key.ToUpper()) {
-                                case "TASKCOUNTER":
-                                sum += mTaskContext.taskCounter / t.value;
-                                break;                                
-                            }
-
-                        }
+                    foreach(var p in mSatisfaction) {
+                        float normVal = GetNormValue(p.Value.Value, p.Value.Min, p.Value.Max);
+                        sum += normVal;
                     }
-                    return count == 0 ? 0: sum / count;
+                    return sum / mSatisfaction.Count;
                 }
-                public bool checkLevelUp() {
-                    //check level up                   
-                    var info = LevelHandler.Instance.Get(mType, mLevel);
-                    if(info != null && info.next != null && info.next.threshold != null) {                        
-                        foreach(Config_KV_SF t in info.next.threshold) {
-                            if(t.key is null) {
-                                return false;
-                            }
-                            //나중에 필요하면 추가. 지금은 task수행 횟수만 구현
-                            switch(t.key.ToUpper()) {
-                                case "TASKCOUNTER":
-                                if( mTaskContext.taskCounter < t.value) {
-                                    return false;
-                                }
-                                break;                                
-                            }
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-                public bool LevelUp(List<Config_Reward>? rewards) {                    
-                    mLevel++;
-                    
-                    if(rewards != null) {
-                        foreach(var reward  in rewards) {
-                            if(reward.itemId != null ) {
-                                if(!this.ReceiveItem(reward.itemId, reward.quantity)) {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-
-                    return true;
-                }
-                public Satisfaction? GetSatisfaction(string id) {
-                    if(mSatisfaction.ContainsKey(id)) {
-                        return mSatisfaction[id];
-                    }
-                    return null;        
-                }
-                public Dictionary<string, Satisfaction> GetSatisfactions() {
-                    return mSatisfaction;
-                }
-                // quest -------------------------------------------------------------------------------------------------------------
-                public List<string> GetQuest() {
-                    List<string> ret = new List<string>();
-                    int top = QuestHandler.Instance.GetTop(mType);
-                    int i = 0;
-                    foreach(string quest in mQuestContext.questList) {
-                        if(i >= top) {
-                            break;
-                        }
-                        ret.Add(quest);
-                        i++;                        
-                    }
-                    return ret;
-                }
-                public bool RemoveQuest(string questId) {
-                    bool ret = mQuestContext.questList.Remove(questId);
-                    if(ret) {
-                        CallCallback(LOOP_STATE.COMPLETE_QUEST);
-                    }
-                    return ret;
-                }
-                public double GetAccumulationSatisfaction(string satisfactionId) {
-                    return mQuestContext.GetSatisfaction(satisfactionId);
-                }
-                // -------------------------------------------------------------------------------------------------------------  
                 /*
                 public string GetMyMinSatisfaction() {
                     float val = 0;
@@ -707,14 +645,14 @@ namespace ENGINE {
                     return key;
                 } 
                 */              
-                private float GetExpectedValue(FnTask fn) {
+                public float GetExpectedValue(FnTask fn, Actor actor) {
                     //1. satisfaction loop
                     //2. if check in fn then sum
                     //3. cal normalization
                     //4. get mean                      
                     float sum = 0;
                     float sumRefusal = 0;
-                    var taskSatisfaction = fn.GetValues(this);    
+                    var taskSatisfaction = fn.GetValues(actor);    
                     if(taskSatisfaction == null)
                         return float.MinValue;
                         
@@ -745,7 +683,7 @@ namespace ENGINE {
                         여기서 확률을 relation으로 계산해서 받아온다.
                         */
                         // relation에서 weight
-                        var target = fn.GetTargetObject(this);
+                        var target = fn.GetTargetObject(actor);
                         if(target.Item1 != TASKCONTEXT_TARGET_TYPE.ACTOR) {
                             //error!
                             throw new Exception("Invalid target info. the target of [" + fn.mTaskTitle + "] must ACTOR. " + target.Item1.ToString());
@@ -810,6 +748,136 @@ namespace ENGINE {
                     }
                     return sum / mSatisfaction.Count();
                 }
+                // Trigger-------------------------------------------------------------------------------------------------------------
+                private bool CheckTrigger() {
+                    //null이거나 NO_TRIGGER면 항상 true
+                    if(mInfo.trigger == null)
+                        return true;
+                    switch(mInfo.trigger.type) {
+                        case TRIGGER_TYPE.NO_TRIGGER:
+                        return true;
+                        case TRIGGER_TYPE.DISTANCE: {
+                            float distance = float.Parse(mInfo.trigger.value);
+                            var actors = ActorHandler.Instance.GetActors();                            
+                            foreach(var actor in actors) {
+                                if(actor.Key == mUniqueId)
+                                    continue;
+                                
+                                if(position.GetDistance(actor.Value.position) <= distance)
+                                    return true;
+                            }
+                        }
+                        break;
+                    }
+                    return false;
+                }                
+                public string LookAround() {
+                    //주변에 가장 먼저 보이는 actorid 리턴   
+                    if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
+                        return string.Empty;
+                    float distance = float.Parse(mInfo.trigger.value);
+                    var actors = ActorHandler.Instance.GetActors();                            
+                    foreach(var actor in actors) {
+                        if(actor.Key == mUniqueId)
+                            continue;
+                        
+                        if(position.GetDistance(actor.Value.position) <= distance)
+                            return actor.Key;
+                    }
+                    return string.Empty;
+                }
+                public float GetDistance(string actorId) {
+                    var target = ActorHandler.Instance.GetActor(actorId);   
+                    if(target == null)
+                        throw new Exception("Invalid actorId. " + actorId);
+                    return (float)position.GetDistance(target.position);
+                }
+
+                // Level up-------------------------------------------------------------------------------------------------------------
+                public float GetLevelUpProgress() {
+                    float sum = 0;
+                    int count = 0;
+                    var info = LevelHandler.Instance.Get(mType, level);
+                    if(info != null && info.next != null && info.next.threshold != null) {                        
+                        foreach(Config_KV_SF t in info.next.threshold) {
+                            if(t.key is null) {
+                                return -1;
+                            }
+
+                            count++;
+
+                            switch(t.key.ToUpper()) {
+                                case "TASKCOUNTER":
+                                sum += mTaskContext.taskCounter / t.value;
+                                break;                                
+                            }
+
+                        }
+                    }
+                    return count == 0 ? 0: sum / count;
+                }
+                public bool checkLevelUp() {
+                    //check level up                   
+                    var info = LevelHandler.Instance.Get(mType, level);
+                    if(info != null && info.next != null && info.next.threshold != null) {                        
+                        foreach(Config_KV_SF t in info.next.threshold) {
+                            if(t.key is null) {
+                                return false;
+                            }
+                            //나중에 필요하면 추가. 지금은 task수행 횟수만 구현
+                            switch(t.key.ToUpper()) {
+                                case "TASKCOUNTER":
+                                if( mTaskContext.taskCounter < t.value) {
+                                    return false;
+                                }
+                                break;                                
+                            }
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+                public bool LevelUp(List<Config_Reward>? rewards) {                    
+                    level++;
+                    
+                    if(rewards != null) {
+                        foreach(var reward  in rewards) {
+                            if(reward.itemId != null ) {
+                                if(!this.ReceiveItem(reward.itemId, reward.quantity)) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+                // quest -------------------------------------------------------------------------------------------------------------
+                public List<string> GetQuest() {
+                    List<string> ret = new List<string>();
+                    int top = QuestHandler.Instance.GetTop(mType);
+                    int i = 0;
+                    foreach(string quest in mQuestContext.questList) {
+                        if(i >= top) {
+                            break;
+                        }
+                        ret.Add(quest);
+                        i++;                        
+                    }
+                    return ret;
+                }
+                public bool RemoveQuest(string questId) {
+                    bool ret = mQuestContext.questList.Remove(questId);
+                    if(ret) {
+                        CallCallback(LOOP_STATE.COMPLETE_QUEST);
+                    }
+                    return ret;
+                }
+                public double GetAccumulationSatisfaction(string satisfactionId) {
+                    return mQuestContext.GetSatisfaction(satisfactionId);
+                }
+                // -------------------------------------------------------------------------------------------------------------  
+                
                 //Item-------------------------------------------------------
                 public string PrintInventory() {
                     string sz = "";

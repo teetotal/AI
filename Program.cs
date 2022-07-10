@@ -263,7 +263,9 @@ public class GameControlInstance {
 
         return true;
     }
-    public void Do(ActorInstance actor, long counter) {        
+    public void Do(ActorInstance actor, long counter) {     
+        if(actor.mActor.follower)
+            return;   
         if(actor.mActor.GetState() != Actor.LOOP_STATE.READY)
             return;
         

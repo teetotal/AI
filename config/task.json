@@ -55,6 +55,34 @@
             }            
         }
     ],
+    "200": [
+        {
+            "id": "pet1",
+            "chain": null,
+            "type": 0,
+            "level": null,
+            "title": "어슬렁 거리기",
+            "desc": "어슬렁 거리다 괜히 심통 부린다",
+            "target": {
+                "type": 6,
+                "value": [
+                    "160, 9, -85",
+                    "157, 9, -50.5"
+                ],                
+                "interaction": {
+                    "type": 0,
+                    "taskId": null
+                }      
+            },
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "satisfactions": {
+                "responsibility": 1,
+                "MP": 2
+            }
+        }
+    ],
     "0": [
         {
             "id": "cat_ack",
@@ -440,34 +468,6 @@
             },
             "satisfactionsRefusal": {
                 "MP": -4
-            }
-        },     
-        {
-            "id": "dancing",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "title": "온몸으로 춤추기",
-            "desc": "춤추면 복이와요",
-            "target": {
-                "type": 1,
-                "value": [
-                    "SM_Env_Sidewalk_Straight_162",
-                    "SM_Env_Sidewalk_70",
-                    "SM_Env_Sidewalk_Straight_161"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Dancing",
-            "time": 3,
-            "maxRef": -1,
-            "satisfactions": {
-                "attraction": 6,
-                "strength": -2,
-                "cute": -2
             }
         }
     ], 

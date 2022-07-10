@@ -1,8 +1,10 @@
 {
     "h1": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -11,8 +13,10 @@
     },
     "hf": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -21,8 +25,10 @@
     },
     "hb": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -31,8 +37,10 @@
     },
     "hs": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -41,8 +49,10 @@
     },
     "a1": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -51,8 +61,10 @@
     },
     "af": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -61,8 +73,10 @@
     },
     "ab": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -71,8 +85,10 @@
     },
     "as": {
         "enable": false,
+        "follower": false,
         "type": 1,
         "nickname": "",
+        "pets": [],
         "level": 1,
         "prefab": null,
         "position": null,
@@ -81,8 +97,10 @@
     },
     "NPC2-1": {
         "enable": true,
+        "follower": false,
         "type": 2,
         "nickname": "핫도그아저씨",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor7",
         "position": [85, 0, 9.5],
@@ -109,8 +127,10 @@
     },
     "NPC3-1": {
         "enable": true,
+        "follower": false,
         "type": 3,
         "nickname": "무료 피자 시식 알바",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor5",
         "position": [44, 0, 17.5],
@@ -137,8 +157,10 @@
     },
     "NPC4-1": {
         "enable": true,
+        "follower": false,
         "type": 4,
         "nickname": "맥주파는 인싸",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor8",
         "position": [51, 0, 45],
@@ -165,8 +187,10 @@
     },
     "NPC5-1": {
         "enable": true,
+        "follower": false,
         "type": 5,
         "nickname": "아이돌경비원",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/npc1",
         "position": [82.5, 0, -14],
@@ -193,8 +217,10 @@
     },
     "NPC6-1": {
         "enable": true,
+        "follower": false,
         "type": 6,
         "nickname": "배달음식 기다리는 막네 회사원",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/npc6",
         "position": [-44, 0, 10],
@@ -221,8 +247,10 @@
     },
     "NPC6-2": {
         "enable": true,
+        "follower": false,
         "type": 6,
         "nickname": "배달음식 기다리는 주민",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/npc2",
         "position": [30, 0, 82],
@@ -249,8 +277,10 @@
     },
     "NPC0-1": {
         "enable": true,
+        "follower": false,
         "type": 0,
         "nickname": "장흥고씨 27대손 양이",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/cat",
         "position": [31.5, 0, 51.5],
@@ -281,10 +311,48 @@
         ],
         "inventory": null
     },
+    "PET200-1": {
+        "enable": true,
+        "follower": true,
+        "type": 200,
+        "nickname": "추앙이",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/cat",
+        "position": [31.5, 0, 51.5],
+        "rotation": [0, 90, 0],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [            
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 85,
+                "value": 90
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 50,
+                "max": 100,
+                "value": 49 
+            },
+            {
+                "satisfactionId": "responsibility",
+                "min": 50,
+                "max": 100,
+                "value": 49 
+            }            
+        ],
+        "inventory": null
+    },
     "NPC100-1": {
         "enable": true,
+        "follower": false,
         "type": 100,
         "nickname": "용수니",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/Dragon",
         "position": [115.4, 9, -125],
@@ -317,8 +385,10 @@
     },
     "ACTOR1-1": {
         "enable": true,
+        "follower": false,
         "type": 1,
         "nickname": "꼼이",
+        "pets": [  ],
         "level": 1,
         "prefab": "Actors/actor1",
         "position": [25, 0, 35],
@@ -375,8 +445,10 @@
     },
     "ACTOR1-2": {
         "enable": true,
+        "follower": false,
         "type": 1,
         "nickname": "김밥이",
+        "pets": ["PET200-1"],
         "level": 1,
         "prefab": "Actors/actor2",
         "position": [25, 0, 40],
@@ -390,44 +462,46 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 50
+                "value": 30
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 50
+                "value": 30
             },
             {
                 "satisfactionId": "gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 20
             },
             {
                 "satisfactionId": "sense",
                 "min": 30,
                 "max": 60,
-                "value": 10
+                "value": 30
             },
             {
                 "satisfactionId": "cute",
                 "min": 30,
                 "max": 60,
-                "value": 10
+                "value": 60
             },
             {
                 "satisfactionId": "sympathy",
                 "min": 30,
                 "max": 60,
-                "value": 10                
+                "value": 60                
             }
         ]
     },
     "ACTOR1-3": {
         "enable": true,
+        "follower": false,
         "type": 1,
         "nickname": "포그니",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor3",
         "position": [35, 0, 35],
@@ -477,8 +551,10 @@
     },
     "ACTOR1-4": {
         "enable": true,
+        "follower": false,
         "type": 1,
         "nickname": "대꼬",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor4",
         "position": [5, 0, 45],

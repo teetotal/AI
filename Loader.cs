@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
@@ -115,8 +114,10 @@ namespace ENGINE {
             //Actors            
             public class ConfigActors_Detail {
                 public bool enable { get; set; }
+                public bool follower { get; set; }
                 public int type { get; set; }
                 public string nickname {get; set; } = string.Empty;
+                public List<string> pets { get; set; } = new List<string>();
                 public int level { get; set; }
                 public string? prefab { get; set; }
                 public List<float>? position { get; set; }
@@ -378,6 +379,7 @@ namespace ENGINE {
                                 break;
                             }
                             TaskDefaultFn fn = new TaskDefaultFn(task);
+                            fn.mActorType = actorType;
                             TaskHandler.Instance.Add(actorType, fn);
                         }
                     }
