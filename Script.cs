@@ -50,7 +50,7 @@ namespace ENGINE {
                     return INVALID_SCRIPT_REFUSAL;
                 }                            
                 private string GetReplacedString(string sz, Actor from, Actor? to) {
-                    StringBuilder sbFrom = new StringBuilder(from.mUniqueId, from.mUniqueId.Length + pre.Length + post.Length);                    
+                    StringBuilder sbFrom = new StringBuilder(from.mInfo.nickname, from.mInfo.nickname.Length + pre.Length + post.Length);                    
                     sbFrom.Insert(0, pre);
                     sbFrom.Append(post);
 
@@ -59,7 +59,7 @@ namespace ENGINE {
 
                     
                     if(to != null) {
-                        StringBuilder sbTo = new StringBuilder(to.mUniqueId, to.mUniqueId.Length + pre.Length + post.Length);
+                        StringBuilder sbTo = new StringBuilder(to.mInfo.nickname, to.mInfo.nickname.Length + pre.Length + post.Length);
                         sbTo.Insert(0, pre);
                         sbTo.Append(post);
 

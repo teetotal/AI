@@ -251,6 +251,8 @@ public class GameControlInstance {
             Console.WriteLine("Failure Loading config");
             return false;
         }
+        ActorHandler.Instance.SetPets();
+        
         DecideAlwaysTrue decide = new DecideAlwaysTrue();
         foreach(var p in ActorHandler.Instance.GetActors()) {
             Actor actor = p.Value;            

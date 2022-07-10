@@ -178,6 +178,11 @@ namespace ENGINE {
                         pets.Remove(actorId);
                         return true;
                     }
+                    public Actor GetPet(string actorId) {
+                        if(!pets.ContainsKey(actorId))
+                            throw new Exception("Invalid Pet Actor Id. " + actorId);
+                        return pets[actorId];
+                    }
                 }
                 // --------------------------------------------------------------------------
                 public int mType;     
@@ -185,7 +190,8 @@ namespace ENGINE {
                 public string mUniqueId;
                 public int level;
                 public Position position = new Position(0, 0, 0);
-                public ConfigActors_Detail mInfo;                
+                public ConfigActors_Detail mInfo;     
+                private Actor? master;           
                 private Callback? mCallback;
                 //ask에 대한 의사결정 클래스
                 private DecideClass? mDecide;
@@ -209,17 +215,36 @@ namespace ENGINE {
                     //set init position
                     if(info.position != null && info.position.Count == 3)
                         this.position = new Position(info.position[0], info.position[1], info.position[2]);
-                    //set pets
-                    for(int i =0; i < info.pets.Count; i++) {
-                        if(!mPetContext.AddPet(info.pets[i]))
-                            throw new Exception("Adding Pet Failure. " + info.pets[i]);
-                    }
+                    
                     //set follower
                     this.follower = info.follower;
 
                     this.mQuestContext.questList = quests;
                     this.mCallback = null;
                     this.mInfo = info;
+                }
+                // Pet ------------------------------------------------------------------------------------------------
+                public void SetPets() {
+                    //set pets
+                    for(int i =0; i < mInfo.pets.Count; i++) {
+                        if(!mPetContext.AddPet(mInfo.pets[i]))
+                            throw new Exception("Adding Pet Failure. " + mInfo.pets[i]);
+                        Actor pet = mPetContext.GetPet(mInfo.pets[i]);
+                        pet.SetMaster(this);
+                    }
+                }
+                public void SetMaster(Actor actor) {
+                    master = actor;
+                }
+                public Actor GetMaster() {
+                    if(master == null)
+                        throw new Exception("Null Master");
+                    return master;
+                }
+                public double GetDistanceToMaster() {
+                    if(!follower || master == null)
+                        return -1;
+                    return position.GetDistance(master.position);
                 }
                 // Loop -------------------------------------------------------------------------------------------------
                 public enum LOOP_STATE {
@@ -282,7 +307,6 @@ namespace ENGINE {
                             actor = pet.Value;
                         }
                     }
-
 
                     string taskId = string.Empty;
                     float maxValue = 0.0f;     
@@ -718,14 +742,13 @@ namespace ENGINE {
 
                     return v / max;
                 }
-                
+                /*
                 //return satisfaction id                
                 public Tuple<string, float> GetMotivation()
                 {                                                            
                     //1. get mean
                     //2. finding max(norm(value) - avg)
-                     
-                    string satisfactionId = mSatisfaction.First().Key;
+                    string satisfactionId = string.Empty;//mSatisfaction.First().Key;
                     float minVal = 0;
                     float mean = GetMean();
                     foreach(var p in mSatisfaction) {
@@ -740,13 +763,14 @@ namespace ENGINE {
                     
                     return new Tuple<string, float>(satisfactionId, mean);
                 }
+                */
                 private float GetMean() {
                     float sum = 0.0f;
                     foreach(var p in mSatisfaction) {
                         Satisfaction v = p.Value;
                         sum += GetNormValue(v.Value, v.Min, v.Max);
                     }
-                    return sum / mSatisfaction.Count();
+                    return sum / mSatisfaction.Count;
                 }
                 // Trigger-------------------------------------------------------------------------------------------------------------
                 private bool CheckTrigger() {
@@ -956,7 +980,7 @@ namespace ENGINE {
                 }
                 private bool ApplyItemSatisfaction(List<ConfigItem_Satisfaction> list) {
 
-                    for(int i =0; i < list.Count(); i++) {
+                    for(int i =0; i < list.Count; i++) {
                         ConfigItem_Satisfaction p = list[i];
                         if(p.measure is null || p.satisfactionId is null) {
                             return false;

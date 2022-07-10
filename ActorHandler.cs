@@ -42,6 +42,12 @@ namespace ENGINE {
                     
                     return a;
                 }
+                //Actor instance가 모두 생성되고 난 후 Pets 설정
+                public void SetPets() {
+                    foreach(var p in mDict) {
+                        p.Value.SetPets();
+                    }
+                }
                 public Actor? GetActor(string uniqueId) {
                     if(mDict.ContainsKey(uniqueId) == true) {
                         return mDict[uniqueId];

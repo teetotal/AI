@@ -319,7 +319,7 @@
         "pets": [],
         "level": 1,
         "prefab": "Actors/cat",
-        "position": [31.5, 0, 51.5],
+        "position": [25, 0, 45],
         "rotation": [0, 90, 0],
         "trigger": {
             "type": 0,
@@ -451,7 +451,7 @@
         "pets": ["PET200-1"],
         "level": 1,
         "prefab": "Actors/actor2",
-        "position": [25, 0, 40],
+        "position": [30, 0, 35],
         "rotation": [0, 0, 0],
         "trigger": {
             "type": 0,

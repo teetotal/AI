@@ -64,17 +64,16 @@
             "title": "어슬렁 거리기",
             "desc": "어슬렁 거리다 괜히 심통 부린다",
             "target": {
-                "type": 6,
+                "type": 1,
                 "value": [
-                    "160, 9, -85",
-                    "157, 9, -50.5"
+                    "SM_Env_Grass_02 (1)"
                 ],                
                 "interaction": {
                     "type": 0,
                     "taskId": null
                 }      
             },
-            "animation": "Strong",
+            "animation": "Sitting",
             "time": 1,
             "maxRef": -1,
             "satisfactions": {
