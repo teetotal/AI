@@ -266,10 +266,8 @@ public class GameControlInstance {
         return true;
     }
     public void Do(ActorInstance actor, long counter) {     
-        if(actor.mActor.follower)
+        if(!actor.mActor.IsAutoTakeable())
             return;   
-        if(actor.mActor.GetState() != Actor.LOOP_STATE.READY)
-            return;
         
         //counter 확인
         if(counter - actor.mActor.GetTaskContext().lastCount < ManagedInterval)

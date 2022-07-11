@@ -178,10 +178,20 @@ namespace ENGINE {
                         pets.Remove(actorId);
                         return true;
                     }
+                    public Dictionary<string, Actor> GetPets() {
+                        return pets;
+                    }
                     public Actor GetPet(string actorId) {
                         if(!pets.ContainsKey(actorId))
                             throw new Exception("Invalid Pet Actor Id. " + actorId);
                         return pets[actorId];
+                    }
+                    public Actor? GetDoingTaskPet() {
+                        foreach(var pet in pets) {
+                            if(pet.Value.GetState() != LOOP_STATE.READY)
+                                return pet.Value;
+                        }
+                        return null;
                     }
                 }
                 // --------------------------------------------------------------------------
@@ -223,30 +233,19 @@ namespace ENGINE {
                     this.mCallback = null;
                     this.mInfo = info;
                 }
-                // Pet ------------------------------------------------------------------------------------------------
-                public void SetPets() {
-                    //set pets
-                    for(int i =0; i < mInfo.pets.Count; i++) {
-                        if(!mPetContext.AddPet(mInfo.pets[i]))
-                            throw new Exception("Adding Pet Failure. " + mInfo.pets[i]);
-                        Actor pet = mPetContext.GetPet(mInfo.pets[i]);
-                        pet.SetMaster(this);
+                public bool IsAutoTakeable() {
+                    //follower는 스스로 task를 가질 수 없고, master에 의해서 set task된다.
+                    if(follower)
+                        return false;
+                    if(GetState() == Actor.LOOP_STATE.READY) {
+                        if(GetPets().Count == 0 || mPetContext.GetDoingTaskPet() == null)
+                            return true;
                     }
+                        
+                    return false;
                 }
-                public void SetMaster(Actor actor) {
-                    master = actor;
-                }
-                public Actor GetMaster() {
-                    if(master == null)
-                        throw new Exception("Null Master");
-                    return master;
-                }
-                public double GetDistanceToMaster() {
-                    if(!follower || master == null)
-                        return -1;
-                    return position.GetDistance(master.position);
-                }
-                // Loop -------------------------------------------------------------------------------------------------
+                
+                // Loop ===================================================================================================
                 public enum LOOP_STATE {
                     INVALID,
                     READY,                    
@@ -496,7 +495,8 @@ namespace ENGINE {
                     mTaskContext.Release();
                     CallCallback(LOOP_STATE.RELEASE);                    
                 }                
-                // ------------------------------------------------------------------------------------------------------
+                // =====================================================================================================
+                // callback -----------------------------------------------------------------------------------------------
                 public void SetCallback(Callback fn) {
                     mCallback = fn;
                     Loop_Release();
@@ -587,10 +587,46 @@ namespace ENGINE {
                     }
                     return string.Empty;
                 }
-                // pets ------------------------------------------------------  
+                // pets ------------------------------------------------------   
+                public void SetPets() {
+                    //set pets
+                    for(int i =0; i < mInfo.pets.Count; i++) {
+                        if(!mPetContext.AddPet(mInfo.pets[i]))
+                            throw new Exception("Adding Pet Failure. " + mInfo.pets[i]);
+                        Actor pet = mPetContext.GetPet(mInfo.pets[i]);
+                        pet.SetMaster(this);
+                    }
+                }
                 public Dictionary<string, Actor> GetPets() {
                     return mPetContext.pets;
                 }
+                public bool HasPet() {
+                    return (mPetContext.GetPets().Count > 0) ? true : false;
+                }
+                public Actor? GetDoingTaskPet() {
+                    return mPetContext.GetDoingTaskPet();
+                }
+                public void SetMaster(Actor actor) {
+                    master = actor;
+                }
+                public Actor GetMaster() {
+                    if(master == null)
+                        throw new Exception("Null Master");
+                    return master;
+                }
+                public double GetDistanceToMaster() {
+                    if(!follower || master == null)
+                        return -1;
+                    return position.GetDistance(master.position);
+                }
+                public double GetDistanceToDoingPet() {
+                    var pet = GetDoingTaskPet();
+                    if(follower || pet == null)
+                        return -1;
+                    
+                    return position.GetDistance(pet.position);
+                }
+                
                 // position ------------------------------------------------------              
                 public void SetPosition(float x, float y, float z) {
                     if(position == null) {
