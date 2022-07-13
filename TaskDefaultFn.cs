@@ -9,6 +9,7 @@ namespace ENGINE {
             //json으로 관리            
             public class TaskDefaultFn : FnTask {        
                 Random mRandom = new Random();        
+                const float DISTANCE_MAX = 40;
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
@@ -169,7 +170,7 @@ namespace ENGINE {
                                     continue;
                                 }
                                 double distance = actor.position.GetDistance(p.Value.position);
-                                if(distance > 20 || p.Value.GetState() != Actor.LOOP_STATE.READY) {
+                                if(distance > DISTANCE_MAX || p.Value.GetState() != Actor.LOOP_STATE.READY) {
                                     continue;
                                 }
                                 var satisfaction = p.Value.GetSatisfaction(target2);

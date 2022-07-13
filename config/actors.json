@@ -433,6 +433,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 10                
+            },
+            {
+                "satisfactionId": "attraction",
+                "min": 40,
+                "max": 70,
+                "value": 10                
             }
         ],
         "inventory": [
@@ -493,6 +499,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 60                
+            },
+            {
+                "satisfactionId": "attraction",
+                "min": 40,
+                "max": 70,
+                "value": 10                
             }
         ]
     },
@@ -546,6 +558,12 @@
                 "min": 30,
                 "max": 60,
                 "value": 10                
+            },
+            {
+                "satisfactionId": "attraction",
+                "min": 40,
+                "max": 70,
+                "value": 10                
             }
         ]
     },
@@ -598,6 +616,12 @@
                 "satisfactionId": "sympathy",
                 "min": 30,
                 "max": 60,
+                "value": 10                
+            },
+            {
+                "satisfactionId": "attraction",
+                "min": 40,
+                "max": 70,
                 "value": 10                
             }
         ]
