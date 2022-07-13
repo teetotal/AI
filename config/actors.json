@@ -253,7 +253,7 @@
         "pets": [],
         "level": 1,
         "prefab": "Actors/npc2",
-        "position": [30, 0, 82],
+        "position": [-20, 0, -13],
         "rotation": [0, 90, 0],
         "trigger": {
             "type": 1,
