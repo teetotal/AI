@@ -114,6 +114,7 @@ namespace ENGINE {
             //Actors            
             public class ConfigActors_Detail {
                 public bool enable { get; set; }
+                public string village { get; set; } = string.Empty;
                 public bool follower { get; set; }
                 public int type { get; set; }
                 public string nickname {get; set; } = string.Empty;
@@ -158,6 +159,7 @@ namespace ENGINE {
                 public string chain { get; set; } = string.Empty;// task 고유 id
                 public TASK_TYPE type { get; set; }
                 public List<int>? level { get; set; } //사용가능한 Actor 최소 레벨, 최대 레벨
+                public int villageLevel { get; set; }  = -1;//해금되는 부락 레벨
                 public string title { get; set; } = string.Empty;
                 public string desc { get; set; } = string.Empty;
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
@@ -233,6 +235,27 @@ namespace ENGINE {
                 public List<ConfigScenario_Node>? from { get; set; }
                 public List<ConfigScenario_Node>? to { get; set; }
             }
+            // Village --------------------------------------------------------------------------
+            public class ConfigVillage_Level_Threshold {
+                public int level { get; set; }
+                public Dictionary<string, int> satisfactions { get; set; } = new Dictionary<string, int>();
+            }
+            public class ConfigVillage_Level {
+                public int current { get; set; }
+                public List<ConfigVillage_Level_Threshold> threshold { get; set; } = new List<ConfigVillage_Level_Threshold>();
+            }
+            public class ConfigVillage_Tax {
+                public float rate { get; set; }
+                public int duration { get; set; }
+            }
+            public class ConfigVillage_Detail {
+                public string name { get; set; } = string.Empty;
+                public string desc { get; set; } = string.Empty;
+                public Dictionary<string, float> finances { get; set; } = new Dictionary<string, float>();
+                public Dictionary<string, ConfigVillage_Tax> tax { get; set; } = new Dictionary<string, ConfigVillage_Tax>();
+                public ConfigVillage_Level level { get; set; } = new ConfigVillage_Level();
+            }
+            
             //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool Load( string stringSatisfactions, 
@@ -242,7 +265,8 @@ namespace ENGINE {
                                   string stringLevel,
                                   string stringQuest,
                                   string stringScript,
-                                  string stringScenario ) {
+                                  string stringScenario,
+                                  string stringVillage ) {
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
@@ -299,12 +323,26 @@ namespace ENGINE {
                     if(SetScenario(stringScenario) == false) {
                         return false;
                     }     
+                    //Village
+                    if(SetVillage(stringVillage) == false) {
+                        return false;
+                    }
 
                     return true;
                 }    
+                // Set Village
+                private bool SetVillage(string sz) {
+                    var j = JsonConvert.DeserializeObject<Dictionary<string, ConfigVillage_Detail>>(sz); 
+                    if(j == null)
+                        return false;
+                    ActorHandler.Instance.SetVillageInfo(j);
+                    return true;
+                }
                 // Set Scenario   
                 private bool SetScenario(string sz) {
                     var j = JsonConvert.DeserializeObject<Dictionary<string, ConfigScenario_Detail>>(sz);  
+                    if(j == null)
+                        return false;
                     foreach(var p in j) {
                         string key = p.Key;
                         ConfigScenario_Detail detail = p.Value;

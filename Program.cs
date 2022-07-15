@@ -21,9 +21,10 @@ class MainClass {
             File.ReadAllText("config/level.json"),
             File.ReadAllText("config/quest.json"),
             File.ReadAllText("config/script.json"),
-            File.ReadAllText("config/scenario.json")
+            File.ReadAllText("config/scenario.json"),
+            File.ReadAllText("config/village.json")
         };
-        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6], szConfigs[7])) {
+        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6], szConfigs[7], szConfigs[8])) {
             //Battle test
             //BattleTest battle = new BattleTest();
             //battle.Init();
@@ -245,9 +246,17 @@ public class ActorInstance {
 public class GameControlInstance {
     public Dictionary<string, ActorInstance> mDictActor = new Dictionary<string, ActorInstance>();
     private int ManagedInterval = 3;
-    public bool Load(string jsonSatisfaction, string jsonTask, string jsonActor, string jsonItem, string jsonLevel, string jsonQuest, string jsonScript, string jsonScenario) {
+    public bool Load(   string jsonSatisfaction, 
+                        string jsonTask, 
+                        string jsonActor, 
+                        string jsonItem, 
+                        string jsonLevel, 
+                        string jsonQuest, 
+                        string jsonScript, 
+                        string jsonScenario,
+                        string jsonVillage) {
         var pLoader = new Loader();
-        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario)) {
+        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }

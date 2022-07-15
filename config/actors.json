@@ -1,6 +1,7 @@
 {
     "h1": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -13,6 +14,7 @@
     },
     "hf": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -25,6 +27,7 @@
     },
     "hb": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -37,6 +40,7 @@
     },
     "hs": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -49,6 +53,7 @@
     },
     "a1": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -61,6 +66,7 @@
     },
     "af": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -73,6 +79,7 @@
     },
     "ab": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -85,6 +92,7 @@
     },
     "as": {
         "enable": false,
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "",
@@ -97,6 +105,7 @@
     },
     "NPC2-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 2,
         "nickname": "핫도그아저씨",
@@ -127,6 +136,7 @@
     },
     "NPC3-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 3,
         "nickname": "무료 피자 시식 알바",
@@ -157,6 +167,7 @@
     },
     "NPC4-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 4,
         "nickname": "맥주파는 인싸",
@@ -187,6 +198,7 @@
     },
     "NPC5-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 5,
         "nickname": "아이돌경비원",
@@ -217,6 +229,7 @@
     },
     "NPC6-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 6,
         "nickname": "배달음식 기다리는 막네 회사원",
@@ -247,6 +260,7 @@
     },
     "NPC6-2": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 6,
         "nickname": "배달음식 기다리는 주민",
@@ -277,6 +291,7 @@
     },
     "NPC0-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 0,
         "nickname": "장흥고씨 27대손 양이",
@@ -313,6 +328,7 @@
     },
     "PET200-1": {
         "enable": true,
+        "village": "village1",
         "follower": true,
         "type": 200,
         "nickname": "추앙이",
@@ -349,6 +365,7 @@
     },
     "NPC100-1": {
         "enable": true,
+        "village": "",
         "follower": false,
         "type": 100,
         "nickname": "용수니",
@@ -385,6 +402,7 @@
     },
     "ACTOR1-1": {
         "enable": true,
+        "village": "village1",
         "follower": false,
         "type": 1,
         "nickname": "꼼이",
@@ -451,6 +469,7 @@
     },
     "ACTOR1-2": {
         "enable": true,
+        "village": "village1",
         "follower": false,
         "type": 1,
         "nickname": "김밥이",
@@ -510,6 +529,7 @@
     },
     "ACTOR1-3": {
         "enable": true,
+        "village": "village1",
         "follower": false,
         "type": 1,
         "nickname": "포그니",
@@ -569,6 +589,7 @@
     },
     "ACTOR1-4": {
         "enable": true,
+        "village": "village1",
         "follower": false,
         "type": 1,
         "nickname": "대꼬",

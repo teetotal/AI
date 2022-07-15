@@ -13,8 +13,13 @@ namespace ENGINE {
                 private Dictionary<string, Actor> mDict = new Dictionary<string, Actor>();
                 //type별 actor
                 private Dictionary<int, Dictionary<string, Actor>> mDictType = new Dictionary<int, Dictionary<string, Actor>>();
+                //village별 actor
+                private Dictionary<string, Dictionary<string, Actor>> mDictVillage = new Dictionary<string, Dictionary<string, Actor>>();
                 //type별 satisfaction 합
                 private Dictionary<int, Dictionary<string, float>> mSatisfactionSums = new Dictionary<int, Dictionary<string, float>>();
+
+                //village
+                Dictionary<string, ConfigVillage_Detail> mVillage = new Dictionary<string, ConfigVillage_Detail>();
             
                 public static ActorHandler Instance {
                     get {
@@ -39,7 +44,13 @@ namespace ENGINE {
                         mDictType[info.type] = new Dictionary<string, Actor>();
                     }
                     mDictType[info.type][actorId] = a;
-                    
+                    //village
+                    if(a.mInfo.village != string.Empty) {
+                        if(!mDictVillage.ContainsKey(a.mInfo.village)) {
+                            mDictVillage[a.mInfo.village] = new Dictionary<string, Actor>();
+                        }
+                        mDictVillage[a.mInfo.village].Add(actorId, a);
+                    }
                     return a;
                 }
                 //Actor instance가 모두 생성되고 난 후 Pets 설정
@@ -47,6 +58,9 @@ namespace ENGINE {
                     foreach(var p in mDict) {
                         p.Value.SetPets();
                     }
+                }
+                public void SetVillageInfo(Dictionary<string, ConfigVillage_Detail> p) {
+                    mVillage = p;
                 }
                 public Actor? GetActor(string uniqueId) {
                     if(mDict.ContainsKey(uniqueId) == true) {
@@ -66,7 +80,7 @@ namespace ENGINE {
                     }
                     return null;
                 }
-
+                //마을별 합산으로 변경. happening 과 엮여 있다. 암튼 이거 해야함!
                 public void UpdateSatisfactionSum() {
                     mSatisfactionSums.Clear();
 

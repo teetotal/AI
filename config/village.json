@@ -1,0 +1,50 @@
+{
+    "village1": {
+        "name": "village1",
+        "desc": "귀여운 마을",
+        "finances": {
+            "gold": 0
+        },
+        "tax": {
+            "gold": {
+                "rate": 0.1,
+                "duration": 10
+            }
+         },
+        "level": {
+            "current": 1,
+            "threshold": [
+                {
+                    "level": 2,
+                    "satisfactions": {
+                        "gold": 500
+                    }
+                },
+                {
+                    "level": 3,
+                    "satisfactions": {
+                        "gold": 1000
+                    }
+                },
+                {
+                    "level": 4,
+                    "satisfactions": {
+                        "gold": 2000
+                    }
+                },
+                {
+                    "level": 5,
+                    "satisfactions": {
+                        "gold": 4000
+                    }
+                },
+                {
+                    "level": 6,
+                    "satisfactions": {
+                        "gold": 8000
+                    }
+                }
+            ]
+        }
+    }
+}
