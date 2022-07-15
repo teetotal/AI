@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
+            //Village도 관리.
             public class ActorHandler {
                 private static readonly Lazy<ActorHandler> instance =
                     new Lazy<ActorHandler>(() => new ActorHandler());
