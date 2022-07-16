@@ -105,7 +105,6 @@ namespace ENGINE {
                 public string? title { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
-                public List<ConfigSatisfaction_Happening>? happening { get; set; }
             }                       
             public class ConfigSatisfaction {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
@@ -242,17 +241,15 @@ namespace ENGINE {
             }
             public class ConfigVillage_Level {
                 public int current { get; set; }
-                public List<ConfigVillage_Level_Threshold> threshold { get; set; } = new List<ConfigVillage_Level_Threshold>();
-            }
-            public class ConfigVillage_Tax {
-                public float rate { get; set; }
-                public int duration { get; set; }
+                //level, satisfaction id, amount
+                public Dictionary<string, Dictionary<string, int>> threshold { get; set; } = new Dictionary<string, Dictionary<string, int>>();
             }
             public class ConfigVillage_Detail {
                 public string name { get; set; } = string.Empty;
                 public string desc { get; set; } = string.Empty;
+                public int collectionDuration { get; set; }
                 public Dictionary<string, float> finances { get; set; } = new Dictionary<string, float>();
-                public Dictionary<string, ConfigVillage_Tax> tax { get; set; } = new Dictionary<string, ConfigVillage_Tax>();
+                public Dictionary<string, float> tax { get; set; } = new Dictionary<string, float>();
                 public ConfigVillage_Level level { get; set; } = new ConfigVillage_Level();
             }
             
@@ -275,22 +272,11 @@ namespace ENGINE {
                         return false;
                     }                    
 
-                    // define & discharge & happening
+                    // define & discharge
                     foreach(var p in sf.define) {          
                         string satisfactionId = p.Key;
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);
-                        //happening
-                        if(p.Value.happening != null) {
-                            foreach(var happening in p.Value.happening) {
-                                if(happening.types == null) {
-                                    return false;
-                                }
-                                foreach(var type in happening.types) {
-                                    HappeningHandler.Instance.Add(type, satisfactionId, happening);
-                                }                                
-                            }
-                        }
                     }
 
                     //default task

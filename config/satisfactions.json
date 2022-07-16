@@ -3,114 +3,77 @@
         "HP": {
             "title": "HP",
             "discharge": 1,
-            "period": 10, 
-            "happening": [
-                {
-                    "types": [1],
-                    "id": 1001,
-                    "title": "식량난",
-                    "desc": "전세계 식량난으로 인해 충분한 영양을 섭취하지 못함",
-                    "range1": 200,
-                    "range2": 250,
-                    "amount": -10,
-                    "measure": 1
-                }
-            ]
+            "period": 10
         },
         "MP": {
             "title": "멘탈",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },     
         "gold": {
             "title": "Gold",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "sympathy": {
             "title": "이해심",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "cute": {
             "title": "애교",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "sense": {
             "title": "눈치",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "diversity": {
             "title": "포용력",
             "discharge": 0,
-            "period": 0,
-            "happening": [
-                {
-                    "types": [1],
-                    "id": 1101,
-                    "title": "폭동",
-                    "desc": "폭동이 발생하여 불안해 합니다.",
-                    "range1": 200,
-                    "range2": 250,
-                    "amount": -10,
-                    "measure": 1
-                }
-            ]
+            "period": 0
         },
         "consideration": {
             "title": "배려",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "attraction": {
             "title": "매력",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "initiative": {
             "title": "추진력",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "kindness": {
             "title": "다정함",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "sacrifice": {
             "title": "희생",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "responsibility": {
             "title": "책임감",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "nosy": {
             "title": "오지랖",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         },
         "leadership": {
             "title": "리더십",
             "discharge": 0,
-            "period": 0,
-            "happening": []
+            "period": 0
         }
     }
 }

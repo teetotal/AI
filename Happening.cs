@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
+            //Happening 다시 만들어야 함. config에서도 빠졌음
             public class HappeningInfo {
                 public ConfigSatisfaction_Happening? Info { get; set; }
                 public int Counter { get; set; }
@@ -22,7 +23,7 @@ namespace ENGINE {
                     }
                 }
                 private HappeningHandler() { }
-
+                /*
                 public void Add(int type, string satisfactionId, ConfigSatisfaction_Happening info) {
                     int happeningId = info.id;
                     if(mHappeningTable.ContainsKey(happeningId) == false) {
@@ -119,6 +120,7 @@ namespace ENGINE {
                         );
                     }
                 }
+                */
             }
         }
     }

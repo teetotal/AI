@@ -265,7 +265,8 @@ namespace ENGINE {
                     CHAIN,
                     RELEASE,
                     DISCHARGE,
-                    COMPLETE_QUEST
+                    COMPLETE_QUEST,
+                    TAX_COLLECTION
                 }
                 private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
                 public LOOP_STATE GetState() {
@@ -544,18 +545,12 @@ namespace ENGINE {
                     return sz;
                 }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
-                public bool Discharge(string satisfactionId, float amount) {                    
-                    bool ret = ApplySatisfaction(satisfactionId, -amount, 0, null);
-                    
-                    if(ret) {
-                        CallCallback(LOOP_STATE.DISCHARGE);
-                    }
-
-                    return ret;
+                public void Discharge(string satisfactionId, float amount) {                    
+                    ApplySatisfaction(satisfactionId, -amount, 0, null);
+                    CallCallback(LOOP_STATE.DISCHARGE);
                 }
-
-                public bool Obtain(string satisfactionId, float amount, string? from) {
-                    return ApplySatisfaction(satisfactionId, amount, 0, from);
+                public void Obtain(string satisfactionId, float amount, string? from) {
+                    ApplySatisfaction(satisfactionId, amount, 0, from);
                 }
                 // task ---------------------------------------------------------------------
                 public TaskContext GetTaskContext() {
@@ -647,9 +642,9 @@ namespace ENGINE {
                 public Dictionary<string, Satisfaction> GetSatisfactions() {
                     return mSatisfaction;
                 }
-                public bool ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
+                public void ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
-                        return false;
+                        throw new Exception("Invalid Satisfaction. " + satisfactionId);
                     }
 
                     float value;
@@ -679,8 +674,6 @@ namespace ENGINE {
                             mRelation[from][satisfactionId] += value;
                         }
                     }
-                    
-                    return true;
                 }               
                 //행복지수 
                 public float GetSatisfactionCoefficient() {

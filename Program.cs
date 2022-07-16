@@ -173,6 +173,7 @@ public class ActorInstance {
         mActor.SetCallback(Callback);
     }
     public void Callback(Actor.LOOP_STATE state, Actor actor) {
+        Thread.Sleep(100);
         Console.WriteLine("{0}({1}) - {2}", actor.mUniqueId, actor.mInfo.nickname, state);
         switch(state) {
             case Actor.LOOP_STATE.INVALID:
@@ -238,6 +239,9 @@ public class ActorInstance {
             case Actor.LOOP_STATE.DISCHARGE:
             //update UI
             break;
+            case Actor.LOOP_STATE.TAX_COLLECTION:
+            Console.WriteLine("Tax Collection");
+            break;
         }
     }
 }
@@ -245,6 +249,10 @@ public class ActorInstance {
 public class GameControlInstance {
     public Dictionary<string, ActorInstance> mDictActor = new Dictionary<string, ActorInstance>();
     private int ManagedInterval = 3;
+    private void VillageLevelUpCallback(string villageId, int level) {
+        ConfigVillage_Detail info = ActorHandler.Instance.GetVillageInfo(villageId);
+        Console.WriteLine("---------\nLevel Up Village ({0}) lv.{1}\n---------", info.name, level);
+    }
     public bool Load(   string jsonSatisfaction, 
                         string jsonTask, 
                         string jsonActor, 
@@ -259,7 +267,8 @@ public class GameControlInstance {
             Console.WriteLine("Failure Loading config");
             return false;
         }
-        ActorHandler.Instance.SetPets();
+        //!!반드시 해줘야 pet과 tax, Village level up 이 됨
+        ActorHandler.Instance.PostInit(VillageLevelUpCallback);
         
         DecideAlwaysTrue decide = new DecideAlwaysTrue();
         foreach(var p in ActorHandler.Instance.GetActors()) {
@@ -297,13 +306,13 @@ public class GameControlInstance {
         GameControlInstance pInstance = (GameControlInstance)instance;
         int type = 1;
         while(true) {
-            Thread.Sleep(1000 * 1);
+            //Thread.Sleep(1000 * 1);
             Console.WriteLine("Thread -----------------------------------------");
             long counter = CounterHandler.Instance.Next();
             
             //Discharge
             DischargeHandler.Instance.Discharge(type);            
-            ActorHandler.Instance.UpdateSatisfactionSum();
+            ActorHandler.Instance.TaxCollection();
 
             foreach(var actor in pInstance.mDictActor) {
                 pInstance.Do(actor.Value, counter);
