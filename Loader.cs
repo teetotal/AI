@@ -157,13 +157,13 @@ namespace ENGINE {
                 public string id { get; set; } = string.Empty;// task 고유 id
                 public string chain { get; set; } = string.Empty;// task 고유 id
                 public TASK_TYPE type { get; set; }
-                public List<int>? level { get; set; } //사용가능한 Actor 최소 레벨, 최대 레벨
+                public List<int> level { get; set; } = new List<int>(); //사용가능한 Actor 최소 레벨, 최대 레벨
                 public int villageLevel { get; set; }  = -1;//해금되는 부락 레벨
                 public string title { get; set; } = string.Empty;
                 public string desc { get; set; } = string.Empty;
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
                 public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
-                public string? animation { get; set; }
+                public string animation { get; set; } = string.Empty;
                 public int time { get; set; }
                 //동시 실행 최대 값
                 public int maxRef { get; set; }
@@ -376,7 +376,7 @@ namespace ENGINE {
                 }
                 // Set Task
                 private bool SetTask(string sz) {
-                    Dictionary<string, List<ConfigTask_Detail>?> taskData = JsonConvert.DeserializeObject< Dictionary<string, List<ConfigTask_Detail>?> >(sz); 
+                    var taskData = JsonConvert.DeserializeObject< Dictionary<string, List<ConfigTask_Detail>> >(sz); 
                     if(taskData == null)
                         return false;
                     foreach(var pTask in taskData) {
