@@ -38,7 +38,7 @@ namespace ENGINE {
                     var d = ActorHandler.Instance.GetActors(actorType);
                     if(d != null) {
                         
-                        for(int i = 0; i < mList.Count(); i++) {
+                        for(int i = 0; i < mList.Count; i++) {
                             var p = mList[i];
                             if(count - p.LastDischargeTime >= p.Period) {
                                 mList[i].LastDischargeTime = count;

@@ -178,7 +178,7 @@
             },
             "animation": "Strong",
             "time": 1,
-            "maxRef": 1,
+            "maxRef": -1,
             "satisfactions": {            
                 "HP": 6,
                 "gold": -2                    
@@ -240,8 +240,8 @@
             "id": "basic-B-I-2",
             "chain": null,
             "type": 0,
-            "level": [2, 5],
-            "villageLevel": 3,
+            "level": [1, 5],
+            "villageLevel": 1,
             "title": "공원에서 맥주 마시기",
             "desc": "공원에서 파는 맥주 마시기",
             "target": {
@@ -324,7 +324,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": 5,
+            "villageLevel": 1,
             "title": "공원 잡초 뽑기 알바",
             "desc": "돈을 벌기 위해 잡초 뽑는 알바를 한다",
             "target": {

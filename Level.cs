@@ -37,7 +37,7 @@ namespace ENGINE {
                     int idx = level-startLevel;         
                     if(mLevelInfo.ContainsKey(type) && mLevelInfo[type].levels != null) {                        
                         var levels = mLevelInfo[type].levels;
-                        if(levels != null && levels.Count() - 1 > idx)
+                        if(levels != null && levels.Count - 1 > idx)
                             return levels[idx];
                     }
                     return null;                        
