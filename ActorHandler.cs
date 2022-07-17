@@ -22,6 +22,9 @@ namespace ENGINE {
                 public ConfigVillage_Detail GetVillageInfo(string villageId) {
                     return mVillage[villageId];
                 }
+                public int GetVillageLevel(string villageId) {
+                    return mVillageLevel[villageId];
+                }
                 public void SetVillageInfo(Dictionary<string, ConfigVillage_Detail> villageInfo) {
                     foreach(var p in villageInfo) {
                         mVillageLevel.Add(p.Key, p.Value.level.current);
@@ -170,6 +173,9 @@ namespace ENGINE {
                 }
                 public ConfigVillage_Detail GetVillageInfo(string villageId) {
                     return mTaxContext.GetVillageInfo(villageId);
+                }
+                public int GetVillageLevel(string villageId) {
+                    return mTaxContext.GetVillageLevel(villageId);
                 }
             }
         }

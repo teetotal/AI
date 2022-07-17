@@ -162,8 +162,8 @@
             "id": "basic-A-I-1",
             "chain": null,
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
+            "level": [1, 5],
+            "villageLevel": 1,
             "title": "핫도그 사먹기",
             "desc": "핫도그를 사먹는다",
             "target": {
@@ -188,8 +188,8 @@
             "id": "basic-A-I-2",
             "chain": null,
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
+            "level": [1, 5],
+            "villageLevel": 2,
             "title": "무료 시식 피자 먹기",
             "desc": "무료 시식 피자 먹기",
             "target": {
@@ -214,8 +214,8 @@
             "id": "basic-B-I-1",
             "chain": null,
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
+            "level": [2, 5],
+            "villageLevel": 3,
             "title": "고래 보고 힐링하기",
             "desc": "하늘을 나는 고래를 보며 힐링한다.",
             "target": {
@@ -240,8 +240,8 @@
             "id": "basic-B-I-2",
             "chain": null,
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
+            "level": [2, 5],
+            "villageLevel": 3,
             "title": "공원에서 맥주 마시기",
             "desc": "공원에서 파는 맥주 마시기",
             "target": {
@@ -268,7 +268,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 4,
             "title": "공원 벤치에서 쉬기",
             "desc": "공원 벤치에 앉아 쉬기",
             "target": {
@@ -294,7 +294,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 4,
             "title": "일용직 일하기",
             "desc": "돈을 벌기 위해 일용직일을 한다",
             "target": {
@@ -324,7 +324,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 5,
             "title": "공원 잡초 뽑기 알바",
             "desc": "돈을 벌기 위해 잡초 뽑는 알바를 한다",
             "target": {
@@ -353,7 +353,7 @@
             "chain": "basic-C-II-2",
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 6,
             "title": "배달 알바 일감 받기",
             "desc": "중국음식 배달 알바 하기",
             "target": {
@@ -379,7 +379,7 @@
             "chain": null,
             "type": 2,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 6,
             "title": "배달 알바 배송완료",
             "desc": "중국음식 배송 완료하기",
             "target": {
@@ -405,7 +405,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 7,
             "title": "부티나는 주변인에게 선물주며 친한척 하기",
             "desc": "주변에 가장 부티나는 사람에게 선물을 주며 괜히 친한척 한다",
             "target": {
@@ -435,7 +435,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 7,
             "title": "아이돌 덕질 하기",
             "desc": "아이돌 사무실 앞에서 덕질 하기",
             "target": {
@@ -462,7 +462,7 @@
             "chain": null,
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 7,
             "title": "고양이에게 생선 맡기기",
             "desc": "고양이에게 생선을 맡긴다",
             "target": {
@@ -492,7 +492,7 @@
             "chain": "2-A-I-1_CHAIN",
             "type": 0,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 8,
             "title": "HP좋은 주변인 꼬셔서 스트릿 댄스 추러 가기",
             "desc": "주변에 HP좋은 사람 찾아서 스트릿 댄스 추러 가자고 한다.",
             "target": {
@@ -520,7 +520,7 @@
             "chain": "2-A-I-1_CHAIN",
             "type": 1,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 8,
             "title": "춤추러 가기 수락",
             "desc": "같이 스트릿 댄스 추러 간다고 함",
             "target": {
@@ -543,7 +543,7 @@
             "chain": null,
             "type": 2,
             "level": null,
-            "villageLevel": -1,
+            "villageLevel": 8,
             "title": "춤추러 가기",
             "desc": "스트릿 댄스 추기",
             "target": {

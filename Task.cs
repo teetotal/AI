@@ -58,6 +58,11 @@ namespace ENGINE {
                     for(int i = 0; i < mDictByActorType[actorType].Count; i++) {
                         string taskId = mDictByActorType[actorType][i];
                         var info = mDict[taskId].mInfo;
+                        if(actor.mInfo.village != string.Empty && info.villageLevel != -1) {
+                            if(info.villageLevel > ActorHandler.Instance.GetVillageLevel(actor.mInfo.village))
+                                continue;
+                        }
+                        
                         if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
                             && info.type == TASK_TYPE.NORMAL // check type
                             && (info.maxRef == -1 || info.maxRef > GetRef(taskId)) //check ref count
