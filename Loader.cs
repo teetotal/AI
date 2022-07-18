@@ -16,12 +16,6 @@ namespace ENGINE {
                 public string? itemId { get; set; }
                 public int quantity { get; set; }
             }
-            public class Config_Satisfaction {
-                public string? satisfactionId { get; set; }
-                public float min { get; set; }
-                public float max { get; set; }
-                public float value { get; set; }
-            }
             /*
             Item
             {
@@ -110,8 +104,14 @@ namespace ENGINE {
                 public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
                 public Dictionary<string, List<ConfigTask_Detail>?>? tasks { get; set; }
             }
-            //Actors            
-            public class ConfigActors_Detail {
+            //Actors      
+            public class ConfigActor_Satisfaction {
+                public string? satisfactionId { get; set; }
+                public float min { get; set; }
+                public float max { get; set; }
+                public float value { get; set; }
+            }      
+            public class ConfigActor_Detail {
                 public bool enable { get; set; }
                 public string village { get; set; } = string.Empty;
                 public bool follower { get; set; }
@@ -123,7 +123,7 @@ namespace ENGINE {
                 public List<float>? position { get; set; }
                 public List<float>? rotation { get; set; }      
                 public ConfigActor_Trigger? trigger { get; set; }          
-                public List<Config_Satisfaction>? satisfactions { get; set; }
+                public List<ConfigActor_Satisfaction>? satisfactions { get; set; }
             }
             public enum TRIGGER_TYPE {
                 NO_TRIGGER,
@@ -355,7 +355,7 @@ namespace ENGINE {
                 private bool SetActor(string sz) {
                     //Actor     
                     string jsonString = sz; 
-                    var actors = JsonConvert.DeserializeObject< Dictionary<string, ConfigActors_Detail> >(jsonString);  
+                    var actors = JsonConvert.DeserializeObject< Dictionary<string, ConfigActor_Detail> >(jsonString);  
                     if(actors == null) {
                         return false;
                     }

@@ -117,7 +117,7 @@ namespace ENGINE {
                 private ActorHandler() {
                 }
                 // Quest list가 Null이면 받아온다.
-                public Actor AddActor(string actorId, ConfigActors_Detail info, List<string>? questList) {
+                public Actor AddActor(string actorId, ConfigActor_Detail info, List<string>? questList) {
                     //quest
                     List<string> quests;
                     if(questList == null) {                        

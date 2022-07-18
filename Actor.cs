@@ -200,7 +200,7 @@ namespace ENGINE {
                 public string mUniqueId;
                 public int level;
                 public Position position = new Position(0, 0, 0);
-                public ConfigActors_Detail mInfo;     
+                public ConfigActor_Detail mInfo;     
                 private Actor? master;           
                 private Callback? mCallback;
                 //ask에 대한 의사결정 클래스
@@ -218,7 +218,7 @@ namespace ENGINE {
                 //Pet -------------------------------------------------------------------------------------------------
                 private PetContext mPetContext = new PetContext();
                 // -----------------------------------------------------------------------------------------------------
-                public Actor(string actorId, ConfigActors_Detail info, List<string> quests) {
+                public Actor(string actorId, ConfigActor_Detail info, List<string> quests) {
                     this.mType = info.type;
                     this.mUniqueId = actorId;
                     this.level = info.level;
