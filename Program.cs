@@ -306,7 +306,7 @@ public class GameControlInstance {
         GameControlInstance pInstance = (GameControlInstance)instance;
         int type = 1;
         while(true) {
-            //Thread.Sleep(1000 * 1);
+            Thread.Sleep(100 * 1);
             Console.WriteLine("Thread -----------------------------------------");
             long counter = CounterHandler.Instance.Next();
             

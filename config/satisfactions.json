@@ -1,79 +1,122 @@
-{
-    "define": {                   
-        "HP": {
-            "title": "HP",
-            "discharge": 1,
-            "period": 10
-        },
-        "MP": {
-            "title": "멘탈",
-            "discharge": 0,
-            "period": 0
-        },     
-        "gold": {
-            "title": "Gold",
-            "discharge": 0,
-            "period": 0
-        },
-        "sympathy": {
-            "title": "이해심",
-            "discharge": 0,
-            "period": 0
-        },
-        "cute": {
-            "title": "애교",
-            "discharge": 0,
-            "period": 0
-        },
-        "sense": {
-            "title": "눈치",
-            "discharge": 0,
-            "period": 0
-        },
-        "diversity": {
-            "title": "포용력",
-            "discharge": 0,
-            "period": 0
-        },
-        "consideration": {
-            "title": "배려",
-            "discharge": 0,
-            "period": 0
-        },
-        "attraction": {
-            "title": "매력",
-            "discharge": 0,
-            "period": 0
-        },
-        "initiative": {
-            "title": "추진력",
-            "discharge": 0,
-            "period": 0
-        },
-        "kindness": {
-            "title": "다정함",
-            "discharge": 0,
-            "period": 0
-        },
-        "sacrifice": {
-            "title": "희생",
-            "discharge": 0,
-            "period": 0
-        },
-        "responsibility": {
-            "title": "책임감",
-            "discharge": 0,
-            "period": 0
-        },
-        "nosy": {
-            "title": "오지랖",
-            "discharge": 0,
-            "period": 0
-        },
-        "leadership": {
-            "title": "리더십",
-            "discharge": 0,
-            "period": 0
+{                
+    "HP": {
+        "title": "체력",
+        "discharge": 1,
+        "period": 10,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "MP": {
+        "title": "멘탈",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },     
+    "Gold": {
+        "title": "돈",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Ability1": {
+        "title": "생산력1",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Ability2": {
+        "title": "생산력2",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Ability3": {
+        "title": "생산력3",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Resource1": {
+        "title": "자원1",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Resource2": {
+        "title": "자원2",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Resource3": {
+        "title": "자원3",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Sight": {
+        "title": "시야",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Leadership": {
+        "title": "리더십",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
+        }
+    },
+    "Friendship": {
+        "title": "친근감",
+        "discharge": 0,
+        "period": 0,
+        "seed": {
+            "min": 20,
+            "max": 50,
+            "random": 10
         }
     }
 }

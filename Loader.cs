@@ -94,17 +94,20 @@ namespace ENGINE {
                 public float amount { get; set; }
                 public int measure { get; set; } //단위 0: 절대값, 1: percent
             }
-            //Define
+            //Satisfaction ---------------------------------------------------------
+            public class ConfigSatisfaction_Seed {
+                public int min { get; set; }
+                public int max { get; set; }
+                public int random { get; set; }
+            }
             public class ConfigSatisfaction_Define {
-                public string? title { get; set; }
+                public string title { get; set; } = string.Empty;
                 public float discharge { get; set; }
                 public int period { get; set; }
+                public ConfigSatisfaction_Seed seed { get; set; } = new ConfigSatisfaction_Seed();
             }                       
-            public class ConfigSatisfaction {
-                public Dictionary<string, ConfigSatisfaction_Define>? define { get; set; }
-                public Dictionary<string, List<ConfigTask_Detail>?>? tasks { get; set; }
-            }
-            //Actors      
+        
+            //Actors ------------------------------------------------------------------
             public class ConfigActor_Satisfaction {
                 public string? satisfactionId { get; set; }
                 public float min { get; set; }
@@ -267,13 +270,12 @@ namespace ENGINE {
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
-                    var sf = JsonConvert.DeserializeObject<ConfigSatisfaction>(jsonString);                                                   
-                    if(sf == null || sf.define == null) {
+                    var sf = JsonConvert.DeserializeObject<Dictionary<string, ConfigSatisfaction_Define>>(jsonString);                                                   
+                    if(sf == null) {
                         return false;
                     }                    
-
                     // define & discharge
-                    foreach(var p in sf.define) {          
+                    foreach(var p in sf) {          
                         string satisfactionId = p.Key;
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);

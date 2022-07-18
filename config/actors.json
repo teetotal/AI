@@ -1,416 +1,335 @@
 {
-    "h1": {
-        "enable": false,
+    "NPC1-1": {
+        "enable": true,
         "village": "",
         "follower": false,
-        "type": 1,
-        "nickname": "",
+        "type": 101,
+        "nickname": "\uc7a5\ud765\uace0\uc528 27\ub300\uc190 \uc591\uc774",
         "pets": [],
         "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "hf": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "hb": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "hs": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "a1": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "af": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "ab": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
-        "inventory": []
-    },
-    "as": {
-        "enable": false,
-        "village": "",
-        "follower": false,
-        "type": 1,
-        "nickname": "",
-        "pets": [],
-        "level": 1,
-        "prefab": null,
-        "position": null,
-        "satisfactions": [],
+        "prefab": "Actors/cat",
+        "position": [
+            31.5,
+            0.0,
+            51.5
+        ],
+        "rotation": [
+            0.0,
+            90.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 15,
+                "max": 90,
+                "value": 85
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 100,
+                "value": 10
+            }
+        ],
         "inventory": []
     },
     "NPC2-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 2,
-        "nickname": "핫도그아저씨",
+        "type": 102,
+        "nickname": "\ud56b\ub3c4\uadf8\uc544\uc800\uc528",
         "pets": [],
         "level": 1,
         "prefab": "Actors/actor7",
-        "position": [85, 0, 9.5],
-        "rotation": [0, 0, 0],
+        "position": [
+            85.0,
+            0.0,
+            9.5
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
         "trigger": {
             "type": 1,
-            "value": "15"
+            "value": "15.0"
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
-                "satisfactionId": "gold",
+                "satisfactionId": "Gold",
                 "min": 99999,
                 "max": 100000,
-                "value": 0 
+                "value": 0
             }
         ],
-        "inventory": null
+        "inventory": []
     },
     "NPC3-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 3,
-        "nickname": "무료 피자 시식 알바",
+        "type": 103,
+        "nickname": "\ubb34\ub8cc \ud53c\uc790 \uc2dc\uc2dd \uc54c\ubc14",
         "pets": [],
         "level": 1,
         "prefab": "Actors/actor5",
-        "position": [44, 0, 17.5],
-        "rotation": [0, 0, 0],
+        "position": [
+            44.0,
+            0.0,
+            17.5
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
         "trigger": {
             "type": 1,
-            "value": "15"
+            "value": "15.0"
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
-                "value": 10 
+                "value": 10
             }
         ],
-        "inventory": null
+        "inventory": []
     },
     "NPC4-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 4,
-        "nickname": "맥주파는 인싸",
+        "type": 104,
+        "nickname": "\ub9e5\uc8fc\ud30c\ub294 \uc778\uc2f8",
         "pets": [],
         "level": 1,
         "prefab": "Actors/actor8",
-        "position": [51, 0, 45],
-        "rotation": [0, 0, 0],
+        "position": [
+            51.0,
+            0.0,
+            45.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
         "trigger": {
             "type": 0,
             "value": ""
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
-                "value": 10 
+                "value": 10
             }
         ],
-        "inventory": null
+        "inventory": []
     },
     "NPC5-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 5,
-        "nickname": "아이돌경비원",
+        "type": 105,
+        "nickname": "\uc544\uc774\ub3cc\uacbd\ube44\uc6d0",
         "pets": [],
         "level": 1,
         "prefab": "Actors/npc1",
-        "position": [82.5, 0, -14],
-        "rotation": [0, 45, 0],
+        "position": [
+            82.5,
+            0.0,
+            -14.0
+        ],
+        "rotation": [
+            0.0,
+            45.0,
+            0.0
+        ],
         "trigger": {
             "type": 1,
-            "value": "5"
+            "value": "5.0"
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
-                "value": 10 
+                "value": 10
             }
         ],
-        "inventory": null
+        "inventory": []
     },
     "NPC6-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 6,
-        "nickname": "배달음식 기다리는 막네 회사원",
-        "pets": [],
-        "level": 1,
-        "prefab": "Actors/npc6",
-        "position": [-44, 0, 10],
-        "rotation": [0, 90, 0],
-        "trigger": {
-            "type": 1,
-            "value": "20"
-        },
-        "satisfactions": [            
-            {
-                "satisfactionId": "HP",
-                "min": 15,
-                "max": 85,
-                "value": 90
-            },
-            {
-                "satisfactionId": "MP",
-                "min": 0,
-                "max": 100,
-                "value": 10 
-            }
-        ],
-        "inventory": null
-    },
-    "NPC6-2": {
-        "enable": true,
-        "village": "",
-        "follower": false,
-        "type": 6,
-        "nickname": "배달음식 기다리는 주민",
+        "type": 106,
+        "nickname": "\ubc30\ub2ec\uc74c\uc2dd \uae30\ub2e4\ub9ac\ub294 \uc8fc\ubbfc",
         "pets": [],
         "level": 1,
         "prefab": "Actors/npc2",
-        "position": [-20, 0, -13],
-        "rotation": [0, 90, 0],
+        "position": [
+            -20.0,
+            0.0,
+            -13.0
+        ],
+        "rotation": [
+            0.0,
+            90.0,
+            0.0
+        ],
         "trigger": {
             "type": 1,
-            "value": "20"
+            "value": "20.0"
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
-                "value": 10 
+                "value": 10
             }
         ],
-        "inventory": null
+        "inventory": []
     },
-    "NPC0-1": {
+    "NPC7-1": {
         "enable": true,
         "village": "",
         "follower": false,
-        "type": 0,
-        "nickname": "장흥고씨 27대손 양이",
+        "type": 107,
+        "nickname": "\uc6a9\uc218\ub2c8",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/cat",
-        "position": [31.5, 0, 51.5],
-        "rotation": [0, 90, 0],
+        "prefab": "Actors/Dragon",
+        "position": [
+            115.4,
+            9.0,
+            -125.0
+        ],
+        "rotation": [
+            0.0,
+            -111.0,
+            0.0
+        ],
         "trigger": {
             "type": 0,
             "value": ""
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
                 "min": 15,
-                "max": 85,
-                "value": 90
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
                 "min": 0,
                 "max": 100,
-                "value": 10 
-            },
-            {
-                "satisfactionId": "responsibility",
-                "min": 0,
-                "max": 1000,
-                "value": 0 
-            }            
+                "value": 10
+            }
         ],
-        "inventory": null
+        "inventory": []
     },
-    "PET200-1": {
-        "enable": true,
-        "village": "village1",
-        "follower": true,
-        "type": 200,
-        "nickname": "추앙이",
-        "pets": [],
-        "level": 1,
-        "prefab": "Actors/cat",
-        "position": [25, 0, 45],
-        "rotation": [0, 90, 0],
-        "trigger": {
-            "type": 0,
-            "value": ""
-        },
-        "satisfactions": [            
-            {
-                "satisfactionId": "HP",
-                "min": 15,
-                "max": 85,
-                "value": 90
-            },
-            {
-                "satisfactionId": "MP",
-                "min": 50,
-                "max": 100,
-                "value": 49 
-            },
-            {
-                "satisfactionId": "responsibility",
-                "min": 50,
-                "max": 100,
-                "value": 49 
-            }            
-        ],
-        "inventory": null
-    },
-    "NPC100-1": {
+    "PET1-1": {
         "enable": true,
         "village": "",
         "follower": false,
         "type": 100,
-        "nickname": "용수니",
+        "nickname": "\ucd94\uc559\uc774",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/Dragon",
-        "position": [115.4, 9, -125],
-        "rotation": [0, -111, 0],
+        "prefab": "Actors/cat",
+        "position": [
+            25.0,
+            0.0,
+            45.0
+        ],
+        "rotation": [
+            0.0,
+            90.0,
+            0.0
+        ],
         "trigger": {
             "type": 0,
             "value": ""
         },
-        "satisfactions": [            
+        "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 50,
-                "max": 100,
-                "value": 48
+                "min": 15,
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
-                "min": 50,
-                "max": 100,
-                "value": 50 
-            },
-            {
-                "satisfactionId": "responsibility",
                 "min": 0,
-                "max": 1000,
-                "value": 0 
-            }            
+                "max": 100,
+                "value": 10
+            }
         ],
-        "inventory": null
+        "inventory": []
     },
     "ACTOR1-1": {
         "enable": true,
         "village": "village1",
         "follower": false,
         "type": 1,
-        "nickname": "꼼이",
-        "pets": [  ],
+        "nickname": "\uaf3c\uc774",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor1",
-        "position": [25, 0, 35],
-        "rotation": [0, 0, 0],
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
         "trigger": {
             "type": 0,
             "value": ""
@@ -418,66 +337,38 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 20,
-                "max": 50,
-                "value": 30
+                "min": 15,
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
-                "min": 20,
-                "max": 50,
-                "value": 30
-            },
-            {
-                "satisfactionId": "gold",
-                "min": 20,
-                "max": 50,
-                "value": 30
-            },
-            {
-                "satisfactionId": "sense",
-                "min": 30,
-                "max": 60,
+                "min": 0,
+                "max": 100,
                 "value": 10
-            },
-            {
-                "satisfactionId": "cute",
-                "min": 30,
-                "max": 60,
-                "value": 40
-            },
-            {
-                "satisfactionId": "sympathy",
-                "min": 30,
-                "max": 60,
-                "value": 10                
-            },
-            {
-                "satisfactionId": "attraction",
-                "min": 40,
-                "max": 70,
-                "value": 10                
             }
         ],
-        "inventory": [
-            {
-                "itemId": "item1",
-                "quantity": 1,
-                "installation": false
-            }
-        ]
+        "inventory": []
     },
     "ACTOR1-2": {
         "enable": true,
         "village": "village1",
         "follower": false,
         "type": 1,
-        "nickname": "김밥이",
-        "pets": ["PET200-1"],
+        "nickname": "\ub300\uaf2c",
+        "pets": [],
         "level": 1,
         "prefab": "Actors/actor2",
-        "position": [30, 0, 35],
-        "rotation": [0, 0, 0],
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
         "trigger": {
             "type": 0,
             "value": ""
@@ -485,166 +376,17 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 20,
-                "max": 50,
-                "value": 30
+                "min": 15,
+                "max": 90,
+                "value": 85
             },
             {
                 "satisfactionId": "MP",
-                "min": 20,
-                "max": 50,
-                "value": 30
-            },
-            {
-                "satisfactionId": "gold",
-                "min": 20,
-                "max": 50,
-                "value": 20
-            },
-            {
-                "satisfactionId": "sense",
-                "min": 30,
-                "max": 60,
-                "value": 30
-            },
-            {
-                "satisfactionId": "cute",
-                "min": 30,
-                "max": 60,
-                "value": 60
-            },
-            {
-                "satisfactionId": "sympathy",
-                "min": 30,
-                "max": 60,
-                "value": 60                
-            },
-            {
-                "satisfactionId": "attraction",
-                "min": 40,
-                "max": 70,
-                "value": 10                
+                "min": 0,
+                "max": 100,
+                "value": 10
             }
-        ]
-    },
-    "ACTOR1-3": {
-        "enable": true,
-        "village": "village1",
-        "follower": false,
-        "type": 1,
-        "nickname": "포그니",
-        "pets": [],
-        "level": 1,
-        "prefab": "Actors/actor3",
-        "position": [35, 0, 35],
-        "rotation": [0, 0, 0],
-        "trigger": {
-            "type": 0,
-            "value": ""
-        },
-        "satisfactions": [
-            {
-                "satisfactionId": "HP",
-                "min": 20,
-                "max": 50,
-                "value": 50
-            },
-            {
-                "satisfactionId": "MP",
-                "min": 20,
-                "max": 50,
-                "value": 50
-            },
-            {
-                "satisfactionId": "gold",
-                "min": 20,
-                "max": 50,
-                "value": 10
-            },
-            {
-                "satisfactionId": "sense",
-                "min": 30,
-                "max": 60,
-                "value": 10
-            },
-            {
-                "satisfactionId": "cute",
-                "min": 30,
-                "max": 60,
-                "value": 10
-            },
-            {
-                "satisfactionId": "sympathy",
-                "min": 30,
-                "max": 60,
-                "value": 10                
-            },
-            {
-                "satisfactionId": "attraction",
-                "min": 40,
-                "max": 70,
-                "value": 10                
-            }
-        ]
-    },
-    "ACTOR1-4": {
-        "enable": true,
-        "village": "village1",
-        "follower": false,
-        "type": 1,
-        "nickname": "대꼬",
-        "pets": [],
-        "level": 1,
-        "prefab": "Actors/actor4",
-        "position": [5, 0, 45],
-        "rotation": [0, 0, 0],
-        "trigger": {
-            "type": 0,
-            "value": ""
-        },
-        "satisfactions": [
-            {
-                "satisfactionId": "HP",
-                "min": 20,
-                "max": 50,
-                "value": 50
-            },
-            {
-                "satisfactionId": "MP",
-                "min": 20,
-                "max": 50,
-                "value": 50
-            },
-            {
-                "satisfactionId": "gold",
-                "min": 20,
-                "max": 50,
-                "value": 50
-            },
-            {
-                "satisfactionId": "sense",
-                "min": 30,
-                "max": 60,
-                "value": 10
-            },
-            {
-                "satisfactionId": "cute",
-                "min": 30,
-                "max": 60,
-                "value": 10
-            },
-            {
-                "satisfactionId": "sympathy",
-                "min": 30,
-                "max": 60,
-                "value": 10                
-            },
-            {
-                "satisfactionId": "attraction",
-                "min": 40,
-                "max": 70,
-                "value": 10                
-            }
-        ]
+        ],
+        "inventory": []
     }
 }

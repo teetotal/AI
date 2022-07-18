@@ -1,702 +1,409 @@
 {
-    "100": [
+    "102": [
         {
-            "id": "whale_fly1",
-            "chain": null,
+            "id": "NPC-102",
+            "chain": "",
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "날아다니기1",
-            "desc": "어슬렁 거리며 날아다닌다",
+            "level": [],
+            "villageLevel": 1,
+            "title": "\ud56b\ub3c4\uadf8 \ud314\uae30",
+            "desc": "",
+            "animation": "Dancing",
+            "time": 2,
+            "maxRef": -1,
             "target": {
-                "type": 6,
+                "type": 0,
                 "value": [
-                    "160, 9, -85",
-                    "157, 9, -50.5"
-                ],                
+                    ""
+                ],
                 "interaction": {
                     "type": 0,
-                    "taskId": null
-                }      
+                    "taskId": ""
+                }
             },
+            "satisfactions": {
+                "Gold": 1
+            },
+            "satisfactionsRefusal": {}
+        }
+    ],
+    "1": [
+        {
+            "id": "LD1-A1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "HP",
+            "desc": "",
             "animation": "Strong",
             "time": 1,
             "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "A",
+                    "B",
+                    "C"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
             "satisfactions": {
-                "responsibility": 1,
-                "HP": -2,
+                "HP": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD1-B1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "MP",
+            "desc": "\ubb34\ub2f9\ud55c\ud14c \uc810\ubcf4\uae30",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
                 "MP": 2
-            }
+            },
+            "satisfactionsRefusal": {}
         },
         {
-            "id": "whale_fly2",
-            "chain": null,
+            "id": "LD1-C1",
+            "chain": "",
             "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "날아다니기2",
-            "desc": "어슬렁 거리며 날아다닌다",
-            "target": {
-                "type": 6,
-                "value": [
-                    "-126, 9, -140",
-                    "-126, 9, -139"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Strong",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "responsibility": 1,
-                "HP": 2,
-                "MP": -2
-            }            
-        }
-    ],
-    "200": [
-        {
-            "id": "pet1",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "어슬렁 거리기",
-            "desc": "어슬렁 거리다 괜히 심통 부린다",
-            "target": {
-                "type": 1,
-                "value": [
-                    "SM_Env_Grass_02 (1)"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Sitting",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "responsibility": 1,
-                "MP": 2
-            }
-        }
-    ],
-    "0": [
-        {
-            "id": "cat_ack",
-            "chain": null,
-            "type": 1,
-            "level": null,
-            "villageLevel": -1,
-            "title": "생선 받아주기",
-            "desc": "못이기는척 생선을 받아준다",
-            "target": {
-                "type": 4,
-                "value": null,                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Sitting",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "responsibility": 2
-            }
-        }
-    ],
-    "1": [       
-        {
-            "id": "hello_ack",
-            "chain": null,
-            "type": 1,
-            "level": null,
-            "villageLevel": -1,
-            "title": "인사 받아주기",
-            "desc": "인사를 받아준다",
-            "target": {
-                "type": 4,
-                "value": null,                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Greeting",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "MP": 2,
-                "gold": 1
-            }
-        },         
-        {
-            "id": "delivery_ack1",
-            "chain": null,
-            "type": 1,
-            "level": null,
-            "villageLevel": -1,
-            "title": "배달음식 받기",
-            "desc": "주문한 배달음식을 받는다",
-            "target": {
-                "type": 4,
-                "value": null,                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Greeting",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "HP": 1
-            }
-        }, 
-        {
-            "id": "basic-A-I-1",
-            "chain": null,
-            "type": 0,
-            "level": [1, 5],
+            "level": [
+                1,
+                10
+            ],
             "villageLevel": 1,
-            "title": "핫도그 사먹기",
-            "desc": "핫도그를 사먹는다",
-            "target": {
-                "type": 2,
-                "value": [
-                    "NPC2-1"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
+            "title": "Gold",
+            "desc": "",
             "animation": "Strong",
             "time": 1,
             "maxRef": -1,
-            "satisfactions": {            
-                "HP": 6,
-                "gold": -2                    
-            }
-        },
-        {
-            "id": "basic-A-I-2",
-            "chain": null,
-            "type": 0,
-            "level": [1, 5],
-            "villageLevel": 2,
-            "title": "무료 시식 피자 먹기",
-            "desc": "무료 시식 피자 먹기",
             "target": {
-                "type": 2,
+                "type": 1,
                 "value": [
-                    "NPC3-1"
+                    ""
                 ],
                 "interaction": {
                     "type": 0,
-                    "taskId": null
+                    "taskId": ""
                 }
             },
-            "animation": "Strong",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {            
-                "HP": 6,
-                "MP": -2
-            }
+            "satisfactions": {
+                "Gold": 2
+            },
+            "satisfactionsRefusal": {}
         },
         {
-            "id": "basic-B-I-1",
-            "chain": null,
+            "id": "LD2-A1",
+            "chain": "",
             "type": 0,
-            "level": [2, 5],
-            "villageLevel": 3,
-            "title": "고래 보고 힐링하기",
-            "desc": "하늘을 나는 고래를 보며 힐링한다.",
-            "target": {
-                "type": 5,
-                "value": [
-                    "102.5,0,-80",
-                    "106,9,-120"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "HandUp",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {                
-                "MP": 8
-            }
-        }, 
-        {
-            "id": "basic-B-I-2",
-            "chain": null,
-            "type": 0,
-            "level": [1, 5],
+            "level": [
+                1,
+                10
+            ],
             "villageLevel": 1,
-            "title": "공원에서 맥주 마시기",
-            "desc": "공원에서 파는 맥주 마시기",
-            "target": {
-                "type": 2,
-                "value": [
-                    "NPC4-1"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Drinking",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "gold": -2,
-                "HP": 3,
-                "MP": 3
-            }
-        },   
-        {
-            "id": "basic-B-I-3",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": 4,
-            "title": "공원 벤치에서 쉬기",
-            "desc": "공원 벤치에 앉아 쉬기",
-            "target": {
-                "type": 5,
-                "value": [
-                    "60.7,0,45.5",
-                    "62,0,45.5"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Sitting",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {                
-                "MP": 4
-            }
-        },        
-        {
-            "id": "basic-C-I-1",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": 4,
-            "title": "일용직 일하기",
-            "desc": "돈을 벌기 위해 일용직일을 한다",
-            "target": {
-                "type": 1,
-                "value": [
-                    "SM_Env_Sidewalk_Panel_03",
-                    "SM_Env_Sidewalk_48",
-                    "SM_Env_Sidewalk_61",
-                    "SM_Env_Sidewalk_Straight_94"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Digging",
-            "time": 3,
-            "maxRef": -1,
-            "satisfactions": {
-                "HP": -4,
-                "MP": -4,
-                "gold": 8
-            }
-        },
-        {
-            "id": "basic-C-I-2",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": 1,
-            "title": "공원 잡초 뽑기 알바",
-            "desc": "돈을 벌기 위해 잡초 뽑는 알바를 한다",
-            "target": {
-                "type": 1,
-                "value": [
-                    "SM_Env_Grass_02",
-                    "SM_Env_Grass_02 (1)",
-                    "SM_Env_Grass_01",
-                    "SM_Env_Grass_03 (5)"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Farming",
-            "time": 3,
-            "maxRef": -1,
-            "satisfactions": {
-                "HP": -2,
-                "gold": 6
-            }
-        },
-        {
-            "id": "basic-C-II-1",
-            "chain": "basic-C-II-2",
-            "type": 0,
-            "level": null,
-            "villageLevel": 6,
-            "title": "배달 알바 일감 받기",
-            "desc": "중국음식 배달 알바 하기",
-            "target": {
-                "type": 1,
-                "value": [
-                    "SM_Bld_Shop_Corner_06"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
+            "title": "Ability1",
+            "desc": "",
             "animation": "Strong",
             "time": 1,
-            "maxRef": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
             "satisfactions": {
-                "HP": -4,                
-                "gold": 8
-            }
+                "Ability1": 2
+            },
+            "satisfactionsRefusal": {}
         },
         {
-            "id": "basic-C-II-2",
-            "chain": null,
+            "id": "LD2-B1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Ability2",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Ability2": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD2-C1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Ability3",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Ability3": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD3-A1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Resource1",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Resource1": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD3-B1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Resource2",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Resource2": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD3-C1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Resource3",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Resource3": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD0-1",
+            "chain": "LD0-1-C",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Sight1",
+            "desc": "",
+            "animation": "Strong",
+            "time": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Sight": 2
+            },
+            "satisfactionsRefusal": {}
+        },
+        {
+            "id": "LD0-1-C",
+            "chain": "",
             "type": 2,
-            "level": null,
-            "villageLevel": 6,
-            "title": "배달 알바 배송완료",
-            "desc": "중국음식 배송 완료하기",
-            "target": {
-                "type": 2,
-                "value": [                    
-                    "NPC6-2"
-                ],
-                "interaction": {
-                    "type": 2,
-                    "taskId": "delivery_ack1"
-                }
-            },
-            "animation": "Levelup",
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Sight1 Chain",
+            "desc": "",
+            "animation": "Strong",
             "time": 1,
             "maxRef": -1,
-            "satisfactions": {
-                "HP": -4,                
-                "gold": 8
-            }
+            "target": {
+                "type": 1,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {}
         },
         {
-            "id": "1-A-I-1",
-            "chain": null,
+            "id": "LD4-1",
+            "chain": "",
             "type": 0,
-            "level": null,
-            "villageLevel": 7,
-            "title": "부티나는 주변인에게 선물주며 친한척 하기",
-            "desc": "주변에 가장 부티나는 사람에게 선물을 주며 괜히 친한척 한다",
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Leadership1",
+            "desc": "",
+            "animation": "Greeting",
+            "time": 1,
+            "maxRef": 1,
             "target": {
                 "type": 3,
                 "value": [
                     "1.Satisfaction.gold:max"
-                ],                
-                "interaction": {
-                    "type": 1,
-                    "taskId": "hello_ack"
-                }      
-            },
-            "animation": "Greeting",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {
-                "sense": 12,
-                "gold": -2,
-                "HP": -2
-            },
-            "satisfactionsRefusal": {
-                "MP": -4
-            }
-        }, 
-        {
-            "id": "1-B-I-1",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": 7,
-            "title": "아이돌 덕질 하기",
-            "desc": "아이돌 사무실 앞에서 덕질 하기",
-            "target": {
-                "type": 2,
-                "value": [
-                    "NPC5-1"
                 ],
                 "interaction": {
-                    "type": 0,
-                    "taskId": null
+                    "type": 1,
+                    "taskId": "LD4-1-I"
                 }
             },
-            "animation": "HandUp",
-            "time": 3,
-            "maxRef": -1,
             "satisfactions": {
-                "cute": 12,
-                "HP": -4,
-                "MP": -4                    
-            }
-        },    
-        {
-            "id": "1-C-I-1",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": 7,
-            "title": "고양이에게 생선 맡기기",
-            "desc": "고양이에게 생선을 맡긴다",
-            "target": {
-                "type": 2,
-                "value": [
-                    "NPC0-1"
-                ],                
-                "interaction": {
-                    "type": 1,
-                    "taskId": "cat_ack"
-                }      
+                "Leadership": 2
             },
-            "animation": "Greeting",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {
-                "sympathy": 12,
-                "gold": -2,
-                "MP": -2
-            },
-            "satisfactionsRefusal": {
-                "MP": -4
-            }
+            "satisfactionsRefusal": {}
         },
         {
-            "id": "2-A-I-1",
-            "chain": "2-A-I-1_CHAIN",
-            "type": 0,
-            "level": null,
-            "villageLevel": 8,
-            "title": "HP좋은 주변인 꼬셔서 스트릿 댄스 추러 가기",
-            "desc": "주변에 HP좋은 사람 찾아서 스트릿 댄스 추러 가자고 한다.",
-            "target": {
-                "type": 3,
-                "value": [
-                    "1.Satisfaction.HP:max"
-                ],                
-                "interaction": {
-                    "type": 1,
-                    "taskId": "2-A-I-1_ACK"
-                }      
-            },
-            "animation": "Greeting",
-            "time": 1,
-            "maxRef": 1,
-            "satisfactions": {
-                "MP": 4
-            },
-            "satisfactionsRefusal": {
-                "MP": -4
-            }
-        },
-        {
-            "id": "2-A-I-1_ACK",
-            "chain": "2-A-I-1_CHAIN",
+            "id": "LD4-1-I",
+            "chain": "",
             "type": 1,
-            "level": null,
-            "villageLevel": 8,
-            "title": "춤추러 가기 수락",
-            "desc": "같이 스트릿 댄스 추러 간다고 함",
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "Leadership1 Interaction",
+            "desc": "",
+            "animation": "Greeting",
+            "time": 1,
+            "maxRef": -1,
             "target": {
                 "type": 4,
-                "value": null,                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Strong",
-            "time": 1,
-            "maxRef": -1,
-            "satisfactions": {
-                "sense": 2
-            }
-        }, 
-        {
-            "id": "2-A-I-1_CHAIN",
-            "chain": null,
-            "type": 2,
-            "level": null,
-            "villageLevel": 8,
-            "title": "춤추러 가기",
-            "desc": "스트릿 댄스 추기",
-            "target": {
-                "type": 1,
                 "value": [
-                    "SM_Env_Sidewalk_362",
-                    "SM_Env_Sidewalk_349",
-                    "SM_Env_Sidewalk_57"
-                ],                
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }      
-            },
-            "animation": "Dancing",
-            "time": 3,
-            "maxRef": -1,
-            "satisfactions": {
-                "sense": 12,
-                "attraction": 12
-            }
-        }
-    ], 
-    "2": [
-        {
-            "id": "sell_hotdog",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "수줍게 핫도그 팔기",
-            "desc": "수줍게 핫도그를 판다",
-            "target": {
-                "type": 0,
-                "value": [
-                    "SM_Prop_HotdogStand_01"
+                    ""
                 ],
                 "interaction": {
                     "type": 0,
-                    "taskId": null
+                    "taskId": ""
                 }
             },
-            "animation": "Bashful",
-            "time": 50,
-            "maxRef": -1,
-            "satisfactions": {        
-                "HP": 0.1,            
-                "gold": 0.1
-            }
-        },
-        {
-            "id": "sell_hotdog_dancing",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "춤추며 핫도그 팔기",
-            "desc": "춤추며 핫도그를 판다",
-            "target": {
-                "type": 0,
-                "value": [
-                    "SM_Prop_HotdogStand_01"
-                ],
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
+            "satisfactions": {
+                "Friendship": 1
             },
-            "animation": "Dancing",
-            "time": 3,
-            "maxRef": -1,
-            "satisfactions": {                    
-                "HP": -0.5,
-                "gold": 0.5
-            }
-        }
-    ],
-    "3": [
-        {
-            "id": "free_pizza",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "무료 시식 피자 알바하기",
-            "desc": "수줍게 무료 시식 피자 알바하기",
-            "target": {
-                "type": 0,
-                "value": null,
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Bashful",
-            "time": 2,
-            "maxRef": -1,
-            "satisfactions": {        
-                "HP": 0.01,            
-                "MP": 0.01
-            }
-        }
-    ],
-    "4": [
-        {
-            "id": "sell_beer",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "공원에서 맥주팔기",
-            "desc": "춥추면 공원에서 맥주 팔기",
-            "target": {
-                "type": 0,
-                "value": null,
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Dancing",
-            "time": 8,
-            "maxRef": -1,
-            "satisfactions": {        
-                "HP": 0.01,            
-                "MP": 0.01
-            }
-        }
-    ],
-    "5": [
-        {
-            "id": "prevent_fan",
-            "chain": null,
-            "type": 0,
-            "level": null,
-            "villageLevel": -1,
-            "title": "아이돌 회사 입구 막기",
-            "desc": "팬들이 내부로 못 들어가게 막기",
-            "target": {
-                "type": 0,
-                "value": null,
-                "interaction": {
-                    "type": 0,
-                    "taskId": null
-                }
-            },
-            "animation": "Restrain",
-            "time": 8,
-            "maxRef": -1,
-            "satisfactions": {        
-                "HP": 0.01,            
-                "MP": 0.01
-            }
+            "satisfactionsRefusal": {}
         }
     ]
-}    
+}
