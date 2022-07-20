@@ -38,9 +38,27 @@ namespace ENGINE {
                     }
                     mVillage = villageInfo;
                 }
-                public void TaxCollection(Dictionary<string, Dictionary<string, Actor>> villageActor) {
+                public float GetLevelProgression(string villageId) {
+                    ConfigVillage_Detail villageInfo = mVillage[villageId];
+                    int villageLevel = mVillageLevel[villageId];
+
+                    float sum = 0;
+                    int cnt = 1;
+                    if(villageInfo.level.threshold.ContainsKey(villageLevel.ToString())) {
+                        var threshold = villageInfo.level.threshold[villageLevel.ToString()];
+                        cnt = threshold.Count;
+                        foreach(var sa in threshold) {
+                            if(mTax[villageId].ContainsKey(sa.Key)) {
+                                sum += MathF.Min(mTax[villageId][sa.Key] / sa.Value, 1.0f);
+                            }
+                        }
+                    }
+                    return sum / cnt;
+                }
+                public bool TaxCollection(Dictionary<string, Dictionary<string, Actor>> villageActor) {
                     long currentCount = CounterHandler.Instance.GetCount();
 
+                    bool ret = false; 
                     foreach(var village in villageActor) {
                         string villageId = village.Key;
                         ConfigVillage_Detail villageInfo = mVillage[villageId];
@@ -66,6 +84,8 @@ namespace ENGINE {
                                         mTax[villageId][satisfaction.Key] += val;
                                     else 
                                         mTax[villageId][satisfaction.Key] = val;
+                                    
+                                    ret = true;
                                 }
                             }
                             actor.Value.CallCallback(Actor.LOOP_STATE.TAX_COLLECTION);
@@ -94,6 +114,7 @@ namespace ENGINE {
                         }
                         
                     }
+                    return ret;
                 }
             }
             public class ActorHandler {
@@ -168,14 +189,17 @@ namespace ENGINE {
                     }
                     return null;
                 }
-                public void TaxCollection() {
-                    mTaxContext.TaxCollection(mDictVillage);
+                public bool TaxCollection() {
+                    return mTaxContext.TaxCollection(mDictVillage);
                 }
                 public ConfigVillage_Detail GetVillageInfo(string villageId) {
                     return mTaxContext.GetVillageInfo(villageId);
                 }
                 public int GetVillageLevel(string villageId) {
                     return mTaxContext.GetVillageLevel(villageId);
+                }
+                public float GetVillageProgression(string villageId) {
+                    return mTaxContext.GetLevelProgression(villageId);
                 }
             }
         }
