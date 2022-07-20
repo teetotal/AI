@@ -1,3 +1,4 @@
+from numpy import identity
 import pandas as pd
 import csv
 import json
@@ -29,7 +30,8 @@ def get_json_actor(arr):
             "value": arr[12]
         },
         "satisfactions": [], #arr[13]
-        "inventory": [] #arr[14]
+        "inventory": [], #arr[14]
+        "isFly": True if arr[15].upper() == 'TRUE' else False
     }
 
     #pets
@@ -89,7 +91,7 @@ def get_json_task(arr):
         "title": arr[5],
         "desc": arr[6],
         "animation": arr[7],
-        "time": int(arr[8]),
+        "animationRepeatTime": int(arr[8]),
         "maxRef": int(arr[9]),
         "target": {
             "type": int(arr[10]),
@@ -124,24 +126,46 @@ def get_json_task(arr):
             kv = s.split(':')
             j['satisfactionsRefusal'][kv[0]] = int(kv[1])
 
-    return j, int(arr[16]) #json, actor type
+    #script
+    script = []
+    if len(arr[17]) > 0:
+        script = arr[17].split('\n')
+    
+    script_refusal = None
+    if len(arr[18]) > 0:
+        script_refusal = arr[18].split('\n')
+
+    #json, actor type, id, script, script refusal
+    return j, int(arr[16]), arr[0], script, script_refusal
 
 def task():
     file = open('./task.csv')
     csvreader = csv.reader(file)
     header = next(csvreader)
 
-    json_objects = {}
+    json_task = {}
+    json_script = {
+        "scripts": {},
+        "refusal": {}
+    }
     for row in csvreader:
-        j, actor_type = get_json_task(row)
-        if actor_type in json_objects:
-            json_objects[actor_type].append(j)
+        j, actor_type, script_id, script, script_refusal = get_json_task(row)
+        if actor_type in json_task:
+            json_task[actor_type].append(j)
         else:
-            json_objects[actor_type] = [j]
+            json_task[actor_type] = [j]
+
+        json_script['scripts'][script_id] = script
+        if script_refusal != None:
+            json_script['refusal'][script_id] = script_refusal
     file.close()
 
-    sz = json.dumps(json_objects, indent=4)
+    sz = json.dumps(json_task, indent=4)
     with open('../config/task.json', 'w') as f:
+        f.write(sz)
+    
+    sz = json.dumps(json_script, indent=4)
+    with open('../config/script.json', 'w') as f:
         f.write(sz)
 
 export()

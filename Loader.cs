@@ -127,6 +127,7 @@ namespace ENGINE {
                 public List<float>? rotation { get; set; }      
                 public ConfigActor_Trigger? trigger { get; set; }          
                 public List<ConfigActor_Satisfaction>? satisfactions { get; set; }
+                public bool isFly { get; set; } = false;
             }
             public enum TRIGGER_TYPE {
                 NO_TRIGGER,
@@ -167,7 +168,7 @@ namespace ENGINE {
                 //Task에 의한 보상은 고정값으로 하고, %로 보상하는건 아이템 같은걸로 하자.
                 public ConfigTask_Target target { get; set; } = new ConfigTask_Target();
                 public string animation { get; set; } = string.Empty;
-                public int time { get; set; }
+                public int animationRepeatTime { get; set; }
                 //동시 실행 최대 값
                 public int maxRef { get; set; }
                 public Dictionary<string, float> satisfactions { get; set; } = new Dictionary<string, float>();

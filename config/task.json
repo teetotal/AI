@@ -9,12 +9,12 @@
             "title": "\ud56b\ub3c4\uadf8 \ud314\uae30",
             "desc": "",
             "animation": "Dancing",
-            "time": 2,
+            "animationRepeatTime": 2,
             "maxRef": -1,
             "target": {
                 "type": 0,
                 "value": [
-                    ""
+                    "SM_Env_GrassPath_Straight_04"
                 ],
                 "interaction": {
                     "type": 0,
@@ -40,14 +40,14 @@
             "title": "HP",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    "A",
-                    "B",
-                    "C"
+                    "SM_Env_Road_ParkingLines_01",
+                    "SM_Env_Road_ParkingLines_02",
+                    "SM_Env_Road_ParkingLines_03"
                 ],
                 "interaction": {
                     "type": 0,
@@ -71,12 +71,12 @@
             "title": "MP",
             "desc": "\ubb34\ub2f9\ud55c\ud14c \uc810\ubcf4\uae30",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Sidewalk_34"
                 ],
                 "interaction": {
                     "type": 0,
@@ -100,12 +100,12 @@
             "title": "Gold",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_01"
                 ],
                 "interaction": {
                     "type": 0,
@@ -129,12 +129,12 @@
             "title": "Ability1",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_03 (2)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -158,12 +158,12 @@
             "title": "Ability2",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_03 (4)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -187,12 +187,12 @@
             "title": "Ability3",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_03 (6)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -216,12 +216,12 @@
             "title": "Resource1",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_GrassPath_Straight_05"
                 ],
                 "interaction": {
                     "type": 0,
@@ -245,12 +245,12 @@
             "title": "Resource2",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_02 (1)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -274,12 +274,12 @@
             "title": "Resource3",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_02"
                 ],
                 "interaction": {
                     "type": 0,
@@ -303,12 +303,12 @@
             "title": "Sight1",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_Grass_03"
                 ],
                 "interaction": {
                     "type": 0,
@@ -332,12 +332,12 @@
             "title": "Sight1 Chain",
             "desc": "",
             "animation": "Strong",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    ""
+                    "SM_Env_GrassPath_Corner_03"
                 ],
                 "interaction": {
                     "type": 0,
@@ -359,7 +359,7 @@
             "title": "Leadership1",
             "desc": "",
             "animation": "Greeting",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": 1,
             "target": {
                 "type": 3,
@@ -388,7 +388,7 @@
             "title": "Leadership1 Interaction",
             "desc": "",
             "animation": "Greeting",
-            "time": 1,
+            "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 4,

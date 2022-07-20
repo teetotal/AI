@@ -36,7 +36,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC2-1": {
         "enable": true,
@@ -75,7 +76,8 @@
                 "value": 0
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC3-1": {
         "enable": true,
@@ -114,7 +116,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC4-1": {
         "enable": true,
@@ -153,7 +156,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC5-1": {
         "enable": true,
@@ -192,7 +196,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC6-1": {
         "enable": true,
@@ -231,7 +236,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "NPC7-1": {
         "enable": true,
@@ -270,7 +276,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": true
     },
     "PET1-1": {
         "enable": true,
@@ -309,7 +316,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "ACTOR1-1": {
         "enable": true,
@@ -348,7 +356,8 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     },
     "ACTOR1-2": {
         "enable": true,
@@ -387,6 +396,7 @@
                 "value": 10
             }
         ],
-        "inventory": []
+        "inventory": [],
+        "isFly": false
     }
 }
