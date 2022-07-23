@@ -3,13 +3,13 @@
         "top": 3,
         "quests": [
             {
-                "id": "basic_quest_1",
-                "title": "돈이 최고1",
-                "desc": "Gold 10모으기",                
+                "id": "quest1-1",
+                "title": "HP +16",
+                "desc": "HP 충전 16",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:Gold",
-                        "value": 10
+                        "key": "Satisfaction:HP",
+                        "value": 16
                     }
                 ],
                 "rewards": [
@@ -20,13 +20,13 @@
                 ]
             },
             {
-                "id": "basic_quest_2",
-                "title": "돈이 최고2",
-                "desc": "Gold 20모으기",                
+                "id": "quest1-2",
+                "title": "MP +16",
+                "desc": "MP 충전 16",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:Gold",
-                        "value": 20
+                        "key": "Satisfaction:MP",
+                        "value": 16
                     }
                 ],
                 "rewards": [
@@ -37,13 +37,115 @@
                 ]
             },
             {
-                "id": "basic_quest_3",
-                "title": "돈이 최고3",
-                "desc": "Gold 30모으기",                
+                "id": "quest2-1",
+                "title": "Ability1 +16",
+                "desc": "Ability1 +16",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:Gold",
-                        "value": 30
+                        "key": "Satisfaction:Ability1",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "quest2-2",
+                "title": "Ability2 +16",
+                "desc": "Ability2 +16",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Ability2",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "quest2-3",
+                "title": "Ability3 +16",
+                "desc": "Ability3 +16",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Ability3",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "quest3-1",
+                "title": "Resource1 +16",
+                "desc": "Resource1 +16",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Resource1",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "quest3-2",
+                "title": "Resource2 +16",
+                "desc": "Resource2 +16",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Resource2",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "Resource3-3",
+                "title": "Resource3 +16",
+                "desc": "Resource3 +16",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Resource3",
+                        "value": 16
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "item1",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "Sight1",
+                "title": "Sight +4",
+                "desc": "Sight +4",                
+                "values": [
+                    {                        
+                        "key": "Satisfaction:Sight",
+                        "value": 4
                     }
                 ],
                 "rewards": [
