@@ -47,7 +47,7 @@
         "nickname": "\ud56b\ub3c4\uadf8\uc544\uc800\uc528",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/actor7",
+        "prefab": "Actors/npc7",
         "position": [
             85.0,
             0.0,
@@ -87,7 +87,7 @@
         "nickname": "\ubb34\ub8cc \ud53c\uc790 \uc2dc\uc2dd \uc54c\ubc14",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/actor5",
+        "prefab": "Actors/npc5",
         "position": [
             44.0,
             0.0,
@@ -127,7 +127,7 @@
         "nickname": "\ub9e5\uc8fc\ud30c\ub294 \uc778\uc2f8",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/actor8",
+        "prefab": "Actors/npc8",
         "position": [
             51.0,
             0.0,
@@ -154,6 +154,12 @@
                 "min": 0,
                 "max": 100,
                 "value": 10
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 10,
+                "max": 20,
+                "value": 100
             }
         ],
         "inventory": [],
@@ -345,14 +351,74 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 15,
-                "max": 90,
-                "value": 85
+                "min": 27,
+                "max": 50,
+                "value": 30
             },
             {
                 "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
                 "min": 0,
-                "max": 100,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
                 "value": 10
             }
         ],
@@ -385,14 +451,774 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 15,
-                "max": 90,
-                "value": 85
+                "min": 27,
+                "max": 50,
+                "value": 30
             },
             {
                 "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
                 "min": 0,
-                "max": 100,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-3": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\ud3ec\uadf8\ub2c8",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor3",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-4": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\uae40\ubc25\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor4",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-5": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\uc778\uc808\ubbf8",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor5",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-6": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\uc131\uc2e4\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor6",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-7": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\ucb48\ub155\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor7",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-8": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\uace0\uae30\ubd09",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor8",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            }
+        ],
+        "inventory": [],
+        "isFly": false
+    },
+    "ACTOR1-9": {
+        "enable": true,
+        "village": "village1",
+        "follower": false,
+        "type": 1,
+        "nickname": "\uceac\uc639\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/actor9",
+        "position": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 27,
+                "max": 50,
+                "value": 30
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 50,
+                "value": 21
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Ability3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource2",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Resource3",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Sight",
+                "min": 20,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Leadership",
+                "min": 0,
+                "max": 50,
+                "value": 10
+            },
+            {
+                "satisfactionId": "Friendship",
+                "min": 0,
+                "max": 50,
                 "value": 10
             }
         ],

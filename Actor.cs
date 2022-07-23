@@ -210,7 +210,11 @@ namespace ENGINE {
                 // Actor id, Satisfaction id, amount
                 private Dictionary<string, Dictionary<string, float>> mRelation = new Dictionary<string, Dictionary<string, float>>();                
                 //Task ------------------------------------------------------------------------------------------------
-                private TaskContext mTaskContext = new TaskContext();                
+                private TaskContext mTaskContext = new TaskContext();     
+                //표준편차 구하기 위한 임시 list 
+                private List<float> mTaskTempExpectValueList = new List<float>();
+                //refusal 표준편차용
+                private List<float> mTaskTempRefusalExpectValueList = new List<float>();
                 //Quest -----------------------------------------------------------------------------------------------
                 private QuestContext mQuestContext = new QuestContext();
                 //Item ------------------------------------------------------------------------------------------------
@@ -644,7 +648,7 @@ namespace ENGINE {
                 }
                 public void ApplySatisfaction(string satisfactionId, float amount, int measure, string? from, bool skipAccumulation = false) {
                     if(mSatisfaction.ContainsKey(satisfactionId) == false) {
-                        throw new Exception("Invalid Satisfaction. " + satisfactionId);
+                        throw new Exception("Invalid Satisfaction. " + satisfactionId + " " + mUniqueId);
                     }
 
                     float value;
@@ -709,13 +713,18 @@ namespace ENGINE {
                     if(taskSatisfaction == null)
                         return float.MinValue;
                         
+                    mTaskTempExpectValueList.Clear();
+                    mTaskTempRefusalExpectValueList.Clear();
                     float val, normVal;
+
                     foreach(var p in mSatisfaction) {
+                        //task reward
                         val = p.Value.Value;
                         if(taskSatisfaction.Item1.ContainsKey(p.Key)) {
                             val += taskSatisfaction.Item1[p.Key];
                         }
                         normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        mTaskTempExpectValueList.Add(normVal);
                         sum += normVal;
 
                         //refusal
@@ -724,11 +733,28 @@ namespace ENGINE {
                             val += taskSatisfaction.Item2[p.Key];
                         }
                         normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        mTaskTempRefusalExpectValueList.Add(normVal);
                         sumRefusal += normVal;
                     }
 
+                    //std
+                    float avg = sum / mSatisfaction.Count;
+                    float std = 0;
+                    for(int i=0; i < mTaskTempExpectValueList.Count; i++) {
+                        std += MathF.Pow(mTaskTempExpectValueList[i] - avg, 2);
+                    }
+                    std = MathF.Sqrt(std / mSatisfaction.Count);
+
+                    //std refusal
+                    float avgRefusal = sumRefusal / mSatisfaction.Count;
+                    float stdRefusal = 0;
+                    for(int i=0; i < mTaskTempRefusalExpectValueList.Count; i++) {
+                        stdRefusal += MathF.Pow(mTaskTempRefusalExpectValueList[i] - avgRefusal, 2);
+                    }
+                    stdRefusal = MathF.Sqrt(stdRefusal / mSatisfaction.Count);
+
                     if(taskSatisfaction.Item2.Count == 0)
-                        return sum / mSatisfaction.Count;
+                        return avg / std;
                     else {
                         /*
                         기대값 
@@ -742,7 +768,7 @@ namespace ENGINE {
                             throw new Exception("Invalid target info. the target of [" + fn.mTaskTitle + "] must ACTOR. " + target.Item1.ToString());
                         }
                         float expectedWeight = GetExpectedWeight(target.Item2);
-                        float ret = ((sum / mSatisfaction.Count) * expectedWeight) + ((sumRefusal / mSatisfaction.Count) * (1.0f - expectedWeight)); 
+                        float ret = ((avg / std) * expectedWeight) + ((avgRefusal / stdRefusal) * (1.0f - expectedWeight)); 
                         return ret;
                     }
                 }
@@ -754,6 +780,18 @@ namespace ENGINE {
                 private float GetNormValue(Satisfaction p) {
                     return GetNormValue(p.Value, p.Min, p.Max);
                 }
+                private float GetNormValue(float value, float min, float max) {   
+                    float v = (value - min) / (max - min);
+                    if(value > max)
+                        return 1;
+                    else if(v < 0) {
+                        return v * 2;
+                    }
+                    else {
+                        return v; 
+                    }
+                }
+                /*
                 private float GetNormValue(float value, float min, float max) {                    
                     float v = value;
                     if(value > max) {
@@ -770,7 +808,7 @@ namespace ENGINE {
                     }
 
                     return v / max;
-                }
+                }*/
                 /*
                 //return satisfaction id                
                 public Tuple<string, float> GetMotivation()

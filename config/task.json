@@ -4,7 +4,10 @@
             "id": "NPC-102",
             "chain": "",
             "type": 0,
-            "level": [],
+            "level": [
+                1,
+                100
+            ],
             "villageLevel": 1,
             "title": "\ud56b\ub3c4\uadf8 \ud314\uae30",
             "desc": "",
@@ -14,7 +17,38 @@
             "target": {
                 "type": 0,
                 "value": [
-                    "SM_Env_GrassPath_Straight_04"
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Gold": 1
+            },
+            "satisfactionsRefusal": {}
+        }
+    ],
+    "104": [
+        {
+            "id": "NPC-104",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                100
+            ],
+            "villageLevel": 1,
+            "title": "\ub9e5\uc8fc \ud314\uae30",
+            "desc": "",
+            "animation": "Dancing",
+            "animationRepeatTime": 2,
+            "maxRef": -1,
+            "target": {
+                "type": 0,
+                "value": [
+                    ""
                 ],
                 "interaction": {
                     "type": 0,
@@ -45,9 +79,7 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "SM_Env_Road_ParkingLines_01",
-                    "SM_Env_Road_ParkingLines_02",
-                    "SM_Env_Road_ParkingLines_03"
+                    "SM_Env_Grass_01"
                 ],
                 "interaction": {
                     "type": 0,
@@ -55,7 +87,7 @@
                 }
             },
             "satisfactions": {
-                "HP": 2
+                "HP": 4
             },
             "satisfactionsRefusal": {}
         },
@@ -84,7 +116,7 @@
                 }
             },
             "satisfactions": {
-                "MP": 2
+                "MP": 4
             },
             "satisfactionsRefusal": {}
         },
@@ -105,7 +137,9 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "SM_Env_Grass_01"
+                    "SM_Env_Road_ParkingLines_01",
+                    "SM_Env_Road_ParkingLines_02",
+                    "SM_Env_Road_ParkingLines_03"
                 ],
                 "interaction": {
                     "type": 0,
@@ -113,7 +147,7 @@
                 }
             },
             "satisfactions": {
-                "Gold": 2
+                "Gold": 4
             },
             "satisfactionsRefusal": {}
         },
@@ -142,7 +176,8 @@
                 }
             },
             "satisfactions": {
-                "Ability1": 2
+                "Ability1": 4,
+                "HP": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -171,7 +206,8 @@
                 }
             },
             "satisfactions": {
-                "Ability2": 2
+                "Ability2": 4,
+                "MP": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -200,7 +236,8 @@
                 }
             },
             "satisfactions": {
-                "Ability3": 2
+                "Ability3": 4,
+                "HP": -1
             },
             "satisfactionsRefusal": {}
         },
@@ -229,7 +266,8 @@
                 }
             },
             "satisfactions": {
-                "Resource1": 2
+                "Resource1": 4,
+                "Ability1": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -258,7 +296,8 @@
                 }
             },
             "satisfactions": {
-                "Resource2": 2
+                "Resource2": 4,
+                "Ability2": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -287,7 +326,8 @@
                 }
             },
             "satisfactions": {
-                "Resource3": 2
+                "Resource3": 4,
+                "Ability3": -2
             },
             "satisfactionsRefusal": {}
         },

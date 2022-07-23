@@ -4,34 +4,34 @@
         "desc": "귀여운 마을",
         "collectionDuration": 20,
         "finances": {
-            "gold": 0
+            "Gold": 0
         },
         "tax": {
-            "gold": 0.1
+            "Gold": 0.1
          },
         "level": {
             "current": 1,
             "threshold": {
                 "1": {
-                    "gold": 30
+                    "Gold": 30
                 },
                 "2": {
-                    "gold": 60
+                    "Gold": 60
                 },
                 "3": {
-                    "gold": 90
+                    "Gold": 90
                 },
                 "4": {
-                    "gold": 120
+                    "Gold": 120
                 },
                 "5": {
-                    "gold": 150
+                    "Gold": 150
                 },
                 "6": {
-                    "gold": 200
+                    "Gold": 200
                 },
                 "7": {
-                    "gold": 250
+                    "Gold": 250
                 }
             }
         }

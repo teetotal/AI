@@ -8,7 +8,7 @@
                 "desc": "Gold 10모으기",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:gold",
+                        "key": "Satisfaction:Gold",
                         "value": 10
                     }
                 ],
@@ -25,7 +25,7 @@
                 "desc": "Gold 20모으기",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:gold",
+                        "key": "Satisfaction:Gold",
                         "value": 20
                     }
                 ],
@@ -42,7 +42,7 @@
                 "desc": "Gold 30모으기",                
                 "values": [
                     {                        
-                        "key": "Satisfaction:gold",
+                        "key": "Satisfaction:Gold",
                         "value": 30
                     }
                 ],

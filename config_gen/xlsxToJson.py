@@ -10,6 +10,9 @@ def export():
     sheets = all_sheets.keys()
 
     for sheet_name in sheets:
+        if sheet_name[:5].upper() == 'SHEET':
+            continue
+        
         sheet = pd.read_excel(excel_file, sheet_name=sheet_name)
         sheet.to_csv("./%s.csv" % sheet_name, index=False)
 
@@ -117,6 +120,8 @@ def get_json_task(arr):
         satisfactions = arr[14].split(',')
         for s in satisfactions:
             kv = s.split(':')
+            if len(kv) != 2:
+                continue
             j['satisfactions'][kv[0]] = int(kv[1])
 
     #satisfactionsRefusal
@@ -124,6 +129,8 @@ def get_json_task(arr):
         satisfactionsRefusal = arr[15].split(',')
         for s in satisfactionsRefusal:
             kv = s.split(':')
+            if len(kv) != 2:
+                continue
             j['satisfactionsRefusal'][kv[0]] = int(kv[1])
 
     #script
