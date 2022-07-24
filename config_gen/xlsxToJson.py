@@ -237,21 +237,32 @@ def item():
                 "type": int(arr[8]),
                 "expire": int(arr[9])
             },
-            "satisfaction": [
-                {
-                    "satisfactionId": arr[10],
-                    "min": int(arr[11]),
-                    "max": int(arr[12]),
-                    "value": int(arr[13]),
-                    "measure": {
-                        "min": int(arr[14]),
-                        "max": int(arr[15]),
-                        "value": int(arr[16])
-                    }
-                }
-            ],        
+            "satisfaction": [],        
             "draft": [] #arr[17]
         }
+        #satisfaction
+        if len(arr[10]) > 0:
+            s_id = arr[10].split('\n')
+            s_min = arr[11].split('\n')
+            s_max = arr[12].split('\n')
+            s_val = arr[13].split('\n')
+            s_m_min = arr[14].split('\n')
+            s_m_max = arr[15].split('\n')
+            s_m_val = arr[16].split('\n')
+            for i in range(len(s_id)):
+                s = {
+                    "satisfactionId": s_id[i],
+                    "min": int(s_min[i]),
+                    "max": int(s_max[i]),
+                    "value": int(s_val[i]),
+                    "measure": {
+                        "min": int(s_m_min[i]),
+                        "max": int(s_m_max[i]),
+                        "value": int(s_m_val[i])
+                    }
+                }
+                j['satisfaction'].append(s)
+
         #arr[17]
         rows = arr[17].split('\n')
         for row in rows:
@@ -271,18 +282,67 @@ def item():
 
     write(json_object, 'item.json')
 
+#--------------------------------------------------------------------------------
+def level():
+    def get_json_level(arr):
+        j = {
+            "level": arr[1],
+            "title": arr[2],
+            "next": {
+                "threshold": [], #arr[3]
+                "rewards": [] #arr[4]
+            }
+        }
+        #threshold
+        if len(arr[3]) > 0:
+            threshold = arr[3].split('\n')
+            for p in threshold:
+                kv = p.split(',')
+                j['next']['threshold'].append({
+                    "key": kv[0],
+                    "value": int(kv[1])
+                })
+        
+        if len(arr[4]) > 0:
+            reward = arr[4].split('\n')
+            for p in reward:
+                kv = p.split(',')
+                j['next']['rewards'].append({
+                    "itemId": kv[0],
+                    "quantity": int(kv[1])
+                })
+        return arr[0], j
+
+    file, csvreader = read('level.csv')
+    json_object = {}
+    for row in csvreader:
+        actor_type, j = get_json_level(row)
+        if actor_type in json_object:
+            json_object[actor_type]['levels'].append(j)
+        else:
+            json_object[actor_type] = {
+                "startLevel": 1,   
+                "levels": [j]
+            }
+    file.close()
+
+    write(json_object, 'level.json')
+
 export()
 print('exported')
+level()
+print('gen level')
+item()
+print('gen item')
 actors()
 print('gen actors')
 task()
 print('gen task')
 quest()
 print('gen quest')
-item()
-print('gen item')
 os.remove('./task.csv')
 os.remove('./actors.csv')
 os.remove('./quest.csv')
 os.remove('./item.csv')
+os.remove('./level.csv')
 print('removed csv files')

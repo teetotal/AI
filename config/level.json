@@ -1,95 +1,187 @@
 {
     "1": {
-        "startLevel": 1,    
+        "startLevel": 1,
         "levels": [
             {
-                "level": 1,
-                "title": "낯선자",
+                "level": "1",
+                "title": "lv.1",
                 "next": {
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 8
-                        }
-                    ],
-                    "rewards": [
-                        {
-                            "itemId": "item1",
-                            "quantity": 1
-                        },
-                        {
-                            "itemId": "itemLevelup1",
-                            "quantity": 1
-                        }
-                    ]
-                }
-            },
-            {
-                "level": 2,
-                "title": "익숙한자",
-                "next": {
-                    "threshold": [
-                        {
-                            "key": "TaskCounter",
-                            "value": 16
-                        },
-                        {
-                            "key": "Satisfaction.gold",
                             "value": 10
                         }
                     ],
                     "rewards": [
                         {
-                            "itemId": "item1",
-                            "quantity": 20
+                            "itemId": "LEVELUP-1",
+                            "quantity": 1
                         }
                     ]
                 }
             },
             {
-                "level": 3,
-                "title": "능숙한자",
+                "level": "2",
+                "title": "lv.2",
                 "next": {
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 32
-                        },
-                        {
-                            "key": "Satisfaction.gold",
                             "value": 20
                         }
                     ],
                     "rewards": [
                         {
-                            "itemId": "item1",
-                            "quantity": 20
+                            "itemId": "LEVELUP-2",
+                            "quantity": 1
                         }
                     ]
                 }
             },
             {
-                "level": 4,
-                "title": "더능숙한자",
+                "level": "3",
+                "title": "lv.3",
                 "next": {
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 64
-                        },
-                        {
-                            "key": "Satisfaction.gold",
                             "value": 40
                         }
                     ],
                     "rewards": [
                         {
-                            "itemId": "item1",
-                            "quantity": 20
+                            "itemId": "LEVELUP-3",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "4",
+                "title": "lv.4",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 80
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-4",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "5",
+                "title": "lv.5",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 100
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-5",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "6",
+                "title": "lv.6",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 200
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-6",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "7",
+                "title": "lv.7",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 300
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-7",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "8",
+                "title": "lv.8",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 400
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-8",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "9",
+                "title": "lv.9",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 500
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-9",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "level": "10",
+                "title": "lv.10",
+                "next": {
+                    "threshold": [
+                        {
+                            "key": "TaskCounter",
+                            "value": 600
+                        }
+                    ],
+                    "rewards": [
+                        {
+                            "itemId": "LEVELUP-10",
+                            "quantity": 1
                         }
                     ]
                 }
             }
         ]
-    }    
+    }
 }

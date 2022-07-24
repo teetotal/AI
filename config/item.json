@@ -1,4 +1,494 @@
 {
+    "LEVELUP-1": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-2": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-3": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-4": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-5": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-6": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-7": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-8": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-9": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "LEVELUP-10": {
+        "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            },
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 5,
+                "value": 0,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
     "I1-1-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
