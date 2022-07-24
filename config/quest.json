@@ -3,154 +3,171 @@
         "top": 3,
         "quests": [
             {
-                "id": "quest1-1",
-                "title": "HP +16",
-                "desc": "HP 충전 16",                
+                "id": "Q1-1-1",
+                "title": "\uccb4\ub825 +16 ",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:HP",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-1-1",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest1-2",
-                "title": "MP +16",
-                "desc": "MP 충전 16",                
+                "id": "Q1-1-2",
+                "title": "\uc815\uc2e0\ub825 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:MP",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-1-2",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest2-1",
-                "title": "Ability1 +16",
-                "desc": "Ability1 +16",                
+                "id": "Q1-2-1",
+                "title": "\uc0dd\uc0b0\ub8251 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Ability1",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-2-1",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest2-2",
-                "title": "Ability2 +16",
-                "desc": "Ability2 +16",                
+                "id": "Q1-2-2",
+                "title": "\uc0dd\uc0b0\ub8252 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Ability2",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-2-2",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest2-3",
-                "title": "Ability3 +16",
-                "desc": "Ability3 +16",                
+                "id": "Q1-2-3",
+                "title": "\uc0dd\uc0b0\ub8253 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Ability3",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-2-3",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest3-1",
-                "title": "Resource1 +16",
-                "desc": "Resource1 +16",                
+                "id": "Q1-3-1",
+                "title": "\uc790\uc6d01 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Resource1",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-3-1",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "quest3-2",
-                "title": "Resource2 +16",
-                "desc": "Resource2 +16",                
+                "id": "Q1-3-2",
+                "title": "\uc790\uc6d02 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Resource2",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-3-2",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "Resource3-3",
-                "title": "Resource3 +16",
-                "desc": "Resource3 +16",                
+                "id": "Q1-3-3",
+                "title": "\uc790\uc6d03 +16",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Resource3",
                         "value": 16
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-3-3",
                         "quantity": 1
                     }
                 ]
             },
             {
-                "id": "Sight1",
-                "title": "Sight +4",
-                "desc": "Sight +4",                
+                "id": "Q1-0",
+                "title": "\uc2dc\uc57c +4",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
                 "values": [
-                    {                        
+                    {
                         "key": "Satisfaction:Sight",
                         "value": 4
                     }
                 ],
                 "rewards": [
                     {
-                        "itemId": "item1",
+                        "itemId": "I1-0",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "Q1-4",
+                "title": "\ub9ac\ub354\uc2ed +4",
+                "desc": "\ubcf4\uc0c1: \uace8\ub4dc 12",
+                "values": [
+                    {
+                        "key": "Satisfaction:Leadership",
+                        "value": 4
+                    }
+                ],
+                "rewards": [
+                    {
+                        "itemId": "I1-4",
                         "quantity": 1
                     }
                 ]

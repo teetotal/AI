@@ -33,20 +33,7 @@ namespace ENGINE {
                 }
             }  
             public class Actor {    
-                public delegate void Callback(LOOP_STATE type, Actor actor);
-                public enum ITEM_INVOKE_TYPE : int {
-                    IMMEDIATELY = 0,
-                    INVENTORY
-                }
-                public enum ITEM_INVOKE_EXPIRE : int {
-                    FOREVER = 0,
-                    LIMITED
-                }
-                public enum ITEM_SATISFACTION_MEASURE : int {
-                    ABSOLUTE  = 0,
-                    PERCENT,
-                    INCREASE
-                }       
+                public delegate void Callback(LOOP_STATE type, Actor actor);     
                 public enum TASKCONTEXT_TARGET_TYPE {
                     INVALID,
                     NON_TARGET,
@@ -661,7 +648,7 @@ namespace ENGINE {
                         break;
                     }
                     //Max를 초과할 수 없다
-                    value = MathF.Min(mSatisfaction[satisfactionId].Max, value);
+                    value = MathF.Min(mSatisfaction[satisfactionId].Max - mSatisfaction[satisfactionId].Value, value);
 
                     mSatisfaction[satisfactionId].Value += value;
                     //quest를 위한 누적 집계. +만 집계한다. skipAccumulation값은 보상에 의한 건 skip하기 위한 flag
@@ -992,6 +979,7 @@ namespace ENGINE {
                         if(item.satisfaction != null) {
                             for(int i = 0; i < quantity; i++)
                                 this.ApplyItemSatisfaction(item.satisfaction);
+                            
                         }                        
                         break;
                         case ITEM_INVOKE_TYPE.INVENTORY:                        
@@ -1084,13 +1072,13 @@ namespace ENGINE {
                         //value
                         switch((ITEM_SATISFACTION_MEASURE)p.measure.value) {
                             case ITEM_SATISFACTION_MEASURE.ABSOLUTE:
-                            mSatisfaction[p.satisfactionId].Value = p.value;
+                            mSatisfaction[p.satisfactionId].Value = MathF.Min(p.value, mSatisfaction[p.satisfactionId].Max);
                             break;
                             case ITEM_SATISFACTION_MEASURE.PERCENT:
-                            mSatisfaction[p.satisfactionId].Value += (mSatisfaction[p.satisfactionId].Value * (p.value / 100));
+                            mSatisfaction[p.satisfactionId].Value += MathF.Min((mSatisfaction[p.satisfactionId].Value * (p.value / 100)), mSatisfaction[p.satisfactionId].Max - mSatisfaction[p.satisfactionId].Value);
                             break;
                             case ITEM_SATISFACTION_MEASURE.INCREASE:
-                            mSatisfaction[p.satisfactionId].Value += p.value;
+                            mSatisfaction[p.satisfactionId].Value += MathF.Min(p.value, mSatisfaction[p.satisfactionId].Max - mSatisfaction[p.satisfactionId].Value);
                             break;
                         }                                                
                     }

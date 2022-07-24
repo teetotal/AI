@@ -1,60 +1,272 @@
 {
-    "item1": {
-        "name": "무기1",
-        "desc": "Sample용 무기",
-        "category": "무기",
-        "type": "공격",
-        "level": 1,
-        "cost": 10,        
-        "installationKey": "weapon:attack:hand",
-        "invoke": {
-            "type": 1,
-            "expire": 0
-        },
-        "satisfaction": [
-            {
-                "satisfactionId": "1",
-                "min": 10,
-                "max": 10,
-                "value": 10,
-                "measure": {
-                    "min": 0,
-                    "max": 0,
-                    "value": 0
-                }
-            }
-        ],        
-        "draft": [
-            [50, 100],
-            [150, 200],
-            [250, 300]
-        ] 
-    },
-    "itemLevelup1": {
-        "name": "레벨업보상",
+    "I1-1-1": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
         "category": "",
         "type": "",
         "level": 1,
-        "cost": 10,        
-        "installationKey": null,
+        "cost": 0,
+        "installationKey": "",
         "invoke": {
             "type": 0,
             "expire": 0
         },
         "satisfaction": [
             {
-                "satisfactionId": "101",
-                "min": 10,
-                "max": 100,
-                "value": 10,
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
                 "measure": {
-                    "min": 0,
-                    "max": 0,
+                    "min": 2,
+                    "max": 2,
                     "value": 2
                 }
             }
-        ],        
-        "draft": null
+        ],
+        "draft": []
+    },
+    "I1-1-2": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-2-1": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-2-2": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-2-3": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-3-1": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-3-2": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-3-3": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-0": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
+    },
+    "I1-4": {
+        "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
+        "desc": "",
+        "category": "",
+        "type": "",
+        "level": 1,
+        "cost": 0,
+        "installationKey": "",
+        "invoke": {
+            "type": 0,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
     }
 }

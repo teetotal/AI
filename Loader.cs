@@ -53,6 +53,19 @@ namespace ENGINE {
             }
             */            
             //Item ---------------------------------------------------------------    
+            public enum ITEM_INVOKE_TYPE : int {
+                IMMEDIATELY = 0,
+                INVENTORY
+            }
+            public enum ITEM_INVOKE_EXPIRE : int {
+                FOREVER = 0,
+                LIMITED
+            }
+            public enum ITEM_SATISFACTION_MEASURE : int {
+                ABSOLUTE  = 0,
+                PERCENT,
+                INCREASE
+            }  
             public class ConfigItem_Detail {
                 public string? name { get; set; }
                 public string? desc { get; set; }                
@@ -66,7 +79,7 @@ namespace ENGINE {
                 public List<int[]>? draft { get; set; }
             }
             public class ConfigItem_Invoke {
-                public int type { get; set; }
+                public ITEM_INVOKE_TYPE type { get; set; }
                 public int expire { get; set; }
             }
             public class ConfigItem_Satisfaction {
@@ -78,9 +91,9 @@ namespace ENGINE {
 
             }
             public class ConfigItem_Satisfaction_Measure {
-                public int min { get; set; }
-                public int max { get; set; }
-                public int value { get; set; }
+                public ITEM_SATISFACTION_MEASURE min { get; set; }
+                public ITEM_SATISFACTION_MEASURE max { get; set; }
+                public ITEM_SATISFACTION_MEASURE value { get; set; }
                 
             }
             //happening -----------------------------------------------------------

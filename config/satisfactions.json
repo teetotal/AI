@@ -2,7 +2,7 @@
     "HP": {
         "title": "체력",
         "discharge": 1,
-        "period": 10,
+        "period": 30,
         "seed": {
             "min": 20,
             "max": 50,
@@ -10,7 +10,7 @@
         }
     },
     "MP": {
-        "title": "멘탈",
+        "title": "정신력",
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -20,7 +20,7 @@
         }
     },     
     "Gold": {
-        "title": "돈",
+        "title": "골드",
         "discharge": 0,
         "period": 0,
         "seed": {
