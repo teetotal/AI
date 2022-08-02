@@ -9,7 +9,7 @@
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 10
+                            "value": 8
                         }
                     ],
                     "rewards": [
@@ -27,7 +27,7 @@
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 20
+                            "value": 16
                         }
                     ],
                     "rewards": [
@@ -45,7 +45,7 @@
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 40
+                            "value": 32
                         }
                     ],
                     "rewards": [
@@ -63,7 +63,7 @@
                     "threshold": [
                         {
                             "key": "TaskCounter",
-                            "value": 80
+                            "value": 64
                         }
                     ],
                     "rewards": [

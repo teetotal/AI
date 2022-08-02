@@ -353,73 +353,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             }
         ],
         "inventory": [],
@@ -453,73 +453,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 1
             }
         ],
         "inventory": [],
@@ -553,73 +553,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 2
             }
         ],
         "inventory": [],
@@ -653,73 +653,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 3
             }
         ],
         "inventory": [],
@@ -753,73 +753,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 4
             }
         ],
         "inventory": [],
@@ -853,73 +853,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 5
             }
         ],
         "inventory": [],
@@ -953,73 +953,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 6
             }
         ],
         "inventory": [],
@@ -1053,73 +1053,73 @@
                 "satisfactionId": "HP",
                 "min": 27,
                 "max": 50,
-                "value": 30
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 21
+                "value": 8
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "Ability1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Sight",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Leadership",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 10
+                "value": 7
             }
         ],
         "inventory": [],

@@ -10,12 +10,29 @@ namespace ENGINE {
             public class TaskDefaultFn : FnTask {        
                 Random mRandom = new Random();        
                 const float DISTANCE_MAX = 40;
+                private string template = "<size=100%>{title}</size>\n<size=80%>{desc} <color=#E4CA44>{satisfaction}</color></size>";
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
-                }     
+                    SetTaskString();
+                }   
+                private void SetTaskString() {
+                    this.mTaskString = this.template.Replace("{title}", this.mTaskTitle);
+                    this.mTaskString = this.mTaskString.Replace("{desc}", this.mTaskDesc);
+                    string satisfaction = String.Empty;
+                    foreach(var s in mInfo.satisfactions) {
+                        satisfaction += SatisfactionDefine.Instance.GetTitle(s.Key);
+                        satisfaction += " ";
+                        if(s.Value > 0) {
+                            satisfaction += "+";
+                        }
+                        satisfaction += s.Value.ToString();
+                        satisfaction += " ";
+                    }
+                    this.mTaskString = this.mTaskString.Replace("{satisfaction}", satisfaction);
+                }  
                 public override Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor) {
                     Actor.TASKCONTEXT_TARGET_TYPE type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
                     string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];                    
@@ -72,14 +89,14 @@ namespace ENGINE {
                     Dictionary<string, float> refusal = new Dictionary<string, float>();
 
                     while(p != null) {
-                        var s = p.GetSatisfactions(actor);
+                        var s = p.GetSatisfactions();
                         foreach(var kv in s) {
                             if(satisfaction.ContainsKey(kv.Key))
                                 satisfaction[kv.Key] += kv.Value;
                             else
                                 satisfaction[kv.Key] = kv.Value;
                         }
-                        var r = p.GetSatisfactionsRefusal(actor);
+                        var r = p.GetSatisfactionsRefusal();
                         foreach(var kv in r) {
                             if(refusal.ContainsKey(kv.Key))
                                 refusal[kv.Key] += kv.Value;
@@ -93,13 +110,13 @@ namespace ENGINE {
                     }
                     return new Tuple<Dictionary<string, float>, Dictionary<string, float>>(satisfaction, refusal);
                 }
-                public override Dictionary<string, float> GetSatisfactions(Actor actor) {
+                public override Dictionary<string, float> GetSatisfactions() {
                     if(mInfo != null && mInfo.satisfactions != null) {
                         return mInfo.satisfactions;
                     }
                     return new Dictionary<string, float>();
                 }
-                public override Dictionary<string, float> GetSatisfactionsRefusal(Actor actor) {
+                public override Dictionary<string, float> GetSatisfactionsRefusal() {
                     if(mInfo != null && mInfo.satisfactionsRefusal != null) {
                         return mInfo.satisfactionsRefusal;
                     }

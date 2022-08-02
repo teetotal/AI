@@ -9,10 +9,12 @@ namespace ENGINE {
                 public int mActorType;
                 public string mTaskTitle { get; set; } = string.Empty;
                 public string mTaskDesc { get; set; } = string.Empty;
+                //for TextMeshPro
+                public string mTaskString { get; set; } = string.Empty;
                 public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
                 public abstract Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor);
-                public abstract Dictionary<string, float> GetSatisfactions(Actor actor);
-                public abstract Dictionary<string, float> GetSatisfactionsRefusal(Actor actor);
+                public abstract Dictionary<string, float> GetSatisfactions();
+                public abstract Dictionary<string, float> GetSatisfactionsRefusal();
                 
                 // isActor, id, position, lookat
                 public abstract Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor);
@@ -48,7 +50,7 @@ namespace ENGINE {
                     mDictByActorType[actorType].Add(task.mTaskId);
                     return true;
                 }
-                public Dictionary<string, FnTask> GetTasks(Actor actor) {
+                public Dictionary<string, FnTask> GetTasks(Actor actor, bool checkRef = true) {
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
                     int actorType = actor.mType;
                     int level = actor.level;
@@ -65,8 +67,12 @@ namespace ENGINE {
                         
                         if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
                             && info.type == TASK_TYPE.NORMAL // check type
-                            && (info.maxRef == -1 || info.maxRef > GetRef(taskId)) //check ref count
                         ) {
+                            if(checkRef && info.maxRef != -1) {//check ref count
+                                if(info.maxRef < GetRef(taskId)) {
+                                    continue;
+                                }
+                            } 
                             //actor가 가지고 있는 satisfaction만 추가
                             foreach(var satisfaction in info.satisfactions) {
                                 if(actor.GetSatisfaction(satisfaction.Key) == null) continue;
@@ -107,6 +113,21 @@ namespace ENGINE {
                     } else {
                         return mDicRefCount[taskId];
                     }
+                }
+                public bool CheckRef(FnTask task) {
+                    if(task.mInfo.maxRef == -1 || GetRef(task.mTaskId) < task.mInfo.maxRef)
+                        return true;
+                    return false;
+                }
+                public bool CheckSatisfaction(Actor actor, FnTask task) {
+                    foreach(var s in task.GetSatisfactions()) {
+                        if(s.Value < 0) {
+                            var myS = actor.GetSatisfaction(s.Key);
+                            if(myS == null || myS.Value + s.Value < 0)
+                                return false;
+                        }
+                    }
+                    return true;
                 }
             }
         }

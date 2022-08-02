@@ -71,11 +71,11 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "HP",
-            "desc": "<size=100%>\uccb4\ub825 \uc62c\ub9ac\uae30</size>\n<size=80%>\uccb4\ub825\uc744 \uc62c\ub9b0\ub2e4 <color=#E4CA44>\uccb4\ub825 +4</color></size>",
+            "title": "\uccb4\ub825 \uc62c\ub9ac\uae30",
+            "desc": "\uccb4\ub825\uc744 \uc62c\ub9b0\ub2e4",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": 3,
+            "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
@@ -87,7 +87,8 @@
                 }
             },
             "satisfactions": {
-                "HP": 4
+                "HP": 4,
+                "Gold": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -100,11 +101,11 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\ubb34\ub2f9\ud55c\ud14c \uc810\ubcf4\uae30",
-            "desc": "<size=100%>\uc810\uc7c1\uc774\uc5d0\uac8c \ub0b4\uac00 \uc5ec\uae30 \uc65c \uc654\ub294\uc9c0 \ubb3c\uc5b4\ubcf4\uae30</size>\n<size=80%>\uc810\uc7c1\uc774\ub85c \ubd80\ud130 \uc815\uc2e0\uc801 \uc548\uc815\uac10\uc744 \uc5bb\ub294\ub2e4 <color=#E4CA44>\uc815\uc2e0\ub825 +4</color></size>",
+            "title": "\uc810\uc7c1\uc774\uc5d0\uac8c \ub0b4\uac00 \uc5ec\uae30 \uc65c \uc654\ub294\uc9c0 \ubb3c\uc5b4\ubcf4\uae30",
+            "desc": "\uc810\uc7c1\uc774\ub85c \ubd80\ud130 \uc815\uc2e0\uc801 \uc548\uc815\uac10\uc744 \uc5bb\ub294\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": 3,
+            "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
@@ -116,7 +117,8 @@
                 }
             },
             "satisfactions": {
-                "MP": 4
+                "MP": 4,
+                "HP": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -129,8 +131,8 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "Gold",
-            "desc": "<size=100%>\ub3c8\ubc8c\uae30</size>\n<size=80%>\uace8\ub4dc\ub97c \ubc8c\uae30\uc704\ud574 \uc77c\ud55c\ub2e4  <color=#E4CA44>\uace8\ub4dc +4</color></size>",
+            "title": "\ub3c8\ubc8c\uae30",
+            "desc": "\uace8\ub4dc\ub97c \ubc8c\uae30\uc704\ud574 \uc77c\ud55c\ub2e4",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -147,7 +149,8 @@
                 }
             },
             "satisfactions": {
-                "Gold": 4
+                "Gold": 4,
+                "MP": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -156,12 +159,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                2,
                 10
             ],
             "villageLevel": 1,
-            "title": "Ability1",
-            "desc": "<size=100%>Ability1</size>\n<size=80%>Ability1\uc744 \uc62c\ub9b0\ub2e4 <color=#E4CA44>\uccb4\ub825 -2</color>, <color=#428644>Ability1 +4</color></size>",
+            "title": "\uc0dd\uc0b0\ub8251",
+            "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -177,7 +180,7 @@
             },
             "satisfactions": {
                 "Ability1": 4,
-                "HP": -2
+                "HP": -4
             },
             "satisfactionsRefusal": {}
         },
@@ -186,12 +189,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                2,
                 10
             ],
             "villageLevel": 1,
-            "title": "Ability2",
-            "desc": "<size=100%>Ability2</size>\n<size=80%>Ability2\uc744 \uc62c\ub9b0\ub2e4 <color=#E4CA44>\uc815\uc2e0\ub825 -2</color>, <color=#428644>Ability2 +4</color></size>",
+            "title": "\uc0dd\uc0b0\ub8252",
+            "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -207,7 +210,7 @@
             },
             "satisfactions": {
                 "Ability2": 4,
-                "MP": -2
+                "MP": -4
             },
             "satisfactionsRefusal": {}
         },
@@ -216,12 +219,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                2,
                 10
             ],
             "villageLevel": 1,
-            "title": "Ability3",
-            "desc": "<size=100%>Ability3</size>\n<size=80%>Ability3\uc744 \uc62c\ub9b0\ub2e4 <color=#E4CA44>\uccb4\ub825 -1, \uc815\uc2e0\ub825 -1</color>, <color=#428644>Ability3 +4</color></size>",
+            "title": "\uc0dd\uc0b0\ub8253",
+            "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -237,7 +240,8 @@
             },
             "satisfactions": {
                 "Ability3": 4,
-                "HP": -1
+                "HP": -2,
+                "MP": -2
             },
             "satisfactionsRefusal": {}
         },
@@ -246,12 +250,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                3,
                 10
             ],
             "villageLevel": 1,
-            "title": "Resource1",
-            "desc": "<size=100%>Resource1</size>\n<size=80%>Resource1 \uad6c\ud558\uae30 <color=#E4CA44>Ability1 -2</color>, <color=#428644>Resource1 +4</size>",
+            "title": "\uc790\uc6d01",
+            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -267,7 +271,7 @@
             },
             "satisfactions": {
                 "Resource1": 4,
-                "Ability1": -2
+                "Ability1": -6
             },
             "satisfactionsRefusal": {}
         },
@@ -276,12 +280,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                3,
                 10
             ],
             "villageLevel": 1,
-            "title": "Resource2",
-            "desc": "<size=100%>Resource2</size>\n<size=80%>Resource2 \uad6c\ud558\uae30 <color=#E4CA44>Ability2 -2</color>, <color=#428644>Resource2 +4</size>",
+            "title": "\uc790\uc6d02",
+            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -297,7 +301,7 @@
             },
             "satisfactions": {
                 "Resource2": 4,
-                "Ability2": -2
+                "Ability2": -6
             },
             "satisfactionsRefusal": {}
         },
@@ -306,12 +310,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                3,
                 10
             ],
             "villageLevel": 1,
-            "title": "Resource3",
-            "desc": "<size=100%>Resource3</size>\n<size=80%>Resource3 \uad6c\ud558\uae30 <color=#E4CA44>Ability3 -2</color>, <color=#428644>Resource3 +4</size>",
+            "title": "\uc790\uc6d03",
+            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -327,7 +331,7 @@
             },
             "satisfactions": {
                 "Resource3": 4,
-                "Ability3": -2
+                "Ability3": -6
             },
             "satisfactionsRefusal": {}
         },
@@ -336,12 +340,12 @@
             "chain": "LD0-1-C",
             "type": 0,
             "level": [
-                1,
+                4,
                 10
             ],
             "villageLevel": 1,
-            "title": "Sight1",
-            "desc": "<size=100%>\uc2dc\uc57c \ub113\ud788\uae30</size>\n<size=80%>\ub2e4\ub978 \ub9c8\uc744\uc744 \ubcf4\uace0 \uc628\ub2e4 <color=#428644>\uc2dc\uc57c +2</color></size>",
+            "title": "\uc2dc\uc57c \ub113\ud788\uae30",
+            "desc": "\ub2e4\ub978 \ub9c8\uc744\uc744 \ubcf4\uace0 \uc628\ub2e4",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -365,7 +369,7 @@
             "chain": "",
             "type": 2,
             "level": [
-                1,
+                4,
                 10
             ],
             "villageLevel": 1,
@@ -392,12 +396,12 @@
             "chain": "",
             "type": 0,
             "level": [
-                1,
+                5,
                 10
             ],
             "villageLevel": 1,
-            "title": "Leadership1",
-            "desc": "<size=100%>\ub9ac\ub354\uc2ed\ud0a4\uc6b0\uae30</size>\n<size=80%>\uc8fc\ubcc0\uc5d0 \ub3c8\ub9ce\uc744 \uc0ac\ub78c\ud55c\ud14c \uad1c\ud788 \ub9d0\uac78\uae30  <color=#428644>\ub9ac\ub354\uc2ed +2</color> </size>",
+            "title": "\ub9ac\ub354\uc2ed\ud0a4\uc6b0\uae30",
+            "desc": "\uc8fc\ubcc0\uc5d0 \ub3c8\ub9ce\uc744 \uc0ac\ub78c\ud55c\ud14c \uad1c\ud788 \ub9d0\uac78\uae30",
             "animation": "Greeting",
             "animationRepeatTime": 1,
             "maxRef": 1,
@@ -425,8 +429,8 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "Leadership1 Interaction",
-            "desc": "<size=100%>\uad1c\ud788 \ub9d0\uc744 \uac78\uc5b4\uc654\uc2b5\ub2c8\ub2e4.</size>\n<size=80%>\ubc1b\uc544\uc8fc\uba74 <color=#E4CA44>\uce5c\uadfc\uac10 +1</color></size>",
+            "title": "\uad1c\ud788 \ub9d0\uc744 \uac78\uc5b4\uc654\uc2b5\ub2c8\ub2e4",
+            "desc": "\ubc1b\uc544\uc8fc\uba74",
             "animation": "Greeting",
             "animationRepeatTime": 1,
             "maxRef": -1,

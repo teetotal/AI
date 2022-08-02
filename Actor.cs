@@ -314,8 +314,11 @@ namespace ENGINE {
                         return false;
                     }
                     
-                    if(actor.mUniqueId == mUniqueId)
-                        return SetCurrentTask(taskId);
+                    if(actor.mUniqueId == mUniqueId) {
+                        if(SetCurrentTask(taskId) != SET_TASK_ERROR.SUCCESS)
+                            return false;
+                        return true;
+                    }
                     else {
                         //pet에게 task set하고
                         actor.Loop_SetTask(taskId);
@@ -323,14 +326,25 @@ namespace ENGINE {
                         return false;
                     }
                 }       
-                public bool SetCurrentTask(string taskId) {
+                public enum SET_TASK_ERROR {
+                    SUCCESS,
+                    NOT_ENOUGH_SATISFACTION,
+                    OVER_MAX_REF,
+                    FAIL_RESERVE
+                }
+                public SET_TASK_ERROR SetCurrentTask(string taskId) {
                     //task가져오고
                     FnTask? task = TaskHandler.Instance.GetTask(taskId);
                     if(task == null) {
                         throw new Exception("Invalid Task id. " + taskId + " " + mUniqueId);
                     }
+                    //check satisfaction
+                    if(!TaskHandler.Instance.CheckSatisfaction(this, task))
+                        return SET_TASK_ERROR.NOT_ENOUGH_SATISFACTION;
+                    //check ref
+                    if(!TaskHandler.Instance.CheckRef(task))
+                        return SET_TASK_ERROR.OVER_MAX_REF;
                     //target가져오고
-
                     Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
                     //ASK 처리
                     switch(task.mInfo.target.interaction.type) {
@@ -338,13 +352,13 @@ namespace ENGINE {
                         case TASK_INTERACTION_TYPE.ASK:
                         case TASK_INTERACTION_TYPE.INTERRUPT: 
                         if(!SetReserveToTarget(target.Item2, task)) 
-                            return false;
+                            return SET_TASK_ERROR.FAIL_RESERVE;
                         break;
                         default:
                         break;
                     }         
                     mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
-                    return true;
+                    return SET_TASK_ERROR.SUCCESS;
                 }
                 private bool SetReserveToTarget(string targetActorId, FnTask task) {
                     var targetActor = ActorHandler.Instance.GetActor(targetActorId);
@@ -405,14 +419,15 @@ namespace ENGINE {
                     return true;
                 }
                 // Loop SetTask ----------------------------------------------------------------------
-                public bool Loop_SetTask(string taskId) {
+                public SET_TASK_ERROR Loop_SetTask(string taskId) {
                     mLOOP_STATE = LOOP_STATE.SET_TASK; 
-                    if(!SetCurrentTask(taskId)) {
+                    SET_TASK_ERROR err = SetCurrentTask(taskId);
+                    if(err != SET_TASK_ERROR.SUCCESS) {
                         mLOOP_STATE = LOOP_STATE.TASK_UI; 
-                        return false;
+                        return err;
                     }
                     CallCallback(LOOP_STATE.SET_TASK);
-                    return true;
+                    return err;
                 }
                 // LOOP Auto do task
                 public void Loop_AutoDoTask(string taskId) {
@@ -440,7 +455,7 @@ namespace ENGINE {
                     //accumulation                    
                     mQuestContext.IncreaseTaskCount(task.mTaskId);
                     //satisfaction                    
-                    Dictionary<string, float> values = isRefusal? task.GetSatisfactionsRefusal(this) : task.GetSatisfactions(this);
+                    Dictionary<string, float> values = isRefusal? task.GetSatisfactionsRefusal() : task.GetSatisfactions();
                     string? from = null;                        
                     if(task.mInfo.type == TASK_TYPE.REACTION) {
                         if(mTaskContext.reserveContext.fromActor == null) throw new Exception("Invalid interaction from actor.");
