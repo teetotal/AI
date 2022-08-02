@@ -208,7 +208,7 @@ namespace ENGINE {
             }
             public class ConfigLevel_Detail {
                 public int level { get; set; }
-                public string? title { get; set; }
+                public string title { get; set; } = string.Empty;
                 public ConfigLevel_Next? next { get; set; }
             }  
             public class ConfigLevel_Next {

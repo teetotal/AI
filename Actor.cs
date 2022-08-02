@@ -267,10 +267,9 @@ namespace ENGINE {
                     mLOOP_STATE = LOOP_STATE.READY; 
                     CallCallback(LOOP_STATE.READY);
                 }               
-                public bool Loop_TaskUI() {
+                public void Loop_TaskUI() {
                     mLOOP_STATE = LOOP_STATE.TASK_UI; 
                     CallCallback(LOOP_STATE.TASK_UI);
-                    return true;
                 }
                 // Loop_TakeTask ----------------------------------------
                 //trigger때문에 false 할 수도 있다.
@@ -408,7 +407,10 @@ namespace ENGINE {
                 // Loop SetTask ----------------------------------------------------------------------
                 public bool Loop_SetTask(string taskId) {
                     mLOOP_STATE = LOOP_STATE.SET_TASK; 
-                    SetCurrentTask(taskId);
+                    if(!SetCurrentTask(taskId)) {
+                        mLOOP_STATE = LOOP_STATE.TASK_UI; 
+                        return false;
+                    }
                     CallCallback(LOOP_STATE.SET_TASK);
                     return true;
                 }
