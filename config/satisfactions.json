@@ -1,8 +1,8 @@
 {                
     "HP": {
         "title": "체력",
-        "discharge": 1,
-        "period": 30,
+        "discharge": -1,
+        "period": 24,
         "seed": {
             "min": 20,
             "max": 50,
@@ -11,8 +11,8 @@
     },
     "MP": {
         "title": "정신력",
-        "discharge": 0,
-        "period": 0,
+        "discharge": -1,
+        "period": 24,
         "seed": {
             "min": 20,
             "max": 50,

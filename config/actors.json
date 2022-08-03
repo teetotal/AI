@@ -47,7 +47,7 @@
         "nickname": "\ud56b\ub3c4\uadf8\uc544\uc800\uc528",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/npc7",
+        "prefab": "Actors/npc8",
         "position": [
             85.0,
             0.0,
@@ -127,7 +127,7 @@
         "nickname": "\ub9e5\uc8fc\ud30c\ub294 \uc778\uc2f8",
         "pets": [],
         "level": 1,
-        "prefab": "Actors/npc8",
+        "prefab": "Actors/npc6",
         "position": [
             51.0,
             0.0,
@@ -453,13 +453,13 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 10
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 6
             },
             {
                 "satisfactionId": "Gold",
@@ -559,13 +559,13 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 10
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 6
             },
             {
                 "satisfactionId": "Ability1",
@@ -653,7 +653,7 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 6
             },
             {
                 "satisfactionId": "MP",
@@ -665,7 +665,7 @@
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 10
             },
             {
                 "satisfactionId": "Ability1",
@@ -753,13 +753,13 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 12
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 4
             },
             {
                 "satisfactionId": "Gold",
@@ -859,13 +859,13 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 12
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 4
             },
             {
                 "satisfactionId": "Ability1",
@@ -953,7 +953,7 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 4
             },
             {
                 "satisfactionId": "MP",
@@ -965,7 +965,7 @@
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 12
             },
             {
                 "satisfactionId": "Ability1",
@@ -1053,19 +1053,19 @@
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 6
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 6
             },
             {
                 "satisfactionId": "Gold",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 12
             },
             {
                 "satisfactionId": "Ability1",

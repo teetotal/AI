@@ -40,11 +40,11 @@ namespace ENGINE {
                         
                         for(int i = 0; i < mList.Count; i++) {
                             var p = mList[i];
+                            if(p.Period <= 0 || p.Amount == 0) continue;
                             if(count - p.LastDischargeTime >= p.Period) {
                                 mList[i].LastDischargeTime = count;
                                 foreach(var a in d) {
-                                    if(p.Amount > 0)
-                                        a.Value.Discharge(p.SatisfactionId, p.Amount);
+                                    a.Value.Discharge(p.SatisfactionId, p.Amount);
                                 }
                             }
                         }                        

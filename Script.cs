@@ -49,12 +49,14 @@ namespace ENGINE {
                     }
                     return INVALID_SCRIPT_REFUSAL;
                 }                            
+                //pooling처리 해야함
                 private string GetReplacedString(string sz, Actor from, Actor? to) {
                     StringBuilder sbFrom = new StringBuilder(from.mInfo.nickname, from.mInfo.nickname.Length + pre.Length + post.Length);                    
                     sbFrom.Insert(0, pre);
                     sbFrom.Append(post);
 
                     StringBuilder sb = new StringBuilder(sz, sz.Length + 64);
+                    sb.Replace("\\n", "\n");
                     sb.Replace("{from}", sbFrom.ToString());
 
                     

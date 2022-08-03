@@ -71,15 +71,15 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uccb4\ub825 \uc62c\ub9ac\uae30",
-            "desc": "\uccb4\ub825\uc744 \uc62c\ub9b0\ub2e4",
+            "title": "\ud56b\ub3c4\uadf8 \uc0ac\uba39\uae30",
+            "desc": "\ud56b\ub3c4\uadf8 \uc0ac\uba39\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
-                "type": 1,
+                "type": 2,
                 "value": [
-                    "SM_Env_Grass_01"
+                    "NPC2-1"
                 ],
                 "interaction": {
                     "type": 0,
@@ -101,15 +101,16 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uc810\uc7c1\uc774\uc5d0\uac8c \ub0b4\uac00 \uc5ec\uae30 \uc65c \uc654\ub294\uc9c0 \ubb3c\uc5b4\ubcf4\uae30",
-            "desc": "\uc810\uc7c1\uc774\ub85c \ubd80\ud130 \uc815\uc2e0\uc801 \uc548\uc815\uac10\uc744 \uc5bb\ub294\ub2e4 ",
-            "animation": "Strong",
+            "title": "\uace0\ub798 \ubcf4\uace0 \ud790\ub9c1\ud558\uae30",
+            "desc": "\ud558\ub298\uc744 \ub098\ub294 \uace0\ub798\ub97c \ubcf4\uba70 \ud790\ub9c1\ud55c\ub2e4",
+            "animation": "HandUp",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
-                "type": 1,
+                "type": 5,
                 "value": [
-                    "SM_Env_Sidewalk_34"
+                    "102.5,0,-80",
+                    "106,9,-120"
                 ],
                 "interaction": {
                     "type": 0,
@@ -133,15 +134,16 @@
             "villageLevel": 1,
             "title": "\ub3c8\ubc8c\uae30",
             "desc": "\uace8\ub4dc\ub97c \ubc8c\uae30\uc704\ud574 \uc77c\ud55c\ub2e4",
-            "animation": "Strong",
+            "animation": "Digging",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
                 "type": 1,
                 "value": [
-                    "SM_Env_Road_ParkingLines_01",
-                    "SM_Env_Road_ParkingLines_02",
-                    "SM_Env_Road_ParkingLines_03"
+                    "SM_Env_Sidewalk_Panel_03",
+                    "SM_Env_Sidewalk_48",
+                    "SM_Env_Sidewalk_61",
+                    "SM_Env_Sidewalk_Straight_94"
                 ],
                 "interaction": {
                     "type": 0,

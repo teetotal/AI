@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ENGINE.GAMEPLAY;
-using UnityEngine;
+//using UnityEngine;
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
@@ -562,7 +562,7 @@ namespace ENGINE {
                 }
                 //Satisfaction update ---------------------------------------------------------------------------------------------------------------------
                 public void Discharge(string satisfactionId, float amount) {                    
-                    ApplySatisfaction(satisfactionId, -amount, 0, null);
+                    ApplySatisfaction(satisfactionId, -amount, 0, null, true);
                     CallCallback(LOOP_STATE.DISCHARGE);
                 }
                 public void Obtain(string satisfactionId, float amount, string? from) {
@@ -840,8 +840,8 @@ namespace ENGINE {
                     stdRefusal = MathF.Sqrt(stdRefusal / mSatisfaction.Count);
 
                     if(taskSatisfaction.Item2.Count == 0) {
-                        if(actor.mUniqueId == "ACTOR1-2")
-                            Debug.Log(string.Format("{0} {1} AVG:{2}, STD:{3}", actor.mUniqueId, fn.mTaskId, avg, std));
+                        //if(actor.mUniqueId == "ACTOR1-2")
+                        //    Debug.Log(string.Format("{0} {1} AVG:{2}, STD:{3}", actor.mUniqueId, fn.mTaskId, avg, std));
                         // 평균이 높은걸 선택, 평균이 같으면 편차가 작은걸 선택 
                         if(avg > preAvg || (avg == preAvg && std < preStd) ) {
                             preAvg = avg;
