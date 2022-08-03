@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ENGINE.GAMEPLAY;
-
+using UnityEngine;
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
@@ -299,7 +299,8 @@ namespace ENGINE {
                     }
 
                     string taskId = string.Empty;
-                    float maxValue = 0.0f;     
+                    /*
+                    float maxValue = float.MinValue;   
 
                     //master tasks
                     foreach(var p in TaskHandler.Instance.GetTasks(actor)) {
@@ -308,7 +309,14 @@ namespace ENGINE {
                             maxValue = expecedValue;
                             taskId = p.Key;
                         }
-                    } 
+                    } */
+                    float preAvg = float.MinValue;
+                    float preStd = float.MaxValue;
+                    foreach(var p in TaskHandler.Instance.GetTasks(actor)) {
+                        if(GetExpectedValue(p.Value, actor, ref preAvg, ref preStd)) {
+                            taskId = p.Key;
+                        }                      
+                    }
                     
                     if(taskId == string.Empty) {
                         return false;
@@ -708,6 +716,7 @@ namespace ENGINE {
                     return key;
                 } 
                 */              
+                /*
                 public float GetExpectedValue(FnTask fn, Actor actor) {
                     //1. satisfaction loop
                     //2. if check in fn then sum
@@ -759,14 +768,14 @@ namespace ENGINE {
                     }
                     stdRefusal = MathF.Sqrt(stdRefusal / mSatisfaction.Count);
 
-                    if(taskSatisfaction.Item2.Count == 0)
-                        return avg / std;
-                    else {
-                        /*
-                        기대값 
-                        (sum / mSatisfaction.Count) * 0.5f + (sumRefusal / mSatisfaction.Count) * 0.5f
-                        여기서 확률을 relation으로 계산해서 받아온다.
-                        */
+                    if(taskSatisfaction.Item2.Count == 0) {
+                        //return avg / std;
+                        return avg;
+                    } else {
+                        //기대값 
+                        //(sum / mSatisfaction.Count) * 0.5f + (sumRefusal / mSatisfaction.Count) * 0.5f
+                        //여기서 확률을 relation으로 계산해서 받아온다.
+                
                         // relation에서 weight
                         var target = fn.GetTargetObject(actor);
                         if(target.Item1 != TASKCONTEXT_TARGET_TYPE.ACTOR) {
@@ -774,8 +783,93 @@ namespace ENGINE {
                             throw new Exception("Invalid target info. the target of [" + fn.mTaskTitle + "] must ACTOR. " + target.Item1.ToString());
                         }
                         float expectedWeight = GetExpectedWeight(target.Item2);
-                        float ret = ((avg / std) * expectedWeight) + ((avgRefusal / stdRefusal) * (1.0f - expectedWeight)); 
+                        //float ret = ((avg / std) * expectedWeight) + ((avgRefusal / stdRefusal) * (1.0f - expectedWeight)); 
+                        float ret = (avg * expectedWeight) + (avgRefusal * (1.0f - expectedWeight)); 
                         return ret;
+                    }
+                }*/
+                public bool GetExpectedValue(FnTask fn, Actor actor, ref float preAvg, ref float preStd) {
+                    //1. satisfaction loop
+                    //2. if check in fn then sum
+                    //3. cal normalization
+                    //4. get mean                      
+                    float sum = 0;
+                    float sumRefusal = 0;
+                    var taskSatisfaction = fn.GetValues(actor);    
+                    if(taskSatisfaction == null)
+                        return false;
+                        
+                    mTaskTempExpectValueList.Clear();
+                    mTaskTempRefusalExpectValueList.Clear();
+                    float val, normVal;
+
+                    foreach(var p in mSatisfaction) {
+                        //task reward
+                        val = p.Value.Value;
+                        if(taskSatisfaction.Item1.ContainsKey(p.Key)) {
+                            val += taskSatisfaction.Item1[p.Key];
+                        }
+                        normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        mTaskTempExpectValueList.Add(normVal);
+                        sum += normVal;
+
+                        //refusal
+                        val = p.Value.Value;
+                        if(taskSatisfaction.Item2.ContainsKey(p.Key)) {
+                            val += taskSatisfaction.Item2[p.Key];
+                        }
+                        normVal = GetNormValue(val, p.Value.Min, p.Value.Max);
+                        mTaskTempRefusalExpectValueList.Add(normVal);
+                        sumRefusal += normVal;
+                    }
+
+                    //std
+                    float avg = sum / mSatisfaction.Count;
+                    float std = 0;
+                    for(int i=0; i < mTaskTempExpectValueList.Count; i++) {
+                        std += MathF.Pow(mTaskTempExpectValueList[i] - avg, 2);
+                    }
+                    std = MathF.Sqrt(std / mSatisfaction.Count);
+
+                    //std refusal
+                    float avgRefusal = sumRefusal / mSatisfaction.Count;
+                    float stdRefusal = 0;
+                    for(int i=0; i < mTaskTempRefusalExpectValueList.Count; i++) {
+                        stdRefusal += MathF.Pow(mTaskTempRefusalExpectValueList[i] - avgRefusal, 2);
+                    }
+                    stdRefusal = MathF.Sqrt(stdRefusal / mSatisfaction.Count);
+
+                    if(taskSatisfaction.Item2.Count == 0) {
+                        if(actor.mUniqueId == "ACTOR1-2")
+                            Debug.Log(string.Format("{0} {1} AVG:{2}, STD:{3}", actor.mUniqueId, fn.mTaskId, avg, std));
+                        // 평균이 높은걸 선택, 평균이 같으면 편차가 작은걸 선택 
+                        if(avg > preAvg || (avg == preAvg && std < preStd) ) {
+                            preAvg = avg;
+                            preStd = std;
+                            return true;
+                        }
+                        return false;
+                    } else {
+                        //기대값 
+                        //(sum / mSatisfaction.Count) * 0.5f + (sumRefusal / mSatisfaction.Count) * 0.5f
+                        //여기서 확률을 relation으로 계산해서 받아온다.
+                
+                        // relation에서 weight
+                        var target = fn.GetTargetObject(actor);
+                        if(target.Item1 != TASKCONTEXT_TARGET_TYPE.ACTOR) {
+                            //error!
+                            throw new Exception("Invalid target info. the target of [" + fn.mTaskTitle + "] must ACTOR. " + target.Item1.ToString());
+                        }
+                        float expectedWeight = GetExpectedWeight(target.Item2);
+                        //float ret = ((avg / std) * expectedWeight) + ((avgRefusal / stdRefusal) * (1.0f - expectedWeight)); 
+                        float retAvg = (avg * expectedWeight) + (avgRefusal * (1.0f - expectedWeight)); 
+                        float retStd = (std * expectedWeight) + (stdRefusal * (1.0f - expectedWeight)); 
+                        if(retAvg > preAvg || (retAvg == preAvg && retStd < preStd) ) {
+                            preAvg = retAvg;
+                            preStd = retStd;
+                            return true;
+                        }
+                        return false;
                     }
                 }
                 private float GetExpectedWeight(string targetAcrotId) {

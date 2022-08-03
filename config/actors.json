@@ -351,7 +351,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -451,7 +451,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -519,7 +519,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 1
+                "value": 0
             }
         ],
         "inventory": [],
@@ -551,7 +551,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -619,7 +619,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 2
+                "value": 0
             }
         ],
         "inventory": [],
@@ -651,7 +651,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -719,7 +719,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 3
+                "value": 0
             }
         ],
         "inventory": [],
@@ -751,7 +751,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -819,7 +819,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 4
+                "value": 0
             }
         ],
         "inventory": [],
@@ -851,7 +851,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -919,7 +919,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 5
+                "value": 0
             }
         ],
         "inventory": [],
@@ -951,7 +951,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -1019,7 +1019,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 6
+                "value": 0
             }
         ],
         "inventory": [],
@@ -1051,7 +1051,7 @@
         "satisfactions": [
             {
                 "satisfactionId": "HP",
-                "min": 27,
+                "min": 20,
                 "max": 50,
                 "value": 8
             },
@@ -1119,7 +1119,7 @@
                 "satisfactionId": "Friendship",
                 "min": 0,
                 "max": 50,
-                "value": 7
+                "value": 0
             }
         ],
         "inventory": [],
