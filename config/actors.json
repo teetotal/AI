@@ -422,7 +422,13 @@
                 "value": 0
             }
         ],
-        "inventory": [],
+        "inventory": [
+            {
+                "itemId": "item-1",
+                "quantity": 10,
+                "installation": false
+            }
+        ],
         "isFly": false
     },
     "ACTOR1-2": {

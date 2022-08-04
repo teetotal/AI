@@ -17,9 +17,9 @@ namespace ENGINE {
                 public void Set(Dictionary<string, ConfigItem_Detail> p) {
                     mItemInfo = p;
                 }
-                public ConfigItem_Detail? GetItemInfo(string key) {
+                public ConfigItem_Detail GetItemInfo(string key) {
                     if(mItemInfo is null || mItemInfo.ContainsKey(key) == false) {
-                        return null;
+                        throw new Exception("Invalid Item Id." + key);
                     }
                     return mItemInfo[key];
                 }

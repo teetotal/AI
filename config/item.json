@@ -758,5 +758,32 @@
             }
         ],
         "draft": []
+    },
+    "item-1": {
+        "name": "test item",
+        "desc": "test item",
+        "category": "test",
+        "type": "t",
+        "level": 1,
+        "cost": 1,
+        "installationKey": "",
+        "invoke": {
+            "type": 1,
+            "expire": 0
+        },
+        "satisfaction": [
+            {
+                "satisfactionId": "HP",
+                "min": 0,
+                "max": 0,
+                "value": 12,
+                "measure": {
+                    "min": 2,
+                    "max": 2,
+                    "value": 2
+                }
+            }
+        ],
+        "draft": []
     }
 }

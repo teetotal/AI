@@ -121,6 +121,11 @@ namespace ENGINE {
             }                       
         
             //Actors ------------------------------------------------------------------
+            public class ConfigActor_Inventory {
+                public string itemId { get; set; } = string.Empty;
+                public int quantity { get; set; }
+                public bool installation { get; set; }
+            }
             public class ConfigActor_Satisfaction {
                 public string? satisfactionId { get; set; }
                 public float min { get; set; }
@@ -139,7 +144,8 @@ namespace ENGINE {
                 public List<float>? position { get; set; }
                 public List<float>? rotation { get; set; }      
                 public ConfigActor_Trigger? trigger { get; set; }          
-                public List<ConfigActor_Satisfaction>? satisfactions { get; set; }
+                public List<ConfigActor_Satisfaction> satisfactions { get; set; } = new List<ConfigActor_Satisfaction>();
+                public List<ConfigActor_Inventory> inventory { get; set; } = new List<ConfigActor_Inventory>();
                 public bool isFly { get; set; } = false;
             }
             public enum TRIGGER_TYPE {
@@ -382,10 +388,6 @@ namespace ENGINE {
                         Actor a = ActorHandler.Instance.AddActor(p.Key, p.Value, null);
                         if(p.Value.satisfactions == null) {
                             return false;
-                        }
-                        foreach(var s in p.Value.satisfactions) {
-                            if(s.satisfactionId == null) return false;
-                            a.SetSatisfaction(s.satisfactionId, s.min, s.max, s.value);
                         }
                     }
                     return true;

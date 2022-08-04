@@ -116,7 +116,7 @@ namespace ENGINE {
                         taskCounter++;
                     }
                 }      
-                private class ItemContext {
+                public class ItemContext {
                     //item key, quantity
                     public Dictionary<string, int> inventory = new Dictionary<string, int>();
                     //장착중인 아이템.만료처리는 mInvoking랑 같이 업데이트 해줘야함.
@@ -223,6 +223,19 @@ namespace ENGINE {
                     this.mQuestContext.questList = quests;
                     this.mCallback = null;
                     this.mInfo = info;
+
+                    //satisfaction
+                    foreach(var s in info.satisfactions) {
+                        if(s.satisfactionId == null)
+                            throw new Exception("null satisfaction id");
+
+                        SetSatisfaction(s.satisfactionId, s.min, s.max, s.value);
+                    }
+                    //inventory. installation 처리해야함
+                    foreach(var i in info.inventory) {
+                        //i.installation
+                        AddInventory(i.itemId, i.quantity);
+                    }
                 }
                 public bool IsAutoTakeable() {
                     //follower는 스스로 task를 가질 수 없고, master에 의해서 set task된다.
@@ -1069,7 +1082,10 @@ namespace ENGINE {
                 }
                 // -------------------------------------------------------------------------------------------------------------  
                 
-                //Item-------------------------------------------------------
+                //Item----------------------------------------------------------------------------------------------------------
+                public ItemContext GetItemContext() {
+                    return mItemContext;
+                }
                 public string PrintInventory() {
                     string sz = "";
                     foreach(var p in mItemContext.inventory) {
