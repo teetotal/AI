@@ -115,9 +115,10 @@ namespace ENGINE {
             }
             public class ConfigSatisfaction_Define {
                 public string title { get; set; } = string.Empty;
+                public bool resource { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
-                public ConfigSatisfaction_Seed seed { get; set; } = new ConfigSatisfaction_Seed();
+                public ConfigSatisfaction_Seed? seed { get; set; }
             }                       
         
             //Actors ------------------------------------------------------------------

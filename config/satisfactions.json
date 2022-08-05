@@ -1,6 +1,7 @@
 {                
     "HP": {
         "title": "체력",
+        "resource": false,
         "discharge": -1,
         "period": 24,
         "seed": {
@@ -11,6 +12,7 @@
     },
     "MP": {
         "title": "정신력",
+        "resource": false,
         "discharge": -1,
         "period": 24,
         "seed": {
@@ -21,6 +23,7 @@
     },     
     "Gold": {
         "title": "골드",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -31,6 +34,7 @@
     },
     "Ability1": {
         "title": "생산력1",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -41,6 +45,7 @@
     },
     "Ability2": {
         "title": "생산력2",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -51,6 +56,7 @@
     },
     "Ability3": {
         "title": "생산력3",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -61,6 +67,7 @@
     },
     "Resource1": {
         "title": "자원1",
+        "resource": true,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -71,6 +78,7 @@
     },
     "Resource2": {
         "title": "자원2",
+        "resource": true,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -81,6 +89,7 @@
     },
     "Resource3": {
         "title": "자원3",
+        "resource": true,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -91,6 +100,7 @@
     },
     "Sight": {
         "title": "시야",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -101,6 +111,7 @@
     },
     "Leadership": {
         "title": "리더십",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {
@@ -111,6 +122,7 @@
     },
     "Friendship": {
         "title": "친근감",
+        "resource": false,
         "discharge": 0,
         "period": 0,
         "seed": {

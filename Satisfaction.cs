@@ -30,9 +30,9 @@ namespace ENGINE {
                 public void Add(string satisfactionId, ConfigSatisfaction_Define p) {
                     mDefines.Add(satisfactionId, p);
                 }
-                public ConfigSatisfaction_Define? Get(string satisfactionId) {
+                public ConfigSatisfaction_Define Get(string satisfactionId) {
                     if(mDefines.ContainsKey(satisfactionId) == false) {
-                        return null;
+                        throw new Exception("Invalid Satisfaction id. " + satisfactionId);
                     }
                     return mDefines[satisfactionId];
                 }
