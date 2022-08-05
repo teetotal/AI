@@ -27,7 +27,8 @@
             "satisfactions": {
                 "Gold": 1
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         }
     ],
     "104": [
@@ -58,7 +59,8 @@
             "satisfactions": {
                 "Gold": 1
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         }
     ],
     "1": [
@@ -90,7 +92,8 @@
                 "HP": 4,
                 "Gold": -2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD1-B1",
@@ -121,7 +124,8 @@
                 "MP": 4,
                 "HP": -2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD1-C1",
@@ -154,7 +158,21 @@
                 "Gold": 4,
                 "MP": -2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": [
+                {
+                    "itemId": "item-1",
+                    "quantity": 3,
+                    "winRange": 10,
+                    "totalRange": 10
+                },
+                {
+                    "itemId": "item-2",
+                    "quantity": 1,
+                    "winRange": 50,
+                    "totalRange": 100
+                }
+            ]
         },
         {
             "id": "LD2-A1",
@@ -184,7 +202,8 @@
                 "Ability1": 4,
                 "HP": -4
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD2-B1",
@@ -214,7 +233,8 @@
                 "Ability2": 4,
                 "MP": -4
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD2-C1",
@@ -245,7 +265,8 @@
                 "HP": -2,
                 "MP": -2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD3-A1",
@@ -275,7 +296,8 @@
                 "Resource1": 4,
                 "Ability1": -6
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD3-B1",
@@ -305,7 +327,8 @@
                 "Resource2": 4,
                 "Ability2": -6
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD3-C1",
@@ -335,7 +358,8 @@
                 "Resource3": 4,
                 "Ability3": -6
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD0-1",
@@ -364,7 +388,8 @@
             "satisfactions": {
                 "Sight": 2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD0-1-C",
@@ -391,7 +416,8 @@
                 }
             },
             "satisfactions": {},
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD4-1",
@@ -420,7 +446,8 @@
             "satisfactions": {
                 "Leadership": 2
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         },
         {
             "id": "LD4-1-I",
@@ -449,7 +476,8 @@
             "satisfactions": {
                 "Friendship": 1
             },
-            "satisfactionsRefusal": {}
+            "satisfactionsRefusal": {},
+            "items": []
         }
     ]
 }

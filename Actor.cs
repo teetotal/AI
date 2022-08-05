@@ -123,6 +123,9 @@ namespace ENGINE {
                     public Dictionary<string, List<ItemUsage>> installation = new Dictionary<string, List<ItemUsage>>();
                     //발동중인 아이템 리스트                
                     public Dictionary<string, List<ItemUsage>> invoking = new Dictionary<string, List<ItemUsage>>();
+                    //item 뽑기 랜덤
+                    public Random mRandItem = new Random();
+                    public List<ConfigTask_Item> mObtainItemList = new List<ConfigTask_Item>();
                 }          
                 private class QuestContext {                    
                     public List<string> questList { get; set; } = new List<string>(); //Quest handler에서 top만큼씩 수행 완료 처리.
@@ -270,7 +273,8 @@ namespace ENGINE {
                     RELEASE,
                     DISCHARGE,
                     COMPLETE_QUEST,
-                    TAX_COLLECTION
+                    TAX_COLLECTION,
+                    ITEM
                 }
                 private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
                 public LOOP_STATE GetState() {
@@ -488,8 +492,24 @@ namespace ENGINE {
                     foreach(var p in values) {                        
                         Obtain(p.Key, p.Value, from);
                     }
-                    if(!isRefusal)
-                        mTaskContext.IncreaseTaskCounter();    
+                    if(!isRefusal) {
+                        //item
+                        bool isWin = false;
+                        for(int i = 0; i < task.mInfo.items.Count; i++) {
+                            ConfigTask_Item item = task.mInfo.items[i];
+                            int luckyNumber = mItemContext.mRandItem.Next(item.totalRange);
+                            if(item.winRange > luckyNumber) {
+                                //win
+                                isWin = true;
+                                mItemContext.mObtainItemList.Add(item);
+                                AddInventory(item.itemId, item.quantity);
+                            }
+                        }
+                        if(isWin)
+                            CallCallback(LOOP_STATE.ITEM);
+                        
+                        mTaskContext.IncreaseTaskCounter();
+                    }
                 }
                 // --------------------------------------------------------------------------------------------------
                 public void Loop_Levelup() {

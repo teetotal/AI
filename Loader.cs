@@ -193,8 +193,14 @@ namespace ENGINE {
                 public int maxRef { get; set; }
                 public Dictionary<string, float> satisfactions { get; set; } = new Dictionary<string, float>();
                 public Dictionary<string, float> satisfactionsRefusal { get; set; } = new Dictionary<string, float>();
-            }         
-
+                public List<ConfigTask_Item> items { get; set; } = new List<ConfigTask_Item>();
+            }        
+            public class ConfigTask_Item {
+                public string itemId { get; set; } = string.Empty;
+                public int quantity { get; set; }
+                public int winRange { get; set; }
+                public int totalRange { get; set; }
+            } 
             public class ConfigTask_Interaction {
                 public TASK_INTERACTION_TYPE type { get; set; }
                 public string? taskId { get; set; }

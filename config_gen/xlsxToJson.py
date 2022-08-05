@@ -1,4 +1,4 @@
-from numpy import identity
+from datetime import datetime
 import pandas as pd
 import csv
 import json
@@ -27,7 +27,7 @@ def write(json_objects, path):
     sz = json.dumps(json_objects, indent=4)
     with open('../config/' + path, 'w') as f:
         f.write(sz)
-#---------------------------------------------------------------------
+# Actor ---------------------------------------------------------------------
 def get_json_actor(arr):
     j = {
         "enable": True if arr[1].upper() == 'TRUE' else False,
@@ -91,7 +91,7 @@ def actors():
     file.close()
 
     write(json_objects, 'actors.json')
-#----------------------------------------------------------------------------------
+# Task ----------------------------------------------------------------------------------
 def get_json_task(arr):
     j = {
         "id": arr[0],
@@ -113,7 +113,8 @@ def get_json_task(arr):
             }      
         },
         "satisfactions": {}, #arr[14]
-        "satisfactionsRefusal": {} #arr[15]
+        "satisfactionsRefusal": {}, #arr[15]
+        "items": [] #arr[16]
     }
     #level
     if len(arr[3]) > 0: 
@@ -141,17 +142,36 @@ def get_json_task(arr):
                 continue
             j['satisfactionsRefusal'][kv[0]] = int(kv[1])
 
+    #item
+    if(len(arr[16]) > 0):
+        items = arr[16].split('\n')
+        for i in items:
+            itemV = i.split(',')
+            if len(itemV) != 4:
+                continue
+            itemId = itemV[0]
+            quantity = int(itemV[1])
+            winRange = int(itemV[2])
+            totalRange = int(itemV[3])
+            j['items'].append({
+                "itemId": itemId,
+                "quantity": quantity,
+                "winRange": winRange,
+                "totalRange": totalRange
+            })
+
+
     #script
     script = []
-    if len(arr[17]) > 0:
-        script = arr[17].split('\n')
+    if len(arr[18]) > 0:
+        script = arr[18].split('\n')
     
     script_refusal = None
-    if len(arr[18]) > 0:
-        script_refusal = arr[18].split('\n')
+    if len(arr[19]) > 0:
+        script_refusal = arr[19].split('\n')
 
     #json, actor type, id, script, script refusal
-    return j, int(arr[16]), arr[0], script, script_refusal
+    return j, int(arr[17]), arr[0], script, script_refusal
 
 def task():
     file, csvreader = read('task.csv')
@@ -175,7 +195,7 @@ def task():
 
     write(json_task, 'task.json')
     write(json_script, 'script.json')
-#--------------------------------------------------------------------------------
+# Quest --------------------------------------------------------------------------------
 def quest():
     def get_json_quest(arr):
         j = {
@@ -222,7 +242,7 @@ def quest():
     file.close()
 
     write(json_object, 'quest.json')
-#--------------------------------------------------------------------------------
+# Item --------------------------------------------------------------------------------
 def item():
     def get_json_item(arr):
         j = {
@@ -281,8 +301,7 @@ def item():
     file.close()
 
     write(json_object, 'item.json')
-
-#--------------------------------------------------------------------------------
+# Level --------------------------------------------------------------------------------
 def level():
     def get_json_level(arr):
         j = {
@@ -329,20 +348,20 @@ def level():
     write(json_object, 'level.json')
 
 export()
-print('exported')
+print(datetime.now(), 'exported')
 level()
-print('gen level')
+print(datetime.now(), 'gen level')
 item()
-print('gen item')
+print(datetime.now(), 'gen item')
 actors()
-print('gen actors')
+print(datetime.now(), 'gen actors')
 task()
-print('gen task')
+print(datetime.now(), 'gen task')
 quest()
-print('gen quest')
+print(datetime.now(), 'gen quest')
 os.remove('./task.csv')
 os.remove('./actors.csv')
 os.remove('./quest.csv')
 os.remove('./item.csv')
 os.remove('./level.csv')
-print('removed csv files')
+print(datetime.now(), 'removed csv files')
