@@ -46,7 +46,8 @@ def get_json_actor(arr):
         },
         "satisfactions": [], #arr[13]
         "inventory": [], #arr[14]
-        "isFly": True if arr[15].upper() == 'TRUE' else False
+        "isFly": True if arr[15].upper() == 'TRUE' else False,
+        "laziness": int(arr[16])
     }
 
     #pets

@@ -760,10 +760,10 @@
         "draft": []
     },
     "item-1": {
-        "name": "test item1",
-        "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "name": "\uc790\uc6d01 \ubcf4\ub530\ub9ac",
+        "desc": "\uc790\uc6d01\uc744 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
+        "category": "Resource",
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -773,10 +773,10 @@
         },
         "satisfaction": [
             {
-                "satisfactionId": "HP",
+                "satisfactionId": "Resource1",
                 "min": 0,
                 "max": 0,
-                "value": 12,
+                "value": 8,
                 "measure": {
                     "min": 2,
                     "max": 2,
@@ -787,10 +787,10 @@
         "draft": []
     },
     "item-2": {
-        "name": "test item2",
-        "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "name": "\uc790\uc6d02 \ubcf4\ub530\ub9ac",
+        "desc": "\uc790\uc6d02\ub97c 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
+        "category": "Resource",
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -800,10 +800,10 @@
         },
         "satisfaction": [
             {
-                "satisfactionId": "HP",
+                "satisfactionId": "Resource2",
                 "min": 0,
                 "max": 0,
-                "value": 12,
+                "value": 8,
                 "measure": {
                     "min": 2,
                     "max": 2,
@@ -814,10 +814,10 @@
         "draft": []
     },
     "item-3": {
-        "name": "test item3",
-        "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "name": "\uc790\uc6d03 \ubcf4\ub530\ub9ac",
+        "desc": "\uc790\uc6d03\uc744 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
+        "category": "Resource",
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -827,10 +827,10 @@
         },
         "satisfaction": [
             {
-                "satisfactionId": "HP",
+                "satisfactionId": "Resource3",
                 "min": 0,
                 "max": 0,
-                "value": 12,
+                "value": 8,
                 "measure": {
                     "min": 2,
                     "max": 2,
@@ -840,28 +840,28 @@
         ],
         "draft": []
     },
-    "item-4": {
-        "name": "test item4",
-        "desc": "test item",
-        "category": "test",
-        "type": "t",
+    "vehicle-1": {
+        "name": "\uacbd\ucc28\uc218\ub839\uc99d",
+        "desc": "\uacbd\ucc28\ub97c \uc218\ub839\ud560 \uc218 \uc788\ub2e4. \ucc28\ub294 \uc8fc\ucc28\uc7a5\uc5d0\uc11c \ucc3e\uc744 \uc218 \uc788\ub2e4",
+        "category": "Vehicle",
+        "type": "small",
         "level": 1,
         "cost": 1,
-        "installationKey": "",
+        "installationKey": "vehicle",
         "invoke": {
             "type": 1,
             "expire": 0
         },
         "satisfaction": [
             {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
+                "satisfactionId": "Speed",
+                "min": 12,
+                "max": 18,
+                "value": 13,
                 "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
+                    "min": 0,
+                    "max": 0,
+                    "value": 0
                 }
             }
         ],

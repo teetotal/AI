@@ -148,6 +148,7 @@ namespace ENGINE {
                 public List<ConfigActor_Satisfaction> satisfactions { get; set; } = new List<ConfigActor_Satisfaction>();
                 public List<ConfigActor_Inventory> inventory { get; set; } = new List<ConfigActor_Inventory>();
                 public bool isFly { get; set; } = false;
+                public int laziness;
             }
             public enum TRIGGER_TYPE {
                 NO_TRIGGER,

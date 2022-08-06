@@ -37,7 +37,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC2-1": {
         "enable": true,
@@ -77,7 +78,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC3-1": {
         "enable": true,
@@ -117,7 +119,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC4-1": {
         "enable": true,
@@ -163,7 +166,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC5-1": {
         "enable": true,
@@ -203,7 +207,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC6-1": {
         "enable": true,
@@ -243,7 +248,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "NPC7-1": {
         "enable": true,
@@ -283,7 +289,43 @@
             }
         ],
         "inventory": [],
-        "isFly": true
+        "isFly": true,
+        "laziness": 0
+    },
+    "NPC8-1": {
+        "enable": true,
+        "village": "",
+        "follower": false,
+        "type": 108,
+        "nickname": "\uacf5\uc7a5 \uc811\uc218\uc6d0",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc7",
+        "position": [
+            -40.0,
+            0.0,
+            12.5
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 1,
+            "value": "15.0"
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 10,
+                "max": 100,
+                "value": 90
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 0
     },
     "PET1-1": {
         "enable": true,
@@ -323,7 +365,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     },
     "ACTOR1-1": {
         "enable": true,
@@ -350,6 +393,18 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 48
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
@@ -362,10 +417,10 @@
                 "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -389,19 +444,19 @@
                 "satisfactionId": "Resource1",
                 "min": 20,
                 "max": 50,
-                "value": 0
+                "value": 40
             },
             {
                 "satisfactionId": "Resource2",
                 "min": 20,
                 "max": 50,
-                "value": 0
+                "value": 40
             },
             {
                 "satisfactionId": "Resource3",
                 "min": 20,
                 "max": 50,
-                "value": 0
+                "value": 40
             },
             {
                 "satisfactionId": "Sight",
@@ -425,136 +480,12 @@
         "inventory": [
             {
                 "itemId": "item-1",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-2",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-3",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-4",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-5",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-6",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-7",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-8",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-9",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-10",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-11",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-12",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-13",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-14",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-15",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-16",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-17",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-18",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-19",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-20",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-21",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-22",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-23",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-24",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-25",
-                "quantity": 10,
-                "installation": false
-            },
-            {
-                "itemId": "item-26",
-                "quantity": 10,
+                "quantity": 1,
                 "installation": false
             }
         ],
-        "isFly": false
+        "isFly": false,
+        "laziness": 1
     },
     "ACTOR1-2": {
         "enable": true,
@@ -581,22 +512,34 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 6
+                "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -654,7 +597,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 10
     },
     "ACTOR1-3": {
         "enable": true,
@@ -681,6 +625,18 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
@@ -690,13 +646,13 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 6
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -754,7 +710,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 15
     },
     "ACTOR1-4": {
         "enable": true,
@@ -781,10 +738,22 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 6
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
@@ -793,10 +762,10 @@
                 "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 10
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -854,7 +823,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 20
     },
     "ACTOR1-5": {
         "enable": true,
@@ -881,22 +851,34 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 12
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 4
+                "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -954,7 +936,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 25
     },
     "ACTOR1-6": {
         "enable": true,
@@ -981,6 +964,18 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
@@ -990,13 +985,13 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 12
+                "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 4
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -1054,7 +1049,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 20
     },
     "ACTOR1-7": {
         "enable": true,
@@ -1081,10 +1077,22 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 4
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
@@ -1093,10 +1101,10 @@
                 "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 12
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -1154,7 +1162,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 15
     },
     "ACTOR1-8": {
         "enable": true,
@@ -1181,22 +1190,34 @@
         },
         "satisfactions": [
             {
+                "satisfactionId": "Gold",
+                "min": 20,
+                "max": 50,
+                "value": 8
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 4,
+                "value": 2
+            },
+            {
                 "satisfactionId": "HP",
                 "min": 20,
                 "max": 50,
-                "value": 6
+                "value": 8
             },
             {
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 6
+                "value": 8
             },
             {
-                "satisfactionId": "Gold",
+                "satisfactionId": "Knowledge",
                 "min": 20,
                 "max": 50,
-                "value": 12
+                "value": 0
             },
             {
                 "satisfactionId": "Ability1",
@@ -1254,7 +1275,8 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 10
     },
     "ACTOR1-9": {
         "enable": true,
@@ -1354,6 +1376,7 @@
             }
         ],
         "inventory": [],
-        "isFly": false
+        "isFly": false,
+        "laziness": 0
     }
 }

@@ -110,10 +110,9 @@
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
-                "type": 5,
+                "type": 1,
                 "value": [
-                    "102.5,0,-80",
-                    "106,9,-120"
+                    "SM_Env_Sidewalk_Straight_400"
                 ],
                 "interaction": {
                     "type": 0,
@@ -123,6 +122,37 @@
             "satisfactions": {
                 "MP": 4,
                 "HP": -2
+            },
+            "satisfactionsRefusal": {},
+            "items": []
+        },
+        {
+            "id": "LD1-B2",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ubca4\uce58\uc5d0\uc11c \uc26c\uae30",
+            "desc": "\ubca4\uce58\uc5d0\uc11c \uc26c\uae30",
+            "animation": "Sitting",
+            "animationRepeatTime": 1,
+            "maxRef": 1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "13.75,0.155,31",
+                    "13.75,0.155,32"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": 1
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -159,20 +189,7 @@
                 "MP": -2
             },
             "satisfactionsRefusal": {},
-            "items": [
-                {
-                    "itemId": "item-1",
-                    "quantity": 3,
-                    "winRange": 10,
-                    "totalRange": 10
-                },
-                {
-                    "itemId": "item-2",
-                    "quantity": 1,
-                    "winRange": 50,
-                    "totalRange": 100
-                }
-            ]
+            "items": []
         },
         {
             "id": "LD2-A1",
@@ -215,7 +232,7 @@
             ],
             "villageLevel": 1,
             "title": "\uc0dd\uc0b0\ub8252",
-            "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
+            "desc": "\uc0dd\uc0b0\ub8252\ub97c \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -246,7 +263,7 @@
             ],
             "villageLevel": 1,
             "title": "\uc0dd\uc0b0\ub8253",
-            "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
+            "desc": "\uc0dd\uc0b0\ub8253\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
             "maxRef": -1,
@@ -277,9 +294,9 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uc790\uc6d01",
-            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
-            "animation": "Strong",
+            "title": "\uc790\uc6d01 \uce90\uae30 ",
+            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d01 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
+            "animation": "Digging",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
@@ -293,11 +310,17 @@
                 }
             },
             "satisfactions": {
-                "Resource1": 4,
-                "Ability1": -6
+                "Ability1": -1
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [
+                {
+                    "itemId": "item-1",
+                    "quantity": 1,
+                    "winRange": 40,
+                    "totalRange": 100
+                }
+            ]
         },
         {
             "id": "LD3-B1",
@@ -308,9 +331,9 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uc790\uc6d02",
-            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
-            "animation": "Strong",
+            "title": "\uc790\uc6d02 \uce90\uae30 ",
+            "desc": "\uc790\uc6d02 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d02 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
+            "animation": "Digging",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
@@ -324,11 +347,17 @@
                 }
             },
             "satisfactions": {
-                "Resource2": 4,
-                "Ability2": -6
+                "Ability2": -1
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [
+                {
+                    "itemId": "item-2",
+                    "quantity": 1,
+                    "winRange": 40,
+                    "totalRange": 100
+                }
+            ]
         },
         {
             "id": "LD3-C1",
@@ -339,9 +368,9 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uc790\uc6d03",
-            "desc": "\uc790\uc6d01 \uad6c\ud558\uae30",
-            "animation": "Strong",
+            "title": "\uc790\uc6d03 \uce90\uae30 ",
+            "desc": "\uc790\uc6d03 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d03 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
+            "animation": "Digging",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
@@ -355,11 +384,17 @@
                 }
             },
             "satisfactions": {
-                "Resource3": 4,
-                "Ability3": -6
+                "Ability3": -1
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [
+                {
+                    "itemId": "item-3",
+                    "quantity": 1,
+                    "winRange": 40,
+                    "totalRange": 100
+                }
+            ]
         },
         {
             "id": "LD0-1",
@@ -476,6 +511,74 @@
             "satisfactions": {
                 "Friendship": 1
             },
+            "satisfactionsRefusal": {},
+            "items": []
+        },
+        {
+            "id": "LD4-2",
+            "chain": "LD4-2-C",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uacbd\ucc28 \uc758\ub8b0\ud558\uae30",
+            "desc": "\uadf8\ub3d9\uc548 \ubaa8\uc740 \uc790\uc6d0\ub4e4\uc744 \uacf5\uc7a5\uc5d0 \uc804\ub2ec\ud558\uace0 \uacbd\ucc28\ub97c \uc758\ub8b0\ud55c\ub2e4. \ucc28\ub97c \ud0c0\uace0 \uc774\ub3d9\ud558\uba74 \ub2f9\uc5f0\ud788 \ube60\ub974\ub2e4",
+            "animation": "Strong",
+            "animationRepeatTime": 5,
+            "maxRef": -1,
+            "target": {
+                "type": 2,
+                "value": [
+                    "NPC8-1"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Resource1": -8,
+                "Resource2": -8,
+                "Resource3": -8,
+                "Gold": -16
+            },
+            "satisfactionsRefusal": {},
+            "items": [
+                {
+                    "itemId": "vehicle-1",
+                    "quantity": 1,
+                    "winRange": 1,
+                    "totalRange": 1
+                }
+            ]
+        },
+        {
+            "id": "LD4-2-C",
+            "chain": "",
+            "type": 2,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uacbd\ucc28 \uc218\ub839",
+            "desc": "",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Road_ParkingLines_11"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": []
         }
