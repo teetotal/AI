@@ -11,6 +11,7 @@ namespace ENGINE {
                 public string mTaskDesc { get; set; } = string.Empty;
                 //for TextMeshPro
                 public string mTaskString { get; set; } = string.Empty;
+                public abstract void SetTaskString();
                 public ConfigTask_Detail mInfo { get; set; } = new ConfigTask_Detail();
                 public abstract Tuple<Dictionary<string, float>, Dictionary<string, float>>? GetValues(Actor actor);
                 public abstract Dictionary<string, float> GetSatisfactions();
@@ -23,7 +24,53 @@ namespace ENGINE {
                         return "";
                     }
                     return mInfo.animation;
-                }                
+                }  
+                protected List<KeyValuePair<string, float>> GetResources(Dictionary<string, string> satisfactions) {
+                    //pooling 구현해야함.
+                    List<KeyValuePair<string, float>> resources = new List<KeyValuePair<string, float>>();
+                    foreach(var p in satisfactions) {
+                        if(CheckImmutableSatisfaction(p.Value) && SatisfactionDefine.Instance.Get(p.Key).resource && p.Value[0] != '-') {
+                            resources.Add(new KeyValuePair<string, float>(p.Key, float.Parse(p.Value)));
+                        } 
+                    }
+                    return resources;
+                }
+                protected bool CheckImmutableSatisfaction(string satisfactionVal) {
+                    switch(satisfactionVal[0]) {
+                        case '$':
+                        return false;
+                        default:
+                        return true;
+                    }
+                }
+                protected float GetMutableSatisfactionValue(List<KeyValuePair<string, float>> resources, string valFormat) {
+                    float sum = 0;
+                    for(int i = 0; i < resources.Count; i++) {
+                        sum += GetMutableValue(resources[i].Key, valFormat) * resources[i].Value;
+                    }
+                    return sum;
+                    
+                }       
+                private float GetMutableValue(string resourceId, string valFormat) {
+                    string[] arr = valFormat.Split('|');
+                    switch(arr[0]) {
+                        case "$": //market price
+                        {
+                            float markPrice = SatisfactionMarketPrice.Instance.GetMarketPrice(resourceId);
+                            switch(arr[2]) {
+                                case "-%":
+                                return -markPrice * float.Parse(arr[1]);
+                                case "+%":
+                                return markPrice * float.Parse(arr[1]);
+                                default:
+                                break;
+                            }
+                        }
+                        return -1;
+                        default:
+                        return -1;
+                    }
+                }       
             }
             public class TaskHandler {
                 private Dictionary<string, FnTask> mDict = new Dictionary<string, FnTask>();

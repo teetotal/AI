@@ -44,7 +44,58 @@ namespace ENGINE {
                     return p.title;
                 
                 }
-            }     
+            }   
+            //market price
+            public class SatisfactionMarketPrice {
+                private Dictionary<string, float> mDicQuantity = new Dictionary<string, float>();
+                private static readonly Lazy<SatisfactionMarketPrice> instance =
+                        new Lazy<SatisfactionMarketPrice>(() => new SatisfactionMarketPrice());
+                public static SatisfactionMarketPrice Instance {
+                    get {
+                        return instance.Value;
+                    }
+                }
+                private SatisfactionMarketPrice() { }
+                private const int duration = 10;
+                private long lastUpdateCount = 0;
+                
+                public bool Update() {
+                    long count = CounterHandler.Instance.GetCount();
+                    if(lastUpdateCount > 0 && count - lastUpdateCount < duration) {
+                        return false;
+                    }
+                    //quantity
+                    mDicQuantity.Clear();
+                    
+                    foreach(var actor in ActorHandler.Instance.GetActors()) {
+                        foreach(var s in actor.Value.GetSatisfactions()) {
+                            string id = s.Value.SatisfactionId;
+                            if(SatisfactionDefine.Instance.Get(id).resource) {
+                                if(mDicQuantity.ContainsKey(id)) {
+                                    mDicQuantity[id] += s.Value.Value;
+                                } else {
+                                    mDicQuantity.Add(id, s.Value.Value);
+                                }
+                            }
+                        }
+                    }
+                    lastUpdateCount = count;
+                    return true;
+                }
+                public float GetTotalQuantity(string satisfactionId) {
+                    if(!mDicQuantity.ContainsKey(satisfactionId))
+                        return 0;
+                    
+                    return mDicQuantity[satisfactionId];
+                }
+                public float GetMarketPrice(string satisfactionId) {
+                    float quantity = GetTotalQuantity(satisfactionId);
+                    var marketPrice = SatisfactionDefine.Instance.Get(satisfactionId).marketPrice;
+                    if(marketPrice == null)
+                        return -1;
+                    return (marketPrice.gradient * quantity) + marketPrice.bias;
+                }
+            }
         }        
     }
 }

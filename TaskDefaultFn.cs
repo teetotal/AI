@@ -8,9 +8,12 @@ namespace ENGINE {
             //단순 task
             //json으로 관리            
             public class TaskDefaultFn : FnTask {        
-                Random mRandom = new Random();        
-                const float DISTANCE_MAX = 40;
+                private Random mRandom = new Random();        
+                private const float DISTANCE_MAX = 40;
                 private string template = "<size=100%>{title}</size>\n<size=80%>{desc} <color=#E4CA44>{satisfaction}</color></size>";
+                private Dictionary<string, float> mSatisfaction = new Dictionary<string, float>();
+                private Dictionary<string, float> mSatisfactionRefusal = new Dictionary<string, float>();
+
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
                     this.mTaskTitle = info.title;
@@ -18,11 +21,11 @@ namespace ENGINE {
                     this.mInfo = info;
                     SetTaskString();
                 }   
-                private void SetTaskString() {
+                public override void SetTaskString() {
                     this.mTaskString = this.template.Replace("{title}", this.mTaskTitle);
                     this.mTaskString = this.mTaskString.Replace("{desc}", this.mTaskDesc);
                     string satisfaction = String.Empty;
-                    foreach(var s in mInfo.satisfactions) {
+                    foreach(var s in GetSatisfactions()) {
                         satisfaction += SatisfactionDefine.Instance.GetTitle(s.Key);
                         satisfaction += " ";
                         if(s.Value > 0) {
@@ -110,17 +113,34 @@ namespace ENGINE {
                     }
                     return new Tuple<Dictionary<string, float>, Dictionary<string, float>>(satisfaction, refusal);
                 }
+                //시세에 따라 달라지는 문제는 여기서 처리한다.
                 public override Dictionary<string, float> GetSatisfactions() {
+                    mSatisfaction.Clear();
                     if(mInfo != null && mInfo.satisfactions != null) {
-                        return mInfo.satisfactions;
+                        var resources = GetResources(mInfo.satisfactions);
+                        foreach(var p in mInfo.satisfactions) {
+                            if(CheckImmutableSatisfaction(p.Value)) {
+                                mSatisfaction.Add(p.Key, float.Parse(p.Value));
+                            } else {
+                                mSatisfaction.Add(p.Key, GetMutableSatisfactionValue(resources, p.Value));
+                            }
+                        }
                     }
-                    return new Dictionary<string, float>();
+                    return mSatisfaction;
                 }
                 public override Dictionary<string, float> GetSatisfactionsRefusal() {
+                    mSatisfactionRefusal.Clear();
                     if(mInfo != null && mInfo.satisfactionsRefusal != null) {
-                        return mInfo.satisfactionsRefusal;
+                        var resources = GetResources(mInfo.satisfactions);
+                        foreach(var p in mInfo.satisfactionsRefusal) {
+                            if(CheckImmutableSatisfaction(p.Value)) {
+                                mSatisfactionRefusal.Add(p.Key, float.Parse(p.Value));
+                            } else {
+                                mSatisfactionRefusal.Add(p.Key, GetMutableSatisfactionValue(resources, p.Value));
+                            }
+                        }
                     }
-                    return new Dictionary<string, float>();
+                    return mSatisfactionRefusal;
                 }
                 /*
                 public override bool DoTask(Actor actor)

@@ -83,7 +83,7 @@ namespace ENGINE {
                 public int expire { get; set; }
             }
             public class ConfigItem_Satisfaction {
-                public string? satisfactionId { get; set; }
+                public string satisfactionId { get; set; } = string.Empty;
                 public float min { get; set; }
                 public float max { get; set; }
                 public float value { get; set; }
@@ -113,12 +113,19 @@ namespace ENGINE {
                 public int max { get; set; }
                 public int random { get; set; }
             }
+            //자원의 경우 시장 가격 책정 정보
+            public class ConfigSatisfaction_MarketPrice {
+                public float gradient { get; set; } //수요곡선 기울기
+                public float bias { get; set; } // 수요곡선 절편
+                public float maxQuantity { get; set; } //시장에 풀릴 수 있는 최대 수량
+            }
             public class ConfigSatisfaction_Define {
                 public string title { get; set; } = string.Empty;
                 public bool resource { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
                 public ConfigSatisfaction_Seed? seed { get; set; }
+                public ConfigSatisfaction_MarketPrice? marketPrice { get; set; }
             }                       
         
             //Actors ------------------------------------------------------------------
@@ -192,8 +199,8 @@ namespace ENGINE {
                 public int animationRepeatTime { get; set; }
                 //동시 실행 최대 값
                 public int maxRef { get; set; }
-                public Dictionary<string, float> satisfactions { get; set; } = new Dictionary<string, float>();
-                public Dictionary<string, float> satisfactionsRefusal { get; set; } = new Dictionary<string, float>();
+                public Dictionary<string, string> satisfactions { get; set; } = new Dictionary<string, string>();
+                public Dictionary<string, string> satisfactionsRefusal { get; set; } = new Dictionary<string, string>();
                 public List<ConfigTask_Item> items { get; set; } = new List<ConfigTask_Item>();
             }        
             public class ConfigTask_Item {
@@ -294,7 +301,8 @@ namespace ENGINE {
                                   string stringQuest,
                                   string stringScript,
                                   string stringScenario,
-                                  string stringVillage ) {
+                                  string stringVillage,
+                                  string stringL10n ) {
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
@@ -343,6 +351,8 @@ namespace ENGINE {
                     if(SetVillage(stringVillage) == false) {
                         return false;
                     }
+                    //L10n
+                    SetL10n(stringL10n);
 
                     return true;
                 }    
@@ -473,6 +483,15 @@ namespace ENGINE {
 
                     ItemHandler.Instance.Set(j);
 
+                    return true;
+                }
+                private bool SetL10n(string sz) {
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, string> >(sz);  
+                    if(j == null) {
+                        return false;
+                    }
+                    L10nHandler.Instance.Set(j);
+                    
                     return true;
                 }                
             }

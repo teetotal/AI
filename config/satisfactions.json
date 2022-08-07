@@ -92,10 +92,10 @@
         "resource": true,
         "discharge": 0,
         "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
+        "marketPrice": {
+            "gradient": -2,
+            "bias": 512,
+            "maxQuantity": 256
         }
     },
     "Resource2": {
@@ -103,10 +103,10 @@
         "resource": true,
         "discharge": 0,
         "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
+        "marketPrice": {
+            "gradient": -2,
+            "bias": 512,
+            "maxQuantity": 256
         }
     },
     "Resource3": {
@@ -114,10 +114,10 @@
         "resource": true,
         "discharge": 0,
         "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
+        "marketPrice": {
+            "gradient": -2,
+            "bias": 512,
+            "maxQuantity": 256
         }
     },
     "Sight": {

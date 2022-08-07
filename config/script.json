@@ -65,11 +65,21 @@
         ],
         "LD4-2-C": [
             "\uacbd\ucc28 \ucc3e\uc73c\ub7ec \uc654\uc5b4\uc6a4"
+        ],
+        "LD4-3": [
+            "\uc790\uc6d01 $|-10|% \uace8\ub4dc\uc5d0 \ucfe8\uac70\ub798 \uac00\ub2a5?"
+        ],
+        "LD4-3-I": [
+            "\uc88b\uc544 \uc6b0\ub9ac \uce5c\ud558\uc796\uc544"
         ]
     },
     "refusal": {
         "LD4-1-I": [
             "Leadership1 reaction refusal script"
+        ],
+        "LD4-3-I": [
+            "\ubb50\ub798 \ubcc4\ub85c \uce5c\ud558\uc9c0\ub3c4 \uc54a\uc740\ub370",
+            "\ub2d8 \ucc28\ub2e8"
         ]
     }
 }

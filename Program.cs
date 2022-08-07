@@ -21,9 +21,10 @@ class MainClass {
             File.ReadAllText("config/quest.json"),
             File.ReadAllText("config/script.json"),
             File.ReadAllText("config/scenario.json"),
-            File.ReadAllText("config/village.json")
+            File.ReadAllText("config/village.json"),
+            File.ReadAllText("config/l10n.json")
         };
-        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6], szConfigs[7], szConfigs[8])) {
+        if(p.Load(szConfigs[0], szConfigs[1], szConfigs[2], szConfigs[3], szConfigs[4], szConfigs[5], szConfigs[6], szConfigs[7], szConfigs[8], szConfigs[9])) {
             //Battle test
             //BattleTest battle = new BattleTest();
             //battle.Init();
@@ -261,9 +262,10 @@ public class GameControlInstance {
                         string jsonQuest, 
                         string jsonScript, 
                         string jsonScenario,
-                        string jsonVillage) {
+                        string jsonVillage,
+                        string jsonL10n) {
         var pLoader = new Loader();
-        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage)) {
+        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage, jsonL10n)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }

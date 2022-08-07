@@ -132,8 +132,8 @@ def get_json_task(arr):
             kv = s.split(':')
             if len(kv) != 2:
                 continue
-            j['satisfactions'][kv[0]] = int(kv[1])
-
+            j['satisfactions'][kv[0]] = kv[1]
+            
     #satisfactionsRefusal
     if(len(arr[15]) > 0):
         satisfactionsRefusal = arr[15].split(',')
@@ -141,8 +141,8 @@ def get_json_task(arr):
             kv = s.split(':')
             if len(kv) != 2:
                 continue
-            j['satisfactionsRefusal'][kv[0]] = int(kv[1])
-
+            j['satisfactionsRefusal'][kv[0]] = kv[1]
+            
     #item
     if(len(arr[16]) > 0):
         items = arr[16].split('\n')

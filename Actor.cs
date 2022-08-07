@@ -126,6 +126,27 @@ namespace ENGINE {
                     //item 뽑기 랜덤
                     public Random mRandItem = new Random();
                     public List<ConfigTask_Item> mObtainItemList = new List<ConfigTask_Item>();
+                    //자원일 경우 시장에 풀린 수량을 확인
+                    public bool CheckAvailable(ConfigTask_Item item) {
+                        string itemId = item.itemId; 
+                        int quantity = item.quantity;
+
+                        var satisfactions = ItemHandler.Instance.GetItemInfo(itemId).satisfaction;
+                        if(satisfactions == null) {
+                            return true;
+                        }
+                        for(int i = 0; i < satisfactions.Count; i ++) {
+                            ConfigSatisfaction_Define info = SatisfactionDefine.Instance.Get(satisfactions[i].satisfactionId);
+                            if(info.marketPrice == null)
+                                throw new Exception("market price must be existed." + satisfactions[i].satisfactionId);
+                            if( info.resource && 
+                                SatisfactionMarketPrice.Instance.GetTotalQuantity(satisfactions[i].satisfactionId) + quantity > info.marketPrice.maxQuantity) 
+                            {
+                                    return false;
+                            }
+                        }
+                        return true;
+                    }
                 }          
                 private class QuestContext {                    
                     public List<string> questList { get; set; } = new List<string>(); //Quest handler에서 top만큼씩 수행 완료 처리.
@@ -493,10 +514,12 @@ namespace ENGINE {
                         Obtain(p.Key, p.Value, from);
                     }
                     if(!isRefusal) {
-                        //item
+                        //item 랜덤 함수
                         bool isWin = false;
                         for(int i = 0; i < task.mInfo.items.Count; i++) {
                             ConfigTask_Item item = task.mInfo.items[i];
+                            if(!mItemContext.CheckAvailable(item)) //시장에 풀린 수량 확인
+                                continue;
                             int luckyNumber = mItemContext.mRandItem.Next(item.totalRange);
                             if(item.winRange > luckyNumber) {
                                 //win
@@ -544,7 +567,7 @@ namespace ENGINE {
                     mLOOP_STATE = LOOP_STATE.RELEASE; 
                     mTaskContext.Release();
                     CallCallback(LOOP_STATE.RELEASE);                    
-                }                
+                }            
                 // =====================================================================================================
                 // callback -----------------------------------------------------------------------------------------------
                 public void SetCallback(Callback fn) {

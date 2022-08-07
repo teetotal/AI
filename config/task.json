@@ -25,7 +25,7 @@
                 }
             },
             "satisfactions": {
-                "Gold": 1
+                "Gold": "1"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -57,7 +57,7 @@
                 }
             },
             "satisfactions": {
-                "Gold": 1
+                "Gold": "1"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -89,8 +89,8 @@
                 }
             },
             "satisfactions": {
-                "HP": 4,
-                "Gold": -2
+                "HP": "4",
+                "Gold": "-2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -120,8 +120,8 @@
                 }
             },
             "satisfactions": {
-                "MP": 4,
-                "HP": -2
+                "MP": "4",
+                "HP": "-2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -152,7 +152,7 @@
                 }
             },
             "satisfactions": {
-                "MP": 1
+                "MP": "1"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -185,8 +185,8 @@
                 }
             },
             "satisfactions": {
-                "Gold": 4,
-                "MP": -2
+                "Gold": "4",
+                "MP": "-2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -216,8 +216,8 @@
                 }
             },
             "satisfactions": {
-                "Ability1": 4,
-                "HP": -4
+                "Ability1": "4",
+                "HP": "-4"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -247,8 +247,8 @@
                 }
             },
             "satisfactions": {
-                "Ability2": 4,
-                "MP": -4
+                "Ability2": "4",
+                "MP": "-4"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -278,9 +278,9 @@
                 }
             },
             "satisfactions": {
-                "Ability3": 4,
-                "HP": -2,
-                "MP": -2
+                "Ability3": "4",
+                "HP": "-2",
+                "MP": "-2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -310,7 +310,7 @@
                 }
             },
             "satisfactions": {
-                "Ability1": -1
+                "Ability1": "-1"
             },
             "satisfactionsRefusal": {},
             "items": [
@@ -347,7 +347,7 @@
                 }
             },
             "satisfactions": {
-                "Ability2": -1
+                "Ability2": "-1"
             },
             "satisfactionsRefusal": {},
             "items": [
@@ -384,7 +384,7 @@
                 }
             },
             "satisfactions": {
-                "Ability3": -1
+                "Ability3": "-1"
             },
             "satisfactionsRefusal": {},
             "items": [
@@ -421,7 +421,7 @@
                 }
             },
             "satisfactions": {
-                "Sight": 2
+                "Sight": "2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -479,7 +479,7 @@
                 }
             },
             "satisfactions": {
-                "Leadership": 2
+                "Leadership": "2"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -509,7 +509,7 @@
                 }
             },
             "satisfactions": {
-                "Friendship": 1
+                "Friendship": "1"
             },
             "satisfactionsRefusal": {},
             "items": []
@@ -539,10 +539,10 @@
                 }
             },
             "satisfactions": {
-                "Resource1": -8,
-                "Resource2": -8,
-                "Resource3": -8,
-                "Gold": -16
+                "Resource1": "-8",
+                "Resource2": "-8",
+                "Resource3": "-8",
+                "Gold": "-16"
             },
             "satisfactionsRefusal": {},
             "items": [
@@ -579,6 +579,67 @@
                 }
             },
             "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": []
+        },
+        {
+            "id": "LD4-3",
+            "chain": "",
+            "type": 0,
+            "level": [
+                5,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uc790\uc6d01 \ub2f9\uadfc\ud558\uae30",
+            "desc": "\uc8fc\ubcc0\uc5d0 \uc790\uc6d01\uc774 \ub9ce\uc740 \uc0ac\ub78c\ud55c\ud14c\uc11c \uc2dc\uc138\ubcf4\ub2e4 \uc2f8\uac8c \uad6c\ub9e4\ud558\uae30",
+            "animation": "Greeting",
+            "animationRepeatTime": 1,
+            "maxRef": 1,
+            "target": {
+                "type": 3,
+                "value": [
+                    "1.Satisfaction.Resource1:max"
+                ],
+                "interaction": {
+                    "type": 1,
+                    "taskId": "LD4-3-I"
+                }
+            },
+            "satisfactions": {
+                "Resource1": "1",
+                "Gold": "$|0.9|-%"
+            },
+            "satisfactionsRefusal": {},
+            "items": []
+        },
+        {
+            "id": "LD4-3-I",
+            "chain": "",
+            "type": 1,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uad1c\ud788 \ub9d0\uc744 \uac78\uc5b4\uc654\uc2b5\ub2c8\ub2e4",
+            "desc": "\ubc1b\uc544\uc8fc\uba74",
+            "animation": "Greeting",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 4,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Friendship": "1"
+            },
             "satisfactionsRefusal": {},
             "items": []
         }
