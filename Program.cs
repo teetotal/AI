@@ -264,8 +264,7 @@ public class GameControlInstance {
                         string jsonScenario,
                         string jsonVillage,
                         string jsonL10n) {
-        var pLoader = new Loader();
-        if(!pLoader.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage, jsonL10n)) {
+        if(!Loader.Instance.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage, jsonL10n)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }

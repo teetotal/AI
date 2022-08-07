@@ -202,6 +202,7 @@ namespace ENGINE {
                 public Dictionary<string, string> satisfactions { get; set; } = new Dictionary<string, string>();
                 public Dictionary<string, string> satisfactionsRefusal { get; set; } = new Dictionary<string, string>();
                 public List<ConfigTask_Item> items { get; set; } = new List<ConfigTask_Item>();
+                public string scene { get; set; } = string.Empty;
             }        
             public class ConfigTask_Item {
                 public string itemId { get; set; } = string.Empty;
@@ -293,6 +294,15 @@ namespace ENGINE {
             
             //-----------------------------------------------------------------------------------
             public class Loader {
+                private bool mInitialized = false;
+                private static readonly Lazy<Loader> instance =
+                        new Lazy<Loader>(() => new Loader());
+                public static Loader Instance {
+                    get {
+                        return instance.Value;
+                    }
+                }
+                private Loader() { }
                 public bool Load( string stringSatisfactions, 
                                   string stringTask,
                                   string stringActors, 
@@ -302,7 +312,11 @@ namespace ENGINE {
                                   string stringScript,
                                   string stringScenario,
                                   string stringVillage,
-                                  string stringL10n ) {
+                                  string stringL10n ) 
+                {
+                    if(mInitialized)
+                        return true;
+                            
                     //string jsonString = File.ReadAllText(pathSatisfactions);
                     string jsonString = stringSatisfactions;
                     
@@ -353,6 +367,8 @@ namespace ENGINE {
                     }
                     //L10n
                     SetL10n(stringL10n);
+
+                    mInitialized = true;
 
                     return true;
                 }    

@@ -28,7 +28,8 @@
                 "Gold": "1"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         }
     ],
     "104": [
@@ -60,7 +61,8 @@
                 "Gold": "1"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         }
     ],
     "1": [
@@ -93,7 +95,8 @@
                 "Gold": "-2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD1-B1",
@@ -124,7 +127,8 @@
                 "HP": "-2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD1-B2",
@@ -155,10 +159,42 @@
                 "MP": "1"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD1-C1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uac24\ub7ec\ub9ac \uac00\uae30",
+            "desc": "\uac24\ub7ec\ub9ac\uc5d0\uc11c \uc791\ud488 \uac10\uc0c1\ud558\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 2,
+                "value": [
+                    "NPC5-1"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Knowledge": "2"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": "Gallery"
+        },
+        {
+            "id": "LD1-D1",
             "chain": "",
             "type": 0,
             "level": [
@@ -189,7 +225,8 @@
                 "MP": "-2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD2-A1",
@@ -220,7 +257,8 @@
                 "HP": "-4"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD2-B1",
@@ -251,7 +289,8 @@
                 "MP": "-4"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD2-C1",
@@ -283,7 +322,8 @@
                 "MP": "-2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD3-A1",
@@ -320,7 +360,8 @@
                     "winRange": 40,
                     "totalRange": 100
                 }
-            ]
+            ],
+            "scene": ""
         },
         {
             "id": "LD3-B1",
@@ -357,7 +398,8 @@
                     "winRange": 40,
                     "totalRange": 100
                 }
-            ]
+            ],
+            "scene": ""
         },
         {
             "id": "LD3-C1",
@@ -394,7 +436,8 @@
                     "winRange": 40,
                     "totalRange": 100
                 }
-            ]
+            ],
+            "scene": ""
         },
         {
             "id": "LD0-1",
@@ -424,7 +467,8 @@
                 "Sight": "2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD0-1-C",
@@ -452,7 +496,8 @@
             },
             "satisfactions": {},
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD4-1",
@@ -482,7 +527,8 @@
                 "Leadership": "2"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD4-1-I",
@@ -512,7 +558,8 @@
                 "Friendship": "1"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD4-2",
@@ -552,7 +599,8 @@
                     "winRange": 1,
                     "totalRange": 1
                 }
-            ]
+            ],
+            "scene": ""
         },
         {
             "id": "LD4-2-C",
@@ -563,7 +611,7 @@
                 10
             ],
             "villageLevel": 1,
-            "title": "\uacbd\ucc28 \uc218\ub839",
+            "title": "\uacbd\ucc28 \uc218\ub839\ud558\ub7ec\uac00\uae30",
             "desc": "",
             "animation": "Strong",
             "animationRepeatTime": 1,
@@ -580,7 +628,8 @@
             },
             "satisfactions": {},
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD4-3",
@@ -611,7 +660,8 @@
                 "Gold": "$|0.9|-%"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         },
         {
             "id": "LD4-3-I",
@@ -641,7 +691,8 @@
                 "Friendship": "1"
             },
             "satisfactionsRefusal": {},
-            "items": []
+            "items": [],
+            "scene": ""
         }
     ]
 }

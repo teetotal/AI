@@ -115,7 +115,8 @@ def get_json_task(arr):
         },
         "satisfactions": {}, #arr[14]
         "satisfactionsRefusal": {}, #arr[15]
-        "items": [] #arr[16]
+        "items": [], #arr[16]
+        "scene": arr[17]
     }
     #level
     if len(arr[3]) > 0: 
@@ -164,15 +165,15 @@ def get_json_task(arr):
 
     #script
     script = []
-    if len(arr[18]) > 0:
-        script = arr[18].split('\n')
+    if len(arr[19]) > 0:
+        script = arr[19].split('\n')
     
     script_refusal = None
-    if len(arr[19]) > 0:
-        script_refusal = arr[19].split('\n')
+    if len(arr[20]) > 0:
+        script_refusal = arr[20].split('\n')
 
     #json, actor type, id, script, script refusal
-    return j, int(arr[17]), arr[0], script, script_refusal
+    return j, int(arr[18]), arr[0], script, script_refusal
 
 def task():
     file, csvreader = read('task.csv')

@@ -137,12 +137,13 @@ namespace ENGINE {
                         }
                         for(int i = 0; i < satisfactions.Count; i ++) {
                             ConfigSatisfaction_Define info = SatisfactionDefine.Instance.Get(satisfactions[i].satisfactionId);
-                            if(info.marketPrice == null)
-                                throw new Exception("market price must be existed." + satisfactions[i].satisfactionId);
-                            if( info.resource && 
-                                SatisfactionMarketPrice.Instance.GetTotalQuantity(satisfactions[i].satisfactionId) + quantity > info.marketPrice.maxQuantity) 
-                            {
-                                    return false;
+                            if(info.resource) {
+                                if(info.marketPrice == null)
+                                    throw new Exception("market price must be existed." + satisfactions[i].satisfactionId);
+                                if(SatisfactionMarketPrice.Instance.GetTotalQuantity(satisfactions[i].satisfactionId) + quantity > info.marketPrice.maxQuantity) 
+                                {
+                                        return false;
+                                }
                             }
                         }
                         return true;
@@ -232,6 +233,8 @@ namespace ENGINE {
                 private ItemContext mItemContext = new ItemContext();
                 //Pet -------------------------------------------------------------------------------------------------
                 private PetContext mPetContext = new PetContext();
+                //reserved scene  --------------------------------------------------------------------------------------
+                private string mReservedScene = string.Empty;
                 // -----------------------------------------------------------------------------------------------------
                 public Actor(string actorId, ConfigActor_Detail info, List<string> quests) {
                     this.mType = info.type;
@@ -276,7 +279,8 @@ namespace ENGINE {
                 // Loop ===================================================================================================
                 public enum LOOP_STATE {
                     INVALID,
-                    READY,                    
+                    READY,         
+                    CHANGE_SCENE,           
                     TASK_UI,
                     TAKE_TASK,
                     MOVE,
@@ -304,7 +308,17 @@ namespace ENGINE {
                 public void Loop_Ready() {
                     mLOOP_STATE = LOOP_STATE.READY; 
                     CallCallback(LOOP_STATE.READY);
-                }               
+                    if(mReservedScene != string.Empty)
+                        Loop_ChangeScene();
+                }    
+                public void Loop_ChangeScene() {
+                    CallCallback(LOOP_STATE.CHANGE_SCENE);
+                }           
+                public string PopSceneName() {
+                    string sz = mReservedScene;
+                    mReservedScene = string.Empty;
+                    return sz;
+                }
                 public void Loop_TaskUI() {
                     mLOOP_STATE = LOOP_STATE.TASK_UI; 
                     CallCallback(LOOP_STATE.TASK_UI);
@@ -404,6 +418,10 @@ namespace ENGINE {
                         break;
                     }         
                     mTaskContext.Set(task, target.Item1, target.Item2, target.Item3, target.Item4);
+                    if(task.mInfo.scene != string.Empty) {
+                        mReservedScene = task.mInfo.scene;
+                    }
+                    
                     return SET_TASK_ERROR.SUCCESS;
                 }
                 private bool SetReserveToTarget(string targetActorId, FnTask task) {
