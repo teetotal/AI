@@ -693,6 +693,93 @@
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
+        },
+        {
+            "id": "test",
+            "chain": "test-get_in",
+            "type": 0,
+            "level": [
+                5,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ud0dd\uc2dc\ud0c0\uae30",
+            "desc": "test",
+            "animation": "HandUp",
+            "animationRepeatTime": 1,
+            "maxRef": 1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "Taxi"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "test-get_in",
+            "chain": "test-get_off",
+            "type": 2,
+            "level": [
+                5,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ud0dd\uc2dc\ud0c0\uae30",
+            "desc": "",
+            "animation": "",
+            "animationRepeatTime": 0,
+            "maxRef": -1,
+            "target": {
+                "type": 7,
+                "value": [
+                    "Taxi:90.0.55"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "test-get_off",
+            "chain": "",
+            "type": 2,
+            "level": [
+                5,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ud0dd\uc2dc\ub0b4\ub9ac\uae30",
+            "desc": "",
+            "animation": "",
+            "animationRepeatTime": 0,
+            "maxRef": -1,
+            "target": {
+                "type": 8,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
         }
     ]
 }

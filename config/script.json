@@ -74,6 +74,13 @@
         ],
         "LD4-3-I": [
             "\uc88b\uc544 \uc6b0\ub9ac \uce5c\ud558\uc796\uc544"
+        ],
+        "test": [
+            "\uc544\uc800\uc528 \ub530\ube14~"
+        ],
+        "test-get_in": [],
+        "test-get_off": [
+            "\ub3c4\ucc29"
         ]
     },
     "refusal": {

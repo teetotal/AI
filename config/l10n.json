@@ -1,5 +1,6 @@
 {
     "LEVEL_UP": "오예! 레벨업!",
     "TAX_COLLECTION": "세금 징수",
-    "UPDATE_MARKET_PRICE": "시세 업데이트"
+    "UPDATE_MARKET_PRICE": "시세 업데이트",
+    "GET_IN_VEHICLE_FAILURE": "이동 거리가 너무 가까워 탑승에 실패 했습니다"
 }

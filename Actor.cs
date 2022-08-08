@@ -291,6 +291,8 @@ namespace ENGINE {
                     DECIDE,
                     SET_TASK,
                     DO_TASK,
+                    GET_IN_VEHICLE,
+                    GET_OFF_VEHICLE,
                     AUTO_DO_TASK,
                     LEVELUP,
                     REFUSAL,
@@ -390,7 +392,9 @@ namespace ENGINE {
                     SUCCESS,
                     NOT_ENOUGH_SATISFACTION,
                     OVER_MAX_REF,
-                    FAIL_RESERVE
+                    FAIL_RESERVE,
+                    GET_IN,
+                    GET_OFF
                 }
                 public SET_TASK_ERROR SetCurrentTask(string taskId) {
                     //task가져오고
@@ -421,8 +425,15 @@ namespace ENGINE {
                     if(task.mInfo.scene != string.Empty) {
                         mReservedScene = task.mInfo.scene;
                     }
-                    
-                    return SET_TASK_ERROR.SUCCESS;
+
+                    switch(task.mInfo.target.type) {
+                        case TASK_TARGET_TYPE.GET_IN_VEHICLE:
+                        return SET_TASK_ERROR.GET_IN;
+                        case TASK_TARGET_TYPE.GET_OFF_VEHICLE:
+                        return SET_TASK_ERROR.GET_OFF;
+                        default:
+                        return SET_TASK_ERROR.SUCCESS;
+                    }
                 }
                 private bool SetReserveToTarget(string targetActorId, FnTask task) {
                     var targetActor = ActorHandler.Instance.GetActor(targetActorId);
@@ -486,11 +497,29 @@ namespace ENGINE {
                 public SET_TASK_ERROR Loop_SetTask(string taskId) {
                     mLOOP_STATE = LOOP_STATE.SET_TASK; 
                     SET_TASK_ERROR err = SetCurrentTask(taskId);
+                    switch(err) {
+                        case SET_TASK_ERROR.SUCCESS:
+                        CallCallback(LOOP_STATE.SET_TASK);
+                        break;
+                        case SET_TASK_ERROR.GET_IN:
+                        mLOOP_STATE = LOOP_STATE.GET_IN_VEHICLE; 
+                        CallCallback(LOOP_STATE.GET_IN_VEHICLE);
+                        break;
+                        case SET_TASK_ERROR.GET_OFF:
+                        mLOOP_STATE = LOOP_STATE.GET_OFF_VEHICLE; 
+                        CallCallback(LOOP_STATE.GET_OFF_VEHICLE);
+                        break;
+                        default:
+                        mLOOP_STATE = LOOP_STATE.TASK_UI; 
+                        break;
+                    }
+                    /*
                     if(err != SET_TASK_ERROR.SUCCESS) {
                         mLOOP_STATE = LOOP_STATE.TASK_UI; 
                         return err;
                     }
                     CallCallback(LOOP_STATE.SET_TASK);
+                    */
                     return err;
                 }
                 // LOOP Auto do task
@@ -505,6 +534,14 @@ namespace ENGINE {
                     mLOOP_STATE = LOOP_STATE.DO_TASK; 
                     DoTask(false);
                     CallCallback(LOOP_STATE.DO_TASK);                    
+                }
+                public void Loop_GetInVehicle() {
+                    mLOOP_STATE = LOOP_STATE.GET_IN_VEHICLE;
+                    CallCallback(LOOP_STATE.GET_IN_VEHICLE);    
+                }
+                public void Loop_GetOffVehicle() {
+                    mLOOP_STATE = LOOP_STATE.GET_OFF_VEHICLE;
+                    CallCallback(LOOP_STATE.GET_OFF_VEHICLE);
                 }
                 public void Loop_Refusal() {
                     mLOOP_STATE = LOOP_STATE.REFUSAL; 
@@ -575,7 +612,8 @@ namespace ENGINE {
                         throw new Exception("DoTask failure. The current task must exist.");
                     
                     //chain
-                    if(task.mInfo.chain != null && task.mInfo.chain != string.Empty) {                        
+                    if(task.mInfo.chain != null && task.mInfo.chain != string.Empty) {     
+                        mTaskContext.Release();                   
                         Loop_SetTask(task.mInfo.chain);                        
                     } else {
                         Loop_Release();                        

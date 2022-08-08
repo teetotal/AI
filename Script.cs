@@ -35,6 +35,9 @@ namespace ENGINE {
                 }                
                 public string GetScript(string taskId, Actor from, Actor? to = null) {
                     if(mDict.ContainsKey(taskId)) {
+                        if(mDict[taskId].Count == 0) {
+                            return INVALID_SCRIPT;
+                        }
                         var rnd = new Random();
                         int idx = rnd.Next(mDict[taskId].Count);
                         return GetReplacedString(mDict[taskId][idx], from, to);
@@ -43,6 +46,9 @@ namespace ENGINE {
                 }               
                 public string GetScriptRefusal(string taskId, Actor from, Actor? to = null) {
                     if(mDictRefusal.ContainsKey(taskId)) {
+                        if(mDictRefusal[taskId].Count == 0) {
+                            return INVALID_SCRIPT;
+                        }
                         var rnd = new Random();
                         int idx = rnd.Next(mDictRefusal[taskId].Count);
                         return GetReplacedString(mDictRefusal[taskId][idx], from, to);

@@ -74,6 +74,11 @@ namespace ENGINE {
                         position = mInfo.target.position;
                         lootAt = mInfo.target.lookAt;
                         break;
+                        case TASK_TARGET_TYPE.GET_IN_VEHICLE:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.OBJECT;
+                        break;
+                        case TASK_TARGET_TYPE.GET_OFF_VEHICLE:
+                        break;
                     }
                     return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(type, targetValue, position, lootAt);
                 }          
