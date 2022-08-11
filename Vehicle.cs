@@ -5,7 +5,7 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class VehicleHandler {
-                public delegate void FnHangAround(string vehicleId, string position, string rotation);  
+                public delegate bool FnHangAround(string vehicleId, string position, string rotation);  
                 private FnHangAround? mFnHangAround = null;
                 private Dictionary<string, ConfigVehicle_Detail> mDic = new Dictionary<string, ConfigVehicle_Detail>();
                 private Dictionary<string, bool> mDicMoving = new Dictionary<string, bool>(); //이동 여부
@@ -49,14 +49,10 @@ namespace ENGINE {
                 public void SetFnHangAround(FnHangAround fn) {
                     mFnHangAround = fn;
                 }
-                public void GetIn(string vehicleId) {
-                    mDicMoving[vehicleId] = true;
+                public void SetMoving(string vehicleId, bool isMoving) {
+                    mDicMoving[vehicleId] = isMoving;
                     mDicLastTime[vehicleId] = CounterHandler.Instance.GetCount();
                 }
-                public void GetOff(string vehicleId) {
-                    mDicMoving[vehicleId] = false;
-                    mDicLastTime[vehicleId] = CounterHandler.Instance.GetCount();
-                }   
                 public void Update() {
                     long now = CounterHandler.Instance.GetCount();
                     foreach(var p in mDic) {
@@ -64,9 +60,11 @@ namespace ENGINE {
                             if(mFnHangAround != null) {
                                 ConfigVehicle_Detail info = mDic[p.Key];
                                 int idx = mRand.Next(info.positions.Count);
-                                mDicMoving[p.Key] = true;
-                                mDicLastTime[p.Key] = now;
-                                mFnHangAround(p.Key, info.positions[idx].position, info.positions[idx].rotation);
+    
+                                if(mFnHangAround(p.Key, info.positions[idx].position, info.positions[idx].rotation)) {
+                                    mDicMoving[p.Key] = true;
+                                    mDicLastTime[p.Key] = now;
+                                }
                             }
                         }
                     }

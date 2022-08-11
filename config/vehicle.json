@@ -6,7 +6,7 @@
         "name": "\ud0dd\uc2dc1",
         "speed": 4.0,
         "acceleration": 6.0,
-        "waiting": 20,
+        "waiting": 5,
         "prefab": "Vehicle/Taxi",
         "owner": "",
         "productCost": [],
@@ -16,7 +16,15 @@
                 "rotation": "0,0,0"
             },
             {
-                "position": "75,0,0",
+                "position": "75,0,-2",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "82,0,108",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "-25,0,69",
                 "rotation": "0,0,0"
             }
         ]
@@ -28,7 +36,7 @@
         "name": "\uacbd\ucc30\ucc281",
         "speed": 8.0,
         "acceleration": 12.0,
-        "waiting": 20,
+        "waiting": 5,
         "prefab": "Vehicle/Police_Car",
         "owner": "",
         "productCost": [
@@ -47,7 +55,19 @@
                 "rotation": "0,-90,0"
             },
             {
-                "position": "5,0,70",
+                "position": "3,0,70",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "185,0,-9",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "103,0,130",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "-8,0,107.4",
                 "rotation": "0,0,0"
             }
         ]
