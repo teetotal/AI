@@ -1,0 +1,55 @@
+{
+    "taxi-1": {
+        "type": "TAXI",
+        "vehicleId": "taxi-1",
+        "ownable": false,
+        "name": "\ud0dd\uc2dc1",
+        "speed": 4.0,
+        "acceleration": 6.0,
+        "waiting": 20,
+        "prefab": "Vehicle/Taxi",
+        "owner": "",
+        "productCost": [],
+        "positions": [
+            {
+                "position": "2.5,0,8",
+                "rotation": "0,0,0"
+            },
+            {
+                "position": "75,0,0",
+                "rotation": "0,0,0"
+            }
+        ]
+    },
+    "police-1": {
+        "type": "POLICE",
+        "vehicleId": "police-1",
+        "ownable": false,
+        "name": "\uacbd\ucc30\ucc281",
+        "speed": 8.0,
+        "acceleration": 12.0,
+        "waiting": 20,
+        "prefab": "Vehicle/Police_Car",
+        "owner": "",
+        "productCost": [
+            {
+                "satisfactionId": "Gold",
+                "value": 16.0
+            },
+            {
+                "satisfactionId": "Resource1",
+                "value": 8.0
+            }
+        ],
+        "positions": [
+            {
+                "position": "15,0,-8",
+                "rotation": "0,-90,0"
+            },
+            {
+                "position": "5,0,70",
+                "rotation": "0,0,0"
+            }
+        ]
+    }
+}

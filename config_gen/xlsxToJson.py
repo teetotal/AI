@@ -348,6 +348,51 @@ def level():
     file.close()
 
     write(json_object, 'level.json')
+# Vehicle --------------------------------------------------------------------------------
+def vehicle():
+    def get_json_vehicle(arr):
+        j = {
+            "type": arr[0],
+            "vehicleId": arr[1],
+            "ownable": True if arr[2].upper() == 'TRUE' else False,
+            "name": arr[3],
+            "speed": float(arr[4]),
+            "acceleration": float(arr[5]),
+            "waiting": int(arr[6]),
+            "prefab": arr[7],
+            "owner": arr[8],
+            "productCost": [], #arr[9]
+            "positions": [] #arr[10]
+        }
+        #productCost
+        if len(arr[9]) > 0:
+            productCost = arr[9].split(',')
+            for p in productCost:
+                kv = p.split(':')
+                j['productCost'].append({
+                    "satisfactionId": kv[0],
+                    "value": float(kv[1])
+                })
+        #positions
+        if len(arr[10]) > 0:
+            positions = arr[10].split('\n')
+            for p in positions:
+                pos_rot = p.split(':')
+                j['positions'].append({
+                    "position": pos_rot[0],
+                    "rotation": pos_rot[1]
+                })
+
+        return j
+
+    file, csvreader = read('vehicle.csv')
+    json_object = {}
+    for row in csvreader:
+        j = get_json_vehicle(row)
+        json_object[j["vehicleId"]] = j
+    file.close()
+
+    write(json_object, 'vehicle.json')
 
 export()
 print(datetime.now(), 'exported')
@@ -361,9 +406,12 @@ task()
 print(datetime.now(), 'gen task')
 quest()
 print(datetime.now(), 'gen quest')
+vehicle()
+print(datetime.now(), 'gen vehicle')
 os.remove('./task.csv')
 os.remove('./actors.csv')
 os.remove('./quest.csv')
 os.remove('./item.csv')
 os.remove('./level.csv')
+os.remove('./vehicle.csv')
 print(datetime.now(), 'removed csv files')

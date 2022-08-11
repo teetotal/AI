@@ -293,7 +293,24 @@ namespace ENGINE {
                 public Dictionary<string, float> tax { get; set; } = new Dictionary<string, float>();
                 public ConfigVillage_Level level { get; set; } = new ConfigVillage_Level();
             }
-            
+            // Vehicle --------------------------------------------------------------------------
+            public class ConfigVehicle_Position {
+                public string position { get; set; } = string.Empty;
+                public string rotation { get; set; } = string.Empty;
+            }
+            public class ConfigVehicle_Detail {
+                public string type { get; set; } = string.Empty;
+                public string vehicleId { get; set; } = string.Empty;
+                public bool ownable { get; set; }
+                public string name { get; set; } = string.Empty;
+                public float speed { get; set; }
+                public float acceleration { get; set; }
+                public int waiting { get; set; }
+                public string prefab { get; set; } = string.Empty;
+                public string owner { get; set; } = string.Empty;
+                public List<Config_KV_SF> productCost { get; set; } = new List<Config_KV_SF>();
+                public List<ConfigVehicle_Position> positions { get; set; } = new List<ConfigVehicle_Position>();
+            }
             //-----------------------------------------------------------------------------------
             public class Loader {
                 private bool mInitialized = false;
@@ -314,7 +331,8 @@ namespace ENGINE {
                                   string stringScript,
                                   string stringScenario,
                                   string stringVillage,
-                                  string stringL10n ) 
+                                  string stringL10n,
+                                  string stringVehicle ) 
                 {
                     if(mInitialized)
                         return true;
@@ -368,7 +386,12 @@ namespace ENGINE {
                         return false;
                     }
                     //L10n
-                    SetL10n(stringL10n);
+                    if(!SetL10n(stringL10n))
+                        return false;
+                    //Vehicle
+                    if(!SetVehicle(stringVehicle))
+                        return false;
+
 
                     mInitialized = true;
 
@@ -511,7 +534,16 @@ namespace ENGINE {
                     L10nHandler.Instance.Set(j);
                     
                     return true;
-                }                
+                }   
+                private bool SetVehicle(string sz) {
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigVehicle_Detail> >(sz);  
+                    if(j == null) {
+                        return false;
+                    }
+                    VehicleHandler.Instance.Set(j);
+                    
+                    return true;
+                }             
             }
         }
     }

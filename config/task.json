@@ -695,23 +695,23 @@
             "scene": ""
         },
         {
-            "id": "test",
-            "chain": "test-get_in",
+            "id": "VEH1",
+            "chain": "test-get_in1",
             "type": 0,
             "level": [
-                5,
+                2,
                 10
             ],
             "villageLevel": 1,
-            "title": "\ud0dd\uc2dc\ud0c0\uae30",
-            "desc": "test",
+            "title": "\ud0dd\uc2dc\uc7a1\uae301",
+            "desc": "\ud0dd\uc2dc\uc7a1\uc544\ud0c0\uae301",
             "animation": "HandUp",
             "animationRepeatTime": 1,
             "maxRef": 1,
             "target": {
                 "type": 1,
                 "value": [
-                    "Taxi"
+                    "VEHICLE.0"
                 ],
                 "interaction": {
                     "type": 0,
@@ -724,11 +724,11 @@
             "scene": ""
         },
         {
-            "id": "test-get_in",
+            "id": "test-get_in1",
             "chain": "test-get_off",
             "type": 2,
             "level": [
-                5,
+                2,
                 10
             ],
             "villageLevel": 1,
@@ -740,14 +740,16 @@
             "target": {
                 "type": 7,
                 "value": [
-                    "Taxi:90.0.55"
+                    "VEHICLE.0:90,0,55"
                 ],
                 "interaction": {
                     "type": 0,
                     "taskId": ""
                 }
             },
-            "satisfactions": {},
+            "satisfactions": {
+                "Gold": "-1"
+            },
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
@@ -757,7 +759,7 @@
             "chain": "",
             "type": 2,
             "level": [
-                5,
+                2,
                 10
             ],
             "villageLevel": 1,
@@ -777,6 +779,66 @@
                 }
             },
             "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "VEH2",
+            "chain": "test-get_in2",
+            "type": 0,
+            "level": [
+                2,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ud0dd\uc2dc\uc7a1\uae302",
+            "desc": "\ud0dd\uc2dc\uc7a1\uc544\ud0c0\uae302",
+            "animation": "HandUp",
+            "animationRepeatTime": 1,
+            "maxRef": 1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "VEHICLE.0"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "test-get_in2",
+            "chain": "test-get_off",
+            "type": 2,
+            "level": [
+                2,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ud0dd\uc2dc\ud0c0\uae30",
+            "desc": "",
+            "animation": "",
+            "animationRepeatTime": 0,
+            "maxRef": -1,
+            "target": {
+                "type": 7,
+                "value": [
+                    "VEHICLE.0:75,0,0"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Gold": "-1"
+            },
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""

@@ -585,23 +585,26 @@ namespace ENGINE {
                         }
                         if(isWin)
                             CallCallback(LOOP_STATE.ITEM);
-                        
-                        mTaskContext.IncreaseTaskCounter();
                     }
                 }
                 // --------------------------------------------------------------------------------------------------
                 public void Loop_Levelup() {
                     mLOOP_STATE = LOOP_STATE.LEVELUP; 
+                    if(mUniqueId == "ACTOR1-1") {
+                        int i = 0;
+                        i++;
+                    }
+                    mTaskContext.IncreaseTaskCounter();
                     //Levelup 처리                                               
-                    if(checkLevelUp()) {
+                    if(CheckLevelUp()) {
                         var reward = LevelHandler.Instance.Get(mType, level);
                         if(reward != null && reward.next != null && reward.next.rewards != null) {
                             LevelUp(reward.next.rewards);                            
                         }
                         CallCallback(LOOP_STATE.LEVELUP);
                     } else {
-                        Loop_Chain();
-                    }
+                        Loop_Release();
+                    } 
                 }
                 
                 //콜백 없음
@@ -616,7 +619,7 @@ namespace ENGINE {
                         mTaskContext.Release();                   
                         Loop_SetTask(task.mInfo.chain);                        
                     } else {
-                        Loop_Release();                        
+                        Loop_Levelup();                        
                     }                 
                 }          
                 public void Loop_Release() {
@@ -1119,7 +1122,7 @@ namespace ENGINE {
                     }
                     return count == 0 ? 0: sum / count;
                 }
-                public bool checkLevelUp() {
+                public bool CheckLevelUp() {
                     //check level up                   
                     var info = LevelHandler.Instance.Get(mType, level);
                     if(info != null && info.next != null && info.next.threshold != null) {                        
