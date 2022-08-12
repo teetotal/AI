@@ -392,7 +392,7 @@ namespace ENGINE {
                     SUCCESS,
                     NOT_ENOUGH_SATISFACTION,
                     OVER_MAX_REF,
-                    FAIL_RESERVE,
+                    FAILURE,
                     GET_IN,
                     GET_OFF
                 }
@@ -410,13 +410,16 @@ namespace ENGINE {
                         return SET_TASK_ERROR.OVER_MAX_REF;
                     //target가져오고
                     Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
+                    if(target.Item1 == Actor.TASKCONTEXT_TARGET_TYPE.INVALID) {
+                        return SET_TASK_ERROR.FAILURE;
+                    }
                     //ASK 처리
                     switch(task.mInfo.target.interaction.type) {
                         //ask와 interrupt의 차이는 ask는 거절 할 수 있지만 interrupt는 무조건 true리턴
                         case TASK_INTERACTION_TYPE.ASK:
                         case TASK_INTERACTION_TYPE.INTERRUPT: 
                         if(!SetReserveToTarget(target.Item2, task)) 
-                            return SET_TASK_ERROR.FAIL_RESERVE;
+                            return SET_TASK_ERROR.FAILURE;
                         break;
                         default:
                         break;

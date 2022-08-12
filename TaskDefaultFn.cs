@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 #nullable enable
 namespace ENGINE {
@@ -13,6 +14,9 @@ namespace ENGINE {
                 private string template = "<size=100%>{title}</size>\n<size=80%>{desc} <color=#E4CA44>{satisfaction}</color></size>";
                 private Dictionary<string, float> mSatisfaction = new Dictionary<string, float>();
                 private Dictionary<string, float> mSatisfactionRefusal = new Dictionary<string, float>();
+                private const string VEHICLE = "VEHICLE";
+                private const char TARGET_DELIMETER = ':';
+                private StringBuilder mSzBuilder = new StringBuilder();
 
                 public TaskDefaultFn(ConfigTask_Detail info) {
                     this.mTaskId = info.id;
@@ -36,9 +40,40 @@ namespace ENGINE {
                     }
                     this.mTaskString = this.mTaskString.Replace("{satisfaction}", satisfaction);
                 }  
+                private string? ReplaceTargetName() {
+                    if(mInfo.target.value == null)
+                        throw new Exception("mInfo.target.value must be not null");
+                    string target = mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];
+                    string[] szArr  = target.Split(TARGET_DELIMETER);
+                    string sz = szArr[0];
+                    string[] arr = sz.Split('.');
+                    if(arr.Length == 1)
+                        return sz;
+                    switch(arr[0]) {
+                        case VEHICLE: {
+                            var veh = VehicleHandler.Instance.GetOne(arr[1]);
+                            if(veh == null)
+                                return null;
+                            if(szArr.Length == 2) {
+                                mSzBuilder.Clear();
+                                mSzBuilder.Append(veh.vehicleId);
+                                mSzBuilder.Append(TARGET_DELIMETER);
+                                mSzBuilder.Append(szArr[1]);
+                                return mSzBuilder.ToString();
+                            } else {
+                                return veh.vehicleId;
+                            }
+                        }
+                        default:
+                            return sz;
+                    }
+                }
                 public override Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor) {
                     Actor.TASKCONTEXT_TARGET_TYPE type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
-                    string targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];                    
+                    string? targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : ReplaceTargetName();   
+                    if(targetValue == null)
+                        return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(Actor.TASKCONTEXT_TARGET_TYPE.INVALID, string.Empty, null, null);  
+
                     Position? position = null;
                     Position? lootAt = null;
 
@@ -78,6 +113,7 @@ namespace ENGINE {
                         type = Actor.TASKCONTEXT_TARGET_TYPE.OBJECT;
                         break;
                         case TASK_TARGET_TYPE.GET_OFF_VEHICLE:
+                        type = Actor.TASKCONTEXT_TARGET_TYPE.NON_TARGET;
                         break;
                     }
                     return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(type, targetValue, position, lootAt);

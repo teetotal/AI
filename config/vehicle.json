@@ -6,7 +6,7 @@
         "name": "\ud0dd\uc2dc1",
         "speed": 4.0,
         "acceleration": 6.0,
-        "waiting": 5,
+        "waiting": 50,
         "prefab": "Vehicle/Taxi",
         "owner": "",
         "productCost": [],
