@@ -868,9 +868,9 @@
         "draft": []
     },
     "item-5": {
-        "name": "test item5",
-        "desc": "test item",
-        "category": "test",
+        "name": "\ub5a1\ubf41\uc774",
+        "desc": "\uc218\uc81c \uad6d\ubb3c \ub5a1\ubf41\uc774+\uba74\uc0ac\ub9ac+\uce58\uc988\ucd94\uac00 \uadf8\ub9ac\uace0 \ubcf6\uc74c\ubc25\uc73c\ub85c \uad6c\uc131\ub41c \ub5a1\ubf41\uc774 ",
+        "category": "Satisfaction",
         "type": "t",
         "level": 1,
         "cost": 1,
@@ -884,7 +884,7 @@
                 "satisfactionId": "HP",
                 "min": 0,
                 "max": 0,
-                "value": 12,
+                "value": 8,
                 "measure": {
                     "min": 2,
                     "max": 2,

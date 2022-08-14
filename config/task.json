@@ -537,11 +537,11 @@
             "chain": "",
             "type": 0,
             "level": [
-                5,
+                1,
                 10
             ],
             "villageLevel": 1,
-            "title": "\ub9ac\ub354\uc2ed\ud0a4\uc6b0\uae30",
+            "title": "\uc778\uc0ac\ud558\uae30",
             "desc": "\uc8fc\ubcc0\uc5d0 \ub3c8\ub9ce\uc744 \uc0ac\ub78c\ud55c\ud14c \uad1c\ud788 \ub9d0\uac78\uae30",
             "animation": "Greeting",
             "animationRepeatTime": 1,
@@ -938,6 +938,44 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "scene": ""
+        },
+        {
+            "id": "p1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ub5a1\ubf41\uc774 \uc8fc\ubb38\ud558\uae30",
+            "desc": "\uc18c\ubb38\ub09c \ub5a1\ubf41\uc774 \ub9db\uc9d1\uc5d0\uc11c \uc8fc\ubb38\ud558\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "NPC3-1"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Gold": "-8"
+            },
+            "satisfactionsRefusal": {},
+            "items": [
+                {
+                    "itemId": "item-5",
+                    "quantity": 1,
+                    "winRange": 10,
+                    "totalRange": 10
+                }
+            ],
             "scene": ""
         }
     ]
