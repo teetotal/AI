@@ -40,7 +40,7 @@ namespace ENGINE {
                     }
                     this.mTaskString = this.mTaskString.Replace("{satisfaction}", satisfaction);
                 }  
-                private string? ReplaceTargetName() {
+                private string? ReplaceTargetName(string actorId) {
                     if(mInfo.target.value == null)
                         throw new Exception("mInfo.target.value must be not null");
                     string target = mInfo.target.value[mRandom.Next(0, mInfo.target.value.Count)];
@@ -51,7 +51,7 @@ namespace ENGINE {
                         return sz;
                     switch(arr[0]) {
                         case VEHICLE: {
-                            var veh = VehicleHandler.Instance.GetOne(arr[1]);
+                            var veh = VehicleHandler.Instance.GetOne(arr[1], actorId);
                             if(veh == null)
                                 return null;
                             if(szArr.Length == 2) {
@@ -70,7 +70,7 @@ namespace ENGINE {
                 }
                 public override Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> GetTargetObject(Actor actor) {
                     Actor.TASKCONTEXT_TARGET_TYPE type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
-                    string? targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : ReplaceTargetName();   
+                    string? targetValue = (mInfo.target.value == null || mInfo.target.type == TASK_TARGET_TYPE.NON_TARGET) ? string.Empty : ReplaceTargetName(actor.mUniqueId);   
                     if(targetValue == null)
                         return new Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?>(Actor.TASKCONTEXT_TARGET_TYPE.INVALID, string.Empty, null, null);  
 
@@ -109,6 +109,7 @@ namespace ENGINE {
                         position = mInfo.target.position;
                         lootAt = mInfo.target.lookAt;
                         break;
+                        case TASK_TARGET_TYPE.RESERVE_VEHICLE:
                         case TASK_TARGET_TYPE.GET_IN_VEHICLE:
                         type = Actor.TASKCONTEXT_TARGET_TYPE.OBJECT;
                         break;

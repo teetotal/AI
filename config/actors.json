@@ -327,6 +327,47 @@
         "isFly": false,
         "laziness": 0
     },
+    "NPC9-1": {
+        "enable": true,
+        "village": "",
+        "follower": false,
+        "type": 109,
+        "nickname": "\uad11\ubd801",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc3",
+        "position": [
+            -50.0,
+            0.0,
+            -90.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "Gold",
+                "min": 0,
+                "max": 10000,
+                "value": 0
+            },
+            {
+                "satisfactionId": "Resource1",
+                "min": 0,
+                "max": 10000,
+                "value": 50
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 50
+    },
     "PET1-1": {
         "enable": true,
         "village": "",
@@ -485,7 +526,7 @@
             }
         ],
         "isFly": false,
-        "laziness": 1
+        "laziness": 5
     },
     "ACTOR1-2": {
         "enable": true,

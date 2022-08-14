@@ -430,13 +430,17 @@ namespace ENGINE {
                     }
 
                     switch(task.mInfo.target.type) {
+                        case TASK_TARGET_TYPE.RESERVE_VEHICLE:
+                        VehicleHandler.Instance.SetReserve(target.Item2, mUniqueId);
+                        break; 
                         case TASK_TARGET_TYPE.GET_IN_VEHICLE:
                         return SET_TASK_ERROR.GET_IN;
                         case TASK_TARGET_TYPE.GET_OFF_VEHICLE:
                         return SET_TASK_ERROR.GET_OFF;
                         default:
-                        return SET_TASK_ERROR.SUCCESS;
+                        break;
                     }
+                    return SET_TASK_ERROR.SUCCESS;
                 }
                 private bool SetReserveToTarget(string targetActorId, FnTask task) {
                     var targetActor = ActorHandler.Instance.GetActor(targetActorId);
@@ -593,10 +597,6 @@ namespace ENGINE {
                 // --------------------------------------------------------------------------------------------------
                 public void Loop_Levelup() {
                     mLOOP_STATE = LOOP_STATE.LEVELUP; 
-                    if(mUniqueId == "ACTOR1-1") {
-                        int i = 0;
-                        i++;
-                    }
                     mTaskContext.IncreaseTaskCounter();
                     //Levelup 처리                                               
                     if(CheckLevelUp()) {

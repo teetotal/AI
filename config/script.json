@@ -9,6 +9,10 @@
         "NPC-104": [
             "\ub9e5\uc8fc \ud31d\ub2c8\ub2e4~"
         ],
+        "NPC-109": [
+            "\uc624\uba54~ \ub3c8\uc774 \uc5bc\ub9c8\uc5ec~",
+            "\uc774\uac8c \ub2e4 \ub3c8\uc774\uc5ec \ub3c8~"
+        ],
         "LD1-A1": [
             "\ud56b\ub3c4\uadf8\ub294 \ub9db\uc787\uc639!",
             "\ud56b\ub3c4\uadf8 \ud558\ub098 \uc8fc\uc138\uc694~",
@@ -85,7 +89,15 @@
         "VEH2": [
             "\uac00\uc694?"
         ],
-        "test-get_in2": []
+        "test-get_in2": [],
+        "NI1": [
+            "\uc790\uc6d01 \uc0ac\ub7ec \uc654\uc5b4\uc694",
+            "\ubb3c\uac74 \uc788\ub098\uc694?",
+            "\uc790\uc6d01 \ud30c\uc2e4\ub798\uc694?"
+        ],
+        "NI1-I": [
+            "A\uae09 \uc790\uc6d01 \uc5ec\uae44\uc2b5\ub2c8\ub2e4"
+        ]
     },
     "refusal": {
         "LD4-1-I": [
@@ -94,6 +106,9 @@
         "LD4-3-I": [
             "\ubb50\ub798 \ubcc4\ub85c \uce5c\ud558\uc9c0\ub3c4 \uc54a\uc740\ub370",
             "\ub2d8 \ucc28\ub2e8"
+        ],
+        "NI1": [
+            "\ud5c9.."
         ]
     }
 }

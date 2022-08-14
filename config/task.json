@@ -65,6 +65,39 @@
             "scene": ""
         }
     ],
+    "109": [
+        {
+            "id": "NPC-109",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                100
+            ],
+            "villageLevel": 1,
+            "title": "\uc790\uc6d0\uce90\uae30",
+            "desc": "",
+            "animation": "Digging",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_642"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Resource1": "2"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        }
+    ],
     "1": [
         {
             "id": "LD1-A1",
@@ -709,7 +742,7 @@
             "animationRepeatTime": 1,
             "maxRef": 1,
             "target": {
-                "type": 1,
+                "type": 7,
                 "value": [
                     "VEHICLE.TAXI"
                 ],
@@ -718,7 +751,9 @@
                     "taskId": ""
                 }
             },
-            "satisfactions": {},
+            "satisfactions": {
+                "Gold": "-1"
+            },
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
@@ -738,7 +773,7 @@
             "animationRepeatTime": 0,
             "maxRef": -1,
             "target": {
-                "type": 7,
+                "type": 8,
                 "value": [
                     "VEHICLE.TAXI:90,0,55"
                 ],
@@ -747,9 +782,7 @@
                     "taskId": ""
                 }
             },
-            "satisfactions": {
-                "Gold": "-1"
-            },
+            "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
@@ -769,7 +802,7 @@
             "animationRepeatTime": 0,
             "maxRef": -1,
             "target": {
-                "type": 8,
+                "type": 9,
                 "value": [
                     ""
                 ],
@@ -798,7 +831,7 @@
             "animationRepeatTime": 1,
             "maxRef": 1,
             "target": {
-                "type": 1,
+                "type": 7,
                 "value": [
                     "VEHICLE.TAXI"
                 ],
@@ -807,7 +840,9 @@
                     "taskId": ""
                 }
             },
-            "satisfactions": {},
+            "satisfactions": {
+                "Gold": "-1"
+            },
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
@@ -827,7 +862,7 @@
             "animationRepeatTime": 0,
             "maxRef": -1,
             "target": {
-                "type": 7,
+                "type": 8,
                 "value": [
                     "VEHICLE.TAXI:75,0,0"
                 ],
@@ -836,8 +871,70 @@
                     "taskId": ""
                 }
             },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "NI1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                2,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uad11\ubd801\uacfc \uac70\ub798\ud558\uae30",
+            "desc": "\uad11\ubd801\uc5d0\uac8c\uc11c \uc218\uc90d\uac8c \uc790\uc6d01 \uad6c\ub9e4",
+            "animation": "Bashful",
+            "animationRepeatTime": 1,
+            "maxRef": 1,
+            "target": {
+                "type": 2,
+                "value": [
+                    "NPC9-1"
+                ],
+                "interaction": {
+                    "type": 1,
+                    "taskId": "NI1-I"
+                }
+            },
             "satisfactions": {
-                "Gold": "-1"
+                "Gold": "$|1.0|-%",
+                "Resource1": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "NI1-I",
+            "chain": "",
+            "type": 1,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uc790\uc6d01 \ud314\uae30",
+            "desc": "\uc790\uc6d01 \ud314\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 4,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "Gold": "$|1.0|+%",
+                "Resource1": "-1"
             },
             "satisfactionsRefusal": {},
             "items": [],

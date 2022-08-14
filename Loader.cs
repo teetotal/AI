@@ -179,6 +179,7 @@ namespace ENGINE {
                 ACTOR_FROM, //interaction을 건 상대
                 POSITION, //좌표
                 FLY, //공중 좌표
+                RESERVE_VEHICLE,
                 GET_IN_VEHICLE,
                 GET_OFF_VEHICLE
             }

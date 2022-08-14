@@ -94,8 +94,8 @@
         "period": 0,
         "marketPrice": {
             "gradient": -2,
-            "bias": 512,
-            "maxQuantity": 256
+            "bias": 256,
+            "maxQuantity": 128
         }
     },
     "Resource2": {

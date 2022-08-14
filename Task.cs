@@ -176,6 +176,12 @@ namespace ENGINE {
                     }
                     return true;
                 }
+                public bool CheckTarget(FnTask task, Actor actor) {
+                    var ret = task.GetTargetObject(actor);
+                    if(ret.Item1 == Actor.TASKCONTEXT_TARGET_TYPE.INVALID)
+                        return false;
+                    return true;
+                }
             }
         }
     }
