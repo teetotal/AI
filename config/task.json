@@ -112,7 +112,7 @@
             "desc": "\ud56b\ub3c4\uadf8 \uc0ac\uba39\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 2,
                 "value": [
@@ -144,7 +144,7 @@
             "desc": "\ud558\ub298\uc744 \ub098\ub294 \uace0\ub798\ub97c \ubcf4\uba70 \ud790\ub9c1\ud55c\ub2e4",
             "animation": "HandUp",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -208,7 +208,7 @@
             "desc": "\uac24\ub7ec\ub9ac\uc5d0\uc11c \uc791\ud488 \uac10\uc0c1\ud558\uae30",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 2,
                 "value": [
@@ -239,7 +239,7 @@
             "desc": "\uace8\ub4dc\ub97c \ubc8c\uae30\uc704\ud574 \uc77c\ud55c\ub2e4",
             "animation": "Digging",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -266,7 +266,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                2,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -274,7 +274,7 @@
             "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -298,7 +298,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                2,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -306,7 +306,7 @@
             "desc": "\uc0dd\uc0b0\ub8252\ub97c \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -330,7 +330,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                2,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -338,7 +338,7 @@
             "desc": "\uc0dd\uc0b0\ub8253\uc744 \uc62c\ub9b0\ub2e4 ",
             "animation": "Strong",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -363,7 +363,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                3,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -371,7 +371,7 @@
             "desc": "\uc790\uc6d01 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d01 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
             "animation": "Digging",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -401,7 +401,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                3,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -409,7 +409,7 @@
             "desc": "\uc790\uc6d02 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d02 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
             "animation": "Digging",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -439,7 +439,7 @@
             "chain": "",
             "type": 0,
             "level": [
-                3,
+                1,
                 10
             ],
             "villageLevel": 1,
@@ -447,7 +447,7 @@
             "desc": "\uc790\uc6d03 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d03 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
             "animation": "Digging",
             "animationRepeatTime": 1,
-            "maxRef": -1,
+            "maxRef": 3,
             "target": {
                 "type": 1,
                 "value": [
@@ -976,6 +976,100 @@
                     "totalRange": 10
                 }
             ],
+            "scene": ""
+        },
+        {
+            "id": "p2",
+            "chain": "p2-C",
+            "type": 0,
+            "level": [
+                1,
+                11
+            ],
+            "villageLevel": 1,
+            "title": "\uad11\uc7a5\uc5d0\uc11c \uac19\uc774 \ucda4\ucd94\ub7ec \uac00\uc790\uace0 \ud558\uae30",
+            "desc": "\uc8fc\ubcc0\uc5d0 \uccb4\ub825 \uc88b\uc740 \uce5c\uad6c\uc5d0\uac8c \uc218\uc90d\uac8c \uad11\uc7a5\uc5d0\uc11c \uac19\uc774 \ucda4\ucd94\ub7ec \uac00\uc790\uace0 \ud558\uae30",
+            "animation": "Bashful",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 3,
+                "value": [
+                    "1.Satisfaction.HP:max"
+                ],
+                "interaction": {
+                    "type": 1,
+                    "taskId": "p2-I"
+                }
+            },
+            "satisfactions": {
+                "Friendship": "2"
+            },
+            "satisfactionsRefusal": {
+                "Friendship": "-1"
+            },
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "p2-I",
+            "chain": "p2-C",
+            "type": 1,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\uac19\uc774 \ucda4\ucd94\ub7ec \uac04\ub2e4\uace0 \ud558\uae30",
+            "desc": "\uac19\uc774 \ucda4\ucd94\ub7ec \uac04\ub2e4\uace0 \ud558\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 4,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-2",
+                "MP": "4"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "p2-C",
+            "chain": "",
+            "type": 2,
+            "level": [
+                1,
+                10
+            ],
+            "villageLevel": 1,
+            "title": "\ucda4\ucd94\uae30",
+            "desc": "",
+            "animation": "DancingGroup",
+            "animationRepeatTime": 3,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_321"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
             "scene": ""
         }
     ]

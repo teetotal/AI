@@ -416,7 +416,7 @@
         "type": 1,
         "nickname": "\uaf3c\uc774",
         "pets": [],
-        "level": 1,
+        "level": 3,
         "prefab": "Actors/actor1",
         "position": [
             0.0,
@@ -436,8 +436,8 @@
             {
                 "satisfactionId": "Gold",
                 "min": 20,
-                "max": 50,
-                "value": 48
+                "max": 150,
+                "value": 148
             },
             {
                 "satisfactionId": "Speed",

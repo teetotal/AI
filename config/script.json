@@ -101,6 +101,18 @@
         "p1": [
             "\ub5a1\ubf41\uc774 1\uc778\ubd84 \ud3ec\uc7a5\uc774\uc694~",
             "1\uc778\ubd84\uc774\uc694~ \ub9ac\ubdf0\uc774\ubca4\ud2b8 \uc2e0\uccad\ud588\uc5b4\uc694~"
+        ],
+        "p2": [
+            "{to} \uac19\uc774 \ucda4\ucd94\ub7ec \uac00\uc9c0 \uc54a\uc744\ub798?",
+            "\ucda4\ucd94\ub7ec \uac00\uc790! \ubabb\ucdb0\ub3c4 \uad1c\ucc2e\uc544~!"
+        ],
+        "p2-I": [
+            "\ucabc\uc544!",
+            "Here we go!"
+        ],
+        "p2-C": [
+            "\ub460\uce6b \ub460\uce6b",
+            "\ud754\ub4e4\uc5b4 \uc81c\uaef4\ubc84\ub9ac\uaca0\uc5b4"
         ]
     },
     "refusal": {
@@ -114,6 +126,13 @@
         ],
         "NI1": [
             "\ud5c9.."
+        ],
+        "p2": [
+            "\ud558\ud56b.. \uadf8\ub798.. \ub2e4\uc74c\uc5d4 \uaf2d \uac19\uc774 \uac00\uc790"
+        ],
+        "p2-I": [
+            "\ub09c \uad1c\ucc2e\uc544",
+            "\ub09c \ub0b4\uc801\ub304\uc2a4\ub85c \ub9cc\uc871\ud574"
         ]
     }
 }

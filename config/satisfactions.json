@@ -55,7 +55,7 @@
         }
     },     
     "Ability1": {
-        "title": "생산력1",
+        "title": "요리 에너지",
         "resource": false,
         "discharge": 0,
         "period": 0,
@@ -66,7 +66,7 @@
         }
     },
     "Ability2": {
-        "title": "생산력2",
+        "title": "제작 에너지",
         "resource": false,
         "discharge": 0,
         "period": 0,
@@ -77,7 +77,7 @@
         }
     },
     "Ability3": {
-        "title": "생산력3",
+        "title": "경작 에너지",
         "resource": false,
         "discharge": 0,
         "period": 0,
@@ -88,7 +88,7 @@
         }
     },
     "Resource1": {
-        "title": "자원1",
+        "title": "요리 재료",
         "resource": true,
         "discharge": 0,
         "period": 0,
