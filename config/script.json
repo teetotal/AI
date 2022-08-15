@@ -61,10 +61,10 @@
             "Sight chain"
         ],
         "LD4-1": [
-            "Leadership1 script"
+            "\uc548\ub155~ {to} \ub108 \ucc38 \ubd80\ud2f0\ub098 \ubcf4\uc778\ub2e4"
         ],
         "LD4-1-I": [
-            "Leadership1 reaction script"
+            "{to} \uc548\ub155"
         ],
         "LD4-2": [
             "\uacbd\ucc28\ud55c\ub300 \ub9cc\ub4e4\uc5b4 \uc8fc\uc138\uc6a5!",
@@ -105,7 +105,8 @@
     },
     "refusal": {
         "LD4-1-I": [
-            "Leadership1 reaction refusal script"
+            "\ubb50\ub798 \ubcc4\ub85c \uce5c\ud558\uc9c0\ub3c4 \uc54a\uc740\ub370",
+            "\ub2d8 \ucc28\ub2e8"
         ],
         "LD4-3-I": [
             "\ubb50\ub798 \ubcc4\ub85c \uce5c\ud558\uc9c0\ub3c4 \uc54a\uc740\ub370",

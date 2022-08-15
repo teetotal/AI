@@ -87,9 +87,13 @@ namespace ENGINE {
                         case TASK_TARGET_TYPE.OBJECT:
                         type = Actor.TASKCONTEXT_TARGET_TYPE.OBJECT;
                         break;
-                        case TASK_TARGET_TYPE.ACTOR_CONDITION:
-                        targetValue = FindRelationTarget(actor);
-                        type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
+                        case TASK_TARGET_TYPE.ACTOR_CONDITION: {
+                            targetValue = FindRelationTarget(actor);
+                            if(targetValue == string.Empty)
+                                type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
+                            else
+                                type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
+                        }
                         break;
                         case TASK_TARGET_TYPE.ACTOR_FROM:
                         Actor.TaskContext context = actor.GetTaskContext();

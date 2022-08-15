@@ -549,7 +549,7 @@
             "target": {
                 "type": 3,
                 "value": [
-                    "1.Satisfaction.gold:max"
+                    "1.Satisfaction.Gold:max"
                 ],
                 "interaction": {
                     "type": 1,
