@@ -53,6 +53,14 @@ namespace ENGINE {
             }
             */            
             //Item ---------------------------------------------------------------    
+            public enum ITEM_CATEGORY : int {
+                SYSTEM = -1, //level up 같은 시스템 보상용 아이템
+                SATISFACTION_ONLY = 0,
+                WEAPON,
+                VEHICLE,
+                FARMING,
+                COOKING
+            }
             public enum ITEM_INVOKE_TYPE : int {
                 IMMEDIATELY = 0,
                 INVENTORY
@@ -67,13 +75,13 @@ namespace ENGINE {
                 INCREASE
             }  
             public class ConfigItem_Detail {
-                public string? name { get; set; }
-                public string? desc { get; set; }                
-                public string? category { get; set; }
-                public string? type { get; set; }
+                public string name { get; set; } = string.Empty;
+                public string desc { get; set; } = string.Empty;                
+                public ITEM_CATEGORY category { get; set; } = ITEM_CATEGORY.SYSTEM;
+                public string type { get; set; } = string.Empty;
                 public int level { get; set; }
                 public int cost { get; set; }
-                public string? installationKey { get; set; }                
+                public string installationKey { get; set; } = string.Empty;          
                 public ConfigItem_Invoke? invoke { get; set; }
                 public List<ConfigItem_Satisfaction>? satisfaction { get; set; }                
                 public List<int[]>? draft { get; set; }
@@ -193,6 +201,7 @@ namespace ENGINE {
                 public string chain { get; set; } = string.Empty;// task 고유 id
                 public TASK_TYPE type { get; set; }
                 public List<int> level { get; set; } = new List<int>(); //사용가능한 Actor 최소 레벨, 최대 레벨
+                public string village { get; set; } = string.Empty;
                 public int villageLevel { get; set; }  = -1;//해금되는 부락 레벨
                 public string title { get; set; } = string.Empty;
                 public string desc { get; set; } = string.Empty;
@@ -312,9 +321,35 @@ namespace ENGINE {
                 public List<Config_KV_SF> productCost { get; set; } = new List<Config_KV_SF>();
                 public List<ConfigVehicle_Position> positions { get; set; } = new List<ConfigVehicle_Position>();
             }
+            //Farming --------------------------------------------------------------------------------------------
+            public class ConfigFarming_Seed_Info {
+                public string seedId { get; set; } = string.Empty;
+                public string name { get; set; } = string.Empty;
+                public string desc { get; set; } = string.Empty;
+                public List<string> prefabs { get; set; } = new List<string>();
+                public int duration { get; set; } //성장하는데 걸리는 counter
+                public int careEffect { get; set;} // 캐어할때마다 단축되는 counter
+                public int maxCare { get; set; } // 최대 캐어 횟수 
+                public string harvestItemId { get; set; } = string.Empty;
+            }
+            public class ConfigFarming_Field {
+                public string fieldId { get; set; } = string.Empty;
+                public string farmId { get; set; } = string.Empty;
+                public bool tillage { get; set; } = false; //밭갈이 완료 상태 여부
+                public string seedId { get; set; } = string.Empty;
+                public long startCount { get; set; }
+                public int cares { get; set; }
+            }
+            public class ConfigFarming_Detail {
+                public string farmId { get; set; } = string.Empty;
+                public string name { get; set; } = string.Empty; //농장명
+                public float capacity { get; set; } //생산력
+                public string prefab { get; set; } = string.Empty;
+            }
+            
             //-----------------------------------------------------------------------------------
             public class Loader {
-                private bool mInitialized = false;
+                public bool mInitialized = false;
                 private static readonly Lazy<Loader> instance =
                         new Lazy<Loader>(() => new Loader());
                 public static Loader Instance {
@@ -351,7 +386,10 @@ namespace ENGINE {
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);
                     }
-
+                    //Village
+                    if(SetVillage(stringVillage) == false) {
+                        return false;
+                    }
                     //default task
                     if(SetTask(stringTask) == false) {
                         return false;
@@ -369,11 +407,6 @@ namespace ENGINE {
                      if(SetItem(stringItem) == false) {
                         return false;
                     }
-                    
-                    //actors
-                    if(SetActor(stringActors) == false) {
-                        return false;
-                    }        
                     //Script
                     if(SetScript(stringScript) == false) {
                         return false;
@@ -382,17 +415,16 @@ namespace ENGINE {
                     if(SetScenario(stringScenario) == false) {
                         return false;
                     }     
-                    //Village
-                    if(SetVillage(stringVillage) == false) {
-                        return false;
-                    }
                     //L10n
                     if(!SetL10n(stringL10n))
                         return false;
                     //Vehicle
                     if(!SetVehicle(stringVehicle))
                         return false;
-
+                    //actors
+                    if(SetActor(stringActors) == false) {
+                        return false;
+                    }        
 
                     mInitialized = true;
 

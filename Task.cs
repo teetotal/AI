@@ -97,7 +97,7 @@ namespace ENGINE {
                     mDictByActorType[actorType].Add(task.mTaskId);
                     return true;
                 }
-                public Dictionary<string, FnTask> GetTasks(Actor actor, bool checkRef = true) {
+                public Dictionary<string, FnTask> GetTasks(Actor actor, string village, bool checkRef = true) {
                     Dictionary<string, FnTask> ret = new Dictionary<string, FnTask>();
                     int actorType = actor.mType;
                     int level = actor.level;
@@ -107,12 +107,16 @@ namespace ENGINE {
                     for(int i = 0; i < mDictByActorType[actorType].Count; i++) {
                         string taskId = mDictByActorType[actorType][i];
                         var info = mDict[taskId].mInfo;
+                        //check village
+                        if(village != string.Empty && village != info.village)
+                            continue;
+                        //check village level
                         if(actor.mInfo.village != string.Empty && info.villageLevel != -1) {
                             if(info.villageLevel > ActorHandler.Instance.GetVillageLevel(actor.mInfo.village))
                                 continue;
                         }
-                        
-                        if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) //check level
+                        //check level
+                        if( ((info.level != null && info.level[0] <= level && info.level[1] >= level) || info.level == null) 
                             && info.type == TASK_TYPE.NORMAL // check type
                         ) {
                             if(checkRef && info.maxRef != -1) {//check ref count

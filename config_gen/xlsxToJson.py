@@ -99,6 +99,7 @@ def get_json_task(arr):
         "chain": arr[1],
         "type": int(arr[2]),
         "level": [], #arr[3]
+        "village": arr[21],
         "villageLevel": int(arr[4]),
         "title": arr[5],
         "desc": arr[6],
@@ -250,7 +251,7 @@ def item():
         j = {
             "name": arr[1],
             "desc": arr[2],
-            "category": arr[3],
+            "category": int(arr[3]),
             "type": arr[4],
             "level": int(arr[5]),
             "cost": int(arr[6]),        
@@ -259,7 +260,7 @@ def item():
                 "type": int(arr[8]),
                 "expire": int(arr[9])
             },
-            "satisfaction": [],        
+            "satisfaction": [], #arr[10]       
             "draft": [] #arr[17]
         }
         #satisfaction

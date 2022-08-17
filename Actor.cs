@@ -275,6 +275,9 @@ namespace ENGINE {
                         
                     return false;
                 }
+                public void SetVillage(string village) {
+                    mInfo.village = village;
+                }
                 
                 // Loop ===================================================================================================
                 public enum LOOP_STATE {
@@ -366,7 +369,7 @@ namespace ENGINE {
                     } */
                     float preAvg = float.MinValue;
                     float preStd = float.MaxValue;
-                    foreach(var p in TaskHandler.Instance.GetTasks(actor)) {
+                    foreach(var p in TaskHandler.Instance.GetTasks(actor, string.Empty)) {
                         if(GetExpectedValue(p.Value, actor, ref preAvg, ref preStd)) {
                             taskId = p.Key;
                         }                      

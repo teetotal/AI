@@ -1,7 +1,7 @@
 {
     "NPC1-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 101,
         "nickname": "\uc7a5\ud765\uace0\uc528 27\ub300\uc190 \uc591\uc774",
@@ -42,7 +42,7 @@
     },
     "NPC2-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 102,
         "nickname": "\ud56b\ub3c4\uadf8\uc544\uc800\uc528",
@@ -83,7 +83,7 @@
     },
     "NPC3-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 103,
         "nickname": "\ub5a1\ubf41\uc774\uc9d1 \uc54c\ubc14",
@@ -124,7 +124,7 @@
     },
     "NPC4-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 104,
         "nickname": "\ub9e5\uc8fc\ud30c\ub294 \uc778\uc2f8",
@@ -171,7 +171,7 @@
     },
     "NPC5-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 105,
         "nickname": "\uac24\ub7ec\ub9ac\uc9c1\uc6d0",
@@ -212,7 +212,7 @@
     },
     "NPC6-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 106,
         "nickname": "\ubc30\ub2ec\uc74c\uc2dd \uae30\ub2e4\ub9ac\ub294 \uc8fc\ubbfc",
@@ -253,7 +253,7 @@
     },
     "NPC7-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 107,
         "nickname": "\uc6a9\uc218\ub2c8",
@@ -294,7 +294,7 @@
     },
     "NPC8-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 108,
         "nickname": "\uacf5\uc7a5 \uc811\uc218\uc6d0",
@@ -329,7 +329,7 @@
     },
     "NPC9-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 109,
         "nickname": "\uad11\ubd801",
@@ -370,7 +370,7 @@
     },
     "PET1-1": {
         "enable": true,
-        "village": "",
+        "village": "village1",
         "follower": false,
         "type": 100,
         "nickname": "\ucd94\uc559\uc774",
@@ -411,7 +411,7 @@
     },
     "ACTOR1-1": {
         "enable": true,
-        "village": "village1",
+        "village": "",
         "follower": false,
         "type": 1,
         "nickname": "\uaf3c\uc774",
@@ -455,7 +455,7 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 8
+                "value": 50
             },
             {
                 "satisfactionId": "Knowledge",

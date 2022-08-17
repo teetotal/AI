@@ -8,6 +8,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud56b\ub3c4\uadf8 \ud314\uae30",
             "desc": "",
@@ -41,6 +42,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ub9e5\uc8fc \ud314\uae30",
             "desc": "",
@@ -74,6 +76,7 @@
                 1,
                 100
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d0\uce90\uae30",
             "desc": "",
@@ -107,6 +110,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud56b\ub3c4\uadf8 \uc0ac\uba39\uae30",
             "desc": "\ud56b\ub3c4\uadf8 \uc0ac\uba39\uae30",
@@ -139,6 +143,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uace0\ub798 \ubcf4\uace0 \ud790\ub9c1\ud558\uae30",
             "desc": "\ud558\ub298\uc744 \ub098\ub294 \uace0\ub798\ub97c \ubcf4\uba70 \ud790\ub9c1\ud55c\ub2e4",
@@ -171,6 +176,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ubca4\uce58\uc5d0\uc11c \uc26c\uae30",
             "desc": "\ubca4\uce58\uc5d0\uc11c \uc26c\uae30",
@@ -203,6 +209,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uac24\ub7ec\ub9ac \uac00\uae30",
             "desc": "\uac24\ub7ec\ub9ac\uc5d0\uc11c \uc791\ud488 \uac10\uc0c1\ud558\uae30",
@@ -234,6 +241,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ub3c8\ubc8c\uae30",
             "desc": "\uace8\ub4dc\ub97c \ubc8c\uae30\uc704\ud574 \uc77c\ud55c\ub2e4",
@@ -243,10 +251,7 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "SM_Env_Sidewalk_Panel_03",
-                    "SM_Env_Sidewalk_48",
-                    "SM_Env_Sidewalk_61",
-                    "SM_Env_Sidewalk_Straight_94"
+                    "nv_Sidewalk_Construction_01n_01"
                 ],
                 "interaction": {
                     "type": 0,
@@ -269,6 +274,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc0dd\uc0b0\ub8251",
             "desc": "\uc0dd\uc0b0\ub8251\uc744 \uc62c\ub9b0\ub2e4 ",
@@ -301,6 +307,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc0dd\uc0b0\ub8252",
             "desc": "\uc0dd\uc0b0\ub8252\ub97c \uc62c\ub9b0\ub2e4 ",
@@ -333,6 +340,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc0dd\uc0b0\ub8253",
             "desc": "\uc0dd\uc0b0\ub8253\uc744 \uc62c\ub9b0\ub2e4 ",
@@ -366,6 +374,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d01 \uce90\uae30 ",
             "desc": "\uc790\uc6d01 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d01 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
@@ -404,6 +413,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d02 \uce90\uae30 ",
             "desc": "\uc790\uc6d02 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d02 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
@@ -442,6 +452,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d03 \uce90\uae30 ",
             "desc": "\uc790\uc6d03 \uad6c\ud558\uae30. \uc5f4\uc2ec\ud788 \ud30c\ub2e4 \ubcf4\uba74 \uc790\uc6d03 \ubcf4\ub530\ub9ac\ub97c \uc5bb\uc744 \uc218 \uc788\ub2e4.",
@@ -480,6 +491,7 @@
                 4,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc2dc\uc57c \ub113\ud788\uae30",
             "desc": "\ub2e4\ub978 \ub9c8\uc744\uc744 \ubcf4\uace0 \uc628\ub2e4",
@@ -511,6 +523,7 @@
                 4,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "Sight1 Chain",
             "desc": "",
@@ -540,6 +553,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc778\uc0ac\ud558\uae30",
             "desc": "\uc8fc\ubcc0\uc5d0 \ub3c8\ub9ce\uc744 \uc0ac\ub78c\ud55c\ud14c \uad1c\ud788 \ub9d0\uac78\uae30",
@@ -571,6 +585,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uad1c\ud788 \ub9d0\uc744 \uac78\uc5b4\uc654\uc2b5\ub2c8\ub2e4",
             "desc": "\ubc1b\uc544\uc8fc\uba74",
@@ -602,6 +617,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uacbd\ucc28 \uc758\ub8b0\ud558\uae30",
             "desc": "\uadf8\ub3d9\uc548 \ubaa8\uc740 \uc790\uc6d0\ub4e4\uc744 \uacf5\uc7a5\uc5d0 \uc804\ub2ec\ud558\uace0 \uacbd\ucc28\ub97c \uc758\ub8b0\ud55c\ub2e4. \ucc28\ub97c \ud0c0\uace0 \uc774\ub3d9\ud558\uba74 \ub2f9\uc5f0\ud788 \ube60\ub974\ub2e4",
@@ -643,6 +659,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uacbd\ucc28 \uc218\ub839\ud558\ub7ec\uac00\uae30",
             "desc": "",
@@ -672,6 +689,7 @@
                 5,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d01 \ub2f9\uadfc\ud558\uae30",
             "desc": "\uc8fc\ubcc0\uc5d0 \uc790\uc6d01\uc774 \ub9ce\uc740 \uc0ac\ub78c\ud55c\ud14c\uc11c \uc2dc\uc138\ubcf4\ub2e4 \uc2f8\uac8c \uad6c\ub9e4\ud558\uae30",
@@ -704,6 +722,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uad1c\ud788 \ub9d0\uc744 \uac78\uc5b4\uc654\uc2b5\ub2c8\ub2e4",
             "desc": "\ubc1b\uc544\uc8fc\uba74",
@@ -735,6 +754,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud0dd\uc2dc\uc7a1\uae301",
             "desc": "\ud0dd\uc2dc\uc7a1\uc544\ud0c0\uae301",
@@ -766,6 +786,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud0dd\uc2dc\ud0c0\uae30",
             "desc": "",
@@ -795,6 +816,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud0dd\uc2dc\ub0b4\ub9ac\uae30",
             "desc": "",
@@ -824,6 +846,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud0dd\uc2dc\uc7a1\uae302",
             "desc": "\ud0dd\uc2dc\uc7a1\uc544\ud0c0\uae302",
@@ -855,6 +878,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ud0dd\uc2dc\ud0c0\uae30",
             "desc": "",
@@ -884,6 +908,7 @@
                 2,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uad11\ubd801\uacfc \uac70\ub798\ud558\uae30",
             "desc": "\uad11\ubd801\uc5d0\uac8c\uc11c \uc218\uc90d\uac8c \uc790\uc6d01 \uad6c\ub9e4",
@@ -916,6 +941,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uc790\uc6d01 \ud314\uae30",
             "desc": "\uc790\uc6d01 \ud314\uae30",
@@ -948,6 +974,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ub5a1\ubf41\uc774 \uc8fc\ubb38\ud558\uae30",
             "desc": "\uc18c\ubb38\ub09c \ub5a1\ubf41\uc774 \ub9db\uc9d1\uc5d0\uc11c \uc8fc\ubb38\ud558\uae30",
@@ -986,6 +1013,7 @@
                 1,
                 11
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uad11\uc7a5\uc5d0\uc11c \uac19\uc774 \ucda4\ucd94\ub7ec \uac00\uc790\uace0 \ud558\uae30",
             "desc": "\uc8fc\ubcc0\uc5d0 \uccb4\ub825 \uc88b\uc740 \uce5c\uad6c\uc5d0\uac8c \uc218\uc90d\uac8c \uad11\uc7a5\uc5d0\uc11c \uac19\uc774 \ucda4\ucd94\ub7ec \uac00\uc790\uace0 \ud558\uae30",
@@ -1019,6 +1047,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\uac19\uc774 \ucda4\ucd94\ub7ec \uac04\ub2e4\uace0 \ud558\uae30",
             "desc": "\uac19\uc774 \ucda4\ucd94\ub7ec \uac04\ub2e4\uace0 \ud558\uae30",
@@ -1051,6 +1080,7 @@
                 1,
                 10
             ],
+            "village": "village1",
             "villageLevel": 1,
             "title": "\ucda4\ucd94\uae30",
             "desc": "",

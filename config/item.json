@@ -2,7 +2,7 @@
     "LEVELUP-1": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -51,7 +51,7 @@
     "LEVELUP-2": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -100,7 +100,7 @@
     "LEVELUP-3": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -149,7 +149,7 @@
     "LEVELUP-4": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -198,7 +198,7 @@
     "LEVELUP-5": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -247,7 +247,7 @@
     "LEVELUP-6": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -296,7 +296,7 @@
     "LEVELUP-7": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -345,7 +345,7 @@
     "LEVELUP-8": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -394,7 +394,7 @@
     "LEVELUP-9": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -443,7 +443,7 @@
     "LEVELUP-10": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -492,7 +492,7 @@
     "I1-1-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -519,7 +519,7 @@
     "I1-1-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -546,7 +546,7 @@
     "I1-2-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -573,7 +573,7 @@
     "I1-2-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -600,7 +600,7 @@
     "I1-2-3": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -627,7 +627,7 @@
     "I1-3-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -654,7 +654,7 @@
     "I1-3-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -681,7 +681,7 @@
     "I1-3-3": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -708,7 +708,7 @@
     "I1-0": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -735,7 +735,7 @@
     "I1-4": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
         "desc": "",
-        "category": "",
+        "category": -1,
         "type": "",
         "level": 1,
         "cost": 0,
@@ -762,7 +762,7 @@
     "item-1": {
         "name": "\uc790\uc6d01 \ubcf4\ub530\ub9ac",
         "desc": "\uc790\uc6d01\uc744 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
-        "category": "Resource",
+        "category": 0,
         "type": "",
         "level": 1,
         "cost": 1,
@@ -789,7 +789,7 @@
     "item-2": {
         "name": "\uc790\uc6d02 \ubcf4\ub530\ub9ac",
         "desc": "\uc790\uc6d02\ub97c 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
-        "category": "Resource",
+        "category": 0,
         "type": "",
         "level": 1,
         "cost": 1,
@@ -816,7 +816,7 @@
     "item-3": {
         "name": "\uc790\uc6d03 \ubcf4\ub530\ub9ac",
         "desc": "\uc790\uc6d03\uc744 8\ub9cc\ud07c \uc5bb\uc744 \uc218 \uc788\ub2e4",
-        "category": "Resource",
+        "category": 0,
         "type": "",
         "level": 1,
         "cost": 1,
@@ -843,8 +843,8 @@
     "vehicle-1": {
         "name": "\uacbd\ucc28\uc218\ub839\uc99d",
         "desc": "\uacbd\ucc28\ub97c \uc218\ub839\ud560 \uc218 \uc788\ub2e4. \ucc28\ub294 \uc8fc\ucc28\uc7a5\uc5d0\uc11c \ucc3e\uc744 \uc218 \uc788\ub2e4",
-        "category": "Vehicle",
-        "type": "small",
+        "category": 2,
+        "type": "purchase.car-1",
         "level": 1,
         "cost": 1,
         "installationKey": "vehicle",
@@ -852,26 +852,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "Speed",
-                "min": 12,
-                "max": 18,
-                "value": 13,
-                "measure": {
-                    "min": 0,
-                    "max": 0,
-                    "value": 0
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-5": {
         "name": "\ub5a1\ubf41\uc774",
         "desc": "\uc218\uc81c \uad6d\ubb3c \ub5a1\ubf41\uc774+\uba74\uc0ac\ub9ac+\uce58\uc988\ucd94\uac00 \uadf8\ub9ac\uace0 \ubcf6\uc74c\ubc25\uc73c\ub85c \uad6c\uc131\ub41c \ub5a1\ubf41\uc774 ",
-        "category": "Satisfaction",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -897,8 +885,8 @@
     "item-6": {
         "name": "test item6",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -924,8 +912,8 @@
     "item-7": {
         "name": "test item7",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -951,8 +939,8 @@
     "item-8": {
         "name": "test item8",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -978,8 +966,8 @@
     "item-9": {
         "name": "test item9",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1005,8 +993,8 @@
     "item-10": {
         "name": "test item10",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1032,8 +1020,8 @@
     "item-11": {
         "name": "test item11",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1059,8 +1047,8 @@
     "item-12": {
         "name": "test item12",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1086,8 +1074,8 @@
     "item-13": {
         "name": "test item13",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1113,8 +1101,8 @@
     "item-14": {
         "name": "test item14",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1140,8 +1128,8 @@
     "item-15": {
         "name": "test item15",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1164,11 +1152,11 @@
         ],
         "draft": []
     },
-    "item-16": {
-        "name": "test item16",
-        "desc": "test item",
-        "category": "test",
-        "type": "t",
+    "COOKING-1": {
+        "name": "\ub18d\uc791\ubb3c",
+        "desc": "\uc591\ubc30\ucd94",
+        "category": 4,
+        "type": "ingredient.cabbage",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1176,26 +1164,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-17": {
         "name": "test item17",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1203,26 +1179,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-18": {
         "name": "test item18",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1230,26 +1194,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-19": {
         "name": "test item19",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1257,26 +1209,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-20": {
         "name": "test item20",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1284,26 +1224,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-21": {
         "name": "test item21",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1311,26 +1239,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-22": {
         "name": "test item22",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1338,26 +1254,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-23": {
         "name": "test item23",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1365,26 +1269,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-24": {
         "name": "test item24",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1392,26 +1284,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-25": {
         "name": "test item25",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1419,26 +1299,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-26": {
         "name": "test item26",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1446,26 +1314,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-27": {
         "name": "test item27",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1473,26 +1329,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-28": {
         "name": "test item28",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1500,26 +1344,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-29": {
         "name": "test item29",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1527,26 +1359,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-30": {
         "name": "test item30",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1554,26 +1374,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-31": {
         "name": "test item31",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1581,26 +1389,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-32": {
         "name": "test item32",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1608,26 +1404,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-33": {
         "name": "test item33",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1635,26 +1419,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-34": {
         "name": "test item34",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1662,26 +1434,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-35": {
         "name": "test item35",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1689,26 +1449,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-36": {
         "name": "test item36",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1716,26 +1464,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-37": {
         "name": "test item37",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1743,26 +1479,14 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     },
     "item-38": {
         "name": "test item38",
         "desc": "test item",
-        "category": "test",
-        "type": "t",
+        "category": 0,
+        "type": "",
         "level": 1,
         "cost": 1,
         "installationKey": "",
@@ -1770,19 +1494,7 @@
             "type": 1,
             "expire": 0
         },
-        "satisfaction": [
-            {
-                "satisfactionId": "HP",
-                "min": 0,
-                "max": 0,
-                "value": 12,
-                "measure": {
-                    "min": 2,
-                    "max": 2,
-                    "value": 2
-                }
-            }
-        ],
+        "satisfaction": [],
         "draft": []
     }
 }

@@ -39,16 +39,7 @@
         "waiting": 5,
         "prefab": "Vehicle/Police_Car",
         "owner": "",
-        "productCost": [
-            {
-                "satisfactionId": "Gold",
-                "value": 16.0
-            },
-            {
-                "satisfactionId": "Resource1",
-                "value": 8.0
-            }
-        ],
+        "productCost": [],
         "positions": [
             {
                 "position": "15,0,-8",
@@ -68,6 +59,33 @@
             },
             {
                 "position": "-8,0,107.4",
+                "rotation": "0,0,0"
+            }
+        ]
+    },
+    "car-1": {
+        "type": "CAR",
+        "vehicleId": "car-1",
+        "ownable": true,
+        "name": "\uacbd\ucc28",
+        "speed": 4.0,
+        "acceleration": 6.0,
+        "waiting": 0,
+        "prefab": "Vehicle/Car-1",
+        "owner": "",
+        "productCost": [
+            {
+                "satisfactionId": "Gold",
+                "value": 16.0
+            },
+            {
+                "satisfactionId": "Resource1",
+                "value": 8.0
+            }
+        ],
+        "positions": [
+            {
+                "position": "20,0,148",
                 "rotation": "0,0,0"
             }
         ]
