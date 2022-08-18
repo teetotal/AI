@@ -12,11 +12,13 @@ namespace ENGINE {
                 }
                 public delegate bool FnHangAround(string vehicleId, string position, string rotation);  
                 private FnHangAround? mFnHangAround = null;
+                private string mCurrentVillage = string.Empty;
                 private Dictionary<string, ConfigVehicle_Detail> mDic = new Dictionary<string, ConfigVehicle_Detail>();
                 private Dictionary<string, STATE> mDicState = new Dictionary<string, STATE>();
                 private Dictionary<string, string> mDicReseve = new Dictionary<string, string>(); //예약차량
                 private Dictionary<string, long> mDicLastTime = new Dictionary<string, long>();//마지막 counter
                 private Dictionary<string, List<string>> mDicType = new Dictionary<string, List<string>>();
+                private List<ConfigVehicle_Detail> mTempList = new List<ConfigVehicle_Detail>();
                 public Random mRand= new Random();
                 private static readonly Lazy<VehicleHandler> instance =
                         new Lazy<VehicleHandler>(() => new VehicleHandler());
@@ -39,8 +41,18 @@ namespace ENGINE {
                         mDicType[p.Value.type].Add(p.Key);
                     }
                 }
-                public Dictionary<string, ConfigVehicle_Detail> GetAll() {
-                    return mDic;
+                public void Init(FnHangAround fn, string village) {
+                    mFnHangAround = fn;
+                    SetVillage(village);
+                }
+                public List<ConfigVehicle_Detail> GetAll(string village) {
+                    mTempList.Clear();
+                    foreach(var p in mDic) {
+                        if(p.Value.village == village) {
+                            mTempList.Add(p.Value);
+                        }
+                    }
+                    return mTempList;
                 }
                 public ConfigVehicle_Detail? GetOne(string type, string actorId) {
                     if(!mDicType.ContainsKey(type))
@@ -59,8 +71,8 @@ namespace ENGINE {
                     }
                     return null;
                 }
-                public void SetFnHangAround(FnHangAround fn) {
-                    mFnHangAround = fn;
+                public void SetVillage(string village) {
+                    mCurrentVillage = village;
                 }
                 public void Leave(string vehicleId, string actorId) {
                     Arrive(vehicleId);
@@ -81,6 +93,8 @@ namespace ENGINE {
                 public void Update() {
                     long now = CounterHandler.Instance.GetCount();
                     foreach(var p in mDic) {
+                        if(p.Value.village != mCurrentVillage)
+                            continue;
                         if(mDicState[p.Key] == STATE.IDLE && now - mDicLastTime[p.Key] > mDic[p.Key].waiting) {
                             if(mFnHangAround != null) {
                                 ConfigVehicle_Detail info = mDic[p.Key];

@@ -9,7 +9,7 @@
         "waiting": 10,
         "prefab": "Vehicle/Taxi",
         "owner": "",
-        "productCost": [],
+        "village": "village1",
         "positions": [
             {
                 "position": "2.5,0,8",
@@ -39,7 +39,7 @@
         "waiting": 5,
         "prefab": "Vehicle/Police_Car",
         "owner": "",
-        "productCost": [],
+        "village": "village1",
         "positions": [
             {
                 "position": "15,0,-8",
@@ -73,16 +73,7 @@
         "waiting": 0,
         "prefab": "Vehicle/Car-1",
         "owner": "",
-        "productCost": [
-            {
-                "satisfactionId": "Gold",
-                "value": 16.0
-            },
-            {
-                "satisfactionId": "Resource1",
-                "value": 8.0
-            }
-        ],
+        "village": "village1",
         "positions": [
             {
                 "position": "20,0,148",

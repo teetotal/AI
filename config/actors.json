@@ -289,7 +289,7 @@
             }
         ],
         "inventory": [],
-        "isFly": true,
+        "isFly": false,
         "laziness": 0
     },
     "NPC8-1": {
@@ -1431,5 +1431,263 @@
         "inventory": [],
         "isFly": false,
         "laziness": 15
+    },
+    "NPCFARM1": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 200,
+        "nickname": "\ub304\uc2f1\uba38\uc2e0",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc2",
+        "position": [
+            5.0,
+            0.0,
+            -5.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 10
+    },
+    "NPCFARM2": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 200,
+        "nickname": "\uc2a4\ud2b8\ub9bf\ub304\uc11c",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc3",
+        "position": [
+            5.0,
+            0.0,
+            -5.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 20
+    },
+    "NPCFARM3": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 200,
+        "nickname": "\ub69d\ub531\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc5",
+        "position": [
+            5.0,
+            0.0,
+            -5.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 15
+    },
+    "NPCFARM4": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 200,
+        "nickname": "\uc5f4\uc815\ub9cc\uac00\ub4dd\uc774",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc6",
+        "position": [
+            5.0,
+            0.0,
+            -5.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 5
+    },
+    "NPCFARM5": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 201,
+        "nickname": "\uc0b0\ucc45\ub7ec\ubc84",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc5",
+        "position": [
+            0.0,
+            0.0,
+            -5.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 3,
+                "value": 1
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 15
+    },
+    "NPCFARM6": {
+        "enable": true,
+        "village": "farming",
+        "follower": false,
+        "type": 201,
+        "nickname": "\ud2b8\ub798\ud0b9\ub7ec\ubc84",
+        "pets": [],
+        "level": 1,
+        "prefab": "Actors/npc6",
+        "position": [
+            5.0,
+            0.0,
+            -10.0
+        ],
+        "rotation": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "trigger": {
+            "type": 0,
+            "value": ""
+        },
+        "satisfactions": [
+            {
+                "satisfactionId": "HP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "MP",
+                "min": 20,
+                "max": 100,
+                "value": 80
+            },
+            {
+                "satisfactionId": "Speed",
+                "min": 1,
+                "max": 3,
+                "value": 1
+            }
+        ],
+        "inventory": [],
+        "isFly": false,
+        "laziness": 5
     }
 }

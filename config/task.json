@@ -1101,6 +1101,151 @@
             "satisfactionsRefusal": {},
             "items": [],
             "scene": ""
+        },
+        {
+            "id": "f-1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\uacf5\uc6d0 \uac77\uae30",
+            "desc": "\uac77\uae30\ub9cc \ud574\ub3c4 \uae30\ubd80\ub2c8\uac00 \uc88b\uc544\uc9c0\ub294 \uc0b0\ucc45\ud558\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_GrassPath_Corner_01",
+                    "SM_Env_GrassPath_Corner_01 (1)",
+                    "SM_Env_GrassPath_Straight_01 (1)",
+                    "SM_Env_GrassPath_Straight_01 (10)",
+                    "SM_Env_GrassPath_Straight_01 (31)",
+                    "SM_Env_GrassPath_Straight_01 (8)",
+                    "SM_Env_GrassPath_Straight_01 (3)"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        },
+        {
+            "id": "f-3",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ubbf8\uce5c\ucc99 \ucda4\ucd94\uae30",
+            "desc": "\ucda4\ucd94\ub294 \uc0ac\ub78c\ub4e4 \uc0ac\uc774\uc5d0 \uaef4\uc11c \ub9c8\uc74c\uaecf \ucda4\ucd94\uae30",
+            "animation": "DancingGroup",
+            "animationRepeatTime": 5,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "Plant_4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        }
+    ],
+    "200": [
+        {
+            "id": "f-2",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ub304\uc2f1",
+            "desc": "\uacf5\uc6d0\uc5d0\uc11c \ub9d8\uaecf \ucda4\ucd94\uae30",
+            "animation": "DancingGroup",
+            "animationRepeatTime": 5,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "Plant_4",
+                    "Plant_5 (2)"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
+        }
+    ],
+    "201": [
+        {
+            "id": "f-4",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ud2b8\ub798\ud0b9",
+            "desc": "NPC\uac77\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_GrassPath_Corner_01",
+                    "SM_Env_GrassPath_Corner_01 (1)",
+                    "SM_Env_GrassPath_Straight_01 (1)",
+                    "SM_Env_GrassPath_Straight_01 (10)",
+                    "SM_Env_GrassPath_Straight_01 (31)",
+                    "SM_Env_GrassPath_Straight_01 (8)",
+                    "SM_Env_GrassPath_Straight_01 (3)"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "scene": ""
         }
     ]
 }

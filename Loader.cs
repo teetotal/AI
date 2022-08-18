@@ -318,7 +318,7 @@ namespace ENGINE {
                 public int waiting { get; set; }
                 public string prefab { get; set; } = string.Empty;
                 public string owner { get; set; } = string.Empty;
-                public List<Config_KV_SF> productCost { get; set; } = new List<Config_KV_SF>();
+                public string village { get; set; } = string.Empty;
                 public List<ConfigVehicle_Position> positions { get; set; } = new List<ConfigVehicle_Position>();
             }
             //Farming --------------------------------------------------------------------------------------------

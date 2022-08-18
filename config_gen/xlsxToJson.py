@@ -362,18 +362,9 @@ def vehicle():
             "waiting": int(arr[6]),
             "prefab": arr[7],
             "owner": arr[8],
-            "productCost": [], #arr[9]
+            "village": arr[9],
             "positions": [] #arr[10]
         }
-        #productCost
-        if len(arr[9]) > 0:
-            productCost = arr[9].split(',')
-            for p in productCost:
-                kv = p.split(':')
-                j['productCost'].append({
-                    "satisfactionId": kv[0],
-                    "value": float(kv[1])
-                })
         #positions
         if len(arr[10]) > 0:
             positions = arr[10].split('\n')
