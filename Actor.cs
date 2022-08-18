@@ -1246,7 +1246,7 @@ namespace ENGINE {
 
                     return true;
                 }
-                public void AddInventory(string itemKey, int quantity) {
+                private void AddInventory(string itemKey, int quantity) {
                     if(mItemContext.inventory.ContainsKey(itemKey)) {
                         mItemContext.inventory[itemKey] += quantity;
                     } else {

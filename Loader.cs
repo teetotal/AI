@@ -326,21 +326,17 @@ namespace ENGINE {
                 public List<ConfigVehicle_Position> positions { get; set; } = new List<ConfigVehicle_Position>();
             }
             //Farming --------------------------------------------------------------------------------------------
-            public class ConfigFarming_Seed_Info {
-                public string seedId { get; set; } = string.Empty;
-                public string name { get; set; } = string.Empty;
-                public string desc { get; set; } = string.Empty;
-                public List<string> prefabs { get; set; } = new List<string>();
-                public int duration { get; set; } //성장하는데 걸리는 counter
-                public int careEffect { get; set;} // 캐어할때마다 단축되는 counter
-                public int maxCare { get; set; } // 최대 캐어 횟수 
-                public string harvestItemId { get; set; } = string.Empty;
-            }
             public class ConfigFarming_Field {
                 public string fieldId { get; set; } = string.Empty;
                 public string seedId { get; set; } = string.Empty;
                 public long startCount { get; set; }
                 public int cares { get; set; }
+                public bool complete { get; set; } = false;
+                public void Reset() {
+                    seedId = string.Empty;
+                    cares = 0;
+                    complete = false;
+                }
             }
             public class ConfigFarming_Detail {
                 public string farmId { get; set; } = string.Empty;
@@ -356,10 +352,11 @@ namespace ENGINE {
                 public string name { get; set; } = string.Empty;
                 public int duration { get; set; }
                 public int careValue { get; set; }
+                public int maxCare { get; set; }
                 public string prefabPlant {get; set; } = string.Empty;
                 public string prefabIngredient { get; set; } = string.Empty;
+                public Config_Reward harvest { get; set; } = new Config_Reward();
             }
-            
             //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool mInitialized = false;

@@ -99,7 +99,7 @@
         }
     },
     "Resource2": {
-        "title": "자원2",
+        "title": "토마토",
         "resource": true,
         "discharge": 0,
         "period": 0,
@@ -110,7 +110,7 @@
         }
     },
     "Resource3": {
-        "title": "자원3",
+        "title": "양배추",
         "resource": true,
         "discharge": 0,
         "period": 0,

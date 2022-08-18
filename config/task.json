@@ -1186,13 +1186,11 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "SM_Env_GrassPath_Corner_01",
-                    "SM_Env_GrassPath_Corner_01 (1)",
-                    "SM_Env_GrassPath_Straight_01 (1)",
-                    "SM_Env_GrassPath_Straight_01 (10)",
-                    "SM_Env_GrassPath_Straight_01 (31)",
-                    "SM_Env_GrassPath_Straight_01 (8)",
-                    "SM_Env_GrassPath_Straight_01 (3)"
+                    "SM_Env_GrassPath_Corner_01 (3)",
+                    "SM_Env_GrassPath_Straight_01 (16)",
+                    "SM_Env_GrassPath_Straight_01 (39)",
+                    "SM_Env_GrassPath_Straight_01 (47)",
+                    "SM_Env_GrassPath_Straight_01 (1)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -1226,7 +1224,8 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "Plant_4"
+                    "SM_Env_Grass_01 (15)",
+                    "SM_Env_Grass_01 (17)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -1254,8 +1253,8 @@
             "villageLevel": 1,
             "title": "\ubc2d \uac08\uae30",
             "desc": "\uc528\uc557\uc744 \ubfcc\ub9ac\uae30 \uc804 \ubc2d\uc744 \uac08\uc544\uc57c\ud569\ub2c8\ub2e4.",
-            "animation": "Digging",
-            "animationRepeatTime": 2,
+            "animation": "Tillage",
+            "animationRepeatTime": 3,
             "maxRef": -1,
             "target": {
                 "type": 5,
@@ -1287,8 +1286,8 @@
             "village": "farming",
             "villageLevel": 1,
             "title": "\ud1a0\ub9c8\ud1a0 \uc2ec\uae30",
-            "desc": "\ud1a0\ub9c8\ud1a0\ub97c \uc2ec\ub294\ub2e4",
-            "animation": "Farming",
+            "desc": "\ud1a0\ub9c8\ud1a0\ub97c \uc2ec\ub294\ub2e4. \ub2e4 \uc790\ub77c\ub294\ub370 15\ubd84\uc774 \uac78\ub9bd\ub2c8\ub2e4.",
+            "animation": "Plant",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
@@ -1326,8 +1325,8 @@
             "village": "farming",
             "villageLevel": 1,
             "title": "\uc591\ubc30\ucd94 \uc2ec\uae30",
-            "desc": "\uc591\ubc30\ucd94\ub97c \uc2ec\ub294\ub2e4",
-            "animation": "Farming",
+            "desc": "\uc591\ubc30\ucd94\ub97c \uc2ec\ub294\ub2e4. \ub2e4 \uc790\ub77c\ub294\ub370 15\ubd84\uc774 \uac78\ub9bd\ub2c8\ub2e4.",
+            "animation": "Plant",
             "animationRepeatTime": 1,
             "maxRef": -1,
             "target": {
@@ -1353,6 +1352,74 @@
             ],
             "integration": "FARMING:farm-small:PLANT:seed2",
             "scene": ""
+        },
+        {
+            "id": "f-8",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ubc2d\uc77c \ud558\uae30",
+            "desc": "\ub18d\uc791\ubb3c\uc744 \uac00\uafbc\ub2e4. \ub18d\uc791\ubb3c\uc774 \uc790\ub77c\ub294 \uc2dc\uac04\uc744 \ub2e8\ucd95\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+            "animation": "Farming",
+            "animationRepeatTime": 2,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "farm-small-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "FARMING:farm-small:CARE",
+            "scene": ""
+        },
+        {
+            "id": "f-9",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\uc218\ud655\ud558\uae30",
+            "desc": "\uc218\ud655\ud558\uae30. \uc218\ud655\ubb3c\uc740 \uc778\ubca4\ud1a0\ub9ac\uc5d0 \uc790\ub3d9\uc73c\ub85c \ub4e4\uc5b4\uac00\uc694.",
+            "animation": "Harvest",
+            "animationRepeatTime": 3,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "farm-small-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "FARMING:farm-small:HARVEST",
+            "scene": ""
         }
     ],
     "200": [
@@ -1374,8 +1441,8 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "Plant_4",
-                    "Plant_5 (2)"
+                    "SM_Env_Grass_01 (15)",
+                    "SM_Env_Grass_01 (17)"
                 ],
                 "interaction": {
                     "type": 0,
@@ -1411,8 +1478,8 @@
             "target": {
                 "type": 1,
                 "value": [
-                    "Plant_4",
-                    "Plant_5 (2)"
+                    "SM_Env_Grass_01 (15)",
+                    "SM_Env_Grass_01 (17)"
                 ],
                 "interaction": {
                     "type": 0,

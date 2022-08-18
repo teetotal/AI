@@ -3,7 +3,24 @@
         "name": "토마토 씨앗",
         "duration": 15,
         "careValue": 3,
+        "maxCare": 2,
         "prefabPlant": "Farming/TomatoPlant",
-        "prefabIngredient": "Farming/Tomato"
+        "prefabIngredient": "Farming/Tomato",
+        "harvest": {
+            "itemId": "ingredient1",
+            "quantity": 1
+        }
+    },
+    "seed2": {
+        "name": "양배추 씨앗",
+        "duration": 15,
+        "careValue": 3,
+        "maxCare": 2,
+        "prefabPlant": "Farming/CabbagePlant",
+        "prefabIngredient": "Farming/Cabbage",
+        "harvest": {
+            "itemId": "ingredient2",
+            "quantity": 1
+        }
     }
 }

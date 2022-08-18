@@ -455,7 +455,7 @@
                 "satisfactionId": "MP",
                 "min": 20,
                 "max": 50,
-                "value": 50
+                "value": 15
             },
             {
                 "satisfactionId": "Knowledge",
@@ -526,6 +526,11 @@
             },
             {
                 "itemId": "seed1",
+                "quantity": 10,
+                "installation": false
+            },
+            {
+                "itemId": "seed2",
                 "quantity": 10,
                 "installation": false
             }
