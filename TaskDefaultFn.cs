@@ -105,13 +105,17 @@ namespace ENGINE {
                         break;
                         case TASK_TARGET_TYPE.POSITION:
                         type = Actor.TASKCONTEXT_TARGET_TYPE.POSITION;
-                        position = mInfo.target.position;
-                        lootAt = mInfo.target.lookAt;
+                        if(mInfo.target.isAssignedPosition) {
+                            position = mInfo.target.position;
+                            lootAt = mInfo.target.lookAt;
+                        }
                         break;
                         case TASK_TARGET_TYPE.FLY:
                         type = Actor.TASKCONTEXT_TARGET_TYPE.FLY;
-                        position = mInfo.target.position;
-                        lootAt = mInfo.target.lookAt;
+                        if(mInfo.target.isAssignedPosition) {
+                            position = mInfo.target.position;
+                            lootAt = mInfo.target.lookAt;
+                        }
                         break;
                         case TASK_TARGET_TYPE.RESERVE_VEHICLE:
                         case TASK_TARGET_TYPE.GET_IN_VEHICLE:

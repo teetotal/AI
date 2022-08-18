@@ -1,0 +1,9 @@
+{
+    "seed1": {
+        "name": "토마토 씨앗",
+        "duration": 15,
+        "careValue": 3,
+        "prefabPlant": "Farming/TomatoPlant",
+        "prefabIngredient": "Farming/Tomato"
+    }
+}

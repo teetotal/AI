@@ -117,6 +117,8 @@ def get_json_task(arr):
         "satisfactions": {}, #arr[14]
         "satisfactionsRefusal": {}, #arr[15]
         "items": [], #arr[16]
+        "materialItems": [], #arr[22]
+        "integration": arr[23],
         "scene": arr[17]
     }
     #level
@@ -161,6 +163,18 @@ def get_json_task(arr):
                 "quantity": quantity,
                 "winRange": winRange,
                 "totalRange": totalRange
+            })
+    if(len(arr[22]) > 0):
+        items = arr[22].split('\n')
+        for i in items:
+            itemV = i.split(',')
+            if len(itemV) != 2:
+                continue
+            itemId = itemV[0]
+            quantity = int(itemV[1])
+            j['materialItems'].append({
+                "itemId": itemId,
+                "quantity": quantity
             })
 
 

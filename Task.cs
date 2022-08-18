@@ -180,11 +180,43 @@ namespace ENGINE {
                     }
                     return true;
                 }
+                public bool CheckMaterialItems(Actor actor, FnTask task) {
+                    for(int i = 0; i < task.mInfo.materialItems.Count; i++) {
+                        Config_Reward material = task.mInfo.materialItems[i];
+                        if(actor.GetItemQuantityInInventory(material.itemId) < material.quantity)
+                            return false;
+                    }
+                    return true;
+                }
                 public bool CheckTarget(FnTask task, Actor actor) {
                     var ret = task.GetTargetObject(actor);
                     if(ret.Item1 == Actor.TASKCONTEXT_TARGET_TYPE.INVALID)
                         return false;
                     return true;
+                }
+                public bool CheckIntegrtion(Actor actor, FnTask task) {
+                    if(task.mInfo.integration == string.Empty)
+                        return true;
+                    
+                    string type = task.mInfo.integration.Split(':')[0];
+                    switch(type) {
+                        case "FARMING":
+                            return FarmingHandler.Instance.Check(actor, task);
+                        default:
+                            return true;
+                    }
+                }
+                public bool Integration(Actor actor, FnTask task) {
+                    if(task.mInfo.integration == string.Empty)
+                        return true;
+                    
+                    string type = task.mInfo.integration.Split(':')[0];
+                    switch(type) {
+                        case "FARMING":
+                            return FarmingHandler.Instance.Integration(actor, task);
+                        default:
+                            return true;
+                    }
                 }
             }
         }

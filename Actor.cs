@@ -46,8 +46,8 @@ namespace ENGINE {
                 public class TaskContext_Target {
                     public TASKCONTEXT_TARGET_TYPE type = TASKCONTEXT_TARGET_TYPE.INVALID;                    
                     public string objectName = string.Empty;
-                    public Position position = new Position(-1, -1, -1);
-                    public Position lookAt = new Position(-1, -1, -1);
+                    public Position? position = null;
+                    public Position? lookAt = null;
                     public void Set(TASKCONTEXT_TARGET_TYPE type, string? objectName, Position? position, Position? lookAt) {
                         this.type = type;
                         if(objectName == null)
@@ -56,12 +56,18 @@ namespace ENGINE {
                             this.objectName = objectName;
 
                         if(position != null) {
-                            this.position.Set(position.x, position.y, position.z);
+                            this.position = new Position(position.x, position.y, position.z);
                         }
 
                         if(lookAt != null) {
-                            this.lookAt.Set(lookAt.x, lookAt.y, lookAt.z);
+                            this.lookAt = new Position(lookAt.x, lookAt.y, lookAt.z);
                         }
+                    }
+                    public void Release() {
+                        type = TASKCONTEXT_TARGET_TYPE.INVALID;                    
+                        objectName = string.Empty;
+                        position = null;
+                        lookAt = null;
                     }
                 }    
                 public class TaskContext {
@@ -95,7 +101,7 @@ namespace ENGINE {
                     }       
                     public void Release() {
                         this.ackTaskId = string.Empty;
-                        this.target.type = TASKCONTEXT_TARGET_TYPE.INVALID;
+                        this.target.Release();
                         this.reserveContext.Release();
 
                         if(this.currentTask == null) 
@@ -394,7 +400,9 @@ namespace ENGINE {
                 public enum SET_TASK_ERROR {
                     SUCCESS,
                     NOT_ENOUGH_SATISFACTION,
+                    NOT_ENOUGH_MATERIAL_ITEM,
                     OVER_MAX_REF,
+                    CHECK_INTEGRATION_FAILURE,
                     FAILURE,
                     GET_IN,
                     GET_OFF
@@ -411,6 +419,12 @@ namespace ENGINE {
                     //check ref
                     if(!TaskHandler.Instance.CheckRef(task))
                         return SET_TASK_ERROR.OVER_MAX_REF;
+                    //check material item
+                    if(!TaskHandler.Instance.CheckMaterialItems(this, task))
+                        return SET_TASK_ERROR.NOT_ENOUGH_MATERIAL_ITEM;
+                    //check integration
+                    if(!TaskHandler.Instance.CheckIntegrtion(this, task))
+                        return SET_TASK_ERROR.CHECK_INTEGRATION_FAILURE;
                     //target가져오고
                     Tuple<Actor.TASKCONTEXT_TARGET_TYPE, string, Position?, Position?> target = task.GetTargetObject(this);
                     if(target.Item1 == Actor.TASKCONTEXT_TARGET_TYPE.INVALID) {
@@ -596,6 +610,14 @@ namespace ENGINE {
                         if(isWin)
                             CallCallback(LOOP_STATE.ITEM);
                     }
+                    //아이템 소비
+                    for(int i = 0; i < task.mInfo.materialItems.Count; i++) {
+                        Config_Reward material = task.mInfo.materialItems[i];
+                        if(!SpendMaterialItem(material.itemId, material.quantity))
+                            throw new Exception("SpendMaterialItem Failure");
+                    }
+                    //integration
+                    TaskHandler.Instance.Integration(this, task);
                 }
                 // --------------------------------------------------------------------------------------------------
                 public void Loop_Levelup() {
@@ -1231,6 +1253,11 @@ namespace ENGINE {
                         mItemContext.inventory[itemKey] = quantity;
                     }
                 }
+                public int GetItemQuantityInInventory(string itemKey) {
+                    if(mItemContext.inventory.ContainsKey(itemKey))
+                        return mItemContext.inventory[itemKey];
+                    return 0;
+                }
                 //아이템 사용은 한번에 하나씩만
                 public bool UseItemFromInventory(string itemKey) {
                     if(mItemContext.inventory.ContainsKey(itemKey) == false || mItemContext.inventory[itemKey] <= 0) {
@@ -1240,6 +1267,17 @@ namespace ENGINE {
                         return false;
                     }
                     mItemContext.inventory[itemKey] --;
+                    return true;
+                }
+                //
+                private bool SpendMaterialItem(string itemId, int quantity) {
+                    if(!mItemContext.inventory.ContainsKey(itemId))
+                        throw new Exception("Invalid itemd id. " + itemId);
+                    
+                    if(mItemContext.inventory[itemId] < quantity) {
+                        return false;
+                    }
+                    mItemContext.inventory[itemId] -= quantity;
                     return true;
                 }
                 public bool InvokeItem(string itemKey, int usage) {

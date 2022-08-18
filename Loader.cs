@@ -13,7 +13,7 @@ namespace ENGINE {
             }            
             //-------------------------------------------------------------
             public class Config_Reward {
-                public string? itemId { get; set; }
+                public string itemId { get; set; } = string.Empty;
                 public int quantity { get; set; }
             }
             /*
@@ -214,6 +214,8 @@ namespace ENGINE {
                 public Dictionary<string, string> satisfactions { get; set; } = new Dictionary<string, string>();
                 public Dictionary<string, string> satisfactionsRefusal { get; set; } = new Dictionary<string, string>();
                 public List<ConfigTask_Item> items { get; set; } = new List<ConfigTask_Item>();
+                public List<Config_Reward> materialItems { get; set; } = new List<Config_Reward>();
+                public string integration { get; set; } = string.Empty;
                 public string scene { get; set; } = string.Empty;
             }        
             public class ConfigTask_Item {
@@ -231,6 +233,8 @@ namespace ENGINE {
                 public TASK_TARGET_TYPE type { get; set; }
                 public List<string>? value { get; set; }
                 public ConfigTask_Interaction interaction { get; set; } = new ConfigTask_Interaction();
+                //Parsing에서 처리
+                public bool isAssignedPosition = false;
                 public Position position = new Position(-1, -1, -1);
                 public Position lookAt = new Position(-1, -1, -1);
             }
@@ -334,8 +338,6 @@ namespace ENGINE {
             }
             public class ConfigFarming_Field {
                 public string fieldId { get; set; } = string.Empty;
-                public string farmId { get; set; } = string.Empty;
-                public bool tillage { get; set; } = false; //밭갈이 완료 상태 여부
                 public string seedId { get; set; } = string.Empty;
                 public long startCount { get; set; }
                 public int cares { get; set; }
@@ -345,6 +347,17 @@ namespace ENGINE {
                 public string name { get; set; } = string.Empty; //농장명
                 public float capacity { get; set; } //생산력
                 public string prefab { get; set; } = string.Empty;
+                public string position { get; set; } = string.Empty;
+                public List<ConfigFarming_Field> fields { get; set; } = new List<ConfigFarming_Field>();
+                public bool tillage { get; set; } = false; //밭갈이 완료 상태 여부
+            }
+            //Seed ------
+            public class ConfigFarming_Seed {
+                public string name { get; set; } = string.Empty;
+                public int duration { get; set; }
+                public int careValue { get; set; }
+                public string prefabPlant {get; set; } = string.Empty;
+                public string prefabIngredient { get; set; } = string.Empty;
             }
             
             //-----------------------------------------------------------------------------------
@@ -368,7 +381,9 @@ namespace ENGINE {
                                   string stringScenario,
                                   string stringVillage,
                                   string stringL10n,
-                                  string stringVehicle ) 
+                                  string stringVehicle,
+                                  string stringFarming,
+                                  string stringSeed ) 
                 {
                     if(mInitialized)
                         return true;
@@ -388,6 +403,14 @@ namespace ENGINE {
                     }
                     //Village
                     if(SetVillage(stringVillage) == false) {
+                        return false;
+                    }
+                    //Farming
+                    if(SetFarming(stringFarming) == false) {
+                        return false;
+                    }
+                    //Seed
+                    if(SetSeed(stringSeed) == false) {
                         return false;
                     }
                     //default task
@@ -503,12 +526,16 @@ namespace ENGINE {
                                 case TASK_TARGET_TYPE.FLY:
                                 {
                                     if(task.target.value == null) {
-                                    throw new Exception("task.target.value must exist");
+                                        throw new Exception("task.target.value must exist");
                                     }
-                                    string[] positionArr = task.target.value[0].Split(',');
-                                    string[] lootAtArr = task.target.value[1].Split(',');
-                                    task.target.position = new Position(float.Parse(positionArr[0]), float.Parse(positionArr[1]), float.Parse(positionArr[2]));
-                                    task.target.lookAt = new Position(float.Parse(lootAtArr[0]), float.Parse(lootAtArr[1]), float.Parse(lootAtArr[2]));
+                                    //좌표가 아닌 경우는 value[0]을 보고 찾아가면 된다.
+                                    if(task.target.value.Count == 2) {
+                                        task.target.isAssignedPosition = true;
+                                        string[] positionArr = task.target.value[0].Split(',');
+                                        string[] lootAtArr = task.target.value[1].Split(',');
+                                        task.target.position = new Position(float.Parse(positionArr[0]), float.Parse(positionArr[1]), float.Parse(positionArr[2]));
+                                        task.target.lookAt = new Position(float.Parse(lootAtArr[0]), float.Parse(lootAtArr[1]), float.Parse(lootAtArr[2]));
+                                    }
                                 }                                
                                 break;
                             }
@@ -576,7 +603,26 @@ namespace ENGINE {
                     VehicleHandler.Instance.Set(j);
                     
                     return true;
-                }             
+                }     
+                private bool SetFarming(string sz) {
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, List<ConfigFarming_Detail>> >(sz);  
+                    if(j == null) {
+                        return false;
+                    }
+                    FarmingHandler.Instance.Set(j);
+                    
+                    return true;
+                }       
+                private bool SetSeed(string sz) {
+                    var j = JsonConvert.DeserializeObject< Dictionary<string, ConfigFarming_Seed> >(sz);  
+                    if(j == null) {
+                        return false;
+                    }
+                    FarmingHandler.Instance.SetSeed(j);
+                    
+                    return true;
+                    
+                } 
             }
         }
     }

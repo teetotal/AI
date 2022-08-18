@@ -1,0 +1,38 @@
+{
+    "farming": [
+        {
+            "farmId": "farm-small",
+            "name": "쪼꼬만 주말농장",
+            "capacity": 1,
+            "prefab": "Farming/Farm-Small-1",
+            "position": "-18,0,-5:0,180,0",
+            "fields": [
+                {
+                    "fieldId": "farm-small-1",
+                    "seedId": "",
+                    "startCount": 0,
+                    "cares": 0
+                },
+                {
+                    "fieldId": "farm-small-2",
+                    "seedId": "",
+                    "startCount": 0,
+                    "cares": 0
+                },
+                {
+                    "fieldId": "farm-small-3",
+                    "seedId": "",
+                    "startCount": 0,
+                    "cares": 0
+                },
+                {
+                    "fieldId": "farm-small-4",
+                    "seedId": "",
+                    "startCount": 0,
+                    "cares": 0
+                }
+            ],
+            "tillage": false
+        }
+    ]
+}

@@ -30,6 +30,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         }
     ],
@@ -64,6 +66,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         }
     ],
@@ -98,6 +102,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         }
     ],
@@ -133,6 +139,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -166,6 +174,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -199,6 +209,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -231,6 +243,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": "Gallery"
         },
         {
@@ -264,6 +278,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -297,6 +313,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -330,6 +348,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -364,6 +384,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -403,6 +425,8 @@
                     "totalRange": 100
                 }
             ],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -442,6 +466,8 @@
                     "totalRange": 100
                 }
             ],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -481,6 +507,8 @@
                     "totalRange": 100
                 }
             ],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -513,6 +541,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -543,6 +573,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -575,6 +607,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -607,6 +641,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -649,6 +685,8 @@
                     "totalRange": 1
                 }
             ],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -679,6 +717,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -712,6 +752,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -744,6 +786,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -776,6 +820,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -806,6 +852,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -836,6 +884,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -868,6 +918,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -898,6 +950,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -931,6 +985,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -964,6 +1020,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1003,6 +1061,8 @@
                     "totalRange": 10
                 }
             ],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1037,6 +1097,8 @@
                 "Friendship": "-1"
             },
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1070,6 +1132,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1100,6 +1164,8 @@
             "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1138,6 +1204,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         },
         {
@@ -1170,6 +1238,120 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        },
+        {
+            "id": "f-5",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ubc2d \uac08\uae30",
+            "desc": "\uc528\uc557\uc744 \ubfcc\ub9ac\uae30 \uc804 \ubc2d\uc744 \uac08\uc544\uc57c\ud569\ub2c8\ub2e4.",
+            "animation": "Digging",
+            "animationRepeatTime": 2,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "farm-small-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "FARMING:farm-small:TILLAGE",
+            "scene": ""
+        },
+        {
+            "id": "f-6",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ud1a0\ub9c8\ud1a0 \uc2ec\uae30",
+            "desc": "\ud1a0\ub9c8\ud1a0\ub97c \uc2ec\ub294\ub2e4",
+            "animation": "Farming",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "farm-small-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [
+                {
+                    "itemId": "seed1",
+                    "quantity": 1
+                }
+            ],
+            "integration": "FARMING:farm-small:PLANT:seed1",
+            "scene": ""
+        },
+        {
+            "id": "f-7",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\uc591\ubc30\ucd94 \uc2ec\uae30",
+            "desc": "\uc591\ubc30\ucd94\ub97c \uc2ec\ub294\ub2e4",
+            "animation": "Farming",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "farm-small-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "-1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [
+                {
+                    "itemId": "seed2",
+                    "quantity": 1
+                }
+            ],
+            "integration": "FARMING:farm-small:PLANT:seed2",
             "scene": ""
         }
     ],
@@ -1205,6 +1387,45 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        }
+    ],
+    "202": [
+        {
+            "id": "f-2-1",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ub304\uc2f1",
+            "desc": "\uacf5\uc6d0\uc5d0\uc11c \ub9d8\uaecf \ucda4\ucd94\uae30",
+            "animation": "Dancing",
+            "animationRepeatTime": 5,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "Plant_4",
+                    "Plant_5 (2)"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "MP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         }
     ],
@@ -1245,6 +1466,8 @@
             },
             "satisfactionsRefusal": {},
             "items": [],
+            "materialItems": [],
+            "integration": "",
             "scene": ""
         }
     ]
