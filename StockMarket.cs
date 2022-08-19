@@ -4,7 +4,22 @@ using System.Collections.Generic;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            //매도 주문서
+            //pooling
+            public class StockActorOrder {
+                public bool isSell;
+                public Actor? actor;
+                public string resourceId = string.Empty;     
+                public int quantity;           
+                public float bid;
+                public void Set(bool isSell, Actor actor, string resourceId, int quantity, float bid) {
+                    this.isSell = isSell;
+                    this.actor = actor;
+                    this.resourceId = resourceId;
+                    this.quantity = quantity;
+                    this.bid = bid;
+                }
+            }
+            //매도 주문서. pooling만들어야 함
             public class StockSellOrder {       
                 public int customer;         
                 public string resourceId = string.Empty;                
@@ -153,8 +168,14 @@ namespace ENGINE {
                 private List<float> mTemp = new List<float>();
                 private List<StockCustomer> mCustomers = new List<StockCustomer>();           
                 private Dictionary<string, SortedList<float, StockSellOrder>> mSellOrders = new Dictionary<string, SortedList<float, StockSellOrder>>();
+                //Actor 주문
+                private Dictionary<string, List<StockActorOrder>> mActorSellOrders = new Dictionary<string, List<StockActorOrder>>();
+                private Dictionary<string, List<StockActorOrder>> mActorBuyOrders = new Dictionary<string, List<StockActorOrder>>();
                 private Random mRandom = new Random();
+                private long mLastUpdate = 0;
+                private int mUpdateInterval = 0;
                 private int cntSell, cntBuy;
+                private bool mIsInit = false;
                 private static readonly Lazy<StockMarketHandler> instance =
                         new Lazy<StockMarketHandler>(() => new StockMarketHandler());
                 public static StockMarketHandler Instance {
@@ -164,6 +185,11 @@ namespace ENGINE {
                 }
                 private StockMarketHandler() { }
                 public void Init() {
+                    if(mIsInit)
+                        return;
+                    mIsInit = true;
+                    mUpdateInterval = 5;
+
                     var satisfactions = SatisfactionDefine.Instance.GetAll();
                     float defaultPrice = 8;
                     foreach(var p in satisfactions) {
@@ -189,7 +215,13 @@ namespace ENGINE {
                     return mDefaultPrice[resourceId];
                 }
                 public void Update() {
-                    Console.WriteLine("========================================= Sell: {0} Buy: {1} =========================================", cntSell, cntBuy);
+                    long counter = CounterHandler.Instance.GetCount();
+
+                    if(mUpdateInterval > counter - mLastUpdate) 
+                        return;
+                    
+                    mLastUpdate = counter;
+                    //Console.WriteLine("========================================= Sell: {0} Buy: {1} =========================================", cntSell, cntBuy);
                     foreach(var p in mMarketPrice) {
                         string resourceId = p.Key;
                         List<float> prices = p.Value;
@@ -209,7 +241,7 @@ namespace ENGINE {
                             //시장 가격을 1%내린다.
                             InsertMarketPrice(resourceId, prices[prices.Count - 1] * 0.99f);
                         }
-
+                        //Sell
                         for(int i = 0; i < mCustomers.Count; i++) {       
                             int idx = mRandom.Next(mCustomers.Count);
                             mCustomers[idx].DecisionSell(resourceId, mTemp);
@@ -222,20 +254,56 @@ namespace ENGINE {
                                 mTemp.Add(prices[i]);
                             }
                         }
-                        
-                        //살때
+                        //Actor buying
+                        ActorBuying();
+                        //Buy
                         for(int i = 0; i < mCustomers.Count; i++) {  
                             int idx = mRandom.Next(mCustomers.Count);                          
                             mCustomers[idx].DecisionBuy(resourceId, mTemp);
                         }   
-
-                        Print(resourceId);
                     }
-                    /*
-                    for(int i = 0; i < mCustomers.Count; i++) {                                                        
-                        Console.WriteLine("{0}, {1}", i, mCustomers[i].GetMoney());
-                    } 
-                    */
+                }
+                private void ActorBuying() {
+                    List<float> keys = new List<float>();
+                    List<int> actorOrderIdx = new List<int>();
+                    foreach(var p in mActorBuyOrders) {
+                        actorOrderIdx.Clear();
+                        for(int i = 0; i < p.Value.Count; i++) {
+                            
+                            keys.Clear();
+
+                            StockActorOrder order = p.Value[i];
+                            int quantity = order.quantity;
+                            foreach(var o in mSellOrders[order.resourceId] ) {
+                                if(o.Value.bid <= order.bid) {
+                                    keys.Add(o.Key);
+                                    //callback
+
+                                    //매도자 callback
+                                    mCustomers[o.Value.customer].OnSell(o.Value);
+                                    InsertMarketPrice(order.resourceId, o.Value.bid);
+                                    quantity--;
+                                    if(quantity == 0)
+                                        break;
+                                } else {
+                                    break;
+                                }
+                            }
+                            if(quantity == 0) {
+                                actorOrderIdx.Add(i);
+                            } else {
+                                p.Value[i].quantity = quantity; //수량 조절
+                            }
+                            
+                            if(keys.Count > 0) {
+                                for(int j = 0; j < keys.Count; j++)
+                                    mSellOrders[order.resourceId].Remove(keys[j]);
+                                //callback
+                            }
+                        }
+                        for(int j = 0; j < actorOrderIdx.Count; j++)
+                            p.Value.RemoveAt(actorOrderIdx[j]);
+                    }
                 }
                 private void Print(string resourceId) {
                     Console.WriteLine("{0} Orders: {1} Market Price {2} > {3} > {4}", resourceId, mSellOrders[resourceId].Count, 
@@ -252,6 +320,24 @@ namespace ENGINE {
                             return;
                     }
                     */
+                }
+                //Actor 주문
+                public void Order(StockActorOrder order) {
+                    if(order.actor == null) {
+                        throw new Exception("StockMarket actor must be assigned.");
+                    }
+                    string actorId = order.actor.mUniqueId;
+                    if(order.isSell) {
+                        if(!mActorSellOrders.ContainsKey(actorId)) {
+                            mActorSellOrders[actorId] = new List<StockActorOrder>();
+                        }
+                        mActorSellOrders[actorId].Add(order);
+                    } else {
+                        if(!mActorBuyOrders.ContainsKey(actorId)) {
+                            mActorBuyOrders[actorId] = new List<StockActorOrder>();
+                        }
+                        mActorBuyOrders[actorId].Add(order);
+                    }
                 }
                 public bool Sell(StockSellOrder order) {
                     if(mSellOrders[order.resourceId].ContainsKey(order.bid))
