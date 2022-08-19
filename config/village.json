@@ -72,5 +72,24 @@
                 }
             }
         }
+    },
+    "stock": {
+        "name": "원자재 거래소",
+        "desc": "원자재 거래소",
+        "collectionDuration": -1,
+        "finances": {
+            "Gold": 0
+        },
+        "tax": {
+            "Gold": 0
+         },
+        "level": {
+            "current": 1,
+            "threshold": {
+                "1": {
+                    "Gold": 30
+                }
+            }
+        }
     }
 }

@@ -310,7 +310,9 @@ namespace ENGINE {
                     DISCHARGE,
                     COMPLETE_QUEST,
                     TAX_COLLECTION,
-                    ITEM
+                    ITEM,
+                    STOCK_SELL,
+                    STOCK_BUY
                 }
                 private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
                 public LOOP_STATE GetState() {
@@ -1210,8 +1212,13 @@ namespace ENGINE {
                 public double GetAccumulationSatisfaction(string satisfactionId) {
                     return mQuestContext.GetSatisfaction(satisfactionId);
                 }
-                // -------------------------------------------------------------------------------------------------------------  
-                
+                // StockMarket--------------------------------------------------------------------------------------------------
+                public void OnStockBuy() {
+                    CallCallback(LOOP_STATE.STOCK_BUY);
+                }
+                public void OnStockSell() {
+                    CallCallback(LOOP_STATE.STOCK_SELL);
+                }
                 //Item----------------------------------------------------------------------------------------------------------
                 public ItemContext GetItemContext() {
                     return mItemContext;
