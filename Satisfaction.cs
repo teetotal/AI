@@ -30,6 +30,9 @@ namespace ENGINE {
                 public void Add(string satisfactionId, ConfigSatisfaction_Define p) {
                     mDefines.Add(satisfactionId, p);
                 }
+                public Dictionary<string, ConfigSatisfaction_Define> GetAll() {
+                    return mDefines;
+                }
                 public ConfigSatisfaction_Define Get(string satisfactionId) {
                     if(mDefines.ContainsKey(satisfactionId) == false) {
                         throw new Exception("Invalid Satisfaction id. " + satisfactionId);

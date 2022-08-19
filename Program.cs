@@ -287,6 +287,16 @@ public class GameControlInstance {
             Console.WriteLine("Failure Loading config");
             return false;
         }
+        //stock market
+        StockMarketHandler.Instance.Init();
+        while(true) {
+            StockMarketHandler.Instance.Update();
+            Thread.Sleep(100);
+        }
+        
+
+
+
         //!!반드시 해줘야 pet과 tax, Village level up 이 됨
         ActorHandler.Instance.PostInit(VillageLevelUpCallback);
         
