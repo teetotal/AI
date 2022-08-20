@@ -32,7 +32,7 @@ namespace ENGINE {
             }
             //주식시장
             public class StockMarketHandler {
-                private const int CAPACITY = 3;
+                public int CAPACITY = 3;
                 private const int CUSTOMERS = 30;                
                 public int MIN_MONEY { get; } = 100;
                 public int MAX_MONEY { get; } = 1000;
@@ -66,7 +66,7 @@ namespace ENGINE {
                     if(mIsInit)
                         return;
                     mIsInit = true;
-                    mUpdateInterval = 5;
+                    mUpdateInterval = 1;
 
                     var satisfactions = SatisfactionDefine.Instance.GetAll();
                     float defaultPrice = 8;
@@ -91,6 +91,9 @@ namespace ENGINE {
                 }
                 public Dictionary<string, List<float>> GetMarketPrices() {
                     return mMarketPrice;
+                }
+                public List<float> GetMarketPrice(string resourceId) {
+                    return mMarketPrice[resourceId];
                 }
                 public List<StockActorSold>? GetActorSold(string actorId) {
                     if(mActorSold.ContainsKey(actorId))
