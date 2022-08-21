@@ -435,8 +435,8 @@
         "satisfactions": [
             {
                 "satisfactionId": "Gold",
-                "min": 20,
-                "max": 150,
+                "min": 0,
+                "max": 0,
                 "value": 148
             },
             {

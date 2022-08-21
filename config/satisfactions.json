@@ -1,156 +1,100 @@
-{ 
+{
     "Gold": {
-        "title": "골드",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
-    },  
+        "satisfactionId": "Gold",
+        "title": "\uace8\ub4dc",
+        "type": "2",
+        "discharge": 0.0,
+        "period": "0"
+    },
     "Speed": {
-        "title": "속도",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 1,
-            "max": 3,
-            "random": 1
-        }
-    },             
+        "satisfactionId": "Speed",
+        "title": "\uc18d\ub3c4",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
+    },
     "HP": {
-        "title": "체력",
-        "resource": false,
-        "discharge": -1,
-        "period": 24,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "HP",
+        "title": "\uccb4\ub825",
+        "type": "0",
+        "discharge": -1.0,
+        "period": "24"
     },
     "MP": {
-        "title": "멘탈",
-        "resource": false,
-        "discharge": -1,
-        "period": 24,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
-    },   
+        "satisfactionId": "MP",
+        "title": "\uc815\uc2e0\ub825",
+        "type": "0",
+        "discharge": -1.0,
+        "period": "24"
+    },
     "Knowledge": {
-        "title": "지식",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
-    },     
+        "satisfactionId": "Knowledge",
+        "title": "\uc9c0\uc2dd",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
+    },
     "Ability1": {
-        "title": "요리 에너지",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "Ability1",
+        "title": "\uc694\ub9ac\uc5f4\uc815",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
     },
     "Ability2": {
-        "title": "제작 에너지",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "Ability2",
+        "title": "\uc81c\uc791\uc5f4\uc815",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
     },
     "Ability3": {
-        "title": "경작 에너지",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
-    },
-    "Resource1": {
-        "title": "요리 재료",
-        "resource": true,
-        "discharge": 0,
-        "period": 0,
-        "marketPrice": {
-            "gradient": -2,
-            "bias": 256,
-            "maxQuantity": 128
-        }
-    },
-    "Resource2": {
-        "title": "토마토",
-        "resource": true,
-        "discharge": 0,
-        "period": 0,
-        "marketPrice": {
-            "gradient": -2,
-            "bias": 512,
-            "maxQuantity": 256
-        }
-    },
-    "Resource3": {
-        "title": "양배추",
-        "resource": true,
-        "discharge": 0,
-        "period": 0,
-        "marketPrice": {
-            "gradient": -2,
-            "bias": 512,
-            "maxQuantity": 256
-        }
+        "satisfactionId": "Ability3",
+        "title": "\ub18d\uc0ac\uc5f4\uc815",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
     },
     "Sight": {
-        "title": "시야",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "Sight",
+        "title": "\uc2dc\uc57c",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
     },
     "Leadership": {
-        "title": "리더십",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "Leadership",
+        "title": "\ub9ac\ub354\uc2ed",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
     },
     "Friendship": {
-        "title": "친근감",
-        "resource": false,
-        "discharge": 0,
-        "period": 0,
-        "seed": {
-            "min": 20,
-            "max": 50,
-            "random": 10
-        }
+        "satisfactionId": "Friendship",
+        "title": "\uce5c\uadfc\uac10",
+        "type": "0",
+        "discharge": 0.0,
+        "period": "0"
+    },
+    "Resource1": {
+        "satisfactionId": "Resource1",
+        "title": "\uc694\ub9ac\uc7ac\ub8cc",
+        "type": "1",
+        "discharge": 0.0,
+        "period": "0"
+    },
+    "Resource2": {
+        "satisfactionId": "Resource2",
+        "title": "\ud1a0\ub9c8\ud1a0",
+        "type": "1",
+        "discharge": 0.0,
+        "period": "0"
+    },
+    "Resource3": {
+        "satisfactionId": "Resource3",
+        "title": "\uc591\ubc30\ucd94",
+        "type": "1",
+        "discharge": 0.0,
+        "period": "0"
     }
 }

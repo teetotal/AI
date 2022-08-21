@@ -127,13 +127,21 @@ namespace ENGINE {
                 public float bias { get; set; } // 수요곡선 절편
                 public float maxQuantity { get; set; } //시장에 풀릴 수 있는 최대 수량
             }
+            public enum SATISFACTION_TYPE {
+                SATISFACTION = 0,
+                RESOURCE,
+                CURRENCY
+            }
             public class ConfigSatisfaction_Define {
+                public string satisfactionId { get; set; } = string.Empty;
                 public string title { get; set; } = string.Empty;
-                public bool resource { get; set; }
+                public SATISFACTION_TYPE type { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
+                /*
                 public ConfigSatisfaction_Seed? seed { get; set; }
                 public ConfigSatisfaction_MarketPrice? marketPrice { get; set; }
+                */
             }                       
         
             //Actors ------------------------------------------------------------------

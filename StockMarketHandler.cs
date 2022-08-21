@@ -71,7 +71,7 @@ namespace ENGINE {
                     var satisfactions = SatisfactionDefine.Instance.GetAll();
                     float defaultPrice = 8;
                     foreach(var p in satisfactions) {
-                        if(p.Value.resource) {
+                        if(p.Value.type == SATISFACTION_TYPE.RESOURCE) {
                             //default price
                             mDefaultPrice[p.Key] = 8;
                             //market price
@@ -92,8 +92,11 @@ namespace ENGINE {
                 public Dictionary<string, List<float>> GetMarketPrices() {
                     return mMarketPrice;
                 }
-                public List<float> GetMarketPrice(string resourceId) {
+                public List<float> GetMarketPrices(string resourceId) {
                     return mMarketPrice[resourceId];
+                }
+                public float GetMarketPrice(string resourceId) {
+                    return mMarketPrice[resourceId][CAPACITY-1];
                 }
                 public List<StockActorSold>? GetActorSold(string actorId) {
                     if(mActorSold.ContainsKey(actorId))

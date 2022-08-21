@@ -29,7 +29,7 @@ namespace ENGINE {
                     //pooling 구현해야함.
                     List<KeyValuePair<string, float>> resources = new List<KeyValuePair<string, float>>();
                     foreach(var p in satisfactions) {
-                        if(CheckImmutableSatisfaction(p.Value) && SatisfactionDefine.Instance.Get(p.Key).resource && p.Value[0] != '-') {
+                        if(CheckImmutableSatisfaction(p.Value) && SatisfactionDefine.Instance.Get(p.Key).type == SATISFACTION_TYPE.RESOURCE && p.Value[0] != '-') {
                             resources.Add(new KeyValuePair<string, float>(p.Key, float.Parse(p.Value)));
                         } 
                     }
@@ -56,7 +56,7 @@ namespace ENGINE {
                     switch(arr[0]) {
                         case "$": //market price
                         {
-                            float markPrice = SatisfactionMarketPrice.Instance.GetMarketPrice(resourceId);
+                            float markPrice = StockMarketHandler.Instance.GetMarketPrice(resourceId);
                             switch(arr[2]) {
                                 case "-%":
                                 return -markPrice * float.Parse(arr[1]);

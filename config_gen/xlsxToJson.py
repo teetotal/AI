@@ -399,7 +399,27 @@ def vehicle():
     file.close()
 
     write(json_object, 'vehicle.json')
+# Satisfaction ------------------------------------------------
+def satisfaction():
+    def get_json_satisfaction(arr):
+        j = {
+            "satisfactionId": arr[0],
+            "title": arr[1],
+            "type": arr[2],
+            "discharge": float(arr[3]),
+            "period": arr[4]
+        }
+        return j, arr[0]
 
+    file, csvreader = read('satisfaction.csv')
+    json_object = {}
+    for row in csvreader:
+        j, id = get_json_satisfaction(row)
+        json_object[id] = j
+    file.close()
+
+    write(json_object, 'satisfactions.json')
+#--------------------------------------------------------------
 export()
 print(datetime.now(), 'exported')
 level()
@@ -414,10 +434,13 @@ quest()
 print(datetime.now(), 'gen quest')
 vehicle()
 print(datetime.now(), 'gen vehicle')
+satisfaction()
+print(datetime.now(), 'gen satisfaction')
 os.remove('./task.csv')
 os.remove('./actors.csv')
 os.remove('./quest.csv')
 os.remove('./item.csv')
 os.remove('./level.csv')
 os.remove('./vehicle.csv')
+os.remove('./satisfaction.csv')
 print(datetime.now(), 'removed csv files')

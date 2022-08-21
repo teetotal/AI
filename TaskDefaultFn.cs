@@ -23,7 +23,7 @@ namespace ENGINE {
                     this.mTaskTitle = info.title;
                     this.mTaskDesc = info.desc;
                     this.mInfo = info;
-                    SetTaskString();
+                    //SetTaskString();
                 }   
                 public override void SetTaskString() {
                     this.mTaskString = this.template.Replace("{title}", this.mTaskTitle);

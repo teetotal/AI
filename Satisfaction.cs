@@ -18,6 +18,7 @@ namespace ENGINE {
             }       
             public class SatisfactionDefine {
                 private Dictionary<string, ConfigSatisfaction_Define> mDefines = new Dictionary<string, ConfigSatisfaction_Define>();
+                private Dictionary<SATISFACTION_TYPE, List<ConfigSatisfaction_Define>> mSatisfactions = new Dictionary<SATISFACTION_TYPE, List<ConfigSatisfaction_Define>>();
                 private static readonly Lazy<SatisfactionDefine> instance =
                         new Lazy<SatisfactionDefine>(() => new SatisfactionDefine());
                 public static SatisfactionDefine Instance {
@@ -25,10 +26,14 @@ namespace ENGINE {
                         return instance.Value;
                     }
                 }
-
                 private SatisfactionDefine() { }
                 public void Add(string satisfactionId, ConfigSatisfaction_Define p) {
                     mDefines.Add(satisfactionId, p);
+
+                    if(!mSatisfactions.ContainsKey(p.type))
+                        mSatisfactions[p.type] = new List<ConfigSatisfaction_Define>();
+                    
+                    mSatisfactions[p.type].Add(p);
                 }
                 public Dictionary<string, ConfigSatisfaction_Define> GetAll() {
                     return mDefines;
@@ -39,6 +44,9 @@ namespace ENGINE {
                     }
                     return mDefines[satisfactionId];
                 }
+                public List<ConfigSatisfaction_Define> Get(SATISFACTION_TYPE type) {
+                    return mSatisfactions[type];
+                }
                 public string GetTitle(string satisfactionId) {
                     var p = Get(satisfactionId);
                     if(p is null || p.title is null) {
@@ -48,6 +56,7 @@ namespace ENGINE {
                 
                 }
             }   
+            /*
             //market price
             public class SatisfactionMarketPrice {
                 private Dictionary<string, float> mDicQuantity = new Dictionary<string, float>();
@@ -91,14 +100,12 @@ namespace ENGINE {
                     
                     return mDicQuantity[satisfactionId];
                 }
-                public float GetMarketPrice(string satisfactionId) {
-                    float quantity = GetTotalQuantity(satisfactionId);
-                    var marketPrice = SatisfactionDefine.Instance.Get(satisfactionId).marketPrice;
-                    if(marketPrice == null)
-                        return -1;
-                    return (marketPrice.gradient * quantity) + marketPrice.bias;
+                public float GetMarketPrice(string resourceId) {
+                    return StockMarketHandler.Instance.GetMarketPrice(resourceId);
+                    
                 }
             }
+            */
         }        
     }
 }
