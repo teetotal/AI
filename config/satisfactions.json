@@ -2,98 +2,98 @@
     "Gold": {
         "satisfactionId": "Gold",
         "title": "\uace8\ub4dc",
-        "type": "2",
+        "type": 2,
         "discharge": 0.0,
         "period": "0"
     },
     "Speed": {
         "satisfactionId": "Speed",
         "title": "\uc18d\ub3c4",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "HP": {
         "satisfactionId": "HP",
         "title": "\uccb4\ub825",
-        "type": "0",
+        "type": 0,
         "discharge": -1.0,
         "period": "24"
     },
     "MP": {
         "satisfactionId": "MP",
         "title": "\uc815\uc2e0\ub825",
-        "type": "0",
+        "type": 0,
         "discharge": -1.0,
         "period": "24"
     },
     "Knowledge": {
         "satisfactionId": "Knowledge",
         "title": "\uc9c0\uc2dd",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Ability1": {
         "satisfactionId": "Ability1",
         "title": "\uc694\ub9ac\uc5f4\uc815",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Ability2": {
         "satisfactionId": "Ability2",
         "title": "\uc81c\uc791\uc5f4\uc815",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Ability3": {
         "satisfactionId": "Ability3",
         "title": "\ub18d\uc0ac\uc5f4\uc815",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Sight": {
         "satisfactionId": "Sight",
         "title": "\uc2dc\uc57c",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Leadership": {
         "satisfactionId": "Leadership",
         "title": "\ub9ac\ub354\uc2ed",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Friendship": {
         "satisfactionId": "Friendship",
         "title": "\uce5c\uadfc\uac10",
-        "type": "0",
+        "type": 0,
         "discharge": 0.0,
         "period": "0"
     },
     "Resource1": {
         "satisfactionId": "Resource1",
         "title": "\uc694\ub9ac\uc7ac\ub8cc",
-        "type": "1",
+        "type": 1,
         "discharge": 0.0,
         "period": "0"
     },
     "Resource2": {
         "satisfactionId": "Resource2",
         "title": "\ud1a0\ub9c8\ud1a0",
-        "type": "1",
+        "type": 1,
         "discharge": 0.0,
         "period": "0"
     },
     "Resource3": {
         "satisfactionId": "Resource3",
         "title": "\uc591\ubc30\ucd94",
-        "type": "1",
+        "type": 1,
         "discharge": 0.0,
         "period": "0"
     }

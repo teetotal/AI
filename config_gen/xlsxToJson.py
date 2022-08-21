@@ -405,7 +405,7 @@ def satisfaction():
         j = {
             "satisfactionId": arr[0],
             "title": arr[1],
-            "type": arr[2],
+            "type": int(arr[2]),
             "discharge": float(arr[3]),
             "period": arr[4]
         }
