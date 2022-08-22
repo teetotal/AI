@@ -20,13 +20,15 @@ namespace ENGINE {
                 public bool isSell;
                 public Actor? actor;
                 public string resourceId = string.Empty;     
-                public int quantity;           
+                public int quantity; // 현재 수량        
+                public int orderQuantity; //최초 주문 수량  
                 public float bid;
                 public void Set(bool isSell, Actor actor, string resourceId, int quantity, float bid) {
                     this.isSell = isSell;
                     this.actor = actor;
                     this.resourceId = resourceId;
                     this.quantity = quantity;
+                    this.orderQuantity = quantity;
                     this.bid = bid;
                 }
             }
@@ -54,6 +56,7 @@ namespace ENGINE {
                 private int mUpdateInterval = 0;
                 private int cntSell, cntBuy;
                 private bool mIsInit = false;
+                private bool mPause = false;
                 private static readonly Lazy<StockMarketHandler> instance =
                         new Lazy<StockMarketHandler>(() => new StockMarketHandler());
                 public static StockMarketHandler Instance {
@@ -111,7 +114,19 @@ namespace ENGINE {
                 public float GetDefaultPrice(string resourceId) {
                     return mDefaultPrice[resourceId];
                 }
+                public void Pause() {
+                    mPause = true;
+                }
+                public void Resume() {
+                    mPause = false;
+                }
+                public long GetLastUpdate() {
+                    return mLastUpdate;
+                }
                 public void Update() {
+                    if(mPause)
+                        return;
+
                     long counter = CounterHandler.Instance.GetCount();
 
                     if(mUpdateInterval > counter - mLastUpdate) 
@@ -231,6 +246,13 @@ namespace ENGINE {
                     mActorPurchased.Remove(actorId);
                     mActorSold.Remove(actorId);
                 }
+                public void CancelActorOrder(StockActorOrder order, int idx) {
+                    if(order.isSell) {
+                        mActorSellOrders[order.actor.mUniqueId][order.resourceId].RemoveAt(idx);
+                    } else {
+                        mActorBuyOrders[order.actor.mUniqueId].RemoveAt(idx);
+                    }
+                }
                 public string Print(string resourceId) {
                     return string.Format("{0} Orders: {1} Market Price {2} > {3} > {4}", 
                                         SatisfactionDefine.Instance.GetTitle(resourceId), 
@@ -269,6 +291,16 @@ namespace ENGINE {
                         }
                         mActorBuyOrders[actorId].Add(order);
                     }
+                }
+                public Dictionary<string, List<StockActorOrder>>? GetActorSellOrders(string actorId) {
+                    if(!mActorSellOrders.ContainsKey(actorId))
+                        return null;
+                    return mActorSellOrders[actorId];
+                }
+                public List<StockActorOrder>? GetActorBuyOrders(string actorId) {
+                    if(!mActorBuyOrders.ContainsKey(actorId))
+                        return null;
+                    return mActorBuyOrders[actorId];
                 }
                 public bool Sell(StockSellOrder order) {
                     if(mSellOrders[order.resourceId].ContainsKey(order.bid))
