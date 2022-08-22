@@ -1,0 +1,10 @@
+{
+    "updateInterval": 1,
+    "capacity": 3,
+    "customers": 30,
+    "moneyMin": 100,
+    "moneyMax": 1000,
+    "defaultQuantity": 100,
+    "fee": 0.1,
+    "currencyId": "Gold"
+}

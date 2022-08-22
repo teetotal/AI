@@ -25,7 +25,8 @@ class MainClass {
             File.ReadAllText("config/l10n.json"),
             File.ReadAllText("config/vehicle.json"),
             File.ReadAllText("config/farming.json"),
-            File.ReadAllText("config/seed.json")
+            File.ReadAllText("config/seed.json"),
+            File.ReadAllText("config/stockmarket.json")
         };
         if(p.Load(  szConfigs[0], 
                     szConfigs[1], 
@@ -39,7 +40,8 @@ class MainClass {
                     szConfigs[9],
                     szConfigs[10],
                     szConfigs[11],
-                    szConfigs[12]
+                    szConfigs[12],
+                    szConfigs[13]
                     )) {
             //Battle test
             //BattleTest battle = new BattleTest();
@@ -282,13 +284,13 @@ public class GameControlInstance {
                         string jsonL10n,
                         string jsonVehicle,
                         string jsonFarming,
-                        string jsonSeed) {
-        if(!Loader.Instance.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage, jsonL10n, jsonVehicle, jsonFarming, jsonSeed)) {
+                        string jsonSeed,
+                        string jsonStockMarket) {
+        if(!Loader.Instance.Load(jsonSatisfaction, jsonTask, jsonActor, jsonItem, jsonLevel, jsonQuest, jsonScript, jsonScenario, jsonVillage, jsonL10n, jsonVehicle, jsonFarming, jsonSeed, jsonStockMarket)) {
             Console.WriteLine("Failure Loading config");
             return false;
         }
-        //stock market
-        StockMarketHandler.Instance.Init();
+        
         while(true) {
             StockMarketHandler.Instance.Update();
             Thread.Sleep(100);

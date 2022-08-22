@@ -63,9 +63,9 @@ def get_json_actor(arr):
         arr_s = s.split(',')
         satisfaction = {
             "satisfactionId": arr_s[0],
-            "min": int(arr_s[1]),
-            "max": int(arr_s[2]),
-            "value": int(arr_s[3])
+            "min": float(arr_s[1]),
+            "max": float(arr_s[2]),
+            "value": float(arr_s[3])
         }
         j['satisfactions'].append(satisfaction)
     
@@ -407,7 +407,8 @@ def satisfaction():
             "title": arr[1],
             "type": int(arr[2]),
             "discharge": float(arr[3]),
-            "period": arr[4]
+            "period": int(arr[4]),
+            "defaultPrice": float(arr[5]) if len(arr[5]) > 0 else -1 
         }
         return j, arr[0]
 

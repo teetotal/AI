@@ -138,6 +138,7 @@ namespace ENGINE {
                 public SATISFACTION_TYPE type { get; set; }
                 public float discharge { get; set; }
                 public int period { get; set; }
+                public float defaultPrice { get; set; } = -1;
                 /*
                 public ConfigSatisfaction_Seed? seed { get; set; }
                 public ConfigSatisfaction_MarketPrice? marketPrice { get; set; }
@@ -365,6 +366,17 @@ namespace ENGINE {
                 public string prefabIngredient { get; set; } = string.Empty;
                 public Config_Reward harvest { get; set; } = new Config_Reward();
             }
+            //Stock Market ----------------------------------------------------------------------
+            public class ConfigStockMarket {
+                public int updateInterval { get; set; }
+                public int capacity { get; set; }
+                public int customers { get; set; }
+                public int moneyMin { get; set; }
+                public int moneyMax { get; set; }
+                public int defaultQuantity { get; set; }
+                public float fee { get; set; }
+                public string currencyId { get; set; } = string.Empty;
+            }
             //-----------------------------------------------------------------------------------
             public class Loader {
                 public bool mInitialized = false;
@@ -388,7 +400,8 @@ namespace ENGINE {
                                   string stringL10n,
                                   string stringVehicle,
                                   string stringFarming,
-                                  string stringSeed ) 
+                                  string stringSeed,
+                                  string stringStockMarket ) 
                 {
                     if(mInitialized)
                         return true;
@@ -406,6 +419,13 @@ namespace ENGINE {
                         DischargeHandler.Instance.Add(satisfactionId, p.Value.discharge, p.Value.period);
                         SatisfactionDefine.Instance.Add(satisfactionId, p.Value);
                     }
+                    //stock market
+                    var sm = JsonConvert.DeserializeObject<ConfigStockMarket>(stringStockMarket);
+                    if(sm == null)
+                        return false;
+
+                    StockMarketHandler.Instance.Init(sm);
+
                     //Village
                     if(SetVillage(stringVillage) == false) {
                         return false;

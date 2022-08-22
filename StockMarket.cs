@@ -1,15 +1,23 @@
-using System;
+using ENGINE;
 using System.Collections.Generic;
 #nullable enable
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            //매도 주문서. pooling만들어야 함
+            //매도 주문서.
             public class StockSellOrder {       
                 public int customer;         
                 public string resourceId = string.Empty;                
                 public float bid;
             }
+            public class StockSellOrderPool : Singleton<StockSellOrderPool> {
+                private ObjectPool<StockSellOrder> mPool = new ObjectPool<StockSellOrder>();
+                public StockSellOrderPool() { }
+                public ObjectPool<StockSellOrder> GetPool() {
+                    return mPool;
+                }
+            }
+
             //참가자
             public class StockCustomer {
                 //구매가
@@ -93,7 +101,8 @@ namespace ENGINE {
                     if(mPurchaseQuantities[resourceId] > 0) {
                         mPurchaseQuantities[resourceId] --;
 
-                        StockSellOrder order = new StockSellOrder();
+                        StockSellOrder order = StockSellOrderPool.Instance.GetPool().Alloc();
+
                         order.customer = mId;
                         order.resourceId = resourceId;
                         order.bid = marketPrice * rate;
@@ -122,7 +131,8 @@ namespace ENGINE {
                     return true;
                 }
                 public void ReturnBackOrder(StockSellOrder order) {
-                    mPurchaseQuantities[order.resourceId]++;                    
+                    mPurchaseQuantities[order.resourceId]++;      
+                    StockSellOrderPool.Instance.GetPool().Release(order);              
                 }
                 private float GetGradient(List<float> prices) {
                     float gradient = 0;

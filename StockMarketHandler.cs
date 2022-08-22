@@ -4,18 +4,18 @@ using System.Collections.Generic;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
-            //pooling
+            //pooling 안함. pooling이 오히려 메모리만 많이 잡힐 수 있음 
             public class StockActorSold {
                 public string resourceId = string.Empty;
                 public float sellingPrice;
             }
-            //pooling
+            //no pooling
             public class StockActorPurchased {
                 public string resourceId = string.Empty;
                 public float bid; //선 납입 금액
                 public float purchasedPrice; //실제 구매 금액
             }
-            //pooling
+            //no pooling
             public class StockActorOrder {
                 public bool isSell;
                 public Actor? actor;
@@ -35,10 +35,12 @@ namespace ENGINE {
             //주식시장
             public class StockMarketHandler {
                 public int CAPACITY = 3;
-                private const int CUSTOMERS = 30;                
-                public int MIN_MONEY { get; } = 100;
-                public int MAX_MONEY { get; } = 1000;
-                private const int DEFAULT_QUANTITY = 100;
+                private int CUSTOMERS = 8;                
+                public int MIN_MONEY { set; get; } = 100;
+                public int MAX_MONEY { set; get; } = 1000;
+                private int DEFAULT_QUANTITY = 100;
+                public float FEE { set; get; } = 0.1f;
+                public string CURRENCY { set; get; } = string.Empty;
                 private Dictionary<string, float> mDefaultPrice = new Dictionary<string, float>();
                 private Dictionary<string, List<float>> mMarketPrice = new Dictionary<string, List<float>>();
                 private List<float> mTemp = new List<float>();
@@ -54,7 +56,7 @@ namespace ENGINE {
                 private Random mRandom = new Random();
                 private long mLastUpdate = 0;
                 private int mUpdateInterval = 0;
-                private int cntSell, cntBuy;
+                public int cntSell, cntBuy;
                 private bool mIsInit = false;
                 private bool mPause = false;
                 private static readonly Lazy<StockMarketHandler> instance =
@@ -65,25 +67,33 @@ namespace ENGINE {
                     }
                 }
                 private StockMarketHandler() { }
-                public void Init() {
+                public void Init(ConfigStockMarket config) {
                     if(mIsInit)
                         return;
+                    
                     mIsInit = true;
-                    mUpdateInterval = 1;
+
+                    mUpdateInterval = config.updateInterval;
+                    CAPACITY = config.capacity;
+                    CUSTOMERS = config.customers;                
+                    MIN_MONEY = config.moneyMin;
+                    MAX_MONEY = config.moneyMax;
+                    DEFAULT_QUANTITY = config.defaultQuantity;
+                    FEE = config.fee;
+                    CURRENCY = config.currencyId;
 
                     var satisfactions = SatisfactionDefine.Instance.GetAll();
-                    float defaultPrice = 8;
                     foreach(var p in satisfactions) {
                         if(p.Value.type == SATISFACTION_TYPE.RESOURCE) {
                             //default price
-                            mDefaultPrice[p.Key] = 8;
+                            float defaultPrice = SatisfactionDefine.Instance.Get(p.Key).defaultPrice;
+                            mDefaultPrice[p.Key] = defaultPrice;
                             //market price
                             mMarketPrice[p.Key] = new List<float>(CAPACITY);
                             for(int i = 0; i < CAPACITY; i++ ) {
-                                float ran = mRandom.Next(10) / 10.0f;
-                                if(mRandom.Next(10) < 5)
-                                    ran *= -1;
-                                EnqueuePrice(p.Key, defaultPrice + ran);
+                                //+-20% 
+                                float ran = mRandom.Next(8, 12) / 10.0f;
+                                EnqueuePrice(p.Key, defaultPrice * ran);
                             }
                             //sell order
                             mSellOrders[p.Key] = new SortedList<float, StockSellOrder>();
@@ -211,8 +221,11 @@ namespace ENGINE {
                             }
                             
                             if(keys.Count > 0) {
-                                for(int j = 0; j < keys.Count; j++)
+                                for(int j = 0; j < keys.Count; j++) {
+                                    StockSellOrderPool.Instance.GetPool().Release(mSellOrders[order.resourceId][keys[j]]);
                                     mSellOrders[order.resourceId].Remove(keys[j]);
+                                }
+                                    
                                 //callback
                                 order.actor.OnStockBuy();
                             }
@@ -272,7 +285,7 @@ namespace ENGINE {
                     */
                 }
                 //Actor 주문
-                public void Order(StockActorOrder order) {
+                public void ActorOrder(StockActorOrder order) {
                     if(order.actor == null) {
                         throw new Exception("StockMarket actor must be assigned.");
                     }
@@ -324,6 +337,8 @@ namespace ENGINE {
                                 mCustomers[order.customer].OnSell(order);
 
                                 InsertMarketPrice(resourceId, order.bid);
+
+                                StockSellOrderPool.Instance.GetPool().Release(order);
                                 mSellOrders[resourceId].RemoveAt(0);
                                 cntBuy++;
                             }
