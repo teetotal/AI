@@ -227,6 +227,10 @@ namespace ENGINE {
                     }
                     mActorSold[actor.mUniqueId].Add(p);
                 }
+                public void RemoveActorOrder(string actorId) {
+                    mActorPurchased.Remove(actorId);
+                    mActorSold.Remove(actorId);
+                }
                 public string Print(string resourceId) {
                     return string.Format("{0} Orders: {1} Market Price {2} > {3} > {4}", 
                                         SatisfactionDefine.Instance.GetTitle(resourceId), 

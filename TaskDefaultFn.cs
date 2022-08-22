@@ -11,7 +11,7 @@ namespace ENGINE {
             public class TaskDefaultFn : FnTask {        
                 private Random mRandom = new Random();        
                 private const float DISTANCE_MAX = 40;
-                private string template = "<size=100%>{title}</size>\n<size=80%>{desc} <color=#E4CA44>{satisfaction}</color></size>";
+                private string template = "<size=100%>{title}</size>\n<size=80%>{desc}\n<color=#E4CA44>{satisfaction}</color></size>";
                 private Dictionary<string, float> mSatisfaction = new Dictionary<string, float>();
                 private Dictionary<string, float> mSatisfactionRefusal = new Dictionary<string, float>();
                 private const string VEHICLE = "VEHICLE";

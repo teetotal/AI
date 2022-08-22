@@ -314,7 +314,8 @@ namespace ENGINE {
                     TAX_COLLECTION,
                     ITEM,
                     STOCK_SELL,
-                    STOCK_BUY
+                    STOCK_BUY,
+                    STOCK_CALCULATE
                 }
                 private LOOP_STATE mLOOP_STATE = LOOP_STATE.INVALID;
                 public LOOP_STATE GetState() {
