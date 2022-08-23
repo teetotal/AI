@@ -5,7 +5,7 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class ItemHandler {
-                private Dictionary<string, ConfigItem_Detail>? mItemInfo = null;
+                private Dictionary<string, ConfigItem_Detail> mItemInfo = new Dictionary<string, ConfigItem_Detail>();
                 private static readonly Lazy<ItemHandler> instance =
                         new Lazy<ItemHandler>(() => new ItemHandler());
                 public static ItemHandler Instance {
@@ -17,8 +17,11 @@ namespace ENGINE {
                 public void Set(Dictionary<string, ConfigItem_Detail> p) {
                     mItemInfo = p;
                 }
+                public Dictionary<string, ConfigItem_Detail> GetAll() {
+                    return mItemInfo;
+                }
                 public ConfigItem_Detail GetItemInfo(string key) {
-                    if(mItemInfo is null || mItemInfo.ContainsKey(key) == false) {
+                    if(mItemInfo.ContainsKey(key) == false) {
                         throw new Exception("Invalid Item Id." + key);
                     }
                     return mItemInfo[key];

@@ -1157,7 +1157,7 @@ namespace ENGINE {
                     var info = LevelHandler.Instance.Get(mType, level);
                     if(info != null && info.next != null && info.next.threshold != null) {                        
                         foreach(Config_KV_SF t in info.next.threshold) {
-                            if(t.key is null) {
+                            if(t.key == string.Empty) {
                                 return -1;
                             }
 
@@ -1178,7 +1178,7 @@ namespace ENGINE {
                     var info = LevelHandler.Instance.Get(mType, level);
                     if(info != null && info.next != null && info.next.threshold != null) {                        
                         foreach(Config_KV_SF t in info.next.threshold) {
-                            if(t.key is null) {
+                            if(t.key == string.Empty) {
                                 return false;
                             }
                             //나중에 필요하면 추가. 지금은 task수행 횟수만 구현

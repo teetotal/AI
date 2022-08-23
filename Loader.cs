@@ -8,7 +8,7 @@ namespace ENGINE {
             using Newtonsoft.Json;
             //공통           
             public class Config_KV_SF {
-                public string? key { get; set; }
+                public string key { get; set; } = string.Empty;
                 public float value { get; set; }
             }            
             //-------------------------------------------------------------

@@ -63,7 +63,8 @@ namespace ENGINE {
                             float sum = 0.0f;
                             int cnt = 0;
                             foreach(Config_KV_SF v in quest.values) {
-                                if(v.key == null) break;
+                                if(v.key == string.Empty) 
+                                    break;
                                 string[] keys = v.key.Split(':');
                                 switch(keys[0].ToUpper()) {
                                     case QUEST_KEY_SATISFACTION:
