@@ -166,8 +166,8 @@ namespace ENGINE {
                 public List<string> pets { get; set; } = new List<string>();
                 public int level { get; set; }
                 public string? prefab { get; set; }
-                public List<float>? position { get; set; }
-                public List<float>? rotation { get; set; }      
+                public List<float> position { get; set; } = new List<float>();
+                public List<float> rotation { get; set; } = new List<float>();      
                 public ConfigActor_Trigger? trigger { get; set; }          
                 public List<ConfigActor_Satisfaction> satisfactions { get; set; } = new List<ConfigActor_Satisfaction>();
                 public List<ConfigActor_Inventory> inventory { get; set; } = new List<ConfigActor_Inventory>();

@@ -13,13 +13,19 @@ namespace ENGINE {
                 public delegate bool FnHangAround(string vehicleId, string position, string rotation);  
                 private FnHangAround? mFnHangAround = null;
                 private string mCurrentVillage = string.Empty;
+
+                //아래 3개 합쳐야 함
                 private Dictionary<string, ConfigVehicle_Detail> mDic = new Dictionary<string, ConfigVehicle_Detail>();
                 private Dictionary<string, STATE> mDicState = new Dictionary<string, STATE>();
-                private Dictionary<string, string> mDicReseve = new Dictionary<string, string>(); //예약차량
                 private Dictionary<string, long> mDicLastTime = new Dictionary<string, long>();//마지막 counter
+
+
+                private Dictionary<string, string> mDicReseve = new Dictionary<string, string>(); //예약차량
+                
                 private Dictionary<string, List<string>> mDicType = new Dictionary<string, List<string>>();
                 private List<ConfigVehicle_Detail> mTempList = new List<ConfigVehicle_Detail>();
                 public Random mRand= new Random();
+                private long mLastUpdated = 0;
                 private static readonly Lazy<VehicleHandler> instance =
                         new Lazy<VehicleHandler>(() => new VehicleHandler());
                 public static VehicleHandler Instance {
@@ -92,6 +98,11 @@ namespace ENGINE {
                 }
                 public void Update() {
                     long now = CounterHandler.Instance.GetCount();
+                    if(mLastUpdated == now)
+                        return;
+                    
+                    mLastUpdated = now;
+
                     foreach(var p in mDic) {
                         if(p.Value.village != mCurrentVillage)
                             continue;

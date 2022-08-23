@@ -220,6 +220,7 @@ namespace ENGINE {
                 public string mUniqueId;
                 public int level;
                 public Position position = new Position(0, 0, 0);
+                public Position rotation = new Position(0, 0, 0);
                 public ConfigActor_Detail mInfo;     
                 private Actor? master;           
                 private Callback? mCallback;
@@ -248,9 +249,11 @@ namespace ENGINE {
                     this.mType = info.type;
                     this.mUniqueId = actorId;
                     this.level = info.level;
+
                     //set init position
-                    if(info.position != null && info.position.Count == 3)
-                        this.position = new Position(info.position[0], info.position[1], info.position[2]);
+                    this.position = new Position(info.position[0], info.position[1], info.position[2]);
+                    //rotation
+                    this.rotation = new Position(info.rotation[0], info.rotation[1], info.rotation[2]);
                     
                     //set follower
                     this.follower = info.follower;
@@ -284,7 +287,11 @@ namespace ENGINE {
                     return false;
                 }
                 public void SetVillage(string village) {
-                    mInfo.village = village;
+                    if(mInfo.village != village) {
+                        mInfo.village = village;
+                        //위치 정보 리셋
+                        ResetPosition();
+                    }
                 }
                 
                 // Loop ===================================================================================================
@@ -790,13 +797,19 @@ namespace ENGINE {
                 
                 // position ------------------------------------------------------              
                 public void SetPosition(float x, float y, float z) {
-                    if(position == null) {
-                        position = new Position(x, y, z);
-                    } else {
-                        position.x = x;
-                        position.y = y;
-                        position.z = z;
-                    }
+                    position.x = x;
+                    position.y = y;
+                    position.z = z;
+                }
+                public void SetRotation(float x, float y, float z) {
+                    rotation.x = x;
+                    rotation.y = y;
+                    rotation.z = z;
+                }
+                public void ResetPosition() {
+                    position.x = mInfo.position[0];
+                    position.y = mInfo.position[1];
+                    position.z = mInfo.position[2];
                 }
                 // satisfaction ----------------------------------------------------
                 public Satisfaction? GetSatisfaction(string id) {
@@ -1359,14 +1372,18 @@ namespace ENGINE {
                         }
                         //value
                         switch((ITEM_SATISFACTION_MEASURE)p.measure.value) {
-                            case ITEM_SATISFACTION_MEASURE.ABSOLUTE:
-                            mSatisfaction[p.satisfactionId].Value = MathF.Min(p.value, mSatisfaction[p.satisfactionId].Max);
-                            break;
+                            case ITEM_SATISFACTION_MEASURE.ABSOLUTE: {
+                                if(SatisfactionDefine.Instance.Get(p.satisfactionId).type == SATISFACTION_TYPE.SATISFACTION)
+                                    mSatisfaction[p.satisfactionId].Value = MathF.Min(p.value, mSatisfaction[p.satisfactionId].Max);
+                                else 
+                                    mSatisfaction[p.satisfactionId].Value = p.value;
+                                break;
+                            }
                             case ITEM_SATISFACTION_MEASURE.PERCENT:
-                            mSatisfaction[p.satisfactionId].Value += MathF.Min((mSatisfaction[p.satisfactionId].Value * (p.value / 100)), mSatisfaction[p.satisfactionId].Max - mSatisfaction[p.satisfactionId].Value);
+                            ApplySatisfaction(p.satisfactionId, p.value, 1, null, true);
                             break;
                             case ITEM_SATISFACTION_MEASURE.INCREASE:
-                            mSatisfaction[p.satisfactionId].Value += MathF.Min(p.value, mSatisfaction[p.satisfactionId].Max - mSatisfaction[p.satisfactionId].Value);
+                            ApplySatisfaction(p.satisfactionId, p.value, 0, null, true);
                             break;
                         }                                                
                     }
