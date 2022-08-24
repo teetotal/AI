@@ -421,6 +421,22 @@ def satisfaction():
     file.close()
 
     write(json_object, 'satisfactions.json')
+# L10n --------------------------------------------------------------
+def l10n():
+    file, csvreader = read('l10n.csv')
+    sz = "public class L10nCode {\n"
+    json_object = {}
+    for row in csvreader:
+        json_object[row[0]] = row[1]
+        sz += '\tpublic const string ' + row[0] + ' = "' + row[0] +'";\n'
+    file.close()
+    sz += '}';
+    
+    write(json_object, 'l10n.json')
+
+    #code gen
+    with open('../L10nCode.cs', 'w') as f:
+        f.write(sz)
 #--------------------------------------------------------------
 export()
 print(datetime.now(), 'exported')
@@ -438,6 +454,8 @@ vehicle()
 print(datetime.now(), 'gen vehicle')
 satisfaction()
 print(datetime.now(), 'gen satisfaction')
+l10n()
+print(datetime.now(), 'gen l10n')
 os.remove('./task.csv')
 os.remove('./actors.csv')
 os.remove('./quest.csv')
@@ -445,4 +463,5 @@ os.remove('./item.csv')
 os.remove('./level.csv')
 os.remove('./vehicle.csv')
 os.remove('./satisfaction.csv')
+os.remove('./l10n.csv')
 print(datetime.now(), 'removed csv files')

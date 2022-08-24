@@ -1,12 +1,13 @@
 {
-    "LEVEL_UP": "오예! 레벨업!",
-    "TAX_COLLECTION": "세금 징수",
-    "GET_IN_VEHICLE_FAILURE": "이동 거리가 너무 가까워 탑승에 실패 했습니다",
-    "STOCK_SELL": "거래소에 등록한 자원이 판매 되었습니다",
-    "STOCK_BUY": "거래소에 등록한 자원이 구매 되었습니다",
-    "UI_INVEN_TAP_ITEM": "아이템",
-    "UI_INVEN_TAP_RESOURCE": "자원",
-    "UI_INVEN_TAP_INSTALLATION": "장착템",
-    "UI_INVEN_USE": "사용",
-    "UI_INVEN_ABANDON": "버리기"
+    "LEVEL_UP": "\uc624\uc608! \ub808\ubca8\uc5c5!",
+    "TAX_COLLECTION": "\uc138\uae08 \uc9d5\uc218",
+    "GET_IN_VEHICLE_FAILURE": "\uc774\ub3d9 \uac70\ub9ac\uac00 \ub108\ubb34 \uac00\uae4c\uc6cc \ud0d1\uc2b9\uc5d0 \uc2e4\ud328 \ud588\uc2b5\ub2c8\ub2e4",
+    "STOCK_SELL": "\uac70\ub798\uc18c\uc5d0 \ub4f1\ub85d\ud55c \uc790\uc6d0\uc774 \ud310\ub9e4 \ub418\uc5c8\uc2b5\ub2c8\ub2e4",
+    "STOCK_BUY": "\uac70\ub798\uc18c\uc5d0 \ub4f1\ub85d\ud55c \uc790\uc6d0\uc774 \uad6c\ub9e4 \ub418\uc5c8\uc2b5\ub2c8\ub2e4",
+    "UI_INVEN_TAP_ITEM": "\uc544\uc774\ud15c",
+    "UI_INVEN_TAP_RESOURCE": "\uc790\uc6d0",
+    "UI_INVEN_TAP_INSTALLATION": "\uc7a5\ucc29\ud15c",
+    "UI_INVEN_USE": "\uc0ac\uc6a9",
+    "UI_INVEN_ABANDON": "\ubc84\ub9ac\uae30",
+    "UI_INVEN_BUY": "\uad6c\ub9e4"
 }

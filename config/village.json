@@ -91,5 +91,24 @@
                 }
             }
         }
+    },
+    "shop": {
+        "name": "붱이 상점",
+        "desc": "붱이 상점",
+        "collectionDuration": -1,
+        "finances": {
+            "Gold": 0
+        },
+        "tax": {
+            "Gold": 0
+         },
+        "level": {
+            "current": 1,
+            "threshold": {
+                "1": {
+                    "Gold": 30
+                }
+            }
+        }
     }
 }
