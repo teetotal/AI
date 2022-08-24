@@ -408,7 +408,8 @@ def satisfaction():
             "type": int(arr[2]),
             "discharge": float(arr[3]),
             "period": int(arr[4]),
-            "defaultPrice": float(arr[5]) if len(arr[5]) > 0 else -1 
+            "defaultPrice": float(arr[5]) if len(arr[5]) > 0 else -1 ,
+            "desc": arr[6]
         }
         return j, arr[0]
 

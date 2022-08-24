@@ -139,6 +139,7 @@ namespace ENGINE {
                 public float discharge { get; set; }
                 public int period { get; set; }
                 public float defaultPrice { get; set; } = -1;
+                public string desc { get; set; } = string.Empty;
                 /*
                 public ConfigSatisfaction_Seed? seed { get; set; }
                 public ConfigSatisfaction_MarketPrice? marketPrice { get; set; }
