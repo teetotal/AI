@@ -1294,8 +1294,17 @@ namespace ENGINE {
                     if(!InvokeItem(itemKey, 0)) {
                         return false;
                     }
-                    mItemContext.inventory[itemKey] --;
+                    DecreaseQuantityInInventory(itemKey, 1);
                     return true;
+                }
+                //아이템 버리기
+                public void DecreaseQuantityInInventory(string itemKey, int quantity) {
+                    if(mItemContext.inventory.ContainsKey(itemKey)) {
+                        mItemContext.inventory[itemKey] -= quantity;
+                    }
+                    if(mItemContext.inventory[itemKey] <= 0) {
+                        mItemContext.inventory.Remove(itemKey);
+                    }
                 }
                 //
                 private bool SpendMaterialItem(string itemId, int quantity) {

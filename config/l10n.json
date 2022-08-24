@@ -1,8 +1,12 @@
 {
     "LEVEL_UP": "오예! 레벨업!",
     "TAX_COLLECTION": "세금 징수",
-    "UPDATE_MARKET_PRICE": "시세 업데이트",
     "GET_IN_VEHICLE_FAILURE": "이동 거리가 너무 가까워 탑승에 실패 했습니다",
     "STOCK_SELL": "거래소에 등록한 자원이 판매 되었습니다",
-    "STOCK_BUY": "거래소에 등록한 자원이 구매 되었습니다"
+    "STOCK_BUY": "거래소에 등록한 자원이 구매 되었습니다",
+    "UI_INVEN_TAP_ITEM": "아이템",
+    "UI_INVEN_TAP_RESOURCE": "자원",
+    "UI_INVEN_TAP_INSTALLATION": "장착템",
+    "UI_INVEN_USE": "사용",
+    "UI_INVEN_ABANDON": "버리기"
 }

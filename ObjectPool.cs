@@ -38,5 +38,8 @@ namespace ENGINE {
         public int GetCntNew() {
             return mCntNew;
         }
+        public string GetDebugString() {
+            return string.Format("Alloc(new, pop): [{0}, {1}] / {2}, Release: {3}", GetCntNew(), GetCntPop(), GetCntAlloc(), GetCntRelease());
+        }
     }
 }
