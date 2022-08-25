@@ -85,6 +85,8 @@ namespace ENGINE {
                 public ConfigItem_Invoke? invoke { get; set; }
                 public List<ConfigItem_Satisfaction>? satisfaction { get; set; }                
                 public List<int[]>? draft { get; set; }
+                public bool purchasable { get; set; } = false;
+                public float price { get; set; }
             }
             public class ConfigItem_Invoke {
                 public ITEM_INVOKE_TYPE type { get; set; }

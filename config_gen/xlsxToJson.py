@@ -275,7 +275,9 @@ def item():
                 "expire": int(arr[9])
             },
             "satisfaction": [], #arr[10]       
-            "draft": [] #arr[17]
+            "draft": [], #arr[17]
+            "purchasable": True if arr[18].upper() == 'TRUE' else False,
+            "price": float(arr[19])
         }
         #satisfaction
         if len(arr[10]) > 0:

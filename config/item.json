@@ -46,7 +46,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-2": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -95,7 +97,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-3": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -144,7 +148,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-4": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -193,7 +199,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-5": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -242,7 +250,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-6": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -291,7 +301,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-7": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -340,7 +352,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-8": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -389,7 +403,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-9": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -438,7 +454,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "LEVELUP-10": {
         "name": "\ub808\ubca8\uc5c5\ubcf4\uc0c1",
@@ -487,7 +505,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-1-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -514,7 +534,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-1-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -541,7 +563,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-2-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -568,7 +592,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-2-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -595,7 +621,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-2-3": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -622,7 +650,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-3-1": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -649,7 +679,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-3-2": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -676,7 +708,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-3-3": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -703,7 +737,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-0": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -730,7 +766,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "I1-4": {
         "name": "\ud018\uc2a4\ud2b8 \ubcf4\uc0c1",
@@ -757,7 +795,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-1": {
         "name": "\uc790\uc6d01 \ubcf4\ub530\ub9ac",
@@ -784,7 +824,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-2": {
         "name": "\uc790\uc6d02 \ubcf4\ub530\ub9ac",
@@ -811,7 +853,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-3": {
         "name": "\uc790\uc6d03 \ubcf4\ub530\ub9ac",
@@ -838,7 +882,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "vehicle-1": {
         "name": "\uacbd\ucc28\uc218\ub839\uc99d",
@@ -853,7 +899,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-5": {
         "name": "\ub5a1\ubf41\uc774",
@@ -880,7 +928,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "seed1": {
         "name": "\ud1a0\ub9c8\ud1a0 \uc528\uc557",
@@ -907,7 +957,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": true,
+        "price": 2.0
     },
     "seed2": {
         "name": "\uc591\ubc30\ucd94 \uc528\uc557",
@@ -934,7 +986,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": true,
+        "price": 2.0
     },
     "ingredient1": {
         "name": "\ud1a0\ub9c8\ud1a0",
@@ -961,7 +1015,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "ingredient2": {
         "name": "\uc591\ubc30\ucd94",
@@ -988,7 +1044,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-10": {
         "name": "test item10",
@@ -1015,7 +1073,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-11": {
         "name": "test item11",
@@ -1042,7 +1102,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-12": {
         "name": "test item12",
@@ -1069,7 +1131,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-13": {
         "name": "test item13",
@@ -1096,7 +1160,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-14": {
         "name": "test item14",
@@ -1123,7 +1189,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-15": {
         "name": "test item15",
@@ -1150,7 +1218,9 @@
                 }
             }
         ],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "Farming1": {
         "name": "\ub18d\uc791\ubb3c",
@@ -1165,7 +1235,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-17": {
         "name": "test item17",
@@ -1180,7 +1252,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-18": {
         "name": "test item18",
@@ -1195,7 +1269,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-19": {
         "name": "test item19",
@@ -1210,7 +1286,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-20": {
         "name": "test item20",
@@ -1225,7 +1303,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-21": {
         "name": "test item21",
@@ -1240,7 +1320,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-22": {
         "name": "test item22",
@@ -1255,7 +1337,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-23": {
         "name": "test item23",
@@ -1270,7 +1354,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-24": {
         "name": "test item24",
@@ -1285,7 +1371,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-25": {
         "name": "test item25",
@@ -1300,7 +1388,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-26": {
         "name": "test item26",
@@ -1315,7 +1405,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-27": {
         "name": "test item27",
@@ -1330,7 +1422,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-28": {
         "name": "test item28",
@@ -1345,7 +1439,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-29": {
         "name": "test item29",
@@ -1360,7 +1456,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-30": {
         "name": "test item30",
@@ -1375,7 +1473,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-31": {
         "name": "test item31",
@@ -1390,7 +1490,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-32": {
         "name": "test item32",
@@ -1405,7 +1507,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-33": {
         "name": "test item33",
@@ -1420,7 +1524,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-34": {
         "name": "test item34",
@@ -1435,7 +1541,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-35": {
         "name": "test item35",
@@ -1450,7 +1558,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-36": {
         "name": "test item36",
@@ -1465,7 +1575,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-37": {
         "name": "test item37",
@@ -1480,7 +1592,9 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     },
     "item-38": {
         "name": "test item38",
@@ -1495,6 +1609,8 @@
             "expire": 0
         },
         "satisfaction": [],
-        "draft": []
+        "draft": [],
+        "purchasable": false,
+        "price": -1.0
     }
 }

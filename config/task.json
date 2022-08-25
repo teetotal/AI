@@ -1169,6 +1169,38 @@
             "scene": ""
         },
         {
+            "id": "p3",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "village1",
+            "villageLevel": 1,
+            "title": "\ubdb1\uc774 \uc0c1\uc810 \ubc29\ubb38\ud558\uae30",
+            "desc": "\ubdb1\uc774 \uc0c1\uc810\uc5d0 \uc1fc\ud551\ud558\ub7ec \uac00\uae30",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_Straight_353"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": "Shop"
+        },
+        {
             "id": "f-1",
             "chain": "",
             "type": 0,
