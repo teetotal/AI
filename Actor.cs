@@ -1133,7 +1133,7 @@ namespace ENGINE {
                     if(mInfo.trigger == null || mInfo.trigger.value == null || mInfo.trigger.value == string.Empty)
                         return string.Empty;
                     float distance = float.Parse(mInfo.trigger.value);
-                    var actors = ActorHandler.Instance.GetActors();                            
+                    var actors = ActorHandler.Instance.GetActors(this.mInfo.village);                            
                     foreach(var actor in actors) {
                         if(actor.Key == mUniqueId)
                             continue;

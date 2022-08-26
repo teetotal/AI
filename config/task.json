@@ -1201,6 +1201,102 @@
             "scene": "Shop"
         },
         {
+            "id": "p4",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "village1",
+            "villageLevel": 1,
+            "title": "\uc13c\ud2b8\ub7f4\ud30c\ud06c \uc8fc\ub9d0\ub18d\uc7a5 \uac00\uae30",
+            "desc": "\ub18d\uc0ac\ub97c \uc9c0\uc744 \uc218 \uc788\ub294 \uc8fc\ub9d0 \ub18d\uc7a5",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 1,
+                "value": [
+                    "SM_Env_Sidewalk_Straight_566"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": "Farming"
+        },
+        {
+            "id": "p5",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "village1",
+            "villageLevel": 1,
+            "title": "\uc790\uc6d0 \uc2dc\uc7a5 \uac00\uae30",
+            "desc": "\uc2e4\uc2dc\uac04 \uc790\uc6d0 \uac70\ub798\ub97c \ud560 \uc218 \uc788\ub294 \uc790\uc6d0 \uc2dc\uc7a5\uc5d0 \uac04\ub2e4",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 0,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": "StockMarket"
+        },
+        {
+            "id": "f-0",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "farming",
+            "villageLevel": 1,
+            "title": "\ub9c8\uc744\ub85c \ub3cc\uc544\uac00\uae30",
+            "desc": "",
+            "animation": "Strong",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 0,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": "Demo"
+        },
+        {
             "id": "f-1",
             "chain": "",
             "type": 0,
@@ -1563,6 +1659,174 @@
             "satisfactions": {
                 "MP": "1"
             },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        }
+    ],
+    "300": [
+        {
+            "id": "stock1",
+            "chain": "stock1-0",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "stock",
+            "villageLevel": 1,
+            "title": "\ud0d5\ube44\uc2e4\uac00\uae30",
+            "desc": "",
+            "animation": "Bashful",
+            "animationRepeatTime": 3,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "-5,0.13,7",
+                    "-7.5,1,9"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {
+                "HP": "1"
+            },
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        },
+        {
+            "id": "stock1-0",
+            "chain": "stock1-1",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "stock",
+            "villageLevel": 1,
+            "title": "\ucee4\ud53c \uc6d0\uc0f7\ub54c\ub9ac\uae30",
+            "desc": "",
+            "animation": "Drinking",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 0,
+                "value": [
+                    ""
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        },
+        {
+            "id": "stock1-1",
+            "chain": "stock1-2",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "stock",
+            "villageLevel": 1,
+            "title": "\uace0\ub798\ud55c\ud14c \uc778\uc0ac\ud558\uae30",
+            "desc": "",
+            "animation": "HandUp",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "8,0.13,7",
+                    "36,7,44"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        },
+        {
+            "id": "stock1-2",
+            "chain": "stock1-3",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "",
+            "villageLevel": 1,
+            "title": "\uc77c\ud558\ub294\ucc99 \ud558\uae30",
+            "desc": "",
+            "animation": "Sitting",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "6.27,0.15,1.6",
+                    "0,1,0"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
+            "satisfactionsRefusal": {},
+            "items": [],
+            "materialItems": [],
+            "integration": "",
+            "scene": ""
+        },
+        {
+            "id": "stock1-3",
+            "chain": "",
+            "type": 0,
+            "level": [
+                1,
+                10
+            ],
+            "village": "",
+            "villageLevel": 1,
+            "title": "\ucc3d\ubc16\ubcf4\uae30",
+            "desc": "",
+            "animation": "Bashful",
+            "animationRepeatTime": 1,
+            "maxRef": -1,
+            "target": {
+                "type": 5,
+                "value": [
+                    "-8,0.15,-4",
+                    "-10,1,-4"
+                ],
+                "interaction": {
+                    "type": 0,
+                    "taskId": ""
+                }
+            },
+            "satisfactions": {},
             "satisfactionsRefusal": {},
             "items": [],
             "materialItems": [],

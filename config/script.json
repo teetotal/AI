@@ -117,6 +117,15 @@
         "p3": [
             "\ub3c8\uc4f0\ub7ec \uc654\uc5b4\uc6a4~"
         ],
+        "p4": [
+            "\ub18d\uc0ac \uc9c0\uc73c\ub7ec \uac00\ubcfc\uae4c\ub098"
+        ],
+        "p5": [
+            "\uc774\ub3d9!"
+        ],
+        "f-0": [
+            "\ub098 \ub3cc\uc544\uac08\ub798"
+        ],
         "f-1": [
             "\uc0c1\ucf8c\ud558\ub2f9",
             "\uae30\ubd80\ub2c8\uac00 \uc870\ucfe0\ub098",
@@ -171,6 +180,23 @@
             "\ubfcc\ub4ef\ud558\uad6c\uba3c",
             "\uc774\uac83\uc740 \ub098\uc758 \ud53c\ub540\ub208\ubb3c",
             "\ubc25\uc548\uba39\uc5b4\ub3c4 \ubc30\ubd80\ub974\ub124"
+        ],
+        "stock1": [
+            "\ucee4\ud53c\ub098 \ud55c\uc794 \ud560\uae4c"
+        ],
+        "stock1-0": [
+            "\ucee4\ud53c\ub294\uc6d0\uc0f7\uc774\uc9c0",
+            "\uc6d0\uc0f7! \uc544\ub728\ub728\uac70",
+            "\uafc0\uaebd\uafc0\uaebd"
+        ],
+        "stock1-1": [
+            "\uace0\ub798\uc57c \ub530\uc0c1\ud558\uac8c \ud574\uc92d"
+        ],
+        "stock1-2": [
+            "\ud1f4\uadfc\ud558\uace0 \uc2dc\ud478\ub2f9"
+        ],
+        "stock1-3": [
+            "\uba4d~"
         ]
     },
     "refusal": {

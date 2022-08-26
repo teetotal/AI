@@ -55,7 +55,9 @@ namespace ENGINE {
                     }
                     return sum / cnt;
                 }
+                // 마을에 있지 않은데 세금을 징수하는게 맞나? actor들이 일을 하지도 않는데?
                 public bool TaxCollection(Dictionary<string, Dictionary<string, Actor>> villageActor) {
+                    return true;
                     long currentCount = CounterHandler.Instance.GetCount();
 
                     bool ret = false; 
@@ -181,6 +183,11 @@ namespace ENGINE {
                     if(mDict == null)
                         return new Dictionary<string, Actor>();
                     return mDict;
+                }
+                public Dictionary<string, Actor> GetActors(string village) {       
+                    if(mDict == null)
+                        return new Dictionary<string, Actor>();
+                    return mDictVillage[village];
                 }
 
                 public Dictionary<string, Actor>? GetActors(int type) {
