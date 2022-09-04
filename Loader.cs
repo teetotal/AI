@@ -288,10 +288,11 @@ namespace ENGINE {
                 FROM_SAY,
                 FROM_ANIMATION,
                 FROM_SAY_ANIMATION,
-                FROM_REACTION,     
+                FROM_REACTION,   
                 TO_STOP = 10,
                 TO_FEEDBACK = 11,
                 TO_DECIDE,
+                TO_RELEASE,
             }
             public class ConfigScenario_Node {
                 public int time { get; set; }
