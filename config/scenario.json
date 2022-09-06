@@ -1,48 +1,44 @@
 {
-    "default": {
-        "from": [
-            {
-                "time": 1000, 
-                "type": 3
-            },
-            {
-                "time": 5000,
-                "type": 0
-            },
-            {
-                "time": 9000,
-                "type": 4
-            },
-            {
-                "time": 10000,
-                "type": 0
-            }            
-        ],
-        "to": [
-            {
-                "time": 3000,
-                "type": 10
-            },
-            {
-                "time": 5000,
-                "type": 11
-            },
-            {
-                "time": 9000,
-                "type": 10
-            },            
-            {
-                "time": 9000,
-                "type": 12
-            },
-            {
-                "time": 11000,
-                "type": 10
-            },
-            {
-                "time": 11500,
-                "type": 13
-            }
-        ]
-    }
+    "default": [
+        {
+            "time": 1000, 
+            "type": 3,
+            "comment": "FROM_SAY_ANIMATION"
+        },
+        {
+            "time": 0,
+            "type": 10,
+            "comment": "TO_STOP"
+        },
+        {
+            "time": 2000,
+            "type": 11,
+            "comment": "TO_FEEDBACK"
+        },
+        {
+            "time": 2000,
+            "type": 0,
+            "comment": "FROM_STOP"
+        },
+        {
+            "time": 1000,
+            "type": 4,
+            "comment": "FROM_REACTION"
+        },
+        {
+            "time": 1000,
+            "type": 10,
+            "comment": "TO_STOP"
+        },            
+        {
+            "time": 2000,
+            "type": 12,
+            "comment": "TO_DECIDE"
+        },
+        {
+            "time": 0,
+            "type": 13,
+            "comment": "TO_RELEASE"
+        }
+    ]
 }

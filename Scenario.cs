@@ -5,7 +5,7 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class ScenarioInfoHandler {
-                public Dictionary<string, ConfigScenario_Detail> mInfo = new Dictionary<string, ConfigScenario_Detail>();
+                public Dictionary<string, List<ConfigScenario_Node>> mInfo;// = new Dictionary<string, List<ConfigScenario_Node>>();
                 private static readonly Lazy<ScenarioInfoHandler> instance =
                                     new Lazy<ScenarioInfoHandler>(() => new ScenarioInfoHandler());
                 public static ScenarioInfoHandler Instance {
@@ -15,8 +15,8 @@ namespace ENGINE {
                 }
                 private ScenarioInfoHandler() { }
 
-                public void Insert(string key, ConfigScenario_Detail val) {
-                    mInfo.Add(key, val);
+                public void Init(Dictionary<string, List<ConfigScenario_Node>> p) {
+                    mInfo = p;
                 }
             }
         }

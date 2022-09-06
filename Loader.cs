@@ -298,10 +298,6 @@ namespace ENGINE {
                 public int time { get; set; }
                 public SCENARIO_NODE_TYPE type { get; set; }
             }
-            public class ConfigScenario_Detail {
-                public List<ConfigScenario_Node>? from { get; set; }
-                public List<ConfigScenario_Node>? to { get; set; }
-            }
             // Village --------------------------------------------------------------------------
             public class ConfigVillage_Level_Threshold {
                 public int level { get; set; }
@@ -492,14 +488,10 @@ namespace ENGINE {
                 }
                 // Set Scenario   
                 private bool SetScenario(string sz) {
-                    var j = JsonConvert.DeserializeObject<Dictionary<string, ConfigScenario_Detail>>(sz);  
+                    var j = JsonConvert.DeserializeObject<Dictionary<string, List<ConfigScenario_Node>>>(sz);  
                     if(j == null)
                         return false;
-                    foreach(var p in j) {
-                        string key = p.Key;
-                        ConfigScenario_Detail detail = p.Value;
-                        ScenarioInfoHandler.Instance.Insert(key, detail);
-                    }
+                    ScenarioInfoHandler.Instance.Init(j);
                     return true;
                 }
                 // Set Script
