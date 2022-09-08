@@ -32,7 +32,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "104": [
@@ -68,7 +70,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "109": [
@@ -104,7 +108,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "1": [
@@ -141,7 +147,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD1-B1",
@@ -176,7 +184,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD1-B2",
@@ -211,7 +221,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD1-C1",
@@ -245,7 +257,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": "Gallery"
+            "scene": "Gallery",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD1-D1",
@@ -280,7 +294,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD2-A1",
@@ -315,7 +331,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD2-B1",
@@ -350,7 +368,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD2-C1",
@@ -386,7 +406,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD3-A1",
@@ -427,7 +449,9 @@
             ],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD3-B1",
@@ -468,7 +492,9 @@
             ],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD3-C1",
@@ -509,7 +535,9 @@
             ],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD0-1",
@@ -543,7 +571,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD0-1-C",
@@ -575,7 +605,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD4-1",
@@ -609,7 +641,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "\uad1c\ud788 \uce5c\ud55c\ucc99 \ud558\uba70 \ub9d0\uc744 \uac78\uc5b4 \uc654\uc2b5\ub2c8\ub2e4.",
+            "askDesc": "{from}\uc774/\uac00 \uc8fc\uc81c\ub3c4 \ubaa8\ub974\uace0 \uac10\ud788 \uc778\uc0ac\ub97c \ud558\uaca0\ub2e4\uace0 \ud569\ub2c8\ub2e4.\n\uc544\ub9c8\ub3c4 \ub3c8\uc744 \ub178\ub9ac\uace0 \uc800\ub7ec\ub294\uac70 \uac19\uc740\ub370 \uc218\ub77d\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?\n\n\uc218\ub77d\ud560 \uacbd\uc6b0 MP +5\n\uac70\uc808\ud560 \uacbd\uc6b0 \uae40\ubc25\uc774\ub294 MP -10\uc774 \ub429\ub2c8\ub2e4."
         },
         {
             "id": "LD4-1-I",
@@ -643,7 +677,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD4-2",
@@ -687,7 +723,9 @@
             ],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD4-2-C",
@@ -719,7 +757,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD4-3",
@@ -754,7 +794,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "LD4-3-I",
@@ -788,7 +830,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "VEH1",
@@ -822,7 +866,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "test-get_in1",
@@ -854,7 +900,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "test-get_off",
@@ -886,7 +934,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "VEH2",
@@ -920,7 +970,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "test-get_in2",
@@ -952,7 +1004,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "NI1",
@@ -987,7 +1041,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "NI1-I",
@@ -1022,7 +1078,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p1",
@@ -1063,7 +1121,9 @@
             ],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p2",
@@ -1099,7 +1159,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p2-I",
@@ -1134,7 +1196,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p2-C",
@@ -1166,7 +1230,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p3",
@@ -1198,7 +1264,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": "Shop"
+            "scene": "Shop",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p4",
@@ -1230,7 +1298,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": "Farming"
+            "scene": "Farming",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "p5",
@@ -1262,7 +1332,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": "StockMarket"
+            "scene": "StockMarket",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-0",
@@ -1294,7 +1366,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": "Demo"
+            "scene": "Demo",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-1",
@@ -1332,7 +1406,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-3",
@@ -1367,7 +1443,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-5",
@@ -1401,7 +1479,9 @@
             "items": [],
             "materialItems": [],
             "integration": "FARMING:farm-small:TILLAGE",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-6",
@@ -1440,7 +1520,9 @@
                 }
             ],
             "integration": "FARMING:farm-small:PLANT:seed1",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-7",
@@ -1479,7 +1561,9 @@
                 }
             ],
             "integration": "FARMING:farm-small:PLANT:seed2",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-8",
@@ -1513,7 +1597,9 @@
             "items": [],
             "materialItems": [],
             "integration": "FARMING:farm-small:CARE",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "f-9",
@@ -1547,7 +1633,9 @@
             "items": [],
             "materialItems": [],
             "integration": "FARMING:farm-small:HARVEST",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "200": [
@@ -1584,7 +1672,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "202": [
@@ -1621,7 +1711,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "201": [
@@ -1663,7 +1755,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ],
     "300": [
@@ -1700,7 +1794,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "stock1-0",
@@ -1732,7 +1828,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "stock1-1",
@@ -1765,7 +1863,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "stock1-2",
@@ -1798,7 +1898,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         },
         {
             "id": "stock1-3",
@@ -1831,7 +1933,9 @@
             "items": [],
             "materialItems": [],
             "integration": "",
-            "scene": ""
+            "scene": "",
+            "askTitle": "",
+            "askDesc": ""
         }
     ]
 }

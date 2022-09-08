@@ -13,6 +13,10 @@ namespace ENGINE {
                const string post = ">";
                const string INVALID_SCRIPT = "...";
                const string INVALID_SCRIPT_REFUSAL = "-.-";
+               const string FROM = "{from}";
+               const string TO = "{to}";
+               const string NEWLINE = "\n";
+               const string NEWLINE2 = "\\n";
                private static readonly Lazy<ScriptHandler> instance =
                         new Lazy<ScriptHandler>(() => new ScriptHandler());
                 public static ScriptHandler Instance {
@@ -56,14 +60,14 @@ namespace ENGINE {
                     return INVALID_SCRIPT_REFUSAL;
                 }                            
                 //pooling처리 해야함
-                private string GetReplacedString(string sz, Actor from, Actor? to) {
+                public string GetReplacedString(string sz, Actor from, Actor? to) {
                     StringBuilder sbFrom = new StringBuilder(from.mInfo.nickname, from.mInfo.nickname.Length + pre.Length + post.Length);                    
                     sbFrom.Insert(0, pre);
                     sbFrom.Append(post);
 
                     StringBuilder sb = new StringBuilder(sz, sz.Length + 64);
-                    sb.Replace("\\n", "\n");
-                    sb.Replace("{from}", sbFrom.ToString());
+                    sb.Replace(NEWLINE2, NEWLINE);
+                    sb.Replace(FROM, sbFrom.ToString());
 
                     
                     if(to != null) {
@@ -71,7 +75,7 @@ namespace ENGINE {
                         sbTo.Insert(0, pre);
                         sbTo.Append(post);
 
-                        sb.Replace("{to}", sbTo.ToString());
+                        sb.Replace(TO, sbTo.ToString());
                     }
                     return sb.ToString();
                 }

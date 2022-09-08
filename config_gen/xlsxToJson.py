@@ -119,7 +119,9 @@ def get_json_task(arr):
         "items": [], #arr[16]
         "materialItems": [], #arr[22]
         "integration": arr[23],
-        "scene": arr[17]
+        "scene": arr[17],
+        "askTitle": arr[24],
+        "askDesc": arr[25]
     }
     #level
     if len(arr[3]) > 0: 

@@ -229,6 +229,9 @@ namespace ENGINE {
                 public List<Config_Reward> materialItems { get; set; } = new List<Config_Reward>();
                 public string integration { get; set; } = string.Empty;
                 public string scene { get; set; } = string.Empty;
+                //ask.
+                public string askTitle { get; set; } = string.Empty;
+                public string askDesc { get; set; } = string.Empty;
             }        
             public class ConfigTask_Item {
                 public string itemId { get; set; } = string.Empty;
