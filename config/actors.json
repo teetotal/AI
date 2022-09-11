@@ -536,7 +536,7 @@
             }
         ],
         "isFly": false,
-        "laziness": 5
+        "laziness": 1
     },
     "ACTOR1-2": {
         "enable": true,
@@ -884,7 +884,7 @@
         "type": 1,
         "nickname": "\uc778\uc808\ubbf8",
         "pets": [],
-        "level": 1,
+        "level": 2,
         "prefab": "Actors/actor5",
         "position": [
             0.0,
@@ -988,7 +988,7 @@
         ],
         "inventory": [],
         "isFly": false,
-        "laziness": 25
+        "laziness": 10
     },
     "ACTOR1-6": {
         "enable": true,

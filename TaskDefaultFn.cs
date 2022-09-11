@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 #nullable enable
 namespace ENGINE {
@@ -9,13 +10,16 @@ namespace ENGINE {
             //단순 task
             //json으로 관리            
             public class TaskDefaultFn : FnTask {        
-                private Random mRandom = new Random();        
+                private System.Random mRandom = new System.Random();        
                 private const float DISTANCE_MAX = 40;
                 private string template = "<size=100%>{title}</size>\n<size=80%>{desc}\n<color=#E4CA44>{satisfaction}</color></size>";
                 private Dictionary<string, float> mSatisfaction = new Dictionary<string, float>();
                 private Dictionary<string, float> mSatisfactionRefusal = new Dictionary<string, float>();
                 private const string VEHICLE = "VEHICLE";
                 private const char TARGET_DELIMETER = ':';
+                private const string MAX = "MAX";
+                private const string MIN = "MIN";
+                private const string SATISFACTION_U = "SATISFACTION";
                 private StringBuilder mSzBuilder = new StringBuilder();
 
                 public TaskDefaultFn(ConfigTask_Detail info) {
@@ -91,8 +95,9 @@ namespace ENGINE {
                             targetValue = FindRelationTarget(actor);
                             if(targetValue == string.Empty)
                                 type = Actor.TASKCONTEXT_TARGET_TYPE.INVALID;
-                            else
+                            else {
                                 type = Actor.TASKCONTEXT_TARGET_TYPE.ACTOR;
+                            }
                         }
                         break;
                         case TASK_TARGET_TYPE.ACTOR_FROM:
@@ -218,7 +223,6 @@ namespace ENGINE {
                     
                 }
                 */
-                
                 private string FindRelationTarget(Actor actor) {
                     if(mInfo.target.value == null || mInfo.target.value.Count == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
                         return string.Empty;
@@ -234,19 +238,19 @@ namespace ENGINE {
                         int type;                        
                         string condition;
                         //표현식을 확장할때 고치자. 일단은 고정된 형태만
-                        string[] arr = sz.Split(':');
+                        string[] arr = sz.Split(TARGET_DELIMETER);
                         condition = arr[1].ToUpper();
                         string[] arr2 = arr[0].Split('.');
                         type = int.Parse(arr2[0]);
                         string target1 = arr2[1]; 
                         string target2 = arr2[2];
-                        if(target1.ToUpper() == "SATISFACTION") {
+                        if(target1.ToUpper() == SATISFACTION_U) {
                             var actors = ActorHandler.Instance.GetActors(type);
                             if(actors is null) {
                                 continue;
                             }
 
-                            float value = condition == "MAX"? -1: float.MaxValue;
+                            float value = condition == MAX? -1: float.MaxValue;
                             foreach(var p in actors) {
                                 //자신이면 skip
                                 if(p.Value.mUniqueId == fromActorId) {
@@ -257,20 +261,29 @@ namespace ENGINE {
                                     continue;
                                 }
                                 double distance = actor.position.GetDistance(p.Value.position);
-                                if(distance > DISTANCE_MAX || p.Value.GetState() != Actor.LOOP_STATE.READY) {
+
+                                if(distance > DISTANCE_MAX) {
+                                    continue;
+                                }
+
+                                switch(p.Value.GetState()) {
+                                    case Actor.LOOP_STATE.READY:
+                                    case Actor.LOOP_STATE.TASK_UI:
+                                    break;
+                                    default:
                                     continue;
                                 }
                                 var satisfaction = p.Value.GetSatisfaction(target2);
                                 if(satisfaction != null) {
                                     float v = satisfaction.Value;
                                     switch(condition) {
-                                        case "MAX":
+                                        case MAX:
                                         if(v > value) {
                                             value = v;
                                             actorId = p.Value.mUniqueId;
                                         }
                                         break;
-                                        case "MIN":
+                                        case MIN:
                                         if(v < value) {
                                             value = v;
                                             actorId = p.Value.mUniqueId;

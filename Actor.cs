@@ -490,9 +490,14 @@ namespace ENGINE {
                     CallCallback(LOOP_STATE.ANIMATION);
                 }
                 public bool Loop_Reserved(Actor from, FnTask fromTask) {
-                    if(mLOOP_STATE != LOOP_STATE.READY) 
-                        return false;                    
-
+                    switch(mLOOP_STATE) {
+                        case LOOP_STATE.READY:
+                        case LOOP_STATE.TASK_UI:
+                        break;
+                        default:
+                        return false;
+                    }
+                    
                     mTaskContext.reserveContext.fromActor = from;
                     mTaskContext.reserveContext.fromTask = fromTask;
 
