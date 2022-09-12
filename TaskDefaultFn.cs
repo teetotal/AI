@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
+using System.Linq;
 
 #nullable enable
 namespace ENGINE {
@@ -227,6 +227,9 @@ namespace ENGINE {
                     if(mInfo.target.value == null || mInfo.target.value.Count == 0 || mInfo.target.type != TASK_TARGET_TYPE.ACTOR_CONDITION) {
                         return string.Empty;
                     }
+                    if(actor.position == null)
+                        return string.Empty;
+
                     List<string> conditions = mInfo.target.value;
                     string fromActorId = actor.mUniqueId;                    
                     string actorId = string.Empty;
@@ -234,22 +237,46 @@ namespace ENGINE {
                     //2.Satisfaction.100:max
                     for(int i = 0; i < conditions.Count; i++)
                     {
-                        string sz = conditions[i];
-                        int type;                        
-                        string condition;
+                        string sz = conditions[i];                       
                         //표현식을 확장할때 고치자. 일단은 고정된 형태만
                         string[] arr = sz.Split(TARGET_DELIMETER);
-                        condition = arr[1].ToUpper();
-                        string[] arr2 = arr[0].Split('.');
-                        type = int.Parse(arr2[0]);
-                        string target1 = arr2[1]; 
-                        string target2 = arr2[2];
-                        if(target1.ToUpper() == SATISFACTION_U) {
-                            var actors = ActorHandler.Instance.GetActors(type);
-                            if(actors is null) {
-                                continue;
-                            }
+                        int type = int.Parse(arr[0]);
+                        string target1 = arr[1]; 
+                        string target2 = arr[2];
+                        string condition = arr[3].ToUpper();
+                        
+                        //linq. type, satisfaction id, order
+                        var actors = ActorHandler.Instance.GetActors(type);
+                        if(actors is null) {
+                            continue;
+                        }
+                        var target =    from a in actors 
+                                        where a.Key != fromActorId && 
+                                            a.Value.position != null && 
+                                            actor.position.GetDistance(a.Value.position) < DISTANCE_MAX &&
+                                            (a.Value.GetState() != Actor.LOOP_STATE.READY || a.Value.GetState() != Actor.LOOP_STATE.TASK_UI)
+                                        select a.Value;
 
+                        if(target1.ToUpper() == SATISFACTION_U) {
+                            //where
+                            target = target.Where(e=> e.GetSatisfaction(target2) != null);
+                            //order
+                            switch(condition) {
+                                case MAX:
+                                target = target.OrderByDescending(e => e.GetSatisfaction(target2).Value);
+                                break;
+                                case MIN:
+                                target = target.OrderBy(e => e.GetSatisfaction(target2).Value);
+                                break;
+                            }
+                            
+
+                            if(target == null)
+                                continue;
+                            return target.First().mUniqueId;
+
+
+                            /*
                             float value = condition == MAX? -1: float.MaxValue;
                             foreach(var p in actors) {
                                 //자신이면 skip
@@ -295,8 +322,8 @@ namespace ENGINE {
                             //찾았으면 리턴. 없으면 다음 조건으로 그래도 없으면 null
                             if(actorId.Length > 0) {
                                 return actorId;
-                            }
-                        }                        
+                            } */
+                        }                    
                     }
                     return string.Empty;
                 }
