@@ -39,7 +39,14 @@ namespace ENGINE {
                         if(s.Value > 0) {
                             satisfaction += "+";
                         }
-                        satisfaction += s.Value.ToString();
+                        switch(SatisfactionDefine.Instance.Get(s.Key).type) {
+                            case SATISFACTION_TYPE.CURRENCY:
+                            satisfaction += s.Value.ToString("F");
+                            break;
+                            default:
+                            satisfaction += s.Value.ToString();
+                            break;
+                        }
                         satisfaction += " ";
                     }
                     this.mTaskString = this.mTaskString.Replace("{satisfaction}", satisfaction);
@@ -271,7 +278,7 @@ namespace ENGINE {
                             }
                             
 
-                            if(target == null)
+                            if(target == null || target.Count() == 0)
                                 continue;
                             return target.First().mUniqueId;
 

@@ -251,7 +251,8 @@
                 }
             },
             "satisfactions": {
-                "Knowledge": "2"
+                "Knowledge": "2",
+                "Gold": "-1"
             },
             "satisfactionsRefusal": {},
             "items": [],
@@ -635,7 +636,7 @@
                 }
             },
             "satisfactions": {
-                "Leadership": "10"
+                "Leadership": "1"
             },
             "satisfactionsRefusal": {},
             "items": [],

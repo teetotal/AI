@@ -324,6 +324,11 @@ namespace ENGINE {
                 public string position { get; set; } = string.Empty;
                 public string rotation { get; set; } = string.Empty;
             }
+            public enum VEHICLE_STATE {
+                IDLE,
+                MOVING,
+                RESERVED
+            }
             public class ConfigVehicle_Detail {
                 public string type { get; set; } = string.Empty;
                 public string vehicleId { get; set; } = string.Empty;
@@ -336,6 +341,8 @@ namespace ENGINE {
                 public string owner { get; set; } = string.Empty;
                 public string village { get; set; } = string.Empty;
                 public List<ConfigVehicle_Position> positions { get; set; } = new List<ConfigVehicle_Position>();
+                public VEHICLE_STATE state {get; set; } = VEHICLE_STATE.IDLE;
+                public long last { get; set; }
             }
             //Farming --------------------------------------------------------------------------------------------
             public class ConfigFarming_Field {

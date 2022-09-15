@@ -5,20 +5,11 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace MOTIVATION {
             public class VehicleHandler {
-                private enum STATE {
-                    IDLE,
-                    MOVING,
-                    RESERVED
-                }
                 public delegate bool FnHangAround(string vehicleId, string position, string rotation);  
                 private FnHangAround? mFnHangAround = null;
                 private string mCurrentVillage = string.Empty;
 
-                //아래 3개 합쳐야 함
-                private Dictionary<string, ConfigVehicle_Detail> mDic = new Dictionary<string, ConfigVehicle_Detail>();
-                private Dictionary<string, STATE> mDicState = new Dictionary<string, STATE>();
-                private Dictionary<string, long> mDicLastTime = new Dictionary<string, long>();//마지막 counter
-
+                private Dictionary<string, ConfigVehicle_Detail> mDicAll = new Dictionary<string, ConfigVehicle_Detail>();
 
                 private Dictionary<string, string> mDicReseve = new Dictionary<string, string>(); //예약차량
                 
@@ -35,12 +26,8 @@ namespace ENGINE {
                 }
                 private VehicleHandler() { }
                 public void Set(Dictionary<string, ConfigVehicle_Detail> info) {
-                    mDic = info;
-                    foreach(var p in mDic) {
-
-                        mDicState.Add(p.Key, STATE.IDLE);
-                        mDicLastTime.Add(p.Key, 0);
-
+                    mDicAll = info;
+                    foreach(var p in mDicAll) {
                         if(!mDicType.ContainsKey(p.Value.type)) {
                             mDicType[p.Value.type] = new List<string>();
                         }
@@ -52,12 +39,6 @@ namespace ENGINE {
                     SetVillage(village);
                 }
                 public List<ConfigVehicle_Detail> GetAll(string village) {
-                    mTempList.Clear();
-                    foreach(var p in mDic) {
-                        if(p.Value.village == village) {
-                            mTempList.Add(p.Value);
-                        }
-                    }
                     return mTempList;
                 }
                 public ConfigVehicle_Detail? GetOne(string type, string actorId) {
@@ -67,34 +48,46 @@ namespace ENGINE {
                     //reserve
                     if(actorId != string.Empty) {
                         if(mDicReseve.ContainsKey(actorId)) {
-                            return mDic[mDicReseve[actorId]];
+                            return mDicAll[mDicReseve[actorId]];
                         }
                     }
-                    
-                    foreach(var vehicleId in mDicType[type]) {
-                        if(mDicState[vehicleId] == STATE.IDLE)
-                            return mDic[vehicleId];
+
+                    for(int i = 0; i < mTempList.Count; i++) {
+                        if(mTempList[i].state == VEHICLE_STATE.IDLE)
+                            return mTempList[i];
                     }
+                    
                     return null;
                 }
                 public void SetVillage(string village) {
                     mCurrentVillage = village;
+                    mTempList.Clear();
+                    foreach(var p in mDicAll) {
+                        if(p.Value.village == village) {
+                            mTempList.Add(p.Value);
+                        }
+                    }                
                 }
                 public void Leave(string vehicleId, string actorId) {
                     Arrive(vehicleId);
                     mDicReseve.Remove(actorId);
                 } 
                 public void Arrive(string vehicleId) {
-                    mDicState[vehicleId] = STATE.IDLE;
-                    mDicLastTime[vehicleId] = CounterHandler.Instance.GetCount();
+                    mDicAll[vehicleId].state = VEHICLE_STATE.IDLE;
+                    mDicAll[vehicleId].last = CounterHandler.Instance.GetCount();
                 }
                 public void SetMoving(string vehicleId) {
-                    mDicState[vehicleId] = STATE.MOVING;
-                    mDicLastTime[vehicleId] = CounterHandler.Instance.GetCount();
+                    mDicAll[vehicleId].state = VEHICLE_STATE.MOVING;
+                    mDicAll[vehicleId].last = CounterHandler.Instance.GetCount();
                 }
                 public void SetReserve(string vehicleId, string actorId) {
-                    mDicState[vehicleId] = STATE.RESERVED;
+                    mDicAll[vehicleId].state = VEHICLE_STATE.RESERVED;
                     mDicReseve.Add(actorId, vehicleId);
+                }
+                public void CancelReserve(string actorId) {
+                    string vehicleId = mDicReseve[actorId];
+                    mDicAll[vehicleId].state = VEHICLE_STATE.IDLE;
+                    mDicReseve.Remove(actorId);
                 }
                 public void Update() {
                     long now = CounterHandler.Instance.GetCount();
@@ -103,18 +96,12 @@ namespace ENGINE {
                     
                     mLastUpdated = now;
 
-                    foreach(var p in mDic) {
-                        if(p.Value.village != mCurrentVillage)
-                            continue;
-                        if(mDicState[p.Key] == STATE.IDLE && now - mDicLastTime[p.Key] > mDic[p.Key].waiting) {
+                    for(int i = 0; i < mTempList.Count; i++) {
+                        ConfigVehicle_Detail veh = mTempList[i];
+                        if(veh.state == VEHICLE_STATE.IDLE && now - veh.last > veh.waiting) {
                             if(mFnHangAround != null) {
-                                ConfigVehicle_Detail info = mDic[p.Key];
-                                int idx = mRand.Next(info.positions.Count);
-    
-                                if(mFnHangAround(p.Key, info.positions[idx].position, info.positions[idx].rotation)) {
-                                    mDicState[p.Key] = STATE.MOVING;
-                                    mDicLastTime[p.Key] = now;
-                                }
+                                int idx = mRand.Next(veh.positions.Count);
+                                mFnHangAround(veh.vehicleId, veh.positions[idx].position, veh.positions[idx].rotation);
                             }
                         }
                     }
