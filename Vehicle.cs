@@ -8,11 +8,8 @@ namespace ENGINE {
                 public delegate bool FnHangAround(string vehicleId, string position, string rotation);  
                 private FnHangAround? mFnHangAround = null;
                 private string mCurrentVillage = string.Empty;
-
                 private Dictionary<string, ConfigVehicle_Detail> mDicAll = new Dictionary<string, ConfigVehicle_Detail>();
-
-                private Dictionary<string, string> mDicReseve = new Dictionary<string, string>(); //예약차량
-                
+                private Dictionary<string, string> mDicReserve = new Dictionary<string, string>(); //예약차량
                 private Dictionary<string, List<string>> mDicType = new Dictionary<string, List<string>>();
                 private List<ConfigVehicle_Detail> mTempList = new List<ConfigVehicle_Detail>();
                 public Random mRand= new Random();
@@ -47,8 +44,8 @@ namespace ENGINE {
                     
                     //reserve
                     if(actorId != string.Empty) {
-                        if(mDicReseve.ContainsKey(actorId)) {
-                            return mDicAll[mDicReseve[actorId]];
+                        if(mDicReserve.ContainsKey(actorId)) {
+                            return mDicAll[mDicReserve[actorId]];
                         }
                     }
 
@@ -64,13 +61,17 @@ namespace ENGINE {
                     mTempList.Clear();
                     foreach(var p in mDicAll) {
                         if(p.Value.village == village) {
+                            //Scene 교체됐을때 일단 리셋 시켜버림. 나중에 고민
+                            p.Value.state = VEHICLE_STATE.IDLE;
+                            p.Value.last = 0;
                             mTempList.Add(p.Value);
                         }
-                    }                
+                    }  
+                    mDicReserve.Clear();              
                 }
                 public void Leave(string vehicleId, string actorId) {
                     Arrive(vehicleId);
-                    mDicReseve.Remove(actorId);
+                    mDicReserve.Remove(actorId);
                 } 
                 public void Arrive(string vehicleId) {
                     mDicAll[vehicleId].state = VEHICLE_STATE.IDLE;
@@ -82,12 +83,12 @@ namespace ENGINE {
                 }
                 public void SetReserve(string vehicleId, string actorId) {
                     mDicAll[vehicleId].state = VEHICLE_STATE.RESERVED;
-                    mDicReseve.Add(actorId, vehicleId);
+                    mDicReserve.Add(actorId, vehicleId);
                 }
                 public void CancelReserve(string actorId) {
-                    string vehicleId = mDicReseve[actorId];
+                    string vehicleId = mDicReserve[actorId];
                     mDicAll[vehicleId].state = VEHICLE_STATE.IDLE;
-                    mDicReseve.Remove(actorId);
+                    mDicReserve.Remove(actorId);
                 }
                 public void Update() {
                     long now = CounterHandler.Instance.GetCount();
