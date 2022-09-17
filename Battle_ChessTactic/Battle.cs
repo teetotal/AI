@@ -12,12 +12,12 @@ namespace ENGINE {
                 List<Soldier> homeSoldiers = new List<Soldier>();
                 List<Soldier> awaySoldiers = new List<Soldier>();
                 List<Rating> mTemp = new List<Rating>();
-                public Battle() {
-                    mMap = new Map();
-                    homeTactic = new Tactic();
-                    awayTactic = new Tactic();
-                    homeSoldiers.Add(new Soldier(true, 0, new MovingType(), new SoldierAbility()));
-                    awaySoldiers.Add(new Soldier(false, 0, new MovingType(), new SoldierAbility()));
+                public Battle(Map map, List<Soldier> home, List<Soldier> away, Tactic homeTactic, Tactic awayTactic) {
+                    this.mMap = map;
+                    this.homeTactic = homeTactic;
+                    this.awayTactic = awayTactic;
+                    this.homeSoldiers = home;
+                    this.awaySoldiers = away;
                 }
                 public bool IsFinish() {
                     return false;
@@ -25,10 +25,10 @@ namespace ENGINE {
                 public List<Rating> Update() {
                     mTemp.Clear();
                     for(int i = 0; i < homeSoldiers.Count; i++) {
-                        mTemp.Add(homeSoldiers[i].Update(homeSoldiers, awaySoldiers, mMap, homeTactic));
+                        mTemp.Add(homeSoldiers[i].Update(homeSoldiers, awaySoldiers, homeTactic));
                     }
                     for(int i = 0; i < awaySoldiers.Count; i++) {
-                        mTemp.Add(awaySoldiers[i].Update(awaySoldiers, homeSoldiers, mMap, awayTactic));
+                        mTemp.Add(awaySoldiers[i].Update(awaySoldiers, homeSoldiers, awayTactic));
                     }
 
                     return mTemp;

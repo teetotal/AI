@@ -5,8 +5,11 @@ using System.Collections.Generic;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
-            public class MovingType {
-                
+            public enum MOVING_TYPE {
+                STRAIGHT,
+                OVER,
+                CROSS,
+                FORWARD
             }
         }
     }

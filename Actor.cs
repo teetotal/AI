@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ENGINE;
 using ENGINE.GAMEPLAY;
 //using UnityEngine;
 #nullable enable
@@ -16,22 +17,7 @@ namespace ENGINE {
                     public int expire { get; set; }
                     public int usage { get; set; }
                 }          
-            public class Position {
-                public float x { get; set; }
-                public float y { get; set; }
-                public float z { get; set; }
-                public Position(float x, float y, float z) {
-                    Set(x, y, z);
-                }
-                public void Set(float x, float y, float z) {
-                    this.x = x;
-                    this.y = y;
-                    this.z = z;
-                }
-                public double GetDistance(Position to) {
-                    return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
-                }
-            }  
+            
             public class Actor {    
                 public delegate void Callback(LOOP_STATE type, Actor actor);     
                 public enum TASKCONTEXT_TARGET_TYPE {
