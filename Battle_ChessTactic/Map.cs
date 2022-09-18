@@ -16,17 +16,27 @@ namespace ENGINE {
                 }
             }
             public class Map {
+                private int width, height;
                 private List<MapNode> mMapNodes = new List<MapNode>();
                 private List<MapNode> mObstacles = new List<MapNode>();
                 private int positionIdIndex;
                 public Map(int width, int height) {
-                    positionIdIndex = (int)Math.Pow(10, ((int)System.Math.Log10(width)) + 1);
+                    this.width = width;
+                    this.height = height;
+
+                    positionIdIndex = (int)Math.Pow(10, ((int)System.Math.Log10( Math.Max(width, height))) + 1);
 
                     for(int x = 0; x < width; x ++) {
                         for(int y = 0; y < height; y++) {
                             mMapNodes.Add(new MapNode(new Position(x, y, 0), false));
                         }
                     }
+                }
+                public int GetWidth() {
+                    return width;
+                }
+                public int GetHeight() {
+                    return height;
                 }
                 public List<MapNode> GetObstacles() {
                     return mObstacles;

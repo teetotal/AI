@@ -86,15 +86,18 @@ namespace ENGINE {
                     }
                     return false;
                 }
-                private int GetWeightPostionStraight(Position pos) {
+                private float GetWeightPostionStraight(Position pos) {
                     //상하좌우에 몇개의 obstacle이 있는가
                     var obstacles = map.GetObstacles();
                     var ret = from obstacle in obstacles where pos.GetDistance(obstacle.position) <= mSoldierAbility.distance select obstacle;
-                    //y쪽에 가중치를 줘야함
-                    Console.WriteLine("W: {0}, {1}", pos.ToString(), ret.Count());
                     
-                    return ret.Count();
-
+                    float weight = ret.Count();
+                    //y에 따른 가중치
+                    weight += (position.y - pos.y) * 0.9f;
+                    
+                    //Console.WriteLine("W: {0}, {1}", pos.ToString(), weight);
+                    
+                    return weight;
                 }
 
                 private Rating GetRatingMove(List<Soldier> myTeam, List<Soldier> opponentTeam, Tactic tactic) {
@@ -109,21 +112,19 @@ namespace ENGINE {
                         case MOVING_TYPE.STRAIGHT: {
                             ret =   from node in list 
                                     where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
-                                    //orderby GetWeightPostionStraight(node.position)
+                                    orderby GetWeightPostionStraight(node.position)
                                     select node;
                         }
                         break;
                     }
-                    
+                    /*
                     var temp = ret.ToList();
                     for(int i = 0; i < temp.Count; i++) {
                         Console.WriteLine("{0}", temp[i].position.ToString());
                     }
-                    
+                    */
 
                     //do ...
-                    ret = ret.OrderBy(e=> GetWeightPostionStraight(e.position));
-
                     rating.rating = 1.0f;
                     rating.targetId = map.GetPositionId(ret.First().position);
 
