@@ -33,15 +33,18 @@ public class ChessTacticSample {
         //종료 처리
     }
     private Map CreateMap() {
-        Map m = new Map(5, 5);
+        Map m = new Map(10, 10);
+        m.AddObstacle(1,1);
         m.AddObstacle(2,2);
+        m.AddObstacle(3,1);
+
         return m;
     }
     private List<Soldier> CreateSolidiers(bool isHome, Map map) {
         List<Soldier> list = new List<Soldier>();
         if(isHome) {
             SoldierAbility ability = new SoldierAbility();
-            ability.distance = 1;
+            ability.distance = 3;
             Soldier soldier = new Soldier(true, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 0, 0), map);
             list.Add(soldier);
         }

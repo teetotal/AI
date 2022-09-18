@@ -68,20 +68,71 @@ namespace ENGINE {
 
                     return rating;
                 }
+                /* ==================================================
+                    Move
+                ===================================================== */
+                //straight의 장애물 뒷편 좌표 체크
+                private bool CheckUnMovablePositionStraight(Position pos, List<Position> obstacles) {
+                    for(int i = 0; i < obstacles.Count; i++) {
+                        Position obstacle = obstacles[i];
+                        //obstacle과 일직선 상에 있을경우
+                        if(obstacle.x == position.x && pos.x == position.x && 
+                            ((obstacle.y > position.y && pos.y > obstacle.y) || (obstacle.y < position.y && pos.y < obstacle.y) )) {
+                            return true;
+                        } else if(obstacle.y == position.y && pos.y == position.y &&
+                                ((obstacle.x > position.x && pos.x > obstacle.x) || (obstacle.x < position.x && pos.x < obstacle.x) )) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                private int GetWeightPostionStraight(Position pos) {
+                    //상하좌우에 몇개의 obstacle이 있는가
+                    var obstacles = map.GetObstacles();
+                    var ret = from obstacle in obstacles where pos.GetDistance(obstacle.position) <= mSoldierAbility.distance select obstacle;
+                    //y쪽에 가중치를 줘야함
+                    Console.WriteLine("W: {0}, {1}", pos.ToString(), ret.Count());
+                    
+                    return ret.Count();
+
+                }
 
                 private Rating GetRatingMove(List<Soldier> myTeam, List<Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.MOVE);
                     //옮겨 갈수 있는 모든 영역
                     var list = map.GetMovalbleList(position, mMovingType, mSoldierAbility);
+                    //obstacle
+                    var obstacles = (from node in list where node.isObstacle select node.position).ToList();
+                    IEnumerable<MapNode>? ret = null;
+                    //장애물 뒷편은 제거
+                    switch(mMovingType) {
+                        case MOVING_TYPE.STRAIGHT: {
+                            ret =   from node in list 
+                                    where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
+                                    //orderby GetWeightPostionStraight(node.position)
+                                    select node;
+                        }
+                        break;
+                    }
+                    
+                    var temp = ret.ToList();
+                    for(int i = 0; i < temp.Count; i++) {
+                        Console.WriteLine("{0}", temp[i].position.ToString());
+                    }
+                    
+
                     //do ...
-                    var ret = list.OrderByDescending(e=> e.y);
+                    ret = ret.OrderBy(e=> GetWeightPostionStraight(e.position));
 
                     rating.rating = 1.0f;
-                    rating.targetId = map.GetPositionId(ret.First());
+                    rating.targetId = map.GetPositionId(ret.First().position);
 
 
                     return rating;
                 }
+                /* ==================================================
+                    Attack
+                ===================================================== */
                 private Rating GetRatingAttack(List<Soldier> myTeam, List<Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.ATTACK);
                     

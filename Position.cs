@@ -18,5 +18,9 @@ namespace ENGINE {
         public double GetDistance(Position to) {
             return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
         }
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}, {2}", x, y, z);
+        }
     }  
 }
