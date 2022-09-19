@@ -26,7 +26,7 @@ public class ChessTacticSample {
                 Console.WriteLine("{0} {1} {2} {3}", rating.soldierId, rating.isHome, rating.type, rating.targetId);
                 switch(rating.type) {
                     case BehaviourType.MOVE:
-                        PrintMove(m, m.GetPosition(rating.targetId));
+                        PrintMove(m, rating);
                     break;
                 }
             }
@@ -38,7 +38,8 @@ public class ChessTacticSample {
         }
         //종료 처리
     }
-    private void PrintMove(Map map, Position pos) {
+    private void PrintMove(Map map, Rating rating) {
+        Position pos = map.GetPosition(rating.targetId);
         var obstacles = map.GetObstacles();
 
         for(int y =0; y < map.GetHeight(); y++) {
@@ -55,8 +56,9 @@ public class ChessTacticSample {
                 if(isObstacle)
                     continue;
 
-                if(pos.x == x && pos.y == y)
+                if(pos.x == x && pos.y == y) {
                     sz += "o\t";
+                }
                 else 
                     sz += "-\t";
             }
@@ -79,7 +81,12 @@ public class ChessTacticSample {
         if(isHome) {
             SoldierAbility ability = new SoldierAbility();
             ability.distance = 2;
-            Soldier soldier = new Soldier(true, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 0, 0), map);
+            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 0, 0), map);
+            list.Add(soldier);
+        } else {
+            SoldierAbility ability = new SoldierAbility();
+            ability.distance = 2;
+            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 14, 0), map);
             list.Add(soldier);
         }
         return list;

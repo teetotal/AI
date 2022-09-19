@@ -93,7 +93,10 @@ namespace ENGINE {
                     
                     float weight = ret.Count();
                     //y에 따른 가중치
-                    weight += (position.y - pos.y) * 0.9f;
+                    if(isHome)
+                        weight += (position.y - pos.y) * 0.9f;
+                    else 
+                        weight += (pos.y - position.y) * 0.9f;
                     
                     //Console.WriteLine("W: {0}, {1}", pos.ToString(), weight);
                     
