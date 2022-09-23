@@ -60,6 +60,9 @@ namespace ENGINE {
                     mDicFunc[rating.type](rating.targetId);
                     RatingPool.Instance.GetPool().Release(rating);
                 }
+                public Position GetPosition() {
+                    return position;
+                }
                 private Rating SetRating(BehaviourType type) {
                     Rating rating = RatingPool.Instance.GetPool().Alloc();
                     rating.isHome = isHome;
@@ -102,6 +105,21 @@ namespace ENGINE {
                     
                     return weight;
                 }
+                //cross
+                private bool CheckUnMovablePositionCross(Position pos, List<Position> obstacles) {
+                    for(int i = 0; i < obstacles.Count; i++) {
+                        Position obstacle = obstacles[i];
+                        //obstacle과 기울기가 1인 관계에 있을경우
+                        float gradient = MathF.Abs((obstacle.y - pos.y ) / (obstacle.x - pos.x));
+                        if(gradient == 1) {
+                            if(position.x < obstacle.x && obstacle.x < pos.x)
+                                return true;
+                            else if(position.x > obstacle.x && obstacle.x > pos.x)
+                                return true;
+                        }
+                    }
+                    return false;
+                }
 
                 private Rating GetRatingMove(List<Soldier> myTeam, List<Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.MOVE);
@@ -115,6 +133,13 @@ namespace ENGINE {
                         case MOVING_TYPE.STRAIGHT: {
                             ret =   from node in list 
                                     where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
+                                    orderby GetWeightPostionStraight(node.position)
+                                    select node;
+                        }
+                        break;
+                        case MOVING_TYPE.CROSS: {
+                            ret =   from node in list 
+                                    where CheckUnMovablePositionCross(node.position, obstacles) == false && node.isObstacle == false 
                                     orderby GetWeightPostionStraight(node.position)
                                     select node;
                         }

@@ -41,6 +41,12 @@ namespace ENGINE {
                         awaySoldiers[id].Action(rating);
                     }
                 }
+                public Soldier GetSoldier(Rating rating) {
+                    if(rating.isHome)
+                        return homeSoldiers[rating.soldierId];
+                    else
+                        return awaySoldiers[rating.soldierId];
+                }
             }
         }
     }

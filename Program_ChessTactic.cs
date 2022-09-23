@@ -11,35 +11,28 @@ class ChessTacticMain {
 }
 
 public class ChessTacticSample {
+    Battle mBattle;
     public void Run() {
         Map m = CreateMap();
-        Battle battle = new Battle(m, CreateSolidiers(true, m), CreateSolidiers(false, m), CreateTactic(true), CreateTactic(false));
+        mBattle = new Battle(m, CreateSolidiers(true, m), CreateSolidiers(false, m), CreateTactic(true), CreateTactic(false));
         
-        while(!battle.IsFinish()) {
-            List<Rating> ret = battle.Update();
+        while(!mBattle.IsFinish()) {
+            List<Rating> ret = mBattle.Update();
             Thread.Sleep(1000);
             // action.
             // 모든 action은 한 스텝에 모두.
             // 시간이 고정되는 개념 
-            for(int i = 0; i < ret.Count; i++) {
-                Rating rating = ret[i];
-                Console.WriteLine("{0} {1} {2} {3}", rating.soldierId, rating.isHome, rating.type, rating.targetId);
-                switch(rating.type) {
-                    case BehaviourType.MOVE:
-                        PrintMove(m, rating);
-                    break;
-                }
-            }
+            Console.WriteLine("------------------------------------------------");
+            Print(m, ret);
 
             //반영
             for(int i = 0; i < ret.Count; i++) {
-                battle.Action(ret[i]);
+                mBattle.Action(ret[i]);
             }
         }
         //종료 처리
     }
-    private void PrintMove(Map map, Rating rating) {
-        Position pos = map.GetPosition(rating.targetId);
+    private void Print(Map map, List<Rating> ret) {
         var obstacles = map.GetObstacles();
 
         for(int y =0; y < map.GetHeight(); y++) {
@@ -48,7 +41,7 @@ public class ChessTacticSample {
                 bool isObstacle = false;
                 for(int i = 0; i < obstacles.Count; i++) {
                     if(x == obstacles[i].position.x && y == obstacles[i].position.y) {
-                        sz += "x\t";
+                        sz += "X\t";
                         isObstacle = true;
                         continue;
                     }
@@ -56,10 +49,22 @@ public class ChessTacticSample {
                 if(isObstacle)
                     continue;
 
-                if(pos.x == x && pos.y == y) {
-                    sz += "o\t";
+                bool assigned = false;
+                for(int i = 0; i < ret.Count; i++) {
+                    Rating rating = ret[i];
+                    //Console.WriteLine("{0} {1} {2} {3}", rating.soldierId, rating.isHome, rating.type, rating.targetId);
+                    Soldier soldier = mBattle.GetSoldier(rating);
+                    if(soldier.GetPosition().x == x && soldier.GetPosition().y == y) {
+                        if(rating.isHome)
+                            sz += "H\t";
+                        else
+                            sz += "A\t";
+                        assigned = true;
+                        break;
+                    }
                 }
-                else 
+                
+                if(!assigned) 
                     sz += "-\t";
             }
             Console.WriteLine(sz);
@@ -81,7 +86,7 @@ public class ChessTacticSample {
         if(isHome) {
             SoldierAbility ability = new SoldierAbility();
             ability.distance = 2;
-            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 0, 0), map);
+            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.CROSS, ability, new ENGINE.Position(2, 0, 0), map);
             list.Add(soldier);
         } else {
             SoldierAbility ability = new SoldierAbility();
