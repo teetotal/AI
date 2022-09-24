@@ -86,11 +86,13 @@ public class ChessTacticSample {
         if(isHome) {
             SoldierAbility ability = new SoldierAbility();
             ability.distance = 2;
+            ability.attackRange = 3;
             Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.CROSS, ability, new ENGINE.Position(2, 0, 0), map);
             list.Add(soldier);
         } else {
             SoldierAbility ability = new SoldierAbility();
             ability.distance = 2;
+            ability.attackRange = 3;
             Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 14, 0), map);
             list.Add(soldier);
         }

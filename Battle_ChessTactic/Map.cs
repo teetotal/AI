@@ -50,9 +50,16 @@ namespace ENGINE {
                         }
                     }
                 }
-                public List<MapNode> GetMovalbleList(Position position, MOVING_TYPE type, SoldierAbility ability) {
+                public List<MapNode> GetAttackableList(Position position, float distance) {
+                    var ret =   from node in mMapNodes
+                                where position.GetDistance(node.position) <= distance
+                                select node;
+                    
+                    return ret.ToList();
+                }
+                public List<MapNode> GetMovalbleList(Position position, MOVING_TYPE type, float distance) {
                     var ret = from node in mMapNodes
-                                where position.GetDistance(node.position) <= ability.distance
+                                where position.GetDistance(node.position) <= distance
                                 select node;
                     switch(type) {
                         case MOVING_TYPE.CROSS:
