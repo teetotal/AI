@@ -167,6 +167,9 @@ namespace ENGINE {
                     
                     return rating;
                 }
+                /* ==================================================
+                    Keep
+                ===================================================== */
                 private Rating GetRatingKeep(List<Soldier> myTeam, List<Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.KEEP);
                     
