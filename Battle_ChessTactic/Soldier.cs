@@ -60,8 +60,17 @@ namespace ENGINE {
                     mDicFunc[rating.type](rating.targetId);
                     RatingPool.Instance.GetPool().Release(rating);
                 }
+                public bool IsHome() {
+                    return isHome;
+                }
+                public int GetID() {
+                    return id;
+                }
                 public Position GetPosition() {
                     return position;
+                }
+                public Map GetMap() {
+                    return map;
                 }
                 private Rating SetRating(BehaviourType type) {
                     Rating rating = RatingPool.Instance.GetPool().Alloc();
