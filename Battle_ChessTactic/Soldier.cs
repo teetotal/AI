@@ -11,6 +11,7 @@ namespace ENGINE {
                 public int distance; //speed
                 public float attackPower;
                 public float attackRange; // 공격 범위
+                public float teamwork; // 같은편이 얼마 이상 있으면 그쪽으로 이동
                 public float HP;
             }
             
@@ -84,6 +85,62 @@ namespace ENGINE {
                 /* ==================================================
                     Move
                 ===================================================== */
+                // Weight ------------------
+                private float GetMoveWeight(Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    //상하좌우에 몇개의 obstacle이 있는가
+                    var obstacleList = map.GetObstacles();
+                    var obstaclesNearby = from obstacle in obstacleList where pos.GetDistance(obstacle.position) <= mSoldierAbility.distance select obstacle;
+                    int obstacleConcentration = obstaclesNearby.Count() / obstacleList.Count;
+                    
+                    //0~1사이로 클수록 갈 이유가 없는 것
+                    float uneasy = 0;
+                    switch(mMovingType) {
+                        case MOVING_TYPE.FORWARD:
+                        uneasy = GetMoveUneasyForward(obstacleConcentration, pos, myTeam, opponentTeam);
+                        break;
+                        case MOVING_TYPE.OVER:
+                        break; 
+                        default: //공격형
+                        uneasy = GetMoveUneasyDefault(obstacleConcentration, pos, myTeam, opponentTeam);
+                        break;
+                    }
+                    
+                    //Console.WriteLine("W: {0}, {1}", pos.ToString(), weight);
+                    
+                    float weight = (1 - uneasy) * 0.5f; //max = 0.5
+                    return weight;
+                }
+                /*
+                    장애물이 적은 쪽으로 
+                    적이 많은 쪽으로
+                    사정거리 유지
+                    ---------
+                    팀웍 형: 같은편이 많은 쪽으로 
+                    선봉 형: 혼자서도 돌격
+                */
+                private float GetMoveUneasyDefault(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    //장애물 비율
+                    float uneasy = obstacleConcentration;
+                    //사정거리내 적의 수
+                    float enemyRate = (from opp in opponentTeam where pos.GetDistance(opp.GetPosition()) <= mSoldierAbility.attackRange select opp).Count() / opponentTeam.Count;
+                    //사정거리에 정확히 걸려 있는 적
+                    float targetRate = (from opp in opponentTeam where pos.GetDistance(opp.GetPosition()) == mSoldierAbility.attackRange select opp).Count() / opponentTeam.Count;
+                    //거리안에 있는 같은 편수. 팀웍 능력치
+                    float myTeamRate = (from my in myTeam where pos.GetDistance(my.GetPosition()) <= mSoldierAbility.teamwork select my).Count() / myTeam.Count;
+                    
+                    return uneasy;
+                }
+                /*
+
+                */
+                private float GetMoveUneasyForward(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    float uneasy = obstacleConcentration;
+                    if(isHome)
+                        uneasy -= (pos.y - position.y) * 0.5f;
+                    else 
+                        uneasy -= (position.y - pos.y) * 0.5f;
+                    return uneasy;
+                }
                 //straight의 장애물 뒷편 좌표 체크
                 private bool CheckUnMovablePositionStraight(Position pos, List<Position> obstacles) {
                     for(int i = 0; i < obstacles.Count; i++) {
@@ -100,31 +157,6 @@ namespace ENGINE {
                         }
                     }
                     return false;
-                }
-                private float GetMoveWeight(Position pos) {
-                    //상하좌우에 몇개의 obstacle이 있는가
-                    var obstacles = map.GetObstacles();
-                    var ret = from obstacle in obstacles where pos.GetDistance(obstacle.position) <= mSoldierAbility.distance select obstacle;
-                    
-                    //0~1사이로 클수록 갈 이유가 없는 것
-                    float uneasy = 0;
-                    if(mMovingType == MOVING_TYPE.OVER) {
-
-                    } else {
-                        uneasy = ret.Count() / obstacles.Count;
-                        //앞으로 가는것 보다 적 근처로 가는게 더 중요.
-                        
-                        if(isHome)
-                            uneasy -= (pos.y - position.y) * 0.5f;
-                        else 
-                            uneasy -= (position.y - pos.y) * 0.5f;
-                        
-                        
-                    }
-                    //Console.WriteLine("W: {0}, {1}", pos.ToString(), weight);
-                    
-                    float weight = (1 - uneasy) * 0.5f; //max = 0.5
-                    return weight;
                 }
                 //cross
                 private bool CheckUnMovablePositionCross(Position pos, List<Position> obstacles) {
@@ -158,14 +190,14 @@ namespace ENGINE {
                         case MOVING_TYPE.STRAIGHT: {
                             ret =   from node in list 
                                     where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
-                                    orderby GetMoveWeight(node.position) descending
+                                    orderby GetMoveWeight(node.position, myTeam, opponentTeam) descending
                                     select node;
                         }
                         break;
                         case MOVING_TYPE.CROSS: {
                             ret =   from node in list 
                                     where CheckUnMovablePositionCross(node.position, obstacles) == false && node.isObstacle == false 
-                                    orderby GetMoveWeight(node.position) descending
+                                    orderby GetMoveWeight(node.position, myTeam, opponentTeam) descending
                                     select node;
                         }
                         break;
@@ -179,7 +211,7 @@ namespace ENGINE {
 
                     //do ...
                     Position pos = ret.First().position;
-                    rating.rating = GetMoveWeight(pos);
+                    rating.rating = GetMoveWeight(pos, myTeam, opponentTeam);
                     rating.targetId = map.GetPositionId(pos);
 
 
