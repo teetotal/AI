@@ -11,6 +11,13 @@ namespace ENGINE {
                 CROSS,      // 포병
                 FORWARD     //오직 전방으로만 가는 방어진 역할
             }
+
+            public enum TACTIC_ATTACK {
+                MAX
+            }
+            public enum TACTIC_DEFENCE {
+                MAX
+            }
         }
     }
 }

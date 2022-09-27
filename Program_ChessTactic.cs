@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using ENGINE;
 using ENGINE.GAMEPLAY.BATTLE_CHESS_TACTIC;
+using System.IO;
 class ChessTacticMain {
     static void Main() {      
         ChessTacticSample p = new ChessTacticSample();
@@ -14,7 +15,8 @@ public class ChessTacticSample {
     Battle mBattle;
     public void Run() {
         Map m = CreateMap();
-        mBattle = new Battle(m, CreateSolidiers(true, m), CreateSolidiers(false, m), CreateTactic(true), CreateTactic(false));
+        var info = new Loader().Load(File.ReadAllText("config/battle_chesstactic.json"));
+        mBattle = new Battle(m, CreateSolidiers(true, m, info["my"].soldiers), CreateSolidiers(false, m, info["opp"].soldiers), info["my"].tactic, info["tactic"].tactic);
         
         while(!mBattle.IsFinish()) {
             List<Rating> ret = mBattle.Update();
@@ -81,25 +83,12 @@ public class ChessTacticSample {
 
         return m;
     }
-    private List<Soldier> CreateSolidiers(bool isHome, Map map) {
+    private List<Soldier> CreateSolidiers(bool isHome, Map map, List<SoldierInfo> info) {
         List<Soldier> list = new List<Soldier>();
-        if(isHome) {
-            SoldierAbility ability = new SoldierAbility();
-            ability.distance = 2;
-            ability.attackRange = 3;
-            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.CROSS, ability, new ENGINE.Position(2, 0, 0), map);
-            list.Add(soldier);
-        } else {
-            SoldierAbility ability = new SoldierAbility();
-            ability.distance = 2;
-            ability.attackRange = 3;
-            Soldier soldier = new Soldier(isHome, 0, MOVING_TYPE.STRAIGHT, ability, new ENGINE.Position(2, 14, 0), map);
+        for(int i = 0; i < info.Count; i++) {
+            Soldier soldier = new Soldier(info[i], map, isHome);
             list.Add(soldier);
         }
         return list;
-    }
-    private Tactic CreateTactic(bool isHome) {
-        Tactic tactic = new Tactic();
-        return tactic;
     }
 }

@@ -9,23 +9,25 @@ namespace ENGINE {
                 Map mMap;
                 Tactic homeTactic;
                 Tactic awayTactic;
-                List<Soldier> homeSoldiers = new List<Soldier>();
-                List<Soldier> awaySoldiers = new List<Soldier>();
+                Dictionary<int, Soldier> homeSoldiers = new Dictionary<int, Soldier>();
+                Dictionary<int, Soldier> awaySoldiers = new Dictionary<int, Soldier>();
                 List<Rating> mTemp = new List<Rating>();
                 public Battle(Map map, List<Soldier> home, List<Soldier> away, Tactic homeTactic, Tactic awayTactic) {
                     this.mMap = map;
                     this.homeTactic = homeTactic;
                     this.awayTactic = awayTactic;
-                    this.homeSoldiers = home;
-                    this.awaySoldiers = away;
+                    for(int i = 0; i < home.Count; i++)
+                        this.homeSoldiers.Add(home[i].GetID(), home[i]);
+                    for(int i = 0; i < away.Count; i++)
+                        this.awaySoldiers.Add(away[i].GetID(), away[i]);
                 }
                 public bool IsFinish() {
                     return false;
                 }
                 public List<Rating> Update() {
                     mTemp.Clear();
-                    for(int i = 0; i < homeSoldiers.Count; i++) {
-                        mTemp.Add(homeSoldiers[i].Update(homeSoldiers, awaySoldiers, homeTactic));
+                    foreach(var p in homeSoldiers) {
+                        mTemp.Add(p.Value.Update(homeSoldiers, awaySoldiers, homeTactic));
                     }
                     for(int i = 0; i < awaySoldiers.Count; i++) {
                         mTemp.Add(awaySoldiers[i].Update(awaySoldiers, homeSoldiers, awayTactic));

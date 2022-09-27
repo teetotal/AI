@@ -5,9 +5,7 @@ using System.Collections.Generic;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
-            public class Tactic {
-                
-            }
+            
         }
     }
 }

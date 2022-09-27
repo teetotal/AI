@@ -1,0 +1,120 @@
+{
+    "my": {
+        "tactic": {
+            "attack": 0,
+            "defence": 0
+        },
+        "soldiers": [
+            {
+                "id": 0,
+                "name": "",
+                "position": {
+                    "x": 1,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 2,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 1
+                }
+            },
+            {
+                "id": 1,
+                "name": "",
+                "position": {
+                    "x": 2,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 2,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 1
+                }
+            },
+            {
+                "id": 2,
+                "name": "",
+                "position": {
+                    "x": 3,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 2,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 1
+                }
+            }
+        ]
+    },
+    "opp": {
+        "tactic": {
+            "attack": 0,
+            "defence": 0
+        },
+        "soldiers": [
+            {
+                "id": 0,
+                "name": "",
+                "position": {
+                    "x": 2,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 1,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 3
+                }
+            },
+            {
+                "id": 1,
+                "name": "",
+                "position": {
+                    "x": 3,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 1,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 3
+                }
+            },
+            {
+                "id": 2,
+                "name": "",
+                "position": {
+                    "x": 4,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 1000,
+                    "movingDistance": 1,
+                    "attackPower": 2,
+                    "attackRange": 2,
+                    "teamwork": 3
+                }
+            }
+        ]
+    }
+}
