@@ -17,12 +17,15 @@ namespace ENGINE {
             }
             public class Map {
                 private int width, height;
+                private double maxDistance; // 가장 먼거리. weight 계산에 활용
                 private List<MapNode> mMapNodes = new List<MapNode>();
                 private List<MapNode> mObstacles = new List<MapNode>();
                 private int positionIdIndex;
                 public Map(int width, int height) {
                     this.width = width;
                     this.height = height;
+
+                    this.maxDistance =  new Position(0, 0, 0).GetDistance(new Position(width, height, 0));
 
                     positionIdIndex = (int)Math.Pow(10, ((int)System.Math.Log10( Math.Max(width, height))) + 1);
 
@@ -37,6 +40,9 @@ namespace ENGINE {
                 }
                 public int GetHeight() {
                     return height;
+                }
+                public double GetMaxDistance() {
+                    return maxDistance;
                 }
                 public List<MapNode> GetObstacles() {
                     return mObstacles;

@@ -71,6 +71,9 @@ namespace ENGINE {
                 public Position GetPosition() {
                     return position;
                 }
+                public SoldierAbility GetAbility() {
+                    return mSoldierAbility;
+                }
                 public Map GetMap() {
                     return map;
                 }
@@ -79,6 +82,7 @@ namespace ENGINE {
                     rating.isHome = isHome;
                     rating.soldierId = id;
                     rating.type = type;
+                    rating.rating = 0;
 
                     return rating;
                 }
@@ -92,22 +96,17 @@ namespace ENGINE {
                     var obstaclesNearby = from obstacle in obstacleList where pos.GetDistance(obstacle.position) <= mSoldierAbility.distance select obstacle;
                     int obstacleConcentration = obstaclesNearby.Count() / obstacleList.Count;
                     
-                    //0~1사이로 클수록 갈 이유가 없는 것
-                    float uneasy = 0;
+                    float weight = 0;
                     switch(mMovingType) {
                         case MOVING_TYPE.FORWARD:
-                        uneasy = GetMoveUneasyForward(obstacleConcentration, pos, myTeam, opponentTeam);
+                        weight = GetMoveWeightForward(obstacleConcentration, pos, myTeam, opponentTeam);
                         break;
                         case MOVING_TYPE.OVER:
                         break; 
                         default: //공격형
-                        uneasy = GetMoveUneasyDefault(obstacleConcentration, pos, myTeam, opponentTeam);
+                        weight = GetMoveWeightDefault(obstacleConcentration, pos, myTeam, opponentTeam);
                         break;
                     }
-                    
-                    //Console.WriteLine("W: {0}, {1}", pos.ToString(), weight);
-                    
-                    float weight = (1 - uneasy) * 0.5f; //max = 0.5
                     return weight;
                 }
                 /*
@@ -118,22 +117,20 @@ namespace ENGINE {
                     팀웍 형: 같은편이 많은 쪽으로 
                     선봉 형: 혼자서도 돌격
                 */
-                private float GetMoveUneasyDefault(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
-                    //장애물 비율
-                    float uneasy = obstacleConcentration;
-                    //사정거리내 적의 수
-                    float enemyRate = (from opp in opponentTeam where pos.GetDistance(opp.GetPosition()) <= mSoldierAbility.attackRange select opp).Count() / opponentTeam.Count;
-                    //사정거리에 정확히 걸려 있는 적
-                    float targetRate = (from opp in opponentTeam where pos.GetDistance(opp.GetPosition()) == mSoldierAbility.attackRange select opp).Count() / opponentTeam.Count;
-                    //거리안에 있는 같은 편수. 팀웍 능력치
-                    float myTeamRate = (from my in myTeam where pos.GetDistance(my.GetPosition()) <= mSoldierAbility.teamwork select my).Count() / myTeam.Count;
-                    
-                    return uneasy;
+                private float GetMoveWeightDefault(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    List<MoveWeight.Fn> list = MoveWeight.Instance.GetFnDefault();
+                    for(int i =0; i < list.Count; i++) {
+                        float ret = list[i](this, obstacleConcentration, pos, myTeam, opponentTeam);
+                        if(ret > 0) {
+                            return ret;
+                        }
+                    }
+                    return 0;
                 }
                 /*
 
                 */
-                private float GetMoveUneasyForward(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                private float GetMoveWeightForward(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
                     float uneasy = obstacleConcentration;
                     if(isHome)
                         uneasy -= (pos.y - position.y) * 0.5f;
@@ -210,11 +207,11 @@ namespace ENGINE {
                     */
 
                     //do ...
-                    Position pos = ret.First().position;
-                    rating.rating = GetMoveWeight(pos, myTeam, opponentTeam);
-                    rating.targetId = map.GetPositionId(pos);
-
-
+                    if(ret != null && ret.Count() > 0) {
+                        Position pos = ret.First().position;
+                        rating.rating = GetMoveWeight(pos, myTeam, opponentTeam);
+                        rating.targetId = map.GetPositionId(pos);
+                    }
                     return rating;
                 }
                 /* ==================================================
