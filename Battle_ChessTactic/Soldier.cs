@@ -8,8 +8,25 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
             public class Soldier {
+                public class State {
+                    public Soldier mSoldier;
+                    public bool isDie = false;
+                    public float damage = 0;
+                    public float attack = 0;
+                    public State(Soldier soldier) {
+                        mSoldier = soldier;
+                    }
+                    public void Reset() {
+                        isDie = false;
+                        damage = 0;
+                        attack = 0;
+                    }
+                }
+                private State mState; //한 스텝마다의 상태 업데이트
                 private SoldierInfo mSoldierInfo;
                 private Map map;
+                private Battle mBattle = null;
+                private float damage = 0;
                 delegate Rating FnEstimation(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic);
                 delegate void FnAction(int id);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
@@ -19,14 +36,19 @@ namespace ENGINE {
                     this.mSoldierInfo.isHome = isHome;
                     this.map = map;
 
+                    mState = new State(this);
+
                     mDicFunc[BehaviourType.MOVE] = Move;
                     mDicFunc[BehaviourType.ATTACK] = Attack;
                     mDicFunc[BehaviourType.KEEP] = Keep;
 
                     mListEstimation = new List<FnEstimation>() { GetRatingMove, GetRatingAttack, GetRatingKeep };
                 }
+                public void SetBattle(Battle battle) {
+                    mBattle = battle;
+                }
                 public Rating Update(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
-                    
+                    mState.Reset();
                     Rating maxRating = mListEstimation[0](myTeam, opponentTeam, tactic);
 
                     for(int i = 1; i < mListEstimation.Count; i++) {
@@ -44,11 +66,31 @@ namespace ENGINE {
                     mDicFunc[rating.type](rating.targetId);
                     RatingPool.Instance.GetPool().Release(rating);
                 }
+                public SoldierInfo GetInfo() {
+                    return mSoldierInfo;
+                }
+                public State GetState() {
+                    return mState;
+                }
+                public void SetDie() {
+                    mState.Reset();
+                }
+                public float GetHP() {
+                    return (mSoldierInfo.ability.HP - damage) / mSoldierInfo.ability.HP;
+                }
+                public bool IsDie() {
+                    if(mSoldierInfo.ability.HP <= damage)
+                        return true;
+                    return false;
+                }
                 public bool IsHome() {
                     return mSoldierInfo.isHome;
                 }
                 public int GetID() {
                     return mSoldierInfo.id;
+                }
+                public string GetName() {
+                    return mSoldierInfo.name;
                 }
                 public Position GetPosition() {
                     return mSoldierInfo.position;
@@ -195,12 +237,23 @@ namespace ENGINE {
                 ===================================================== */
                 private bool IsThereEnemy(Position pos, List<Soldier> opponentTeam) {
                     for(int i = 0; i < opponentTeam.Count; i++) {
-                        Position p = opponentTeam[i].GetPosition();
-                        if(p.x == pos.x && p.y == pos.y) {
+                        Soldier target = opponentTeam[i];
+                        Position p = target.GetPosition();
+                        if(p.x == pos.x && p.y == pos.y && !target.IsDie()) {
                             return true;
                         }
                     }
                     return false;
+                }
+                private int GetEnemyId(Position pos, List<Soldier> opponentTeam) {
+                    for(int i = 0; i < opponentTeam.Count; i++) {
+                        Soldier target = opponentTeam[i];
+                        Position p = target.GetPosition();
+                        if(p.x == pos.x && p.y == pos.y && !target.IsDie()) {
+                            return opponentTeam[i].GetID();
+                        }
+                    }
+                    return -1;
                 }
                 private Rating GetRatingAttack(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.ATTACK);
@@ -214,7 +267,7 @@ namespace ENGINE {
                             where   CheckUnMovablePositionStraight(node.position, obstacles) == false && 
                                     CheckUnMovablePositionCross(node.position, obstacles) == false &&
                                     node.isObstacle == false &&
-                                    IsThereEnemy(node.position, opponentTeam.Values.ToList())
+                                    IsThereEnemy(node.position, opponentTeam.Values.ToList()) //누구를 먼저 공격할 것인가
                             select  node;
                     
                     if(ret == null || ret.Count() == 0) {
@@ -222,7 +275,8 @@ namespace ENGINE {
                         rating.targetId = -1;
                     } else {
                         rating.rating = 1.0f;
-                        rating.targetId = map.GetPositionId(ret.First().position);
+                        //solider id로 변경
+                        rating.targetId = GetEnemyId(ret.First().position, opponentTeam.Values.ToList());
                     }
                             
                     return rating;
@@ -239,7 +293,20 @@ namespace ENGINE {
                     mSoldierInfo.position = map.GetPosition(id);
                 }
                 private void Attack(int id) {
-
+                    Soldier enemy = mBattle.GetSoldier(!mSoldierInfo.isHome, id);
+                    //사정거리 안에 있는지 확인
+                    if(mSoldierInfo.position.GetDistance(enemy.GetPosition()) <= mSoldierInfo.ability.attackRange ){
+                        float damage = mSoldierInfo.ability.attackPower; //명중률 적용해야함
+                        mState.attack += damage;
+                        enemy.UnderAttack(damage);
+                    }
+                }
+                public void UnderAttack(float damage) {
+                    mState.damage += damage;
+                    this.damage += damage;
+                    if(this.damage >= mSoldierInfo.ability.HP) {
+                        mState.isDie = true;
+                    }
                 }
                 private void Keep(int id) {
 

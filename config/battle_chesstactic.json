@@ -7,7 +7,7 @@
         "soldiers": [
             {
                 "id": 0,
-                "name": "",
+                "name": "우리팀1",
                 "position": {
                     "x": 1,
                     "y": 0,
@@ -15,7 +15,7 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 2,
                     "attackPower": 2,
                     "attackRange": 2,
@@ -24,7 +24,7 @@
             },
             {
                 "id": 1,
-                "name": "",
+                "name": "우리팀2",
                 "position": {
                     "x": 2,
                     "y": 0,
@@ -32,7 +32,7 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 2,
                     "attackPower": 2,
                     "attackRange": 2,
@@ -41,7 +41,7 @@
             },
             {
                 "id": 2,
-                "name": "",
+                "name": "우리팀3",
                 "position": {
                     "x": 3,
                     "y": 0,
@@ -49,7 +49,7 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 2,
                     "attackPower": 2,
                     "attackRange": 2,
@@ -66,7 +66,7 @@
         "soldiers": [
             {
                 "id": 0,
-                "name": "",
+                "name": "상대팀1",
                 "position": {
                     "x": 2,
                     "y": 5,
@@ -74,7 +74,7 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackRange": 2,
@@ -83,7 +83,7 @@
             },
             {
                 "id": 1,
-                "name": "",
+                "name": "상대팀2",
                 "position": {
                     "x": 3,
                     "y": 5,
@@ -91,7 +91,7 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackRange": 2,
@@ -100,7 +100,7 @@
             },
             {
                 "id": 2,
-                "name": "",
+                "name": "상대팀3",
                 "position": {
                     "x": 4,
                     "y": 5,
@@ -108,7 +108,7 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 1000,
+                    "HP": 100,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackRange": 2,
