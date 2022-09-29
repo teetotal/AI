@@ -12,11 +12,13 @@ namespace ENGINE {
                     public Soldier mSoldier;
                     public bool isDie = false;
                     public float damage = 0;
+                    public float damagePre = 0; //이전에 받은 데미지.
                     public float attack = 0;
                     public State(Soldier soldier) {
                         mSoldier = soldier;
                     }
                     public void Reset() {
+                        damagePre = damage;
                         isDie = false;
                         damage = 0;
                         attack = 0;
@@ -136,7 +138,7 @@ namespace ENGINE {
                 private float GetMoveWeightDefault(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
                     List<MoveWeight.Fn> list = MoveWeight.Instance.GetFnDefault();
                     for(int i =0; i < list.Count; i++) {
-                        float ret = list[i](this, obstacleConcentration, pos, myTeam, opponentTeam);
+                        float ret = list[i](this, obstacleConcentration, pos, myTeam, opponentTeam, i);
                         if(ret > 0) {
                             return ret;
                         }
@@ -255,6 +257,12 @@ namespace ENGINE {
                     }
                     return -1;
                 }
+                public bool IsRetreat() {
+                    if(mState.damagePre > 0 && GetHP() <= mSoldierInfo.ability.avoidance) {
+                        return true;
+                    }
+                    return false;
+                }
                 private Rating GetRatingAttack(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.ATTACK);
                     //옮겨 갈수 있는 모든 영역
@@ -270,7 +278,7 @@ namespace ENGINE {
                                     IsThereEnemy(node.position, opponentTeam.Values.ToList()) //누구를 먼저 공격할 것인가
                             select  node;
                     
-                    if(ret == null || ret.Count() == 0) {
+                    if(ret == null || ret.Count() == 0 || IsRetreat()) {
                         rating.rating = 0;
                         rating.targetId = -1;
                     } else {

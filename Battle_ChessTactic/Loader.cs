@@ -12,6 +12,7 @@ namespace ENGINE {
                 public float attackPower { get; set; }
                 public float attackRange { get; set; } // 공격 범위
                 public float teamwork { get; set; } // 같은편이 얼마 이상 있으면 그쪽으로 이동
+                public float avoidance { get; set; } //회피력
             }
             public class SoldierInfo {
                 public int id { get; set; }
