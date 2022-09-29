@@ -40,7 +40,9 @@ namespace ENGINE {
                     } 
                     // 최대한 멀리
                     b  = (float)(soldier.GetPosition().GetDistance(pos) / soldier.GetMap().GetMaxDistance());
-                    return GetWeight((a * 0.5f) + (b * 0.5f), seq);
+                    
+                    float retreat = soldier.GetInfo().ability.retreat;
+                    return GetWeight((a * (1 - retreat)) + (b * retreat), seq);
                 }
                 public float GetWeightDefault_OnTarget(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam, int seq) {
                     //사정거리에 정확히 걸려 있는 적

@@ -22,10 +22,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             },
             {
@@ -45,10 +47,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             },
             {
@@ -68,10 +72,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             }
         ]
@@ -99,10 +105,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             },
             {
@@ -122,10 +130,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             },
             {
@@ -145,10 +155,12 @@
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5
+                    "avoidance": 0.5,
+                    "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3
+                    "firstAid": 3,
+                    "firstAidEffect": 20
                 }
             }
         ]

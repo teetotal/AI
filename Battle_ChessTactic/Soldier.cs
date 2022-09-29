@@ -301,11 +301,11 @@ namespace ENGINE {
                     return rating;
                 }
                 /* ==================================================
-                    Keep
+                    Recovery
                 ===================================================== */
                 private Rating GetRatingRecovery(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.RECOVERY);
-                    if(GetHP() < 0.2f && mSoldierInfo.item.firstAid > 0) { //구급약 섭취 시점. 처음 HP의 반이 될때, 그다음은 섭취한 시점의 반이 될때 so on
+                    if(GetHP() <= mSoldierInfo.nextFirstAidHP && mSoldierInfo.item.firstAid > 0) { 
                         rating.rating = 1.1f;
                     }
                     return rating;
@@ -313,6 +313,8 @@ namespace ENGINE {
                 //---------------------------------------------------
                 private void Recovery(int id) {
                     mSoldierInfo.item.firstAid--;
+                    mSoldierInfo.nextFirstAidHP = GetHP() * 0.5f; //구급약 섭취 시점. 처음 HP의 반이 될때, 그다음은 섭취한 시점의 반이 될때 so on
+                    damage = MathF.Max(0, damage - mSoldierInfo.item.firstAidEffect);
                 }
                 private void Move(int id) {
                     mSoldierInfo.position = map.GetPosition(id);
