@@ -9,17 +9,23 @@ namespace ENGINE {
             public class SoldierAbility {
                 public float HP { get; set; }
                 public int movingDistance { get; set; } //speed
-                public float attackPower { get; set; }
+                public float attackPower { get; set; } // 최대 damage
+                public float attackPowerMin { get; set; } //빗맞았을때 damage
+                public float attackAccuracy { get; set; } //공격 정확도
                 public float attackRange { get; set; } // 공격 범위
                 public float teamwork { get; set; } // 같은편이 얼마 이상 있으면 그쪽으로 이동
                 public float avoidance { get; set; } //회피력
             }
+            public class SoliderItem {
+                public int firstAid { get; set; } //구급약. 
+            } 
             public class SoldierInfo {
                 public int id { get; set; }
                 public string name { get; set; } = string.Empty;
                 public Position position { get; set; } = new Position();
                 public MOVING_TYPE movingType { get; set; }
                 public SoldierAbility ability { get; set; } = new SoldierAbility();
+                public SoliderItem item { get; set; } = new SoliderItem();
                 public bool isHome;
             }
             public class Tactic {

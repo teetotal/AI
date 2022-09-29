@@ -15,12 +15,17 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 100,
+                    "HP": 50,
                     "movingDistance": 2,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             },
             {
@@ -31,14 +36,19 @@
                     "y": 0,
                     "z": 0
                 },
-                "movingType": 2,
+                "movingType": 0,
                 "ability": {
-                    "HP": 100,
+                    "HP": 50,
                     "movingDistance": 2,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             },
             {
@@ -51,12 +61,17 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 100,
+                    "HP": 50,
                     "movingDistance": 2,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             }
         ]
@@ -77,12 +92,17 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 100,
+                    "HP": 50,
                     "movingDistance": 1,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             },
             {
@@ -95,12 +115,17 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 100,
+                    "HP": 50,
                     "movingDistance": 1,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             },
             {
@@ -111,14 +136,19 @@
                     "y": 5,
                     "z": 0
                 },
-                "movingType": 0,
+                "movingType": 2,
                 "ability": {
-                    "HP": 100,
-                    "movingDistance": 1,
+                    "HP": 50,
+                    "movingDistance": 3,
                     "attackPower": 2,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
                     "avoidance": 0.5
+                },
+                "item": {
+                    "firstAid": 3
                 }
             }
         ]

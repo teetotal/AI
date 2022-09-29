@@ -6,6 +6,7 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
             public enum BehaviourType {
+                RECOVERY,
                 MOVE,
                 ATTACK,
                 KEEP,

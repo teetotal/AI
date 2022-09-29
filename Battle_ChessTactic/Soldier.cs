@@ -11,6 +11,7 @@ namespace ENGINE {
                 public class State {
                     public Soldier mSoldier;
                     public bool isDie = false;
+                    public bool isHit = false; //명중
                     public float damage = 0;
                     public float damagePre = 0; //이전에 받은 데미지.
                     public float attack = 0;
@@ -20,6 +21,7 @@ namespace ENGINE {
                     public void Reset() {
                         damagePre = damage;
                         isDie = false;
+                        isHit = false;
                         damage = 0;
                         attack = 0;
                     }
@@ -33,18 +35,19 @@ namespace ENGINE {
                 delegate void FnAction(int id);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
                 private List<FnEstimation> mListEstimation;
+                private Random rand = new Random();
                 public Soldier(SoldierInfo info, Map map, bool isHome) {
                     this.mSoldierInfo = info;
                     this.mSoldierInfo.isHome = isHome;
                     this.map = map;
 
                     mState = new State(this);
-
+                    mDicFunc[BehaviourType.RECOVERY] = Recovery;
                     mDicFunc[BehaviourType.MOVE] = Move;
                     mDicFunc[BehaviourType.ATTACK] = Attack;
                     mDicFunc[BehaviourType.KEEP] = Keep;
 
-                    mListEstimation = new List<FnEstimation>() { GetRatingMove, GetRatingAttack, GetRatingKeep };
+                    mListEstimation = new List<FnEstimation>() { GetRatingRecovery, GetRatingMove, GetRatingAttack, GetRatingKeep };
                 }
                 public void SetBattle(Battle battle) {
                     mBattle = battle;
@@ -297,6 +300,20 @@ namespace ENGINE {
                     rating.rating = 0.1f;
                     return rating;
                 }
+                /* ==================================================
+                    Keep
+                ===================================================== */
+                private Rating GetRatingRecovery(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
+                    Rating rating = SetRating(BehaviourType.RECOVERY);
+                    if(GetHP() < 0.2f && mSoldierInfo.item.firstAid > 0) { //구급약 섭취 시점. 처음 HP의 반이 될때, 그다음은 섭취한 시점의 반이 될때 so on
+                        rating.rating = 1.1f;
+                    }
+                    return rating;
+                }
+                //---------------------------------------------------
+                private void Recovery(int id) {
+                    mSoldierInfo.item.firstAid--;
+                }
                 private void Move(int id) {
                     mSoldierInfo.position = map.GetPosition(id);
                 }
@@ -304,7 +321,14 @@ namespace ENGINE {
                     Soldier enemy = mBattle.GetSoldier(!mSoldierInfo.isHome, id);
                     //사정거리 안에 있는지 확인
                     if(mSoldierInfo.position.GetDistance(enemy.GetPosition()) <= mSoldierInfo.ability.attackRange ){
-                        float damage = mSoldierInfo.ability.attackPower; //명중률 적용해야함
+                        float damage = 0;
+                        int randVal = rand.Next(100);
+                        if(randVal < mSoldierInfo.ability.attackAccuracy) {//명중률
+                            damage = mSoldierInfo.ability.attackPower; 
+                            mState.isHit = true;
+                        }
+                        else
+                            damage = mSoldierInfo.ability.attackPowerMin;
                         mState.attack += damage;
                         enemy.UnderAttack(damage);
                     }
