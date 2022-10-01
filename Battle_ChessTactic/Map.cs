@@ -63,7 +63,7 @@ namespace ENGINE {
                     
                     return ret.ToList();
                 }
-                public List<MapNode> GetMovalbleList(Position position, MOVING_TYPE type, float distance) {
+                public List<MapNode> GetMovalbleList(bool isHome, Position position, MOVING_TYPE type, float distance) {
                     var ret = from node in mMapNodes
                                 where position.GetDistance(node.position) <= distance
                                 select node;
@@ -71,8 +71,13 @@ namespace ENGINE {
                         case MOVING_TYPE.CROSS:
                         ret = ret.Where(e=> e.position.x != position.x && e.position.y != position.y);
                         break;
+                        case MOVING_TYPE.FORWARD:
+                        ret = ret.Where(e=> (   e.position.x == position.x &&
+                                                e.position.y != position.y &&
+                                                ((isHome && e.position.y > position.y) || (!isHome && e.position.y < position.y))
+                                            ) || (e.position.x != position.x && e.position.y == position.y));
+                        break;
                         default:
-                        //장애물이 있을때 그쪽 방향으로는 막혀서 이후 부분을 넘어가지 못해야 한다.
                         ret = ret.Where(e=> (e.position.x == position.x && e.position.y != position.y) || (e.position.x != position.x && e.position.y == position.y));
                         break;
                     } 

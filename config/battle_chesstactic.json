@@ -13,10 +13,10 @@
                     "y": 0,
                     "z": 0
                 },
-                "movingType": 2,
+                "movingType": 3,
                 "ability": {
                     "HP": 50,
-                    "movingDistance": 2,
+                    "movingDistance": 1,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,

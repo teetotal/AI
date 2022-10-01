@@ -127,9 +127,6 @@ namespace ENGINE {
                     
                     float weight = 0;
                     switch(this.mSoldierInfo.movingType) {
-                        case MOVING_TYPE.FORWARD:
-                        weight = GetMoveWeightForward(obstacleConcentration, pos, myTeam, opponentTeam);
-                        break;
                         case MOVING_TYPE.OVER:
                         break; 
                         default: //공격형
@@ -147,17 +144,6 @@ namespace ENGINE {
                         }
                     }
                     return 0;
-                }
-                /*
-
-                */
-                private float GetMoveWeightForward(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
-                    float uneasy = obstacleConcentration;
-                    if(mSoldierInfo.isHome)
-                        uneasy -= (pos.y - mSoldierInfo.position.y) * 0.5f;
-                    else 
-                        uneasy -= (mSoldierInfo.position.y - pos.y) * 0.5f;
-                    return uneasy;
                 }
                 //straight의 장애물 뒷편 좌표 체크
                 private bool CheckUnMovablePositionStraight(Position pos, List<Position> obstacles) {
@@ -201,12 +187,13 @@ namespace ENGINE {
                 private Rating GetRatingMove(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.MOVE);
                     //옮겨 갈수 있는 모든 영역
-                    var list = map.GetMovalbleList(mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
+                    var list = map.GetMovalbleList(mSoldierInfo.isHome, mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
                     //obstacle
                     var obstacles = (from node in list where node.isObstacle select node.position).ToList();
                     IEnumerable<MapNode>? ret = null;
                     //장애물 뒷편은 제거
                     switch(mSoldierInfo.movingType) {
+                        case MOVING_TYPE.FORWARD: 
                         case MOVING_TYPE.STRAIGHT: {
                             ret =   from node in list 
                                     where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
