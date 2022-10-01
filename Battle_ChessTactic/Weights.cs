@@ -7,13 +7,52 @@ using ENGINE;
 namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
+            public class AvoidanceWeight : Singleton<AvoidanceWeight> {
+                public AvoidanceWeight() {
+
+                }
+                public float GetWeightDefault(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    // 적군의 사정거리에서 먼곳으로
+                    int cnt = 0;
+                    double distanceSum = 0;
+                    for(int i = 0; i < opponentTeam.Count; i++) {
+                        Soldier solier = opponentTeam[i];
+                        if(solier.GetPosition().GetDistance(pos) > solier.GetAbility().attackRange)
+                            cnt++;
+                        distanceSum += solier.GetPosition().GetDistance(pos);
+                    }
+
+                    //적들과의 거리에서 가장 먼곳으로
+                    float ret = ((cnt / opponentTeam.Count) * 0.5f) + (float)((distanceSum / (opponentTeam.Count * soldier.GetMap().GetMaxDistance()) * 0.5f));
+                    return ret;
+                }
+                /*
+                public float GetWeightOrver(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    float a = 0, b = 0;
+                    //가장 가까이 있는 아군
+                    var q = from my in myTeam
+                            orderby my.GetPosition().GetDistance(pos)
+                            select my.GetPosition();
+
+                    if(q != null && q.Count() > 0) {
+                        a = 1 - (float)(pos.GetDistance(q.First()) / soldier.GetMap().GetMaxDistance());
+                    } 
+                    // 최대한 멀리
+                    b  = (float)(soldier.GetPosition().GetDistance(pos) / soldier.GetMap().GetMaxDistance());
+                    
+                    float retreat = soldier.GetInfo().ability.retreat;
+                    return (a * (1 - retreat)) + (b * retreat);
+                }
+                */
+                
+            }
             public class MoveWeight : Singleton<MoveWeight> {
                 public delegate float Fn(Soldier solidier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam, int seq);
                 private List<Fn> mFnDefault;
                 float[] biases;
                 float range;
                 public MoveWeight() { 
-                    mFnDefault = new List<Fn>() { GetWeightDefault_Avoidance , GetWeightDefault_OnTarget, GetWeightDefault_InnerTarget, GetWeightDefault_ApproachingEnemy };
+                    mFnDefault = new List<Fn>() { GetWeightDefault_OnTarget, GetWeightDefault_InnerTarget, GetWeightDefault_ApproachingEnemy };
                     int level = mFnDefault.Count;
                     range = 0.8f / level;
                     biases = new float[level]; 
@@ -26,23 +65,6 @@ namespace ENGINE {
                 }
                 public float GetWeight(float val, int seq) {
                     return (val * range) + biases[seq];
-                }
-                public float GetWeightDefault_Avoidance(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam, int seq) {
-                    if(!soldier.IsRetreat())
-                        return 0;
-                    float a = 0, b = 0;
-                    //가장 가까이 있는 아군쪽으로
-                    var q = from my in myTeam
-                            orderby my.GetPosition().GetDistance(pos)
-                            select my.GetPosition();
-                    if(q != null && q.Count() > 0) {
-                        a = 1 - (float)(pos.GetDistance(q.First()) / soldier.GetMap().GetMaxDistance());
-                    } 
-                    // 최대한 멀리
-                    b  = (float)(soldier.GetPosition().GetDistance(pos) / soldier.GetMap().GetMaxDistance());
-                    
-                    float retreat = soldier.GetInfo().ability.retreat;
-                    return GetWeight((a * (1 - retreat)) + (b * retreat), seq);
                 }
                 public float GetWeightDefault_OnTarget(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam, int seq) {
                     //사정거리에 정확히 걸려 있는 적
@@ -65,12 +87,11 @@ namespace ENGINE {
                     return 0;
                 }
                 public float GetWeightDefault_ApproachingEnemy(Soldier soldier, float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam, int seq) {
-                    //적과의 거리. 장애물 고려
+                    //적과의 거리.
                     var distanceToEnemy = (from opp in opponentTeam orderby pos.GetDistance(opp.GetPosition()) select opp.GetPosition());
                     if(distanceToEnemy != null && distanceToEnemy.Count() > 0) {
                         float weight = 1 - (float)(pos.GetDistance(distanceToEnemy.First()) / soldier.GetMap().GetMaxDistance());
-                        //거리 : 장애물 비중 = 1:1
-                        weight = (weight * 0.5f) + (obstacleConcentration * 0.5f);
+                        //weight = (weight * 0.5f) + (obstacleConcentration * 0.5f);
                         return GetWeight(weight, seq);
                     }
                     return 0;

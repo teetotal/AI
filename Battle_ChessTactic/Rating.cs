@@ -6,10 +6,12 @@ namespace ENGINE {
     namespace GAMEPLAY {
         namespace BATTLE_CHESS_TACTIC {
             public enum BehaviourType {
+                AVOIDANCE,
                 RECOVERY,
-                MOVE,
                 ATTACK,
+                MOVE,
                 KEEP,
+                MAX
             }
             public class Rating {
                 public bool isHome;

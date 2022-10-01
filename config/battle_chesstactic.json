@@ -15,14 +15,14 @@
                 },
                 "movingType": 3,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
@@ -40,14 +40,14 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 2,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
@@ -65,14 +65,14 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 2,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 1,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
@@ -98,14 +98,14 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
@@ -123,14 +123,14 @@
                 },
                 "movingType": 0,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 1,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
@@ -148,14 +148,14 @@
                 },
                 "movingType": 2,
                 "ability": {
-                    "HP": 50,
+                    "HP": 30,
                     "movingDistance": 3,
                     "attackPower": 2,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
                     "teamwork": 3,
-                    "avoidance": 0.5,
+                    "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {

@@ -12,6 +12,7 @@ namespace ENGINE {
                     public Soldier mSoldier;
                     public bool isDie = false;
                     public bool isHit = false; //명중
+                    public bool isRetreat = false; //피신
                     public float damage = 0;
                     public float damagePre = 0; //이전에 받은 데미지.
                     public float attack = 0;
@@ -22,6 +23,7 @@ namespace ENGINE {
                         damagePre = damage;
                         isDie = false;
                         isHit = false;
+                        isRetreat = false;
                         damage = 0;
                         attack = 0;
                     }
@@ -31,6 +33,7 @@ namespace ENGINE {
                 private Map map;
                 private Battle mBattle = null;
                 private float damage = 0;
+                private BehaviourType preAction = BehaviourType.MAX; //이전에 했던 액션
                 delegate Rating FnEstimation(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic);
                 delegate void FnAction(int id);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
@@ -39,21 +42,32 @@ namespace ENGINE {
                 public Soldier(SoldierInfo info, Map map, bool isHome) {
                     this.mSoldierInfo = info;
                     this.mSoldierInfo.isHome = isHome;
+                    this.mSoldierInfo.nextAvoidHP = this.mSoldierInfo.ability.avoidance;
                     this.map = map;
 
                     mState = new State(this);
-                    mDicFunc[BehaviourType.RECOVERY] = Recovery;
-                    mDicFunc[BehaviourType.MOVE] = Move;
-                    mDicFunc[BehaviourType.ATTACK] = Attack;
-                    mDicFunc[BehaviourType.KEEP] = Keep;
+                    mDicFunc[BehaviourType.AVOIDANCE] = Avoidance;  // 1.2
+                    mDicFunc[BehaviourType.RECOVERY] = Recovery;    // 1.1
+                    mDicFunc[BehaviourType.ATTACK] = Attack;        // 1.0
+                    mDicFunc[BehaviourType.MOVE] = Move;            // 0.9
+                    mDicFunc[BehaviourType.KEEP] = Keep;            // 0.1
 
-                    mListEstimation = new List<FnEstimation>() { GetRatingRecovery, GetRatingMove, GetRatingAttack, GetRatingKeep };
+                    mListEstimation = new List<FnEstimation>() { GetRatingAvoidance, GetRatingRecovery, GetRatingAttack, GetRatingMove, GetRatingKeep };
                 }
                 public void SetBattle(Battle battle) {
                     mBattle = battle;
                 }
                 public Rating Update(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     mState.Reset();
+                    for(int i = 0; i < mListEstimation.Count; i++) {
+                        Rating rating = mListEstimation[i](myTeam, opponentTeam, tactic);
+                        if(rating.rating > 0)
+                            return rating;
+                        else
+                            RatingPool.Instance.GetPool().Release(rating);
+                    }
+                    throw new Exception("Estimation Failure");
+                    /*
                     Rating maxRating = mListEstimation[0](myTeam, opponentTeam, tactic);
 
                     for(int i = 1; i < mListEstimation.Count; i++) {
@@ -66,8 +80,10 @@ namespace ENGINE {
                         }
                     }
                     return maxRating;
+                    */
                 }
                 public void Action(Rating rating) {
+                    preAction = rating.type;
                     mDicFunc[rating.type](rating.targetId);
                     RatingPool.Instance.GetPool().Release(rating);
                 }
@@ -179,13 +195,41 @@ namespace ENGINE {
                                 return true;
                             else if(position.x > obstacle.x && obstacle.x > pos.x)
                                 return true;
-                        }
+                        } else if(gradient2 != 1) //기울기가 1이 아닌경우
+                            return true;
                     }
                     return false;
+                }
+                private IEnumerable<MapNode>? GetMovableArea(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
+                    //옮겨 갈수 있는 모든 영역
+                    var list = map.GetMovalbleList(mSoldierInfo.isHome, mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
+                    //obstacle
+                    var obstacles = (from node in list where node.isObstacle select node.position).ToList();
+                    IEnumerable<MapNode>? ret = null;
+                    //장애물 뒷편은 제거
+                    switch(mSoldierInfo.movingType) {
+                        case MOVING_TYPE.FORWARD: 
+                        case MOVING_TYPE.STRAIGHT: {
+                            ret =   from node in list 
+                                    where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
+                                    select node;
+                        }
+                        break;
+                        case MOVING_TYPE.CROSS: {
+                            ret =   from node in list 
+                                    where CheckUnMovablePositionCross(node.position, obstacles) == false && node.isObstacle == false 
+                                    select node;
+                        }
+                        break;
+                    }
+                    return ret;
                 }
 
                 private Rating GetRatingMove(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.MOVE);
+                    if(preAction == BehaviourType.AVOIDANCE) //이전 액션이 회피면 move하지 않는다. move하면 다시 상대에게 달려든다.
+                        return rating;
+                    /*
                     //옮겨 갈수 있는 모든 영역
                     var list = map.GetMovalbleList(mSoldierInfo.isHome, mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
                     //obstacle
@@ -208,18 +252,22 @@ namespace ENGINE {
                                     select node;
                         }
                         break;
-                    }
-                    /*
-                    var temp = ret.ToList();
-                    for(int i = 0; i < temp.Count; i++) {
-                        Console.WriteLine("{0}", temp[i].position.ToString());
-                    }
-                    */
-
-                    //do ...
-                    if(ret != null && ret.Count() > 0) {
-                        Position pos = ret.First().position;
-                        rating.rating = GetMoveWeight(pos, myTeam.Values.ToList(), opponentTeam.Values.ToList());
+                    }*/
+                    var list = GetMovableArea(myTeam, opponentTeam, tactic);
+                    if(list != null && list.Count() > 0) {
+                        switch(mSoldierInfo.movingType) {
+                            case MOVING_TYPE.FORWARD: 
+                            case MOVING_TYPE.STRAIGHT: {
+                                list = list.OrderByDescending(node=>GetMoveWeight(node.position, myTeam.Values.ToList(), opponentTeam.Values.ToList()));
+                            }
+                            break;
+                            case MOVING_TYPE.CROSS: {
+                                list = list.OrderByDescending(node=>GetMoveWeight(node.position, myTeam.Values.ToList(), opponentTeam.Values.ToList()));
+                            }
+                            break;
+                        }
+                        Position pos = list.First().position;
+                        rating.rating = 0.9f;//weight값은 내부에서 경쟁할때만 의미 있음. GetMoveWeight(pos, myTeam.Values.ToList(), opponentTeam.Values.ToList());
                         rating.targetId = map.GetPositionId(pos);
                     }
                     return rating;
@@ -247,9 +295,22 @@ namespace ENGINE {
                     }
                     return -1;
                 }
-                public bool IsRetreat() {
-                    if(mState.damagePre > 0 && GetHP() <= mSoldierInfo.ability.avoidance) {
-                        return true;
+                private bool CheckUnAttackablePositionCross(Position pos, List<Position> obstacles) {
+                    for(int i = 0; i < obstacles.Count; i++) {
+                        Position obstacle = obstacles[i];
+                        if(pos.x == obstacle.x && pos.y == obstacle.y)
+                            return true;
+                        //obstacle과 기울기가 1인 관계에 있을경우
+                        float gradient = MathF.Abs((obstacle.y - pos.y ) / (obstacle.x - pos.x));
+                        //pos와 내 위치 기울기가 1일 경우 
+                        Position position = mSoldierInfo.position; 
+                        float gradient2 = MathF.Abs((pos.y - position.y ) / (pos.x - position.x));
+                        if(gradient == 1 && gradient2 == 1) {
+                            if(position.x < obstacle.x && obstacle.x < pos.x)
+                                return true;
+                            else if(position.x > obstacle.x && obstacle.x > pos.x)
+                                return true;
+                        } 
                     }
                     return false;
                 }
@@ -263,12 +324,12 @@ namespace ENGINE {
                     //장애물 뒷편은 제거
                     ret =   from    node in list 
                             where   CheckUnMovablePositionStraight(node.position, obstacles) == false && 
-                                    CheckUnMovablePositionCross(node.position, obstacles) == false &&
+                                    CheckUnAttackablePositionCross(node.position, obstacles) == false &&
                                     node.isObstacle == false &&
                                     IsThereEnemy(node.position, opponentTeam.Values.ToList()) //누구를 먼저 공격할 것인가
                             select  node;
                     
-                    if(ret == null || ret.Count() == 0 || IsRetreat()) {
+                    if(ret == null || ret.Count() == 0) {
                         rating.rating = 0;
                         rating.targetId = -1;
                     } else {
@@ -297,7 +358,58 @@ namespace ENGINE {
                     }
                     return rating;
                 }
+                /* ==================================================
+                    Avoidance
+                ===================================================== */
+                private float GetAvoidanceWeight(Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    
+                    //상하좌우에 몇개의 obstacle이 있는가
+                    var obstacleList = map.GetObstacles();
+                    var obstaclesNearby = from obstacle in obstacleList where pos.GetDistance(obstacle.position) <= mSoldierInfo.ability.movingDistance select obstacle;
+                    int obstacleConcentration = obstaclesNearby.Count() / obstacleList.Count;
+                    
+                    float weight = 0;
+                    switch(this.mSoldierInfo.movingType) {
+                        case MOVING_TYPE.OVER:
+                        break; 
+                        default:
+                        weight =  AvoidanceWeight.Instance.GetWeightDefault(this, obstacleConcentration, pos, myTeam, opponentTeam);
+                        break;
+                    }
+                    return weight;
+                }
+                private Rating GetRatingAvoidance(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
+                    Rating rating = SetRating(BehaviourType.AVOIDANCE);
+                    switch(mSoldierInfo.movingType) {
+                        case MOVING_TYPE.FORWARD: //forward는 후퇴 없음. 무조건 앞으로 나감
+                        break;
+                        default: {
+                            float hp = GetHP();
+                            if(mState.damagePre > 0 && hp <= mSoldierInfo.nextAvoidHP) {
+                                var list = GetMovableArea(myTeam, opponentTeam, tactic);
+                                if(list != null && list.Count() > 0) {
+                                    list = list.OrderByDescending(node=>GetAvoidanceWeight(node.position, myTeam.Values.ToList(), opponentTeam.Values.ToList()));
+                                    Position targetPos = list.First().position;
+                                    rating.targetId = map.GetPositionId(targetPos);
+                                    rating.rating = 1.2f;
+
+                                    if(hp < 0.1f) //hp가 10% 이하면 도망치지 않는다.
+                                        mSoldierInfo.nextAvoidHP = -1;
+                                    else {
+                                        mSoldierInfo.nextAvoidHP *= 0.5f; //다음번 회피 시점
+                                        mState.isRetreat = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    return rating;
+                }
                 //---------------------------------------------------
+                private void Avoidance(int id) {
+                    mSoldierInfo.position = map.GetPosition(id);
+                }
                 private void Recovery(int id) {
                     mSoldierInfo.item.firstAid--;
                     mSoldierInfo.nextFirstAidHP = GetHP() * 0.5f; //구급약 섭취 시점. 처음 HP의 반이 될때, 그다음은 섭취한 시점의 반이 될때 so on
@@ -329,9 +441,7 @@ namespace ENGINE {
                         mState.isDie = true;
                     }
                 }
-                private void Keep(int id) {
-
-                }
+                private void Keep(int id) { }
             }
         }
     }
