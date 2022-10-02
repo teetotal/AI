@@ -65,7 +65,7 @@ namespace ENGINE {
                 }
                 public List<MapNode> GetMovalbleList(bool isHome, Position position, MOVING_TYPE type, float distance) {
                     var ret = from node in mMapNodes
-                                where position.GetDistance(node.position) <= distance && position.GetDistance(node.position) > 0
+                                where position.GetDistance(node.position) <= distance && !position.IsEqual(node.position)
                                 select node;
 
                     switch(type) {

@@ -7,34 +7,9 @@
         "soldiers": [
             {
                 "id": 0,
-                "name": "우리팀1",
+                "name": "\uc6b0\ub9ac\ud3001",
                 "position": {
-                    "x": 1,
-                    "y": 0,
-                    "z": 0
-                },
-                "movingType": 3,
-                "ability": {
-                    "HP": 30,
-                    "movingDistance": 1,
-                    "attackPower": 2,
-                    "attackPowerMin": 0.7,
-                    "attackAccuracy": 70,
-                    "attackRange": 2,
-                    "teamwork": 1,
-                    "avoidance": 0.7,
-                    "retreat": 0.8
-                },
-                "item": {
-                    "firstAid": 3,
-                    "firstAidEffect": 20
-                }
-            },
-            {
-                "id": 1,
-                "name": "우리팀2",
-                "position": {
-                    "x": 2,
+                    "x": 0,
                     "y": 0,
                     "z": 0
                 },
@@ -42,7 +17,7 @@
                 "ability": {
                     "HP": 30,
                     "movingDistance": 2,
-                    "attackPower": 2,
+                    "attackPower": 4,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
@@ -51,15 +26,40 @@
                     "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3,
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 1,
+                "name": "\uc6b0\ub9ac\ud3002",
+                "position": {
+                    "x": 1,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
                     "firstAidEffect": 20
                 }
             },
             {
                 "id": 2,
-                "name": "우리팀3",
+                "name": "\uc6b0\ub9ac\ud3003",
                 "position": {
-                    "x": 3,
+                    "x": 2,
                     "y": 0,
                     "z": 0
                 },
@@ -67,7 +67,7 @@
                 "ability": {
                     "HP": 30,
                     "movingDistance": 2,
-                    "attackPower": 2,
+                    "attackPower": 4,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
@@ -76,7 +76,82 @@
                     "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3,
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 3,
+                "name": "\uc6b0\ub9ac\ud3004",
+                "position": {
+                    "x": 3,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 4,
+                "name": "\uc6b0\ub9ac\ud3005",
+                "position": {
+                    "x": 4,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 5,
+                "name": "\uc6b0\ub9ac\ud3006",
+                "position": {
+                    "x": 5,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
                     "firstAidEffect": 20
                 }
             }
@@ -90,32 +165,82 @@
         "soldiers": [
             {
                 "id": 0,
-                "name": "상대팀1",
+                "name": "\uc0c1\ub300\ud3001",
                 "position": {
-                    "x": 2,
+                    "x": 0,
                     "y": 5,
                     "z": 0
                 },
                 "movingType": 0,
                 "ability": {
                     "HP": 30,
-                    "movingDistance": 1,
-                    "attackPower": 2,
+                    "movingDistance": 2,
+                    "attackPower": 4,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
-                    "teamwork": 3,
+                    "teamwork": 1,
                     "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3,
+                    "firstAid": 1,
                     "firstAidEffect": 20
                 }
             },
             {
                 "id": 1,
-                "name": "상대팀2",
+                "name": "\uc0c1\ub300\ud3002",
+                "position": {
+                    "x": 1,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 1,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 2,
+                "name": "\uc0c1\ub300\ud3003",
+                "position": {
+                    "x": 2,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 3,
+                "name": "\uc0c1\ub300\ud3004",
                 "position": {
                     "x": 3,
                     "y": 5,
@@ -124,42 +249,67 @@
                 "movingType": 0,
                 "ability": {
                     "HP": 30,
-                    "movingDistance": 1,
-                    "attackPower": 2,
+                    "movingDistance": 2,
+                    "attackPower": 4,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
-                    "teamwork": 3,
+                    "teamwork": 1,
                     "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3,
+                    "firstAid": 1,
                     "firstAidEffect": 20
                 }
             },
             {
-                "id": 2,
-                "name": "상대팀3",
+                "id": 4,
+                "name": "\uc0c1\ub300\ud3005",
                 "position": {
                     "x": 4,
+                    "y": 5,
+                    "z": 0
+                },
+                "movingType": 1,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "id": 5,
+                "name": "\uc0c1\ub300\ud3006",
+                "position": {
+                    "x": 5,
                     "y": 5,
                     "z": 0
                 },
                 "movingType": 2,
                 "ability": {
                     "HP": 30,
-                    "movingDistance": 3,
-                    "attackPower": 2,
+                    "movingDistance": 2,
+                    "attackPower": 4,
                     "attackPowerMin": 0.7,
                     "attackAccuracy": 70,
                     "attackRange": 2,
-                    "teamwork": 3,
+                    "teamwork": 1,
                     "avoidance": 0.7,
                     "retreat": 0.8
                 },
                 "item": {
-                    "firstAid": 3,
+                    "firstAid": 1,
                     "firstAidEffect": 20
                 }
             }

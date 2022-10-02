@@ -139,7 +139,7 @@ namespace ENGINE {
                     //상하좌우에 몇개의 obstacle이 있는가
                     var obstacleList = map.GetObstacles();
                     var obstaclesNearby = from obstacle in obstacleList where pos.GetDistance(obstacle.position) <= mSoldierInfo.ability.movingDistance select obstacle;
-                    int obstacleConcentration = obstaclesNearby.Count() / obstacleList.Count;
+                    int obstacleConcentration = obstacleList.Count == 0 ? 0 : obstaclesNearby.Count() / obstacleList.Count;
                     
                     float weight = 0;
                     switch(this.mSoldierInfo.movingType) {
@@ -366,7 +366,7 @@ namespace ENGINE {
                     //상하좌우에 몇개의 obstacle이 있는가
                     var obstacleList = map.GetObstacles();
                     var obstaclesNearby = from obstacle in obstacleList where pos.GetDistance(obstacle.position) <= mSoldierInfo.ability.movingDistance select obstacle;
-                    int obstacleConcentration = obstaclesNearby.Count() / obstacleList.Count;
+                    int obstacleConcentration = obstacleList.Count == 0 ? 0 : obstaclesNearby.Count() / obstacleList.Count;
                     
                     float weight = 0;
                     switch(this.mSoldierInfo.movingType) {
