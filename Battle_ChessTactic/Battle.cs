@@ -27,6 +27,18 @@ namespace ENGINE {
                         this.awaySoldiers.Add(away[i].GetID(), away[i]);
                     }       
                 }
+                public Dictionary<int, Soldier> GetSoldiers(bool isHome) {
+                    if(isHome)
+                        return homeSoldiers;
+                    else 
+                        return awaySoldiers;
+                }
+                public Tactic GetTactic(bool isHome) {
+                    if(isHome)
+                        return homeTactic;
+                    else
+                        return awayTactic;
+                }
                 public bool IsFinish() {
                     //전멸전. 
                     int home = 0;

@@ -34,6 +34,7 @@ namespace ENGINE {
                 private Battle mBattle = null;
                 private float damage = 0;
                 private BehaviourType preAction = BehaviourType.MAX; //이전에 했던 액션
+                private Plan mPlan = new Plan();
                 delegate Rating FnEstimation(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic);
                 delegate void FnAction(int id);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
@@ -61,26 +62,14 @@ namespace ENGINE {
                     mState.Reset();
                     for(int i = 0; i < mListEstimation.Count; i++) {
                         Rating rating = mListEstimation[i](myTeam, opponentTeam, tactic);
-                        if(rating.rating > 0)
+                        if(rating.rating > 0) {
+                            mPlan.Set(rating);
                             return rating;
+                        }
                         else
                             RatingPool.Instance.GetPool().Release(rating);
                     }
                     throw new Exception("Estimation Failure");
-                    /*
-                    Rating maxRating = mListEstimation[0](myTeam, opponentTeam, tactic);
-
-                    for(int i = 1; i < mListEstimation.Count; i++) {
-                        Rating rating = mListEstimation[i](myTeam, opponentTeam, tactic);
-                        if(maxRating.rating < rating.rating) {
-                            RatingPool.Instance.GetPool().Release(maxRating);
-                            maxRating = rating;
-                        } else {
-                            RatingPool.Instance.GetPool().Release(rating);
-                        }
-                    }
-                    return maxRating;
-                    */
                 }
                 public void Action(Rating rating) {
                     preAction = rating.type;
@@ -200,9 +189,13 @@ namespace ENGINE {
                     }
                     return false;
                 }
-                private IEnumerable<MapNode>? GetMovableArea(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
+                private IEnumerable<MapNode>? GetMovableArea(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic, bool isPlan = false) {
+                    Position position = mSoldierInfo.position;
+                    if(isPlan && mPlan.type == BehaviourType.MOVE) {
+                        position = map.GetPosition(mPlan.targetId);
+                    }
                     //옮겨 갈수 있는 모든 영역
-                    var list = map.GetMovalbleList(mSoldierInfo.isHome, mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
+                    var list = map.GetMovalbleList(mSoldierInfo.isHome, position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
                     //obstacle
                     var obstacles = (from node in list where node.isObstacle select node.position).ToList();
                     IEnumerable<MapNode>? ret = null;
@@ -223,6 +216,10 @@ namespace ENGINE {
                         break;
                     }
                     return ret;
+                }
+                public List<MapNode> GetMovableAreaList() {
+                    //이동 중 일때, plan 기준으로 이동 가능한 영역 표시.
+                    return GetMovableArea(mBattle.GetSoldiers(IsHome()) , mBattle.GetSoldiers(!IsHome()), mBattle.GetTactic(IsHome()), true).ToList();
                 }
 
                 private Rating GetRatingMove(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
