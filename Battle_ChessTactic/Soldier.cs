@@ -34,7 +34,9 @@ namespace ENGINE {
                 private Battle mBattle = null;
                 private float damage = 0;
                 private BehaviourType preAction = BehaviourType.MAX; //이전에 했던 액션
-                private Plan mPlan = new Plan();
+                //private Plan mPlan = new Plan();
+                private List<Plan> mPlanQueue = new List<Plan>();
+                private const int PLAN_QUEUE_SIZE = 3;
                 delegate Rating FnEstimation(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic);
                 delegate void FnAction(int id);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
@@ -63,7 +65,13 @@ namespace ENGINE {
                     for(int i = 0; i < mListEstimation.Count; i++) {
                         Rating rating = mListEstimation[i](myTeam, opponentTeam, tactic);
                         if(rating.rating > 0) {
-                            mPlan.Set(rating);
+                            //plan queue. pooling
+                            Plan p = new Plan();
+                            p.Set(rating, this);
+                            mPlanQueue.Add(p);
+                            if(mPlanQueue.Count > PLAN_QUEUE_SIZE)
+                                mPlanQueue.RemoveAt(0);
+
                             return rating;
                         }
                         else
@@ -111,6 +119,30 @@ namespace ENGINE {
                 public Map GetMap() {
                     return map;
                 }
+                //이전 단계와 같은 위치인지 확인
+                public bool IsEqualPreTargetPosition() {
+                    Plan a = mPlanQueue.Last();
+                    int index = mPlanQueue.Count -2;
+                    if(index < 0)
+                        return false;
+
+                    Plan b = mPlanQueue[index];
+                    return a.position.IsEqual(b.position);
+                }
+
+                // 이전 단계와 현재 비교
+                // 현재 0, 전단계 1, 전전단계 2
+                public bool IsEqualPreAction(int preStep, BehaviourType type, Position position) {
+                    int index = mPlanQueue.Count -1;
+                    index -= preStep;
+                    if(index < 0)
+                        return false;
+
+                    Plan a = mPlanQueue[index];
+                    if(a.type == type && a.position.IsEqual(position))
+                        return true;
+                    return false;
+                }
                 private Rating SetRating(BehaviourType type) {
                     Rating rating = RatingPool.Instance.GetPool().Alloc();
                     rating.isHome = this.mSoldierInfo.isHome;
@@ -141,6 +173,10 @@ namespace ENGINE {
                     return weight;
                 }
                 private float GetMoveWeightDefault(float obstacleConcentration, Position pos, List<Soldier> myTeam, List<Soldier> opponentTeam) {
+                    //반복 이동 제거
+                    if(IsEqualPreAction(1, BehaviourType.MOVE, pos)) {
+                        return 0;
+                    }
                     List<MoveWeight.Fn> list = MoveWeight.Instance.GetFnDefault();
                     for(int i =0; i < list.Count; i++) {
                         float ret = list[i](this, obstacleConcentration, pos, myTeam, opponentTeam, i);
@@ -191,8 +227,8 @@ namespace ENGINE {
                 }
                 private IEnumerable<MapNode>? GetMovableArea(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic, bool isPlan = false) {
                     Position position = mSoldierInfo.position;
-                    if(isPlan && mPlan.type == BehaviourType.MOVE) {
-                        position = map.GetPosition(mPlan.targetId);
+                    if(isPlan && mPlanQueue.Count > 0 && mPlanQueue.Last().type == BehaviourType.MOVE) {
+                        position = map.GetPosition(mPlanQueue.Last().targetId);
                     }
                     //옮겨 갈수 있는 모든 영역
                     var list = map.GetMovalbleList(mSoldierInfo.isHome, position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
@@ -226,30 +262,6 @@ namespace ENGINE {
                     Rating rating = SetRating(BehaviourType.MOVE);
                     if(preAction == BehaviourType.AVOIDANCE) //이전 액션이 회피면 move하지 않는다. move하면 다시 상대에게 달려든다.
                         return rating;
-                    /*
-                    //옮겨 갈수 있는 모든 영역
-                    var list = map.GetMovalbleList(mSoldierInfo.isHome, mSoldierInfo.position, mSoldierInfo.movingType, mSoldierInfo.ability.movingDistance);
-                    //obstacle
-                    var obstacles = (from node in list where node.isObstacle select node.position).ToList();
-                    IEnumerable<MapNode>? ret = null;
-                    //장애물 뒷편은 제거
-                    switch(mSoldierInfo.movingType) {
-                        case MOVING_TYPE.FORWARD: 
-                        case MOVING_TYPE.STRAIGHT: {
-                            ret =   from node in list 
-                                    where CheckUnMovablePositionStraight(node.position, obstacles) == false && node.isObstacle == false 
-                                    orderby GetMoveWeight(node.position, myTeam.Values.ToList(), opponentTeam.Values.ToList()) descending
-                                    select node;
-                        }
-                        break;
-                        case MOVING_TYPE.CROSS: {
-                            ret =   from node in list 
-                                    where CheckUnMovablePositionCross(node.position, obstacles) == false && node.isObstacle == false 
-                                    orderby GetMoveWeight(node.position, myTeam.Values.ToList(), opponentTeam.Values.ToList()) descending
-                                    select node;
-                        }
-                        break;
-                    }*/
                     var list = GetMovableArea(myTeam, opponentTeam, tactic);
                     if(list != null && list.Count() > 0) {
                         switch(mSoldierInfo.movingType) {

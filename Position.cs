@@ -15,6 +15,11 @@ namespace ENGINE {
             this.y = y;
             this.z = z;
         }
+        public void Set(Position p) {
+            this.x = p.x;
+            this.y = p.y;
+            this.z = p.z;
+        }
         public double GetDistance(Position to) {
             return Math.Sqrt(Math.Pow(to.x - x, 2) + Math.Pow(to.y - y, 2) + Math.Pow(to.z - z, 2));
         }
