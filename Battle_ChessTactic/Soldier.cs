@@ -34,7 +34,7 @@ namespace ENGINE {
                 private Battle mBattle = null;
                 private float damage = 0;
                 private BehaviourType preAction = BehaviourType.MAX; //이전에 했던 액션
-                //private Plan mPlan = new Plan();
+                private bool mIsHold = false;
                 private List<Plan> mPlanQueue = new List<Plan>();
                 private const int PLAN_QUEUE_SIZE = 3;
                 delegate Rating FnEstimation(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic);
@@ -152,6 +152,12 @@ namespace ENGINE {
 
                     return rating;
                 }
+                public bool IsHold() {
+                    return mIsHold;
+                }
+                public void ToggleHold() {
+                    mIsHold = !mIsHold;
+                }
                 /* ==================================================
                     Move
                 ===================================================== */
@@ -260,7 +266,7 @@ namespace ENGINE {
 
                 private Rating GetRatingMove(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.MOVE);
-                    if(preAction == BehaviourType.AVOIDANCE) //이전 액션이 회피면 move하지 않는다. move하면 다시 상대에게 달려든다.
+                    if(preAction == BehaviourType.AVOIDANCE || mIsHold) //이전 액션이 회피면 move하지 않는다. move하면 다시 상대에게 달려든다.
                         return rating;
                     var list = GetMovableArea(myTeam, opponentTeam, tactic);
                     if(list != null && list.Count() > 0) {
@@ -389,6 +395,9 @@ namespace ENGINE {
                 }
                 private Rating GetRatingAvoidance(Dictionary<int, Soldier> myTeam, Dictionary<int, Soldier> opponentTeam, Tactic tactic) {
                     Rating rating = SetRating(BehaviourType.AVOIDANCE);
+                    if(mIsHold)
+                        return rating;
+                        
                     switch(mSoldierInfo.movingType) {
                         case MOVING_TYPE.FORWARD: //forward는 후퇴 없음. 무조건 앞으로 나감
                         break;
