@@ -16,7 +16,7 @@ public class ChessTacticSample {
     public void Run() {
         Map m = CreateMap();
         var info = new Loader().Load(File.ReadAllText("config/battle_chesstactic.json"));
-        mBattle = new Battle(m, CreateSolidiers(true, m, info["my"].soldiers), CreateSolidiers(false, m, info["opp"].soldiers), info["my"].tactic, info["tactic"].tactic);
+        mBattle = new Battle(m, info);
         
         while(!mBattle.IsFinish()) {
             List<Rating> ret = mBattle.Update();
@@ -57,7 +57,7 @@ public class ChessTacticSample {
                     //Console.WriteLine("{0} {1} {2} {3}", rating.soldierId, rating.isHome, rating.type, rating.targetId);
                     Soldier soldier = mBattle.GetSoldier(rating);
                     if(soldier.GetPosition().x == x && soldier.GetPosition().y == y) {
-                        if(rating.isHome)
+                        if(rating.side == 0)
                             sz += "H\t";
                         else
                             sz += "A\t";
@@ -82,13 +82,5 @@ public class ChessTacticSample {
         
 
         return m;
-    }
-    private List<Soldier> CreateSolidiers(bool isHome, Map map, List<SoldierInfo> info) {
-        List<Soldier> list = new List<Soldier>();
-        for(int i = 0; i < info.Count; i++) {
-            Soldier soldier = new Soldier(info[i], map, isHome);
-            list.Add(soldier);
-        }
-        return list;
     }
 }

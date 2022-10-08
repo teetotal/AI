@@ -14,10 +14,11 @@ namespace ENGINE {
                 MAX
             }
             public class Rating {
-                public bool isHome;
+                public int side;
                 public int soldierId;
                 public BehaviourType type;
                 public float rating;
+                public int targetSide;
                 public int targetId;
             }
             public class Plan { // 현재 진행 중인 액션. 아직 완료하기 전 상태

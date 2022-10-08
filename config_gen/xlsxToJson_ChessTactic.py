@@ -34,6 +34,7 @@ def make():
         ability = json.loads(arr[5])
         item = json.loads(arr[6])
         j = {
+            "side": int(arr[0]),
             "id": int(arr[1]),
             "name": arr[2],
             "position": {
@@ -47,34 +48,32 @@ def make():
         }
         return j, arr[0]
     
-    def get_json_tactic(arr):
+    def get_json_info(arr):
         j = {
-            "attack": int(arr[1]),
-            "defence": int(arr[2])
+            "name": arr[1],
+            "attackTactic": int(arr[2]),
+            "defenceTactic": int(arr[3])
         }
         return j, arr[0]
 
-    json_object = {
-        "my": {
-            "tactic": None,
-            "soldiers": []
-        },
-        "opp": {
-            "tactic": None,
-            "soldiers": []
-        }
-    }
+    json_object = {}
 
     file, csvreader = read('chesstactic_soldier.csv')
     for row in csvreader:
         j, side = get_json(row)
-        json_object[side]["soldiers"].append(j)
+        if side not in json_object:
+            json_object[side] = {
+                "info": {},
+                "soldiers": []
+            }
+
+        json_object[side]["soldiers"].append(j)    
     file.close()
 
     file, csvreader = read('chesstactic_tactic.csv')
     for row in csvreader:
-        j, side = get_json_tactic(row)
-        json_object[side]["tactic"] = j
+        j, side = get_json_info(row)
+        json_object[side]["info"] = j
     file.close()
 
     write(json_object, 'battle_chesstactic.json')

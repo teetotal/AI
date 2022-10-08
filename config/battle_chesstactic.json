@@ -1,11 +1,13 @@
 {
-    "my": {
-        "tactic": {
-            "attack": 0,
-            "defence": 0
+    "0": {
+        "info": {
+            "name": "\ub0b4\ud300",
+            "attackTactic": 0,
+            "defenceTactic": 0
         },
         "soldiers": [
             {
+                "side": 0,
                 "id": 0,
                 "name": "\uc6b0\ub9ac\ud3001",
                 "position": {
@@ -31,6 +33,7 @@
                 }
             },
             {
+                "side": 0,
                 "id": 1,
                 "name": "\uc6b0\ub9ac\ud3002",
                 "position": {
@@ -56,6 +59,7 @@
                 }
             },
             {
+                "side": 0,
                 "id": 2,
                 "name": "\uc6b0\ub9ac\ud3003",
                 "position": {
@@ -81,6 +85,7 @@
                 }
             },
             {
+                "side": 0,
                 "id": 3,
                 "name": "\uc6b0\ub9ac\ud3004",
                 "position": {
@@ -106,6 +111,7 @@
                 }
             },
             {
+                "side": 0,
                 "id": 4,
                 "name": "\uc6b0\ub9ac\ud3005",
                 "position": {
@@ -131,6 +137,7 @@
                 }
             },
             {
+                "side": 0,
                 "id": 5,
                 "name": "\uc6b0\ub9ac\ud3006",
                 "position": {
@@ -157,13 +164,15 @@
             }
         ]
     },
-    "opp": {
-        "tactic": {
-            "attack": 0,
-            "defence": 0
+    "1": {
+        "info": {
+            "name": "\uc8011",
+            "attackTactic": 0,
+            "defenceTactic": 0
         },
         "soldiers": [
             {
+                "side": 1,
                 "id": 0,
                 "name": "\uc0c1\ub300\ud3001",
                 "position": {
@@ -189,6 +198,7 @@
                 }
             },
             {
+                "side": 1,
                 "id": 1,
                 "name": "\uc0c1\ub300\ud3002",
                 "position": {
@@ -214,6 +224,7 @@
                 }
             },
             {
+                "side": 1,
                 "id": 2,
                 "name": "\uc0c1\ub300\ud3003",
                 "position": {
@@ -239,6 +250,7 @@
                 }
             },
             {
+                "side": 1,
                 "id": 3,
                 "name": "\uc0c1\ub300\ud3004",
                 "position": {
@@ -264,6 +276,7 @@
                 }
             },
             {
+                "side": 1,
                 "id": 4,
                 "name": "\uc0c1\ub300\ud3005",
                 "position": {
@@ -289,6 +302,7 @@
                 }
             },
             {
+                "side": 1,
                 "id": 5,
                 "name": "\uc0c1\ub300\ud3006",
                 "position": {

@@ -21,28 +21,29 @@ namespace ENGINE {
                 public int firstAid { get; set; } //구급약
                 public float firstAidEffect { get; set; } // 구급약 효과
             } 
-            public class SoldierInfo {
+            public class ChessTactic_SoldierInfo {
+                public int side;
                 public int id { get; set; }
                 public string name { get; set; } = string.Empty;
                 public Position position { get; set; } = new Position();
                 public MOVING_TYPE movingType { get; set; }
                 public SoldierAbility ability { get; set; } = new SoldierAbility();
                 public SoliderItem item { get; set; } = new SoliderItem();
-                public bool isHome;
                 public float nextFirstAidHP = 0.5f;
                 public float nextAvoidHP;
             }
-            public class Tactic {
-                public TACTIC_ATTACK attack { get; set; }
-                public TACTIC_DEFENCE defence { get; set; }
+            public class ChessTactic_Info {
+                public string name { get; set; } = string.Empty;
+                public TACTIC_ATTACK attackTactic { get; set; }
+                public TACTIC_DEFENCE defenceTactic { get; set; }
             }
-            public class Config {
-                public Tactic tactic { get; set; } = new Tactic();
-                public List<SoldierInfo> soldiers { get; set; } = new List<SoldierInfo>();
+            public class ChessTactic {
+                public ChessTactic_Info info { get; set; } = new ChessTactic_Info();
+                public List<ChessTactic_SoldierInfo> soldiers { get; set; } = new List<ChessTactic_SoldierInfo>();
             }
             public class Loader {
-                public Dictionary<string, Config>? Load(string path) {
-                    var json = JsonConvert.DeserializeObject< Dictionary<string, Config> >(path);
+                public Dictionary<string, ChessTactic>? Load(string path) {
+                    var json = JsonConvert.DeserializeObject< Dictionary<string, ChessTactic> >(path);
                     return json;
                 }
             }

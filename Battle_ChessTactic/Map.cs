@@ -63,20 +63,15 @@ namespace ENGINE {
                     
                     return ret.ToList();
                 }
-                public List<MapNode> GetMovalbleList(bool isHome, Position position, MOVING_TYPE type, float distance) {
+                public List<MapNode> GetMovalbleList(Position position, MOVING_TYPE type, float distance) {
                     var ret = from node in mMapNodes
                                 where position.GetDistance(node.position) <= distance && !position.IsEqual(node.position)
                                 select node;
 
                     switch(type) {
                         case MOVING_TYPE.CROSS:
+                        case MOVING_TYPE.OVER_CROSS:
                         ret = ret.Where(e=> e.position.x != position.x && e.position.y != position.y);
-                        break;
-                        case MOVING_TYPE.FORWARD:
-                        ret = ret.Where(e=> (   e.position.x == position.x &&
-                                                e.position.y != position.y &&
-                                                ((isHome && e.position.y > position.y) || (!isHome && e.position.y < position.y))
-                                            ) || (e.position.x != position.x && e.position.y == position.y));
                         break;
                         default:
                         ret = ret.Where(e=> (e.position.x == position.x && e.position.y != position.y) || (e.position.x != position.x && e.position.y == position.y));
