@@ -25,6 +25,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -37,7 +38,7 @@
                 "id": 1,
                 "name": "\uc6b0\ub9ac\ud3002",
                 "position": {
-                    "x": 1,
+                    "x": 0,
                     "y": 0,
                     "z": 0
                 },
@@ -51,6 +52,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -63,7 +65,7 @@
                 "id": 2,
                 "name": "\uc6b0\ub9ac\ud3003",
                 "position": {
-                    "x": 2,
+                    "x": 0,
                     "y": 0,
                     "z": 0
                 },
@@ -77,84 +79,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
-                    "retreat": 0.8
-                },
-                "item": {
-                    "firstAid": 1,
-                    "firstAidEffect": 20
-                }
-            },
-            {
-                "side": 0,
-                "id": 3,
-                "name": "\uc6b0\ub9ac\ud3004",
-                "position": {
-                    "x": 3,
-                    "y": 0,
-                    "z": 0
-                },
-                "movingType": 0,
-                "ability": {
-                    "HP": 30,
-                    "movingDistance": 2,
-                    "attackPower": 4,
-                    "attackPowerMin": 0.7,
-                    "attackAccuracy": 70,
-                    "attackRange": 2,
-                    "teamwork": 1,
-                    "avoidance": 0.7,
-                    "retreat": 0.8
-                },
-                "item": {
-                    "firstAid": 1,
-                    "firstAidEffect": 20
-                }
-            },
-            {
-                "side": 0,
-                "id": 4,
-                "name": "\uc6b0\ub9ac\ud3005",
-                "position": {
-                    "x": 4,
-                    "y": 0,
-                    "z": 0
-                },
-                "movingType": 0,
-                "ability": {
-                    "HP": 30,
-                    "movingDistance": 2,
-                    "attackPower": 4,
-                    "attackPowerMin": 0.7,
-                    "attackAccuracy": 70,
-                    "attackRange": 2,
-                    "teamwork": 1,
-                    "avoidance": 0.7,
-                    "retreat": 0.8
-                },
-                "item": {
-                    "firstAid": 1,
-                    "firstAidEffect": 20
-                }
-            },
-            {
-                "side": 0,
-                "id": 5,
-                "name": "\uc6b0\ub9ac\ud3006",
-                "position": {
-                    "x": 5,
-                    "y": 0,
-                    "z": 0
-                },
-                "movingType": 2,
-                "ability": {
-                    "HP": 30,
-                    "movingDistance": 2,
-                    "attackPower": 4,
-                    "attackPowerMin": 0.7,
-                    "attackAccuracy": 70,
-                    "attackRange": 2,
-                    "teamwork": 1,
-                    "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -173,8 +98,98 @@
         "soldiers": [
             {
                 "side": 1,
+                "id": 3,
+                "name": "\uc8011-1",
+                "position": {
+                    "x": 5,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "dodge": 0.5,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "side": 1,
+                "id": 4,
+                "name": "\uc8011-2",
+                "position": {
+                    "x": 5,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 0,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "dodge": 0.5,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            },
+            {
+                "side": 1,
+                "id": 5,
+                "name": "\uc8011-3",
+                "position": {
+                    "x": 5,
+                    "y": 0,
+                    "z": 0
+                },
+                "movingType": 2,
+                "ability": {
+                    "HP": 30,
+                    "movingDistance": 2,
+                    "attackPower": 4,
+                    "attackPowerMin": 0.7,
+                    "attackAccuracy": 70,
+                    "attackRange": 2,
+                    "teamwork": 1,
+                    "avoidance": 0.7,
+                    "dodge": 0.5,
+                    "retreat": 0.8
+                },
+                "item": {
+                    "firstAid": 1,
+                    "firstAidEffect": 20
+                }
+            }
+        ]
+    },
+    "2": {
+        "info": {
+            "name": "\uc8012",
+            "attackTactic": 0,
+            "defenceTactic": 0
+        },
+        "soldiers": [
+            {
+                "side": 2,
                 "id": 0,
-                "name": "\uc0c1\ub300\ud3001",
+                "name": "\uc8012-1",
                 "position": {
                     "x": 0,
                     "y": 5,
@@ -190,6 +205,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -198,11 +214,11 @@
                 }
             },
             {
-                "side": 1,
+                "side": 2,
                 "id": 1,
-                "name": "\uc0c1\ub300\ud3002",
+                "name": "\uc8012-2",
                 "position": {
-                    "x": 1,
+                    "x": 0,
                     "y": 5,
                     "z": 0
                 },
@@ -216,6 +232,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -224,11 +241,11 @@
                 }
             },
             {
-                "side": 1,
+                "side": 2,
                 "id": 2,
-                "name": "\uc0c1\ub300\ud3003",
+                "name": "\uc8012-3",
                 "position": {
-                    "x": 2,
+                    "x": 0,
                     "y": 5,
                     "z": 0
                 },
@@ -242,19 +259,29 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
                     "firstAid": 1,
                     "firstAidEffect": 20
                 }
-            },
+            }
+        ]
+    },
+    "3": {
+        "info": {
+            "name": "\uc8013",
+            "attackTactic": 0,
+            "defenceTactic": 0
+        },
+        "soldiers": [
             {
-                "side": 1,
+                "side": 3,
                 "id": 3,
-                "name": "\uc0c1\ub300\ud3004",
+                "name": "\uc8013-1",
                 "position": {
-                    "x": 3,
+                    "x": 5,
                     "y": 5,
                     "z": 0
                 },
@@ -268,6 +295,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -276,11 +304,11 @@
                 }
             },
             {
-                "side": 1,
+                "side": 3,
                 "id": 4,
-                "name": "\uc0c1\ub300\ud3005",
+                "name": "\uc8013-2",
                 "position": {
-                    "x": 4,
+                    "x": 5,
                     "y": 5,
                     "z": 0
                 },
@@ -294,6 +322,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {
@@ -302,9 +331,9 @@
                 }
             },
             {
-                "side": 1,
+                "side": 3,
                 "id": 5,
-                "name": "\uc0c1\ub300\ud3006",
+                "name": "\uc8013-3",
                 "position": {
                     "x": 5,
                     "y": 5,
@@ -320,6 +349,7 @@
                     "attackRange": 2,
                     "teamwork": 1,
                     "avoidance": 0.7,
+                    "dodge": 0.5,
                     "retreat": 0.8
                 },
                 "item": {

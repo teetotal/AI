@@ -10,6 +10,7 @@ namespace ENGINE {
             public class Soldier {
                 public class State {
                     public Soldier mSoldier;
+                    public BehaviourType currentActionType;
                     public bool isDie = false;
                     public bool isHit = false; //명중
                     public bool isRetreat = false; //피신
@@ -21,6 +22,7 @@ namespace ENGINE {
                     }
                     public void Reset() {
                         damagePre = damage;
+                        currentActionType = BehaviourType.MAX;
                         isDie = false;
                         isHit = false;
                         isRetreat = false;
@@ -71,6 +73,7 @@ namespace ENGINE {
                             if(mPlanQueue.Count > PLAN_QUEUE_SIZE)
                                 mPlanQueue.RemoveAt(0);
 
+                            mState.currentActionType = rating.type;
                             return rating;
                         }
                         else
@@ -115,6 +118,9 @@ namespace ENGINE {
                 public SoldierAbility GetAbility() {
                     return mSoldierInfo.ability;
                 }
+                public SoliderItem GetItem() {
+                    return mSoldierInfo.item;
+                }
                 public Map GetMap() {
                     return map;
                 }
@@ -129,8 +135,16 @@ namespace ENGINE {
                     return a.position.IsEqual(b.position);
                 }
 
-                // 이전 단계와 현재 비교
+                
                 // 현재 0, 전단계 1, 전전단계 2
+                public Plan? GetPreAction(int preStep) {
+                    int index = mPlanQueue.Count -1;
+                    index -= preStep;
+                    if(index < 0)
+                        return null;
+                    return mPlanQueue[index];
+                }
+                // 이전 단계와 현재 비교
                 public bool IsEqualPreAction(int preStep, BehaviourType type, Position position) {
                     int index = mPlanQueue.Count -1;
                     index -= preStep;
@@ -469,7 +483,12 @@ namespace ENGINE {
                         enemy.UnderAttack(damage);
                     }
                 }
-                public void UnderAttack(float damage) {
+                public void UnderAttack(float _damage) {
+                    float damage = _damage;
+                    // 난타전이 아닐경우는 데미지의 감경 적용
+                    if(mState.currentActionType != BehaviourType.ATTACK) {
+                        damage *= mSoldierInfo.ability.dodge;
+                    }
                     mState.damage += damage;
                     this.damage += damage;
                     if(this.damage >= mSoldierInfo.ability.HP) {
