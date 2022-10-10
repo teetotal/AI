@@ -40,6 +40,9 @@ namespace ENGINE {
                 private bool mIsHold = false;
                 private List<Plan> mPlanQueue = new List<Plan>();
                 private const int PLAN_QUEUE_SIZE = 3;
+                private Plan mReservedPlan = new Plan(); // 예약 
+
+
                 delegate Rating FnEstimation(List<Soldier> my, List<Soldier> enemy);
                 delegate void FnAction(Rating rating);
                 private Dictionary<BehaviourType, FnAction> mDicFunc = new Dictionary<BehaviourType, FnAction>();
@@ -61,8 +64,23 @@ namespace ENGINE {
 
                     mListEstimation = new List<FnEstimation>() { GetRatingAvoidance, GetRatingRecovery, GetRatingAttack, GetRatingMove, GetRatingKeep };
                 }
+                public void SetReserve(BehaviourType type, int targetSide, int targetId) {
+                    mReservedPlan.type = type;
+                    mReservedPlan.targetSide = targetSide;
+                    mReservedPlan.targetId = targetId;
+                    mIsHold = true;
+                }
                 public Rating Update(List<Soldier> my, List<Soldier> enemy) {
                     mState.Reset();
+                    if(mReservedPlan.type != BehaviourType.MAX) {
+                        Rating rating = SetRating(mReservedPlan.type);
+                        rating.targetSide = mReservedPlan.targetSide;
+                        rating.targetId = mReservedPlan.targetId;
+                        rating.rating = 2;
+
+                        mReservedPlan.type = BehaviourType.MAX;
+                        return rating;
+                    }
                     for(int i = 0; i < mListEstimation.Count; i++) {
                         Rating rating = mListEstimation[i](my, enemy);
                         if(rating.rating > 0) {

@@ -81,8 +81,11 @@ namespace ENGINE {
                     return ret.ToList();
                 }
                 public int GetPositionId(Position position) {
-                    
-                    return (int)((positionIdIndex * position.x) + position.y);
+                    return GetPositionId((int)position.x, (int)position.y);
+                    //return (int)((positionIdIndex * position.x) + position.y);
+                }
+                public int GetPositionId(int x, int y) {
+                    return (positionIdIndex * x) + y;
                 }
                 public Position GetPosition(int positionId) {
                     

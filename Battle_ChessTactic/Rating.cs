@@ -23,14 +23,17 @@ namespace ENGINE {
             }
             public class Plan { // 현재 진행 중인 액션. 아직 완료하기 전 상태
                 public BehaviourType type;
+                public int targetSide;
                 public int targetId;
                 public Position position = new Position(); //행위하는 위치
                 public Plan() {
                     type = BehaviourType.MAX;
+                    targetSide = -1;
                     targetId = -1;
                 }
                 public void Set(Rating rating, Soldier soldier) {
                     type = rating.type;
+                    targetSide = rating.targetSide;
                     targetId = rating.targetId;
                     switch(rating.type) {
                         case BehaviourType.AVOIDANCE:
